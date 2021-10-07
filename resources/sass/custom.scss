@@ -1,0 +1,57 @@
+::placeholder {
+    color: $gray-500 !important;
+    opacity: 1;
+}
+
+.discord-status-pill {
+    display: inline-block;
+    margin-right: 2px;
+    width: 8px;
+    margin-bottom: 0.05rem;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.discord-status-pill-online {
+    background-color: #3ba55d;
+}
+
+.discord-status-pill-offline {
+    background-color: #747f8d;
+}
+
+.discord-badge {
+    width: 16px;
+    height: 16px;
+    margin-bottom: 0.1rem;
+}
+
+.navbar {
+    .dropdown {
+        .dropdown-menu {
+            .dropdown-item:hover, .dropdown-item:focus {
+                background-color: $gray-800;
+            }
+        }
+    }
+}
+
+#guildlist {
+    .bg-cards-grey {
+        background: #373d4c;
+    }
+
+    .discord-badge {
+        width: 16px;
+        height: 16px;
+        margin-top: -0.2rem;
+    }
+}
+
+#help {
+    h2 {
+        a {
+            opacity: 50%;
+        }
+    }
+}
