@@ -47,6 +47,7 @@ class SnowflakeSearch extends Component
     public $guildVanityUrl = "";
     public $guildMemberCount = null;
     public $guildOnlineCount = null;
+    public $guildEmojis = [];
     public $inviteChannelId = "";
     public $inviteChannelName = "";
 
@@ -190,6 +191,10 @@ class SnowflakeSearch extends Component
 
             if(array_key_exists("approximate_presence_count", $guild)) {
                 $this->guildOnlineCount = $guild['approximate_presence_count'];
+            }
+
+            if(array_key_exists("emojis", $guild)) {
+                $this->guildEmojis = $guild['emojis'];
             }
 
             $return = true;

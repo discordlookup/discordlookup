@@ -48,6 +48,13 @@
     }
 }
 
+#snowflake {
+    button:disabled {
+        cursor: not-allowed;
+        pointer-events: all;
+    }
+}
+
 #help {
     h2 {
         a {

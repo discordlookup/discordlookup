@@ -18542,6 +18542,11 @@ readers do not read off random characters that represent icons */
   margin-top: -0.2rem;
 }
 
+#snowflake button:disabled {
+  cursor: not-allowed;
+  pointer-events: all;
+}
+
 #help h2 a, #help .h2 a {
   opacity: 50%;
 }

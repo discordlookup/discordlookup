@@ -8,6 +8,10 @@ window.Bootstrap = Bootstrap;
 import moment from 'moment'
 window.moment = moment;
 
+window.JSZip = require('jszip');
+window.JSZipUtils = require('jszip-utils');
+import { saveAs } from 'file-saver';
+
 var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new Bootstrap.Tooltip(tooltipTriggerEl)

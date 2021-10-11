@@ -172,32 +172,91 @@
                                 {{ $guildDescription }}
                                 <hr>
                             @endif
-                                <div>
-                                    @if($inviteChannelId)
-                                        <b>{{ __('Invite Channel') }}:</b> <a href="https://discord.com/channels/{{ $guildId }}/{{ $inviteChannelId }}" target="_blank" class="text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $inviteChannelId }}">{{ $inviteChannelName }}</a><br>
-                                        <br>
+                            <div>
+                                @if($inviteChannelId)
+                                    <b>{{ __('Invite Channel') }}:</b> <a href="https://discord.com/channels/{{ $guildId }}/{{ $inviteChannelId }}" target="_blank" class="text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $inviteChannelId }}">{{ $inviteChannelName }}</a><br>
+                                    <br>
+                                @endif
+                                @if($guildInstantInvite)
+                                    <b>{{ __('Guild Invite URL') }}:</b> <a href="https://discord.gg/{{ $guildInstantInvite }}" target="_blank" class="text-decoration-none">https://discord.gg/{{ $guildInstantInvite }}</a><br>
+                                @endif
+                                @if($guildVanityUrlCode)
+                                    <b>{{ __('Guild Vanity URL') }}:</b> <a href="{{ $guildVanityUrl }}" target="_blank" class="text-decoration-none">{{ $guildVanityUrl }}</a><br>
+                                @endif
+                                @if($guildIsNSFW != null)
+                                    <b>{{ __('Guild NSFW') }}:</b> @if($guildIsNSFW) &#10004; @else &#10060; @endif <br>
+                                    @if($guildIsNSFW)
+                                        <b>{{ __('Guild NSFW Level') }}:</b> {{ $guildIsNSFWLevel }}<br>
                                     @endif
-                                    @if($guildInstantInvite)
-                                        <b>{{ __('Guild Invite URL') }}:</b> <a href="https://discord.gg/{{ $guildInstantInvite }}" target="_blank" class="text-decoration-none">https://discord.gg/{{ $guildInstantInvite }}</a><br>
-                                    @endif
-                                    @if($guildVanityUrlCode)
-                                        <b>{{ __('Guild Vanity URL') }}:</b> <a href="{{ $guildVanityUrl }}" target="_blank" class="text-decoration-none">{{ $guildVanityUrl }}</a><br>
-                                    @endif
-                                    @if($guildIsNSFW != null)
-                                        <b>{{ __('Guild NSFW') }}:</b> @if($guildIsNSFW) &#10004; @else &#10060; @endif <br>
-                                        @if($guildIsNSFW)
-                                            <b>{{ __('Guild NSFW Level') }}:</b> {{ $guildIsNSFWLevel }}<br>
-                                        @endif
-                                    @endif
-                                    @if(!empty($guildFeatures))
-                                        <b>{{ __('Guild Features') }}:</b>
-                                        <ul style="text-transform: capitalize;">
-                                            @foreach($guildFeatures as $feature)
-                                                <li>{{ $feature }}</li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
-                                </div>
+                                @endif
+                                @if(!empty($guildFeatures))
+                                    <b>{{ __('Guild Features') }}:</b>
+                                    <ul style="text-transform: capitalize;">
+                                        @foreach($guildFeatures as $feature)
+                                            <li>{{ $feature }}</li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                                @if(!empty($guildEmojis))
+
+                                    <b>{{ __('Guild Emojis') }} ({{ sizeof($guildEmojis) }}):</b><br>
+
+                                    <script>
+                                        urls = [];
+                                    </script>
+
+                                    <div class="row table-responsive">
+                                        <div class="col-12 col-md-6">
+                                            <table class="table table-hover shadow-none">
+                                                <tr>
+                                                    <th>Preview</th>
+                                                    <th>Name</th>
+                                                    <th></th>
+                                                </tr>
+                                                @foreach($guildEmojis as $emoji)
+                                                    <script>
+                                                        urls.push('https://cdn.discordapp.com/emojis/{{ $emoji['id'] }}{{ $emoji['animated'] ? '.gif' : '.png' }}');
+                                                    </script>
+                                                    @if($loop->odd)
+                                                        <tr>
+                                                            <td>
+                                                                <a href="https://cdn.discordapp.com/emojis/{{ $emoji['id'] }}{{ $emoji['animated'] ? '.gif' : '.png' }}" target="_blank" class="text-decoration-none">
+                                                                    <img src="https://cdn.discordapp.com/emojis/{{ $emoji['id'] }}{{ $emoji['animated'] ? '.gif' : '.png' }}?size=32" style="height: 32px; max-width: 32px;" height="32px" alt="{{ $emoji['name'] }} emoji" title="{{ $emoji['name'] }}">
+                                                                </a>
+                                                            </td>
+                                                            <td>{{ $emoji['name'] }}</td>
+                                                        </tr>
+                                                    @endif
+                                                @endforeach
+                                            </table>
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <table class="table table-hover shadow-none">
+                                                <tr>
+                                                    <th>Preview</th>
+                                                    <th>Name</th>
+                                                </tr>
+                                                @foreach($guildEmojis as $emoji)
+                                                    @if($loop->even)
+                                                        <tr>
+                                                            <td>
+                                                                <a href="https://cdn.discordapp.com/emojis/{{ $emoji['id'] }}{{ $emoji['animated'] ? '.gif' : '.png' }}" target="_blank" class="text-decoration-none">
+                                                                    <img src="https://cdn.discordapp.com/emojis/{{ $emoji['id'] }}{{ $emoji['animated'] ? '.gif' : '.png' }}?size=32" style="height: 32px; max-width: 32px;" height="32px" alt="{{ $emoji['name'] }} emoji" title="{{ $emoji['name'] }}">
+                                                                </a>
+                                                            </td>
+                                                            <td>{{ $emoji['name'] }}</td>
+                                                        </tr>
+                                                    @endif
+                                                @endforeach
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <button id="buttonDownloadAllEmojis" class="btn btn-sm btn-primary w-100" onclick="downloadEmojis('{{ $guildId }}', urls)">
+                                        <i class="fas fa-download"></i> Download all Guild Emojis
+                                    </button>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 @endif
@@ -263,6 +322,36 @@
                     $('#validSnowflake').hide();
                     $('#invalidSnowflake').hide();
                 }
+            }
+
+            var urls = [];
+            function downloadEmojis(guildId, urls) {
+                document.getElementById('buttonDownloadAllEmojis').disabled = true;
+                document.getElementById('buttonDownloadAllEmojis').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
+
+                var zip = new JSZip();
+                var count = 0;
+                var filenameCounter = 0;
+                var fileNames = [];
+                for (var i = 0; i < urls.length; i++){
+                    fileNames[i] = urls[i].split('/').pop();
+                }
+                urls.forEach(function(url){
+                    var filename = fileNames[filenameCounter];
+                    filenameCounter++;
+                    JSZipUtils.getBinaryContent(url, function (err, data) {
+                        if(err) throw err;
+                        zip.file(filename, data, {binary:true});
+                        count++;
+                        if (count === urls.length) {
+                            zip.generateAsync({type:'blob'}).then(function(content) {
+                                saveAs(content, "emojis_" + guildId + ".zip");
+                                document.getElementById('buttonDownloadAllEmojis').disabled = false;
+                                document.getElementById('buttonDownloadAllEmojis').innerHTML = '<i class="fas fa-download"></i> Download all Guild Emojis';
+                            });
+                        }
+                    });
+                });
             }
         </script>
     @endpush
