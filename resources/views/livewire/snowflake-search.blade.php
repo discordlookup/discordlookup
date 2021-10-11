@@ -252,7 +252,7 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <button id="buttonDownloadAllEmojis" class="btn btn-sm btn-primary w-100" onclick="downloadEmojis('{{ $guildId }}', urls)">
+                                    <button id="buttonDownloadAllEmojis" class="btn btn-sm btn-primary w-100" data-bs-toggle="modal" data-bs-target="#emojiDownloadModal">
                                         <i class="fas fa-download"></i> Download all Guild Emojis
                                     </button>
                                 @endif
@@ -261,7 +261,26 @@
                     </div>
                 @endif
             </div>
+        </div>
+    </div>
 
+    <!-- Download Emojis Modal -->
+    <div class="modal fade" id="emojiDownloadModal" tabindex="-1" aria-labelledby="emojiDownloadModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark border-0">
+                <div class="modal-header justify-content-center">
+                    <h5 class="modal-title fw-bold" id="emojiDownloadModalLabel">Legal Notice</h5>
+                </div>
+                <div class="modal-body text-center">
+                    Emojis of some Servers could be protected by applicable copyright law.<br>
+                    The emojis will be downloaded locally on your device and you have to ensure that you don't infrige anyones copyright while using them.<br>
+                    <b>NO LIABILITY WILL BE GIVEN FOR ANY DAMAGES CAUSED BY USING THESE FILES</b>
+                </div>
+                <div class="modal-footer bg-dark justify-content-center">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="downloadEmojis('{{ $guildId }}', urls)">{{ __('Confirm') }}</button>
+                </div>
+            </div>
         </div>
     </div>
 
