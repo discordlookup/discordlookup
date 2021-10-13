@@ -18,7 +18,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'discord_id',
-        'discord_token',
         'username',
         'discriminator',
         'avatar',
@@ -30,25 +29,30 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = [
-        'discord_token',
-    ];
+    protected $hidden = [];
 
     /**
      * The attributes that should be cast.
      *
      * @var array
      */
-    protected $casts = [
-        'email_verified' => 'boolean',
-        'email_verified_at' => 'datetime',
-    ];
+    protected $casts = [];
 
     /**
+     * The user displayname (username + discriminator)
      *
      * @return string
      */
     public function getDisplayNameAttribute(){
         return $this->username . '#' . $this->discriminator;
+    }
+
+    /**
+     * The full avatar url
+     *
+     * @return string
+     */
+    public function getAvatarUrlAttribute(){
+        return 'https://cdn.discordapp.com/avatars/' . $this->discord_id . '/' . $this->avatar;
     }
 }

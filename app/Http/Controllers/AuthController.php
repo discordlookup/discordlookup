@@ -51,10 +51,9 @@ class AuthController extends Controller
         $request->session()->put('guildsJson', $response->json());
 
         $userData = [
-            'discord_token' => $discordUser->token,
             'username' => $discordUser->user['username'],
             'discriminator' => $discordUser->user['discriminator'],
-            'avatar' => $discordUser->avatar,
+            'avatar' => str_replace('https://cdn.discordapp.com/avatars/' . $discordUser->user['id'] . '/', '', $discordUser->avatar),
             'locale' => $discordUser->user['locale'],
         ];
 
