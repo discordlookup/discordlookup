@@ -9,7 +9,7 @@
                     <span class="input-group-text bg-dark">
                         <i class="far fa-snowflake"></i>
                     </span>
-                    <input wire:model="snowflake" id="snowflakeInput" onkeyup="updateSnowflake(this.value);" class="form-control form-control-lg" type="text" placeholder="{{ __('Snowflake') }}">
+                    <input wire:model="snowflake" id="snowflakeInput" oninput="updateSnowflake(this.value);" onchange="updateSnowflake(this.value);" onkeyup="updateSnowflake(this.value);" class="form-control form-control-lg" type="text" placeholder="{{ __('Snowflake') }}">
                 </div>
                 <small>
                     <a href="{{ route('help') }}#what-is-a-snowflake-and-how-do-i-find-one" target="_blank" class="text-muted text-decoration-none">
