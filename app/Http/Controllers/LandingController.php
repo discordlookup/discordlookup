@@ -26,6 +26,11 @@ class LandingController extends Controller
         return view('inviteinfo', ['code' => $code]);
     }
 
+    public function guildshardcalculator($guildId = "", $totalShards = "")
+    {
+        return view('guild-shard-calculator', ['guildId' => $guildId, 'totalShards' => $totalShards]);
+    }
+
     public function help()
     {
         return view('help');

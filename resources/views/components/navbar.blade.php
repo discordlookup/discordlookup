@@ -22,6 +22,14 @@
                 <li class="nav-item ms-lg-1">
                     <a class="nav-link p-2 {{ request()->routeIs('inviteinfo') ? 'active' : '' }}" href="{{ route('inviteinfo') }}">{{ __('Invite Info') }}</a>
                 </li>
+                <li class="nav-item ms-lg-1 dropdown">
+                    <a class="nav-link p-2 dropdown-toggle {{ request()->routeIs('guild-shard-calculator') ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ __('Advanced') }}
+                    </a>
+                    <ul class="dropdown-menu bg-dark border-0" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item text-white {{ request()->routeIs('guild-shard-calculator') ? 'active' : '' }}" href="{{ route('guild-shard-calculator') }}">Guild Shard Calculator</a></li>
+                    </ul>
+                </li>
                 <li class="nav-item ms-lg-1">
                     <a class="nav-link p-2 {{ request()->routeIs('help') ? 'active' : '' }}" href="{{ route('help') }}">{{ __('Help') }}</a>
                 </li>
