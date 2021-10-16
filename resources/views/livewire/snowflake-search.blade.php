@@ -27,7 +27,8 @@
                     <div class="card-body">
                         <b>{{ __('Date') }}:</b> <span id="snowflakeDate"></span><br>
                         <b>{{ __('Relative') }}:</b> <span id="snowflakeRelative"></span><br>
-                        <b>{{ __('Unix Timestamp') }}:</b> <span id="snowflakeUnix"></span>
+                        <b>{{ __('Unix Timestamp') }}:</b> <span id="snowflakeUnix"></span><br>
+                        <small><i><a id="snowflakeDistanceCalculatorUrl" href="{{ route('snowflake-distance-calculator', ['snowflake1' => $snowflake]) }}" class="text-decoration-none">Click here to go to the Snowflake Distance Calculator</a></i></small>
                     </div>
                 </div>
             </div>
@@ -336,6 +337,7 @@
                         document.getElementById('snowflakeDate').innerText = date;
                         document.getElementById('snowflakeRelative').innerText = moment.utc(date).local().fromNow();
                         document.getElementById('snowflakeUnix').innerText = date.getTime();
+                        document.getElementById('snowflakeDistanceCalculatorUrl').href = "{{ route('snowflake-distance-calculator') }}/" + value;
                     }
                 }else{
                     $('#validSnowflake').hide();

@@ -77,6 +77,26 @@
                 </div>
             </div>
         </a>
+        <a href="{{ route('snowflake-distance-calculator') }}" class="text-decoration-none">
+            <div class="card text-white bg-dark border-0 mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 col-md-1 d-flex align-items-center">
+                            <i class="fas fa-arrows-alt-h ms-auto me-auto" style="font-size: 2rem;"></i>
+                        </div>
+                        <div class="col-12 col-md-2 d-flex align-items-center">
+                            <p class="fw-bold my-auto">Snowflake Distance Calculator</p>
+                        </div>
+                        <div class="col-12 col-md-8 d-flex align-items-center">
+                            <p class="my-auto">Calculate the distance between two Discord Snowflakes.</p>
+                        </div>
+                        <div class="col-0 col-md-1 d-flex align-items-center">
+                            <i class="fas fa-arrow-right ms-auto" style="font-size: 2rem;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
         <a href="{{ route('guild-shard-calculator') }}" class="text-decoration-none">
             <div class="card text-white bg-dark border-0 mb-3">
                 <div class="card-body">

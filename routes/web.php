@@ -20,6 +20,7 @@ Route::get('/', [LandingController::class, 'home'])->name('home');
 Route::get('/snowflake/{snowflake?}', [LandingController::class, 'snowflake'])->name('snowflake');
 Route::get('/guildlist', [LandingController::class, 'guildlist'])->name('guildlist');
 Route::get('/inviteinfo/{code?}', [LandingController::class, 'inviteinfo'])->name('inviteinfo');
+Route::get('/snowflake-distance-calculator/{snowflake1?}/{snowflake2?}', [LandingController::class, 'snowflakedistancecalculator'])->name('snowflake-distance-calculator');
 Route::get('/guild-shard-calculator/{guildId?}/{totalShards?}', [LandingController::class, 'guildshardcalculator'])->name('guild-shard-calculator');
 Route::get('/help', [LandingController::class, 'help'])->name('help');
 

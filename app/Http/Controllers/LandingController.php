@@ -31,6 +31,11 @@ class LandingController extends Controller
         return view('guild-shard-calculator', ['guildId' => $guildId, 'totalShards' => $totalShards]);
     }
 
+    public function snowflakedistancecalculator($snowflake1 = "", $snowflake2 = "")
+    {
+        return view('snowflake-distance-calculator', ['snowflake1' => $snowflake1, 'snowflake2' => $snowflake2]);
+    }
+
     public function help()
     {
         return view('help');
