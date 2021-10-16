@@ -9,7 +9,7 @@
 
     <div class="container mt-5">
         <div class="page-header mt-2">
-            <h2 class="pb-2 fw-bold">Imprint</h2>
+            <h2 class="pb-2 fw-bold">{{ __('Imprint') }}</h2>
         </div>
 
         <div class="user-select-none">

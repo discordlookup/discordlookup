@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', __('Help'))
-@section('description', __('Get more out of Discord with DiscordLookup! Snowflake Decoder, Guild List with Stats, Invite Info and more...'))
+@section('description', __('Get more out of Discord with Discord Lookup! Snowflake Decoder, Guild List with Stats, Invite Info and more...'))
 @section('keywords', 'help, faq, frequently asked questions, questions, support')
 @section('robots', 'index, follow')
 

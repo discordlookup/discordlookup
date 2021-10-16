@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', __('Home'))
-@section('description', __('Get more out of Discord with DiscordLookup! Snowflake Decoder, Guild List with Stats, Invite Info and more...'))
+@section('description', __('Get more out of Discord with Discord Lookup! Snowflake Decoder, Guild List with Stats, Invite Info and more...'))
 @section('keywords', '')
 @section('robots', 'index, follow')
 
@@ -11,7 +11,7 @@
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="display-1 fw-bold text-primary">DiscordLookup</h1>
-                <p class="lead fw-bold text-white">Get more out of Discord with DiscordLookup</p>
+                <p class="lead fw-bold text-white">Get more out of Discord with Discord Lookup</p>
             </div>
         </div>
     </section>
