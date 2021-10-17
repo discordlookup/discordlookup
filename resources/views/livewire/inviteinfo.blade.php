@@ -80,7 +80,7 @@
                         </div>
                     </div>
                 @else
-                    <div class="col-12 col-md-6 offset-md-3">
+                    <div class="col-12 col-lg-6 offset-lg-3">
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             The entered Invite could not be found! Try again with another code.
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -110,6 +110,7 @@
 
             {{-- TODO: Remove jQuery --}}
             function loadInvite() {
+
                 $('#displaysectionContent').hide();
                 $('#displaysectionLoading').show();
 
@@ -132,6 +133,8 @@
                         Livewire.emit('parseJson', null, null);
                     }
                 });
+
+                window.history.replaceState("", "", '{{ route('inviteinfo') }}/' + code);
             }
         </script>
     @endpush

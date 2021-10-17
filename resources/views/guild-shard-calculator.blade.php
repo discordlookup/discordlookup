@@ -64,6 +64,8 @@
                     if(guildIdInputValue !== "" && totalShardsInputValue !== "" && !date.toString().startsWith("That") && Number.isInteger(+totalShardsInputValue)) {
                         document.getElementById('shardId').innerText = getShardId(guildIdInputValue, totalShardsInputValue);
                         infoCard.style.display = '';
+
+                        window.history.replaceState("", "", '{{ route('guild-shard-calculator') }}/' + guildIdInputValue + '/' + totalShardsInputValue);
                     }else{
                         infoCard.style.display = 'none';
                         if(guildIdInputValue.length > 0 && date.toString().startsWith("That")) {
@@ -73,6 +75,7 @@
                             document.getElementById('invalidInputMessage').innerText = "Total Shards must be a valid number!";
                             document.getElementById('invalidInput').style.display = '';
                         }
+                        window.history.replaceState("", "", '{{ route('guild-shard-calculator') }}');
                     }
                 }
 

@@ -324,6 +324,9 @@
             }
 
             function updateSnowflake(value) {
+
+                window.history.replaceState("", "", '{{ route('snowflake') }}');
+
                 if(value.length > 0) {
                     var date = validateSnowflake(value);
 
@@ -338,6 +341,8 @@
                         document.getElementById('snowflakeRelative').innerText = moment.utc(date).local().fromNow();
                         document.getElementById('snowflakeUnix').innerText = date.getTime();
                         document.getElementById('snowflakeDistanceCalculatorUrl').href = "{{ route('snowflake-distance-calculator') }}/" + value;
+
+                        window.history.replaceState("", "", '{{ route('snowflake') }}/' + value);
                     }
                 }else{
                     $('#validSnowflake').hide();

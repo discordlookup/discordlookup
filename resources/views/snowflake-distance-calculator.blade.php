@@ -78,6 +78,7 @@
 
                     infoCard.style.display = 'none';
                     invalidInput.style.display = 'none';
+                    window.history.replaceState("", "", '{{ route('snowflake-distance-calculator') }}');
 
                     if(snowflakeOneInputValue.length > 0 && snowflakeTwoInputValue.length > 0) {
                         var snowflakeOneDate = validateSnowflake(snowflakeOneInputValue);
@@ -114,6 +115,8 @@
                             document.getElementById('snowflakeTwoRelative').innerText = moment.utc(snowflakeTwoDate).local().fromNow();
                             document.getElementById('snowflakeTwoUnix').innerText = snowflakeTwoDate.getTime();
                             infoCard.style.display = '';
+
+                            window.history.replaceState("", "", '{{ route('snowflake-distance-calculator') }}/' + snowflakeOneInputValue + '/' + snowflakeTwoInputValue);
                         }
                     }
                 }
