@@ -26,7 +26,7 @@
                                 <div class="row">
                                     <div class="col-auto me-auto ms-auto me-lg-0 ms-lg-0">
                                         <a href="{{ $guildIconUrl }}" target="_blank">
-                                            <img class="rounded-circle" src="{{ $guildIconUrl }}" style="width: 64px; height: 64px;" width="64px" height="64px" alt="guild icon">
+                                            <img class="rounded-circle" loading="lazy" src="{{ $guildIconUrl }}" style="width: 64px; height: 64px;" width="64px" height="64px" alt="guild icon">
                                         </a>
                                     </div>
                                     <div class="col-auto me-auto ms-auto me-lg-0 ms-lg-0 mt-3 mt-sm-0 text-center text-lg-start align-self-center">
@@ -41,7 +41,7 @@
                                     @if($guildBannerUrl)
                                         <div class="col-auto me-auto ms-auto me-lg-0 mt-3 mt-sm-0">
                                             <a href="{{ $guildBannerUrl }}" target="_blank">
-                                                <img src="{{ $guildBannerUrl }}" class="rounded-3" style="height: 64px;" height="64px" alt="guild banner">
+                                                <img src="{{ $guildBannerUrl }}" loading="lazy" class="rounded-3" style="height: 64px;" height="64px" alt="guild banner">
                                             </a>
                                         </div>
                                     @endif

@@ -224,9 +224,11 @@
                                     <div class="row">
                                         <div class="col-auto">
                                             @if($guild['icon'])
-                                                <img src="https://cdn.discordapp.com/icons/{{ $guild['id'] }}/{{ $guild['icon'] }}?size=128" class="rounded-circle" style="width: 48px; height: 48px;" width="48px" height="48px" alt="guild icon">
+                                                <a href="https://cdn.discordapp.com/icons/{{ $guild['id'] }}/{{ $guild['icon'] }}" target="_blank">
+                                                    <img src="https://cdn.discordapp.com/icons/{{ $guild['id'] }}/{{ $guild['icon'] }}?size=128" loading="lazy" class="rounded-circle" style="width: 48px; height: 48px;" width="48px" height="48px" alt="guild icon">
+                                                </a>
                                             @else
-                                                <img src="https://cdn.discordapp.com/embed/avatars/0.png" class="rounded-circle" style="width: 48px; height: 48px;" width="48px" height="48px" alt="guild icon">
+                                                <img src="https://cdn.discordapp.com/embed/avatars/0.png" loading="lazy" class="rounded-circle" style="width: 48px; height: 48px;" width="48px" height="48px" alt="guild icon">
                                             @endif
                                         </div>
                                         <div class="col-7">

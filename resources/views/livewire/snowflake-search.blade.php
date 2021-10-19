@@ -78,7 +78,7 @@
                             <div class="row">
                                 <div class="col-auto me-auto ms-auto me-lg-0 ms-lg-0">
                                     <a href="{{ $userAvatarUrl }}" target="_blank">
-                                        <img class="rounded-circle" src="{{ $userAvatarUrl }}" style="width: 64px; height: 64px;" width="64px" height="64px" alt="user avatar">
+                                        <img src="{{ $userAvatarUrl }}" loading="lazy" class="rounded-circle" style="width: 64px; height: 64px;" width="64px" height="64px" alt="user avatar">
                                     </a>
                                 </div>
                                 <div class="col-auto me-auto ms-auto me-lg-0 ms-lg-0 text-center text-lg-start align-self-center">
@@ -96,7 +96,7 @@
                                 @if($userBannerUrl)
                                     <div class="col-auto me-auto ms-auto me-lg-0 mt-3 mt-sm-0">
                                         <a href="{{ $userBannerUrl }}" target="_blank">
-                                            <img src="{{ $userBannerUrl }}" class="rounded-3" style="height: 64px;" height="64px" alt="user banner">
+                                            <img src="{{ $userBannerUrl }}" loading="lazy" class="rounded-3" style="height: 64px;" height="64px" alt="user banner">
                                         </a>
                                     </div>
                                 @endif
@@ -127,7 +127,7 @@
                                     <ul style="list-style-type: none;">
                                         @foreach($userFlagList as $flag)
                                             <li style="margin-left: -1rem;">
-                                                <img src="{{ $flag['image'] }}" style="max-height: 16px; max-width: 16px;" alt="{{ $flag['name'] }} badge icon"> {{ $flag['name'] }}
+                                                <img src="{{ $flag['image'] }}" loading="lazy" style="max-height: 16px; max-width: 16px;" alt="{{ $flag['name'] }} badge icon"> {{ $flag['name'] }}
                                             </li>
                                         @endforeach
                                     </ul>
@@ -143,7 +143,7 @@
                             <div class="row">
                                 <div class="col-auto me-auto ms-auto me-lg-0 ms-lg-0">
                                     <a href="{{ $guildIconUrl }}" target="_blank">
-                                        <img class="rounded-circle" src="{{ $guildIconUrl }}" style="width: 64px; height: 64px;" width="64px" height="64px" alt="guild icon">
+                                        <img src="{{ $guildIconUrl }}" loading="lazy" class="rounded-circle" style="width: 64px; height: 64px;" width="64px" height="64px" alt="guild icon">
                                     </a>
                                 </div>
                                 <div class="col-auto me-auto ms-auto me-lg-0 ms-lg-0 mt-3 mt-sm-0 text-center text-lg-start align-self-center">
@@ -162,7 +162,7 @@
                                 @if($guildBannerUrl)
                                     <div class="col-auto me-auto ms-auto me-lg-0 mt-3 mt-sm-0">
                                         <a href="{{ $guildBannerUrl }}" target="_blank">
-                                            <img src="{{ $guildBannerUrl }}" class="rounded-3" style="height: 64px;" height="64px" alt="guild banner">
+                                            <img src="{{ $guildBannerUrl }}" loading="lazy" class="rounded-3" style="height: 64px;" height="64px" alt="guild banner">
                                         </a>
                                     </div>
                                 @endif
@@ -222,7 +222,7 @@
                                                         <tr>
                                                             <td>
                                                                 <a href="https://cdn.discordapp.com/emojis/{{ $emoji['id'] }}{{ $emoji['animated'] ? '.gif' : '.png' }}" target="_blank" class="text-decoration-none">
-                                                                    <img src="https://cdn.discordapp.com/emojis/{{ $emoji['id'] }}{{ $emoji['animated'] ? '.gif' : '.png' }}?size=32" style="height: 32px; max-width: 32px;" height="32px" alt="{{ $emoji['name'] }} emoji" title="{{ $emoji['name'] }}">
+                                                                    <img src="https://cdn.discordapp.com/emojis/{{ $emoji['id'] }}{{ $emoji['animated'] ? '.gif' : '.png' }}?size=32" loading="lazy" style="height: 32px; max-width: 32px;" height="32px" alt="{{ $emoji['name'] }} emoji" title="{{ $emoji['name'] }}">
                                                                 </a>
                                                             </td>
                                                             <td>{{ $emoji['name'] }}</td>
@@ -242,7 +242,7 @@
                                                         <tr>
                                                             <td>
                                                                 <a href="https://cdn.discordapp.com/emojis/{{ $emoji['id'] }}{{ $emoji['animated'] ? '.gif' : '.png' }}" target="_blank" class="text-decoration-none">
-                                                                    <img src="https://cdn.discordapp.com/emojis/{{ $emoji['id'] }}{{ $emoji['animated'] ? '.gif' : '.png' }}?size=32" style="height: 32px; max-width: 32px;" height="32px" alt="{{ $emoji['name'] }} emoji" title="{{ $emoji['name'] }}">
+                                                                    <img src="https://cdn.discordapp.com/emojis/{{ $emoji['id'] }}{{ $emoji['animated'] ? '.gif' : '.png' }}?size=32" loading="lazy" style="height: 32px; max-width: 32px;" height="32px" alt="{{ $emoji['name'] }} emoji" title="{{ $emoji['name'] }}">
                                                                 </a>
                                                             </td>
                                                             <td>{{ $emoji['name'] }}</td>
