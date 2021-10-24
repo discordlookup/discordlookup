@@ -43,7 +43,7 @@
                     <hr>
                     <div class="card text-white bg-dark">
                         <div class="card-body text-center">
-                            <h5>Snowflake 1</h5>
+                            <h5>{{ __('Snowflake 1') }}</h5>
                             <b>{{ __('Date') }}:</b> <span id="snowflakeOneDate"></span><br>
                             <b>{{ __('Relative') }}:</b> <span id="snowflakeOneRelative"></span><br>
                             <b>{{ __('Unix Timestamp') }}:</b> <span id="snowflakeOneUnix"></span><br>
@@ -51,7 +51,7 @@
                     </div>
                     <div class="card text-white bg-dark mt-3">
                         <div class="card-body text-center">
-                            <h5>Snowflake 2</h5>
+                            <h5>{{ __('Snowflake 2') }}</h5>
                             <b>{{ __('Date') }}:</b> <span id="snowflakeTwoDate"></span><br>
                             <b>{{ __('Relative') }}:</b> <span id="snowflakeTwoRelative"></span><br>
                             <b>{{ __('Unix Timestamp') }}:</b> <span id="snowflakeTwoUnix"></span><br>
@@ -85,10 +85,10 @@
                         var snowflakeTwoDate = validateSnowflake(snowflakeTwoInputValue);
 
                         if (snowflakeOneDate.toString().startsWith("That")) {
-                            document.getElementById('invalidInputMessage').innerHTML = "<b>Snowflake 1:</b>" + snowflakeOneDate;
+                            document.getElementById('invalidInputMessage').innerHTML = "<b>{{ __('Snowflake 1') }}:</b> " + snowflakeOneDate;
                             invalidInput.style.display = '';
                         } else if (snowflakeTwoDate.toString().startsWith("That")) {
-                            document.getElementById('invalidInputMessage').innerHTML = "<b>Snowflake 2:</b>" + snowflakeTwoDate;
+                            document.getElementById('invalidInputMessage').innerHTML = "<b>{{ __('Snowflake 2') }}:</b> " + snowflakeTwoDate;
                             invalidInput.style.display = '';
                         } else {
                             var moment1 = moment(snowflakeOneDate);
@@ -98,13 +98,13 @@
                                 difference = moment.duration(moment2.diff(moment1));
                             }
                             document.getElementById('snowflakeDistance').innerHTML =
-                                difference.years() + " <small>year(s)</small><br>" +
-                                difference.months() + " <small>month(s)</small><br>" +
-                                difference.days() + " <small>day(s)</small><br>" +
-                                difference.hours() + " <small>hour(s)</small><br>" +
-                                difference.minutes() + " <small>minute(s)</small><br>" +
-                                difference.seconds() + " <small>second(s)</small><br>" +
-                                difference.milliseconds() + " <small>millisecond(s)</small>"
+                                difference.years() + " <small>" + (difference.years() === 1 ? "{{ trans_choice('year|years', 1) }}" : "{{ trans_choice('year|years', 0) }}") + "</small><br>" +
+                                difference.months() + " <small>" + (difference.months() === 1 ? "{{ trans_choice('month|months', 1) }}" : "{{ trans_choice('month|months', 0) }}") + "</small><br>" +
+                                difference.days() + " <small>" + (difference.days() === 1 ? "{{ trans_choice('day|days', 1) }}" : "{{ trans_choice('day|days', 0) }}") + "</small><br>" +
+                                difference.hours() + " <small>" + (difference.hours() === 1 ? "{{ trans_choice('hour|hours', 1) }}" : "{{ trans_choice('hour|hours', 0) }}") + "</small><br>" +
+                                difference.minutes() + " <small>" + (difference.minutes() === 1 ? "{{ trans_choice('minute|minutes', 1) }}" : "{{ trans_choice('minute|minutes', 0) }}") + "</small><br>" +
+                                difference.seconds() + " <small>" + (difference.seconds() === 1 ? "{{ trans_choice('second|seconds', 1) }}" : "{{ trans_choice('second|seconds', 0) }}") + "</small><br>" +
+                                difference.milliseconds() + " <small>" + (difference.milliseconds() === 1 ? "{{ trans_choice('millisecond|milliseconds', 1) }}" : "{{ trans_choice('millisecond|milliseconds', 0) }}") + "</small><br>"
                             ;
 
                             document.getElementById('snowflakeOneDate').innerText = snowflakeOneDate;

@@ -28,7 +28,7 @@
                         <b>{{ __('Date') }}:</b> <span id="snowflakeDate"></span><br>
                         <b>{{ __('Relative') }}:</b> <span id="snowflakeRelative"></span><br>
                         <b>{{ __('Unix Timestamp') }}:</b> <span id="snowflakeUnix"></span><br>
-                        <small><i><a id="snowflakeDistanceCalculatorUrl" href="{{ route('snowflake-distance-calculator', ['snowflake1' => $snowflake]) }}" class="text-decoration-none">Click here to go to the Snowflake Distance Calculator</a></i></small>
+                        <small><i><a id="snowflakeDistanceCalculatorUrl" href="{{ route('snowflake-distance-calculator', ['snowflake1' => $snowflake]) }}" class="text-decoration-none">{{ __('Click here to go to the Snowflake Distance Calculator') }}</a></i></small>
                     </div>
                 </div>
             </div>
@@ -49,10 +49,10 @@
                     <div class="alert alert-danger fade show" role="alert">
                         {{ __('You send too many requests!') }}
                         @auth
-                            Please try again in {{ $rateLimitAvailableIn }} seconds.
+                            {{ __('Please try again in :SECONDS seconds.', ['seconds' => $rateLimitAvailableIn ]) }}
                         @endauth
                         @guest
-                            Please try again in {{ $rateLimitAvailableIn }} seconds or log in with your Discord account to increase the limit.
+                            {{ __('Please try again in :SECONDS seconds or log in with your Discord account to increase the limit.', ['seconds' => $rateLimitAvailableIn ]) }}
                         @endguest
                     </div>
                 </div>
@@ -86,9 +86,9 @@
                                     @if($userIsBot)
                                         <span class="badge" style="color: #fff; background-color: #5865f2; top: -1px; position: relative;">
                                         @if($userIsVerifiedBot)
-                                                <i class="fas fa-check"></i>&nbsp;
-                                            @endif
-                                            {{ __('BOT') }}
+                                            <i class="fas fa-check"></i>&nbsp;
+                                        @endif
+                                        <span class="text-uppercase">{{ __('Bot') }}</span>
                                     </span>
                                     @endif
                                     <div class="small text-muted">{{ $userId }}</div>
@@ -113,15 +113,12 @@
                                 @if($userIsBot)
                                     <b>{{ __('Verified Bot') }}:</b> @if($userIsVerifiedBot) &#10004; @else &#10060; @endif <br>
                                 @endif
-
                                 @if($userBannerColor)
                                     <b>{{ __('Banner Color') }}:</b> <span style="background-color: {{ $userBannerColor }};">{{ $userBannerColor }}</span><br>
                                 @endif
-
                                 @if($userAccentColor)
                                     <b>{{ __('Accent Color') }}:</b> <span style="background-color: {{ $userAccentColor }};">{{ $userAccentColor }}</span><br>
                                 @endif
-
                                 @if(!empty($userFlagList))
                                     <b>{{ __('Badges') }}:</b>
                                     <ul style="list-style-type: none;">
@@ -132,7 +129,6 @@
                                         @endforeach
                                     </ul>
                                 @endif
-
                                 {{-- TODO: top.gg API fetch for bots? --}}
                             </div>
                         </div>
@@ -152,10 +148,10 @@
                                     @if($guildIsVerified)<img src="{{ asset('images/discord/icons/server/verified.png') }}" class="discord-badge" alt="discord verified badge">@endif
                                     <div class="small">
                                         @if($guildOnlineCount != null)
-                                            <span class="discord-status-pill discord-status-pill-online"></span> {{ number_format($guildOnlineCount, 0, '', '.') }} Online
+                                            <span class="discord-status-pill discord-status-pill-online"></span> {{ number_format($guildOnlineCount, 0, '', '.') }} {{ __('Online') }}
                                         @endif
                                         @if($guildMemberCount != null)
-                                            <span class="discord-status-pill discord-status-pill-offline ms-3"></span> {{ number_format($guildMemberCount, 0, '', '.') }} Members<br>
+                                            <span class="discord-status-pill discord-status-pill-offline ms-3"></span> {{ number_format($guildMemberCount, 0, '', '.') }} {{ __('Members') }}<br>
                                         @endif
                                     </div>
                                 </div>
@@ -210,8 +206,8 @@
                                         <div class="col-12 col-md-6">
                                             <table class="table table-hover shadow-none">
                                                 <tr>
-                                                    <th>Preview</th>
-                                                    <th>Name</th>
+                                                    <th>{{ __('Preview') }}</th>
+                                                    <th>{{ __('Name') }}</th>
                                                     <th></th>
                                                 </tr>
                                                 @foreach($guildEmojis as $emoji)
@@ -234,8 +230,8 @@
                                         <div class="col-12 col-md-6">
                                             <table class="table table-hover shadow-none">
                                                 <tr>
-                                                    <th>Preview</th>
-                                                    <th>Name</th>
+                                                    <th>{{ __('Preview') }}</th>
+                                                    <th>{{ __('Name') }}</th>
                                                 </tr>
                                                 @foreach($guildEmojis as $emoji)
                                                     @if($loop->even)
@@ -254,7 +250,7 @@
                                     </div>
                                     <br>
                                     <button id="buttonDownloadAllEmojis" class="btn btn-sm btn-primary w-100" data-bs-toggle="modal" data-bs-target="#emojiDownloadModal">
-                                        <i class="fas fa-download"></i> Download all Guild Emojis
+                                        <i class="fas fa-download"></i> {{ __('Download all Guild Emojis') }}
                                     </button>
                                 @endif
                             </div>
@@ -270,12 +266,12 @@
         <div class="modal-dialog">
             <div class="modal-content bg-dark border-0">
                 <div class="modal-header justify-content-center">
-                    <h5 class="modal-title fw-bold" id="emojiDownloadModalLabel">Legal Notice</h5>
+                    <h5 class="modal-title fw-bold" id="emojiDownloadModalLabel">{{ __('Legal Notice') }}</h5>
                 </div>
                 <div class="modal-body text-center">
-                    Emojis of some Servers could be protected by applicable copyright law.<br>
-                    The emojis will be downloaded locally on your device and you have to ensure that you don't infrige anyones copyright while using them.<br>
-                    <b>NO LIABILITY WILL BE GIVEN FOR ANY DAMAGES CAUSED BY USING THESE FILES</b>
+                    {{ __('Emojis of some Servers could be protected by applicable copyright law.') }}<br>
+                    {{ __('The emojis will be downloaded locally on your device and you have to ensure that you don\'t infrige anyones copyright while using them.') }}<br>
+                    <b>{{ __('NO LIABILITY WILL BE GIVEN FOR ANY DAMAGES CAUSED BY USING THESE FILES') }}</b>
                 </div>
                 <div class="modal-footer bg-dark justify-content-center">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
@@ -353,7 +349,7 @@
             var urls = [];
             function downloadEmojis(guildId, urls) {
                 document.getElementById('buttonDownloadAllEmojis').disabled = true;
-                document.getElementById('buttonDownloadAllEmojis').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
+                document.getElementById('buttonDownloadAllEmojis').innerHTML = '<i class="fas fa-spinner fa-spin"></i> {{ __('Downloading...') }}';
 
                 var zip = new JSZip();
                 var count = 0;
@@ -373,7 +369,7 @@
                             zip.generateAsync({type:'blob'}).then(function(content) {
                                 saveAs(content, "emojis_" + guildId + ".zip");
                                 document.getElementById('buttonDownloadAllEmojis').disabled = false;
-                                document.getElementById('buttonDownloadAllEmojis').innerHTML = '<i class="fas fa-download"></i> Download all Guild Emojis';
+                                document.getElementById('buttonDownloadAllEmojis').innerHTML = '<i class="fas fa-download"></i> {{ __('Download all Guild Emojis') }}';
                             });
                         }
                     });

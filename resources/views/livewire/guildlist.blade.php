@@ -17,7 +17,7 @@
                     @endguest
                     @auth
                         <div class="card-header text-center">
-                            <h1 class="fw-bold">You are in <span class="text-primary">{{ $countGuilds }}</span> Servers</h1>
+                            <h1 class="fw-bold">{!! __('You are in <span class="text-primary">:GUILDS</span> Servers', ['guilds' => $countGuilds]) !!}</h1>
                         </div>
                         <div class="card-body">
                             <div class="row mt-3">
@@ -26,8 +26,8 @@
                                          class="card text-white bg-cards-grey text-center mb-3"
                                          style="cursor: pointer;">
                                         <div class="card-header">
-                                            <p class="card-text fw-bolder">
-                                                <img src="{{ asset('images/discord/icons/server/owner.png') }}" class="discord-badge" alt="owner badge"> {{ __('YOU OWN') }}
+                                            <p class="card-text fw-bolder text-uppercase">
+                                                <img src="{{ asset('images/discord/icons/server/owner.png') }}" class="discord-badge" alt="owner badge"> {{ __('You own') }}
                                             </p>
                                         </div>
                                         <div class="card-body">
@@ -42,8 +42,8 @@
                                          class="card text-white bg-cards-grey text-center mb-3"
                                          style="cursor: pointer;">
                                         <div class="card-header">
-                                            <p class="card-text fw-bolder">
-                                                <img src="{{ asset('images/discord/icons/server/administrator.png') }}" class="discord-badge" alt="administrator badge"> YOU ADMINISTRATE
+                                            <p class="card-text fw-bolder text-uppercase">
+                                                <img src="{{ asset('images/discord/icons/server/administrator.png') }}" class="discord-badge" alt="administrator badge"> {{ __('You administrate') }}
                                             </p>
                                         </div>
                                         <div class="card-body">
@@ -58,8 +58,8 @@
                                          class="card text-white bg-cards-grey text-center mb-3"
                                          style="cursor: pointer;">
                                         <div class="card-header">
-                                            <p class="card-text fw-bolder">
-                                                <img src="{{ asset('images/discord/icons/server/moderator.png') }}" class="discord-badge" alt="moderator badge"> YOU MODERATE
+                                            <p class="card-text fw-bolder text-uppercase">
+                                                <img src="{{ asset('images/discord/icons/server/moderator.png') }}" class="discord-badge" alt="moderator badge"> {{ __('You moderate') }}
                                             </p>
                                         </div>
                                         <div class="card-body">
@@ -76,8 +76,8 @@
                                          class="card text-white bg-cards-grey text-center mb-3"
                                          style="cursor: pointer;">
                                         <div class="card-header">
-                                            <p class="card-text fw-bolder">
-                                                <img src="{{ asset('images/discord/icons/server/verified.png') }}" class="discord-badge" alt="verified badge"> VERIFIED
+                                            <p class="card-text fw-bolder text-uppercase">
+                                                <img src="{{ asset('images/discord/icons/server/verified.png') }}" class="discord-badge" alt="verified badge"> {{ __('Verified') }}
                                             </p>
                                         </div>
                                         <div class="card-body">
@@ -92,8 +92,8 @@
                                          class="card text-white bg-cards-grey text-center mb-3"
                                          style="cursor: pointer;">
                                         <div class="card-header">
-                                            <p class="card-text fw-bolder">
-                                                <img src="{{ asset('images/discord/icons/server/partner.png') }}" class="discord-badge" alt="partnered badge"> PARTNERED
+                                            <p class="card-text fw-bolder text-uppercase">
+                                                <img src="{{ asset('images/discord/icons/server/partner.png') }}" class="discord-badge" alt="partnered badge"> {{ __('Partnered') }}
                                             </p>
                                         </div>
                                         <div class="card-body">
@@ -108,8 +108,8 @@
                                          class="card text-white bg-cards-grey text-center mb-3"
                                          style="cursor: pointer;">
                                         <div class="card-header">
-                                            <p class="card-text fw-bolder">
-                                                <img src="{{ asset('images/discord/icons/server/vanity-url.svg') }}" class="discord-badge" alt="vanity url badge"> VANITY URL
+                                            <p class="card-text fw-bolder text-uppercase">
+                                                <img src="{{ asset('images/discord/icons/server/vanity-url.svg') }}" class="discord-badge" alt="vanity url badge"> {{ __('Vanity URL') }}
                                             </p>
                                         </div>
                                         <div class="card-body">
@@ -126,8 +126,8 @@
                                          class="card text-white bg-cards-grey text-center mb-3"
                                          style="cursor: pointer;">
                                         <div class="card-header">
-                                            <p class="card-text fw-bolder">
-                                                <img src="{{ asset('images/discord/icons/server/community.svg') }}" class="discord-badge" alt="community badge"> COMMUNITY ENABLED
+                                            <p class="card-text fw-bolder text-uppercase">
+                                                <img src="{{ asset('images/discord/icons/server/community.svg') }}" class="discord-badge" alt="community badge"> {{ __('Community enabled') }}
                                             </p>
                                         </div>
                                         <div class="card-body">
@@ -142,8 +142,8 @@
                                          class="card text-white bg-cards-grey text-center mb-3"
                                          style="cursor: pointer;">
                                         <div class="card-header">
-                                            <p class="card-text fw-bolder">
-                                                <img src="{{ asset('images/discord/icons/server/discovery.png') }}" class="discord-badge" alt="discovery badge"> DISCOVERY ENABLED
+                                            <p class="card-text fw-bolder text-uppercase">
+                                                <img src="{{ asset('images/discord/icons/server/discovery.png') }}" class="discord-badge" alt="discovery badge"> {{ __('Discovery enabled') }}
                                             </p>
                                         </div>
                                         <div class="card-body">
@@ -158,8 +158,8 @@
                                          class="card text-white bg-cards-grey text-center mb-3"
                                          style="cursor: pointer;">
                                         <div class="card-header">
-                                            <p class="card-text fw-bolder">
-                                                <img src="{{ asset('images/discord/icons/server/welcome-screen-enabled.svg') }}" class="discord-badge" alt="welcome screen badge"> WELCOME SCREEN ENABLED
+                                            <p class="card-text fw-bolder text-uppercase">
+                                                <img src="{{ asset('images/discord/icons/server/welcome-screen-enabled.svg') }}" class="discord-badge" alt="welcome screen badge"> {{ __('Welcome Screen enabled') }}
                                             </p>
                                         </div>
                                         <div class="card-body">

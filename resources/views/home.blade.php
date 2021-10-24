@@ -11,7 +11,7 @@
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="display-1 fw-bold text-primary">DiscordLookup</h1>
-                <p class="lead fw-bold text-white">Get more out of Discord with Discord Lookup</p>
+                <p class="lead fw-bold text-white">{{ __('Get more out of Discord with Discord Lookup') }}</p>
             </div>
         </div>
     </section>
@@ -25,10 +25,10 @@
                             <i class="far fa-snowflake ms-auto me-auto" style="font-size: 2rem;"></i>
                         </div>
                         <div class="col-12 col-md-2 d-flex align-items-center">
-                            <p class="fw-bold my-auto">Snowflake</p>
+                            <p class="fw-bold my-auto">{{ __('Snowflake') }}</p>
                         </div>
                         <div class="col-12 col-md-8 d-flex align-items-center">
-                            <p class="my-auto">Get the creation date of a Snoflake, and detailed information about Discord users and guilds.</p>
+                            <p class="my-auto">{{ __('Get the creation date of a Snowflake, and detailed information about Discord users and guilds.') }}</p>
                         </div>
                         <div class="col-0 col-md-1 d-flex align-items-center">
                             <i class="fas fa-arrow-right ms-auto" style="font-size: 2rem;"></i>
@@ -45,10 +45,10 @@
                             <i class="fab fa-discord ms-auto me-auto" style="font-size: 2rem;"></i>
                         </div>
                         <div class="col-12 col-md-2 d-flex align-items-center">
-                            <p class="fw-bold my-auto">Guild List</p>
+                            <p class="fw-bold my-auto">{{ __('Guild List') }}</p>
                         </div>
                         <div class="col-12 col-md-8 d-flex align-items-center">
-                            <p class="my-auto">Show all the guilds you are on, with counters, permissions, features and more information about the guilds.</p>
+                            <p class="my-auto">{{ __('Show all the guilds you are on, with counters, permissions, features and more information about the guilds.') }}</p>
                         </div>
                         <div class="col-0 col-md-1 d-flex align-items-center">
                             <i class="fas fa-arrow-right ms-auto" style="font-size: 2rem;"></i>
@@ -65,10 +65,10 @@
                             <i class="fas fa-link ms-auto me-auto" style="font-size: 2rem;"></i>
                         </div>
                         <div class="col-12 col-md-2 d-flex align-items-center">
-                            <p class="fw-bold my-auto">Invite Info</p>
+                            <p class="fw-bold my-auto">{{ __('Invite Info') }}</p>
                         </div>
                         <div class="col-12 col-md-8 d-flex align-items-center">
-                            <p class="my-auto">Get detailed information about every invite and vanity url.</p>
+                            <p class="my-auto">{{ __('Get detailed information about every invite and vanity url.') }}</p>
                         </div>
                         <div class="col-0 col-md-1 d-flex align-items-center">
                             <i class="fas fa-arrow-right ms-auto" style="font-size: 2rem;"></i>
@@ -85,10 +85,10 @@
                             <i class="fas fa-arrows-alt-h ms-auto me-auto" style="font-size: 2rem;"></i>
                         </div>
                         <div class="col-12 col-md-2 d-flex align-items-center">
-                            <p class="fw-bold my-auto">Snowflake Distance Calculator</p>
+                            <p class="fw-bold my-auto">{{ __('Snowflake Distance Calculator') }}</p>
                         </div>
                         <div class="col-12 col-md-8 d-flex align-items-center">
-                            <p class="my-auto">Calculate the distance between two Discord Snowflakes.</p>
+                            <p class="my-auto">{{ __('Calculate the distance between two Discord Snowflakes.') }}</p>
                         </div>
                         <div class="col-0 col-md-1 d-flex align-items-center">
                             <i class="fas fa-arrow-right ms-auto" style="font-size: 2rem;"></i>
@@ -105,10 +105,10 @@
                             <i class="fas fa-server ms-auto me-auto" style="font-size: 2rem;"></i>
                         </div>
                         <div class="col-12 col-md-2 d-flex align-items-center">
-                            <p class="fw-bold my-auto">Guild Shard Calculator</p>
+                            <p class="fw-bold my-auto">{{ __('Guild Shard Calculator') }}</p>
                         </div>
                         <div class="col-12 col-md-8 d-flex align-items-center">
-                            <p class="my-auto">Calculate the Shard ID of a guild using the Guild ID and the total number of shards.</p>
+                            <p class="my-auto">{{ __('Calculate the Shard ID of a guild using the Guild ID and the total number of shards.') }}</p>
                         </div>
                         <div class="col-0 col-md-1 d-flex align-items-center">
                             <i class="fas fa-arrow-right ms-auto" style="font-size: 2rem;"></i>

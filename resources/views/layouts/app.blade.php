@@ -23,7 +23,7 @@
 discord, discord lookup, discordlookup, lookup, snowflake, guild count, invite info, user info, discord tools, tools">
 
     <meta property="og:site_name" content="DiscordLookup.com">
-    <meta property="og:site" content="https://discordlookup.com/">
+    <meta property="og:site" content="{{ route('home') }}">
     <meta property="og:title" content="@yield('title') | {{ env('APP_NAME') }}">
     <meta property="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}">
     @hasSection('description')<meta property="og:description" content="@yield('description')">@endif
@@ -31,6 +31,10 @@ discord, discord lookup, discordlookup, lookup, snowflake, guild count, invite i
     <meta property="og:url" content="{{ Request::url() }}">
     <meta property="og:image" content="{{ asset('images/logo-rounded.svg') }}">
     <meta property="og:type" content="website">
+
+    @foreach (Config::get('languages') as $lang => $language)
+        <link rel="alternate" href="{{ route('language.switch', $lang) }}" hreflang="{{ $lang }}" />
+    @endforeach
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @livewireStyles

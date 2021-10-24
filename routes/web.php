@@ -3,7 +3,9 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LegalController;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +36,9 @@ Route::name('legal.')->group(function () {
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/auth/callback', [AuthController::class, 'callback']);
+
+/* Language switcher */
+Route::get('/language/{locale}', function ($locale) {
+    Session::put('locale', $locale);
+    return Redirect::back();
+})->name('language.switch');

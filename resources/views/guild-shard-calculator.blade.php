@@ -37,7 +37,7 @@
                     <div class="card text-white bg-dark">
                         <div class="card-body text-center">
                             <h2 class="fw-bold">{{ __('This Guild is on Shard ID') }} <span id="shardId" class="text-primary"></span></h2>
-                            <small><i>The Shard ID is zero-based.</i></small>
+                            <small><i>{{ __('The Shard ID is zero-based.') }}</i></small>
                         </div>
                     </div>
                 </div>

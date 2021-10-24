@@ -27,8 +27,8 @@
                         {{ __('Advanced') }}
                     </a>
                     <ul class="dropdown-menu bg-dark border-0" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item text-white {{ request()->routeIs('snowflake-distance-calculator') ? 'active' : '' }}" href="{{ route('snowflake-distance-calculator') }}">Snowflake Distance Calculator</a></li>
-                        <li><a class="dropdown-item text-white {{ request()->routeIs('guild-shard-calculator') ? 'active' : '' }}" href="{{ route('guild-shard-calculator') }}">Guild Shard Calculator</a></li>
+                        <li><a class="dropdown-item text-white {{ request()->routeIs('snowflake-distance-calculator') ? 'active' : '' }}" href="{{ route('snowflake-distance-calculator') }}">{{ __('Snowflake Distance Calculator') }}</a></li>
+                        <li><a class="dropdown-item text-white {{ request()->routeIs('guild-shard-calculator') ? 'active' : '' }}" href="{{ route('guild-shard-calculator') }}">{{ __('Guild Shard Calculator') }}</a></li>
                     </ul>
                 </li>
                 <li class="nav-item ms-lg-1">

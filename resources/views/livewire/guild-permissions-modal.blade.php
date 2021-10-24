@@ -3,7 +3,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content bg-dark border-0">
                 <div class="modal-header bg-dark">
-                    <h5 class="modal-title" id="modalPermissionsTitle"><b>Permissions:</b> {{ $guildName }}</h5>
+                    <h5 class="modal-title" id="modalPermissionsTitle"><b>{{ __('Permissions') }}:</b> {{ $guildName }}</h5>
                 </div>
                 <div class="modal-body bg-dark">
                     <ul style="text-transform: capitalize;">
@@ -13,7 +13,7 @@
                     </ul>
                 </div>
                 <div class="modal-footer bg-dark">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
                 </div>
             </div>
         </div>

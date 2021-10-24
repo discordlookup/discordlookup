@@ -15,15 +15,18 @@
         "axios": "^0.21",
         "bootstrap": "^5.1.1",
         "bootswatch": "^5.1.1",
+        "file-saver": "^2.0.5",
+        "jszip": "^3.7.1",
+        "jszip-utils": "^0.1.0",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "moment": "^2.29.1",
         "postcss": "^8.1.14",
         "resolve-url-loader": "^4.0.0",
         "sass": "^1.42.1",
-        "sass-loader": "^12.1.0",
-        "file-saver": "^2.0.5",
-        "jszip": "^3.7.1",
-        "jszip-utils": "^0.1.0"
+        "sass-loader": "^12.1.0"
+    },
+    "dependencies": {
+        "flag-icon-css": "^4.0.0"
     }
 }

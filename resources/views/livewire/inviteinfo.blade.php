@@ -34,8 +34,8 @@
                                         @if($guildIsPartnered)<img src="{{ asset('images/discord/icons/server/partner.png') }}" class="discord-badge" alt="discord badge partner">@endif
                                         @if($guildIsVerified)<img src="{{ asset('images/discord/icons/server/verified.png') }}" class="discord-badge" alt="discord badge verified">@endif
                                         <div class="small">
-                                            <span class="discord-status-pill discord-status-pill-online"></span> {{ number_format($guildOnlineCount, 0, '', '.') }} Online
-                                            <span class="discord-status-pill discord-status-pill-offline ms-3"></span> {{ number_format($guildMemberCount, 0, '', '.') }} Members<br>
+                                            <span class="discord-status-pill discord-status-pill-online"></span> {{ number_format($guildOnlineCount, 0, '', '.') }} {{ __('Online') }}
+                                            <span class="discord-status-pill discord-status-pill-offline ms-3"></span> {{ number_format($guildMemberCount, 0, '', '.') }} {{ __('Members') }}<br>
                                         </div>
                                     </div>
                                     @if($guildBannerUrl)
@@ -82,8 +82,8 @@
                 @else
                     <div class="col-12 col-lg-6 offset-lg-3">
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            The entered Invite could not be found! Try again with another code.
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            {{ __('The entered Invite could not be found! Try again with another code.') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ __('Close') }}"></button>
                         </div>
                     </div>
                 @endif
