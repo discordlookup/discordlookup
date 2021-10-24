@@ -17,7 +17,7 @@
     </section>
 
     <div class="container">
-        <a href="{{ route('snowflake') }}" class="text-decoration-none">
+        <a href="{{ route('snowflake') }}" class="tools-list-item text-decoration-none">
             <div class="card text-white bg-dark border-0 mb-3">
                 <div class="card-body">
                     <div class="row">
@@ -37,7 +37,7 @@
                 </div>
             </div>
         </a>
-        <a href="{{ route('guildlist') }}" class="text-decoration-none">
+        <a href="{{ route('guildlist') }}" class="tools-list-item text-decoration-none">
             <div class="card text-white bg-dark border-0 mb-3">
                 <div class="card-body">
                     <div class="row">
@@ -57,7 +57,7 @@
                 </div>
             </div>
         </a>
-        <a href="{{ route('inviteinfo') }}" class="text-decoration-none">
+        <a href="{{ route('inviteinfo') }}" class="tools-list-item text-decoration-none">
             <div class="card text-white bg-dark border-0 mb-3">
                 <div class="card-body">
                     <div class="row">
@@ -77,7 +77,7 @@
                 </div>
             </div>
         </a>
-        <a href="{{ route('snowflake-distance-calculator') }}" class="text-decoration-none">
+        <a href="{{ route('snowflake-distance-calculator') }}" class="tools-list-item text-decoration-none">
             <div class="card text-white bg-dark border-0 mb-3">
                 <div class="card-body">
                     <div class="row">
@@ -97,7 +97,7 @@
                 </div>
             </div>
         </a>
-        <a href="{{ route('guild-shard-calculator') }}" class="text-decoration-none">
+        <a href="{{ route('guild-shard-calculator') }}" class="tools-list-item text-decoration-none">
             <div class="card text-white bg-dark border-0 mb-3">
                 <div class="card-body">
                     <div class="row">
