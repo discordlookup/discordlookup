@@ -12,4 +12,5 @@
 
     @livewire('guild-features-modal')
     @livewire('guild-permissions-modal')
+    @livewire('guild-experiments-modal')
 @endsection

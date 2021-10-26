@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "41cfe9417672bd88504b0e5e760d670c",
+    "content-hash": "414b843377d43a940713c301a06596e9",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1445,6 +1445,57 @@
                 "source": "https://github.com/laravel/tinker/tree/v2.6.2"
             },
             "time": "2021-09-28T15:47:34+00:00"
+        },
+        {
+            "name": "lastguest/murmurhash",
+            "version": "2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lastguest/murmurhash-php.git",
+                "reference": "0150ba26fb7025d1f936983a167cdc74149f87c8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lastguest/murmurhash-php/zipball/0150ba26fb7025d1f936983a167cdc74149f87c8",
+                "reference": "0150ba26fb7025d1f936983a167cdc74149f87c8",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7||^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "^7||^9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "lastguest\\": "src/lastguest/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stefano Azzolini",
+                    "email": "lastguest@gmail.com",
+                    "homepage": "https://github.com/lastguest/murmurhash-php"
+                }
+            ],
+            "description": "MurmurHash3 Hash",
+            "homepage": "https://github.com/lastguest/murmurhash-php",
+            "keywords": [
+                "hash",
+                "hashing",
+                "murmur"
+            ],
+            "support": {
+                "issues": "https://github.com/lastguest/murmurhash-php/issues",
+                "source": "https://github.com/lastguest/murmurhash-php/tree/2.1.1"
+            },
+            "time": "2021-04-13T16:23:45+00:00"
         },
         {
             "name": "league/commonmark",

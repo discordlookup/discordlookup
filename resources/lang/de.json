@@ -108,5 +108,10 @@
     "Legal Provider Identification:": "Gesetzliche Anbieterkennung:",
     "Phone": "Telefon",
     "E-Mail": "E-Mail",
-    "Responsible for content according to &sect; 18 para. 2 MStV:": "Verantwortlich für den Inhalt gemäß &sect; 18 Abs. 2 MStV:"
+    "No Guild found.": "Keine Guild gefunden.",
+    "Responsible for content according to &sect; 18 para. 2 MStV:": "Verantwortlich für den Inhalt gemäß &sect; 18 Abs. 2 MStV:",
+    "Experiments": "Experimente",
+    "No experiments found": "Keine Experimente gefunden",
+    "Powered by": "Unterstützt durch",
+    "This Guild has an override for this experiment": "Diese Guild hat eine Sonderregelung für dieses Experiment"
 }

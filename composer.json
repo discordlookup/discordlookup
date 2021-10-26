@@ -12,6 +12,7 @@
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "lastguest/murmurhash": "^2.1",
         "livewire/livewire": "^2.6",
         "socialiteproviders/discord": "^4.1",
         "spatie/laravel-sitemap": "^6.0"
