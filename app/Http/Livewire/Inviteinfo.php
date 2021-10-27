@@ -41,6 +41,7 @@ class Inviteinfo extends Component
                 $this->guildId = $json['guild']['id'];
                 $this->guildName = $json['guild']['name'];
                 $this->guildDescription = $json['guild']['description'];
+
                 if($json['guild']['icon'] != null) {
                     $this->guildIconUrl = "https://cdn.discordapp.com/icons/" . $this->guildId . "/" . $json['guild']['icon'] . "?size=128";
                 }

@@ -58,24 +58,25 @@
                     var totalShardsInputValue = totalShardsInput.value;
                     var infoCard = document.getElementById('infoCard');
                     var date = validateSnowflake(guildIdInputValue);
+                    var invalidInput = document.getElementById('invalidInput');
+                    var invalidInputMessage = document.getElementById('invalidInputMessage');
 
-                    document.getElementById('invalidInput').style.display = 'none';
+                    invalidInput.style.display = 'none';
 
                     if(guildIdInputValue !== "" && totalShardsInputValue !== "" && !date.toString().startsWith("That") && Number.isInteger(+totalShardsInputValue)) {
                         document.getElementById('shardId').innerText = getShardId(guildIdInputValue, totalShardsInputValue);
                         infoCard.style.display = '';
-
-                        window.history.replaceState("", "", '{{ route('guild-shard-calculator') }}/' + guildIdInputValue + '/' + totalShardsInputValue);
+                        window.history.replaceState('', '', '{{ route('guild-shard-calculator') }}/' + guildIdInputValue + '/' + totalShardsInputValue);
                     }else{
                         infoCard.style.display = 'none';
                         if(guildIdInputValue.length > 0 && date.toString().startsWith("That")) {
-                            document.getElementById('invalidInputMessage').innerText = date;
-                            document.getElementById('invalidInput').style.display = '';
+                            invalidInputMessage.innerText = date;
+                            invalidInput.style.display = '';
                         }else if(!Number.isInteger(+totalShardsInputValue)) {
-                            document.getElementById('invalidInputMessage').innerText = "Total Shards must be a valid number!";
-                            document.getElementById('invalidInput').style.display = '';
+                            invalidInputMessage.innerText = "{{ __('Total Shards must be a valid number!') }}";
+                            invalidInput.style.display = '';
                         }
-                        window.history.replaceState("", "", '{{ route('guild-shard-calculator') }}');
+                        window.history.replaceState('', '', '{{ route('guild-shard-calculator') }}');
                     }
                 }
 

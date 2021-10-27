@@ -10,12 +10,11 @@
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
 // Flag Icon CSS
-// Temporary fix of missing variables
-// https://github.com/lipis/flag-icons/pull/867
+// -- Temporary fix of missing variables
+// -- https://github.com/lipis/flag-icons/pull/867
 $flag-icon-css-path: '../flags' !default;
 $flag-icon-rect-path: '/4x3' !default;
 $flag-icon-square-path: '/1x1' !default;
-
 @import '~flag-icon-css/sass/flag-icons';
 
 // Others

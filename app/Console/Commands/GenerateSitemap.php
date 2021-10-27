@@ -29,7 +29,7 @@ class GenerateSitemap extends Command
      */
     public function handle()
     {
-        SitemapGenerator::create(env('APP_URL_PUBLIC'))
+        SitemapGenerator::create(env('SITEMAP_URL'))
             ->hasCrawled(function (Url $url) {
 
                 $segments = $url->segments();

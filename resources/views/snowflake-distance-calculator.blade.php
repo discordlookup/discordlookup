@@ -73,22 +73,23 @@
                     var snowflakeOneInputValue = snowflakeOneInput.value;
                     var snowflakeTwoInput = document.getElementById('snowflakeTwoInput');
                     var snowflakeTwoInputValue = snowflakeTwoInput.value;
-                    var invalidInput = document.getElementById('invalidInput');
                     var infoCard = document.getElementById('infoCard');
+                    var invalidInput = document.getElementById('invalidInput');
+                    var invalidInputMessage = document.getElementById('invalidInputMessage');
 
                     infoCard.style.display = 'none';
                     invalidInput.style.display = 'none';
-                    window.history.replaceState("", "", '{{ route('snowflake-distance-calculator') }}');
+                    window.history.replaceState('', '', '{{ route('snowflake-distance-calculator') }}');
 
                     if(snowflakeOneInputValue.length > 0 && snowflakeTwoInputValue.length > 0) {
                         var snowflakeOneDate = validateSnowflake(snowflakeOneInputValue);
                         var snowflakeTwoDate = validateSnowflake(snowflakeTwoInputValue);
 
                         if (snowflakeOneDate.toString().startsWith("That")) {
-                            document.getElementById('invalidInputMessage').innerHTML = "<b>{{ __('Snowflake 1') }}:</b> " + snowflakeOneDate;
+                            invalidInputMessage.innerHTML = "<b>{{ __('Snowflake 1') }}:</b> " + snowflakeOneDate;
                             invalidInput.style.display = '';
                         } else if (snowflakeTwoDate.toString().startsWith("That")) {
-                            document.getElementById('invalidInputMessage').innerHTML = "<b>{{ __('Snowflake 2') }}:</b> " + snowflakeTwoDate;
+                            invalidInputMessage.innerHTML = "<b>{{ __('Snowflake 2') }}:</b> " + snowflakeTwoDate;
                             invalidInput.style.display = '';
                         } else {
                             var moment1 = moment(snowflakeOneDate);
@@ -116,7 +117,7 @@
                             document.getElementById('snowflakeTwoUnix').innerText = snowflakeTwoDate.getTime();
                             infoCard.style.display = '';
 
-                            window.history.replaceState("", "", '{{ route('snowflake-distance-calculator') }}/' + snowflakeOneInputValue + '/' + snowflakeTwoInputValue);
+                            window.history.replaceState('', '', '{{ route('snowflake-distance-calculator') }}/' + snowflakeOneInputValue + '/' + snowflakeTwoInputValue);
                         }
                     }
                 }

@@ -11,7 +11,7 @@ class LandingController extends Controller
         return view('home');
     }
 
-    public function snowflake($snowflake = "")
+    public function snowflake($snowflake = '')
     {
         return view('snowflake', ['snowflake' => $snowflake]);
     }
@@ -21,17 +21,17 @@ class LandingController extends Controller
         return view('guildlist');
     }
 
-    public function inviteinfo($code = "")
+    public function inviteinfo($code = '')
     {
         return view('inviteinfo', ['code' => $code]);
     }
 
-    public function guildshardcalculator($guildId = "", $totalShards = "")
+    public function guildshardcalculator($guildId = '', $totalShards = '')
     {
         return view('guild-shard-calculator', ['guildId' => $guildId, 'totalShards' => $totalShards]);
     }
 
-    public function snowflakedistancecalculator($snowflake1 = "", $snowflake2 = "")
+    public function snowflakedistancecalculator($snowflake1 = '', $snowflake2 = '')
     {
         return view('snowflake-distance-calculator', ['snowflake1' => $snowflake1, 'snowflake2' => $snowflake2]);
     }

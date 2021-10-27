@@ -53,7 +53,7 @@ discord, discord lookup, discordlookup, lookup, snowflake, guild count, invite i
 @include('components.footer')
 
 <script src="{{ asset('js/app.js') }}" defer></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> {{-- TODO: Remove jquery --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 @stack('scripts')
 

@@ -13,7 +13,9 @@
         </div>
 
         <div class="user-select-none">
-            @include('legal.content.privacy-policy')
+            @if(\Illuminate\Support\Facades\View::exists('legal.content.privacy-policy'))
+                @include('legal.content.privacy-policy')
+            @endif
         </div>
     </div>
 

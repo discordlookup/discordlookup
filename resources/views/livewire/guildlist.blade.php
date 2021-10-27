@@ -5,7 +5,6 @@
         <div class="row">
             <div class="col-12 col-lg-10 offset-lg-1">
                 <div class="card text-white bg-dark border-0">
-
                     @guest
                         <div class="card-header text-center">
                             <h1 class="fw-bold">{{ __('Login') }}</h1>
@@ -38,9 +37,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('administrator')"
-                                         class="card text-white bg-cards-grey text-center mb-3"
-                                         style="cursor: pointer;">
+                                    <div wire:click="changeCategory('administrator')" class="card text-white bg-cards-grey text-center mb-3" style="cursor: pointer;">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
                                                 <img src="{{ asset('images/discord/icons/server/administrator.png') }}" class="discord-badge" alt="administrator badge"> {{ __('You administrate') }}
@@ -54,9 +51,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('moderator')"
-                                         class="card text-white bg-cards-grey text-center mb-3"
-                                         style="cursor: pointer;">
+                                    <div wire:click="changeCategory('moderator')" class="card text-white bg-cards-grey text-center mb-3" style="cursor: pointer;">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
                                                 <img src="{{ asset('images/discord/icons/server/moderator.png') }}" class="discord-badge" alt="moderator badge"> {{ __('You moderate') }}
@@ -72,9 +67,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('verified')"
-                                         class="card text-white bg-cards-grey text-center mb-3"
-                                         style="cursor: pointer;">
+                                    <div wire:click="changeCategory('verified')" class="card text-white bg-cards-grey text-center mb-3" style="cursor: pointer;">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
                                                 <img src="{{ asset('images/discord/icons/server/verified.png') }}" class="discord-badge" alt="verified badge"> {{ __('Verified') }}
@@ -88,9 +81,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('partnered')"
-                                         class="card text-white bg-cards-grey text-center mb-3"
-                                         style="cursor: pointer;">
+                                    <div wire:click="changeCategory('partnered')" class="card text-white bg-cards-grey text-center mb-3" style="cursor: pointer;">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
                                                 <img src="{{ asset('images/discord/icons/server/partner.png') }}" class="discord-badge" alt="partnered badge"> {{ __('Partnered') }}
@@ -104,9 +95,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('vanityurl')"
-                                         class="card text-white bg-cards-grey text-center mb-3"
-                                         style="cursor: pointer;">
+                                    <div wire:click="changeCategory('vanityurl')" class="card text-white bg-cards-grey text-center mb-3" style="cursor: pointer;">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
                                                 <img src="{{ asset('images/discord/icons/server/vanity-url.svg') }}" class="discord-badge" alt="vanity url badge"> {{ __('Vanity URL') }}
@@ -122,9 +111,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('community')"
-                                         class="card text-white bg-cards-grey text-center mb-3"
-                                         style="cursor: pointer;">
+                                    <div wire:click="changeCategory('community')" class="card text-white bg-cards-grey text-center mb-3" style="cursor: pointer;">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
                                                 <img src="{{ asset('images/discord/icons/server/community.svg') }}" class="discord-badge" alt="community badge"> {{ __('Community enabled') }}
@@ -138,9 +125,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('discovery')"
-                                         class="card text-white bg-cards-grey text-center mb-3"
-                                         style="cursor: pointer;">
+                                    <div wire:click="changeCategory('discovery')" class="card text-white bg-cards-grey text-center mb-3" style="cursor: pointer;">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
                                                 <img src="{{ asset('images/discord/icons/server/discovery.png') }}" class="discord-badge" alt="discovery badge"> {{ __('Discovery enabled') }}
@@ -154,9 +139,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('welcomescreen')"
-                                         class="card text-white bg-cards-grey text-center mb-3"
-                                         style="cursor: pointer;">
+                                    <div wire:click="changeCategory('welcomescreen')" class="card text-white bg-cards-grey text-center mb-3" style="cursor: pointer;">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
                                                 <img src="{{ asset('images/discord/icons/server/welcome-screen-enabled.svg') }}" class="discord-badge" alt="welcome screen badge"> {{ __('Welcome Screen enabled') }}
@@ -184,7 +167,6 @@
         @auth
         <div id="scrollToSearch" class="row mt-5">
             <div class="col-12 col-lg-10 offset-lg-1">
-
                 <div class="row mb-3">
                     <div class="col-12 col-md-3">
                         <select wire:model="category" class="form-select">
@@ -227,7 +209,7 @@
                             @foreach($this->guildsJsonSearch as $guild)
                                 <div class="col-12 mt-1 mb-1">
                                     <div class="row">
-                                        <div class="col-auto">
+                                        <div class="col-12 col-md-1 text-center">
                                             @if($guild['icon'])
                                                 <a href="https://cdn.discordapp.com/icons/{{ $guild['id'] }}/{{ $guild['icon'] }}" target="_blank">
                                                     <img src="https://cdn.discordapp.com/icons/{{ $guild['id'] }}/{{ $guild['icon'] }}?size=128" loading="lazy" class="rounded-circle" style="width: 48px; height: 48px;" width="48px" height="48px" alt="guild icon">
@@ -236,7 +218,7 @@
                                                 <img src="https://cdn.discordapp.com/embed/avatars/0.png" loading="lazy" class="rounded-circle" style="width: 48px; height: 48px;" width="48px" height="48px" alt="guild icon">
                                             @endif
                                         </div>
-                                        <div class="col-5">
+                                        <div class="col-12 col-md-6 text-center text-md-start">
                                             <div>
                                                 {{ $guild['name'] }}
 
@@ -272,11 +254,11 @@
                                                 </small>
                                             </div>
                                         </div>
-                                        <div class="col-auto ms-auto">
-                                            <a role="button" class="btn btn-sm btn-outline-primary" href="{{ route('snowflake', ['snowflake' => $guild['id']]) }}">{{ __('Guild Info') }}</a>
-                                            <button wire:click="$emitTo('guild-features-modal', 'update', '{{ urlencode($guild['name']) }}', '{{ json_encode($guild['features']) }}')" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalFeatures">{{ __('Features') }}</button>
-                                            <button wire:click="$emitTo('guild-permissions-modal', 'update', '{{ urlencode($guild['name']) }}', '{{ $guild['permissions'] }}')" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalPermissions">{{ __('Permissions') }}</button>
-                                            <button wire:click="$emitTo('guild-experiments-modal', 'update', '{{ $guild['id'] }}', '{{ urlencode($guild['name']) }}', '{{ json_encode($guild['features']) }}')" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalExperiments">{{ __('Experiments') }}</button>
+                                        <div class="col-12 col-md-5 text-center text-md-end">
+                                            <a role="button" href="{{ route('snowflake', ['snowflake' => $guild['id']]) }}" target="_blank" class="btn btn-sm btn-outline-primary mt-2 mt-xl-0">{{ __('Guild Info') }}</a>
+                                            <button wire:click="$emitTo('guild-features-modal', 'update', '{{ urlencode($guild['name']) }}', '{{ json_encode($guild['features']) }}')" class="btn btn-sm btn-outline-success mt-2 mt-xl-0" data-bs-toggle="modal" data-bs-target="#modalFeatures">{{ __('Features') }}</button>
+                                            <button wire:click="$emitTo('guild-permissions-modal', 'update', '{{ urlencode($guild['name']) }}', '{{ $guild['permissions'] }}')" class="btn btn-sm btn-outline-danger mt-2 mt-xl-0" data-bs-toggle="modal" data-bs-target="#modalPermissions">{{ __('Permissions') }}</button>
+                                            <button wire:click="$emitTo('guild-experiments-modal', 'update', '{{ $guild['id'] }}', '{{ urlencode($guild['name']) }}', '{{ json_encode($guild['features']) }}')" class="btn btn-sm btn-outline-warning mt-2 mt-xl-0" data-bs-toggle="modal" data-bs-target="#modalExperiments">{{ __('Experiments') }}</button>
                                         </div>
                                     </div>
                                     @if(!$loop->last)

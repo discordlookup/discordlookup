@@ -20,18 +20,18 @@
                                     <span class="text-success">({{ __('This Guild has an override for this experiment') }})</span><br>
                                 @else
                                     @foreach($experiment['filters'] as $filters)
-                                        {!! $filters !!}<br>
+                                        <span class="text-muted">{{ $filters }}</span><br>
                                     @endforeach
                                 @endif
                             </li>
                         @endforeach
                     </ul>
                 </div>
-                <div class="modal-footer bg-dark  justify-content-between">
+                <div class="modal-footer bg-dark justify-content-between">
                     <span class="text-muted small">
                         {{ __('Powered by') }} <a href="https://rollouts.advaith.io/" target="_blank" rel="noopener" class="text-decoration-none">Advaith's Experiment Rollout Site</a>
                     </span>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                    <button type="button" class="btn btn-secondary ms-auto" data-bs-dismiss="modal">{{ __('Close') }}</button>
                 </div>
             </div>
         </div>

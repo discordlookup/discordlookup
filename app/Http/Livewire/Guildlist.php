@@ -66,7 +66,6 @@ class Guildlist extends Component
 
     public function changeCategory($category) {
         $this->category = $category;
-
         $this->dispatchBrowserEvent('scrollToSearch');
     }
 

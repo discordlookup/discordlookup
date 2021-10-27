@@ -48,7 +48,7 @@
                             <p class="fw-bold my-auto">{{ __('Guild List') }}</p>
                         </div>
                         <div class="col-12 col-md-8 d-flex align-items-center">
-                            <p class="my-auto">{{ __('Show all the guilds you are on, with counters, permissions, features and more information about the guilds.') }}</p>
+                            <p class="my-auto">{{ __('Show all the guilds you are on, with counters, permissions, features, experiments and more information about the guilds.') }}</p>
                         </div>
                         <div class="col-0 col-md-1 d-flex align-items-center">
                             <i class="fas fa-arrow-right ms-auto" style="font-size: 2rem;"></i>

@@ -18,6 +18,7 @@ class GuildFeaturesModal extends Component
 
         $this->guildName = urldecode($guildName);
         $this->features = json_decode($features);
+        sort($this->features);
     }
 
     public function render()

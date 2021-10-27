@@ -13,7 +13,9 @@
         </div>
 
         <div class="user-select-none">
-            @include('legal.content.imprint')
+            @if(\Illuminate\Support\Facades\View::exists('legal.content.imprint'))
+                @include('legal.content.imprint')
+            @endif
         </div>
     </div>
 

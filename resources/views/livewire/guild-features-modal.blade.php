@@ -6,12 +6,12 @@
                     <h5 class="modal-title" id="modalFeaturesTitle"><b>{{ __('Features') }}:</b> {{ $guildName }}</h5>
                 </div>
                 <div class="modal-body bg-dark">
-                    <ul style="text-transform: capitalize;">
+                    <ul class="text-capitalize">
                         @if(empty($features))
                             {{ __('No features') }}
                         @endif
                         @foreach($features as $feature)
-                            <li>{{ strtolower(str_replace("_", " ", $feature)) }}</li>
+                            <li>{{ strtolower(str_replace('_', ' ', $feature)) }}</li>
                         @endforeach
                     </ul>
                 </div>

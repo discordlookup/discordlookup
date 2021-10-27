@@ -188,7 +188,7 @@
                                 @endif
                                 @if(!empty($guildFeatures))
                                     <b>{{ __('Guild Features') }}:</b>
-                                    <ul style="text-transform: capitalize;">
+                                    <ul class="text-capitalize">
                                         @foreach($guildFeatures as $feature)
                                             <li>{{ $feature }}</li>
                                         @endforeach
@@ -300,7 +300,6 @@
                     accountCreatedSpan.innerText = validateSnowflake(event.detail.snowflake);
                 }
 
-                {{-- TODO: Remove jQuery --}}
                 if(event.detail.invitecode !== "") {
                     $.ajax({
                         type: 'GET',
@@ -321,11 +320,10 @@
 
             function updateSnowflake(value) {
 
-                window.history.replaceState("", "", '{{ route('snowflake') }}');
+                window.history.replaceState('', '', '{{ route('snowflake') }}');
 
                 if(value.length > 0) {
                     var date = validateSnowflake(value);
-
                     if (date.toString().startsWith("That")) {
                         $('#validSnowflake').hide();
                         $('#invalidSnowflake').show();
@@ -337,8 +335,7 @@
                         document.getElementById('snowflakeRelative').innerText = moment.utc(date).local().fromNow();
                         document.getElementById('snowflakeUnix').innerText = date.getTime();
                         document.getElementById('snowflakeDistanceCalculatorUrl').href = "{{ route('snowflake-distance-calculator') }}/" + value;
-
-                        window.history.replaceState("", "", '{{ route('snowflake') }}/' + value);
+                        window.history.replaceState('', '', '{{ route('snowflake') }}/' + value);
                     }
                 }else{
                     $('#validSnowflake').hide();
@@ -351,6 +348,7 @@
                 document.getElementById('buttonDownloadAllEmojis').disabled = true;
                 document.getElementById('buttonDownloadAllEmojis').innerHTML = '<i class="fas fa-spinner fa-spin"></i> {{ __('Downloading...') }}';
 
+                // https://gist.github.com/c4software/981661f1f826ad34c2a5dc11070add0f#gistcomment-3372574
                 var zip = new JSZip();
                 var count = 0;
                 var filenameCounter = 0;

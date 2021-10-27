@@ -20331,6 +20331,14 @@ readers do not read off random characters that represent icons */
   opacity: 1;
 }
 
+footer {
+  background-color: #23272A;
+}
+
+.navbar .dropdown .dropdown-menu .dropdown-item:hover, .navbar .dropdown .dropdown-menu .dropdown-item:focus {
+  background-color: #343a40;
+}
+
 .discord-status-pill {
   display: inline-block;
   margin-right: 2px;
@@ -20354,8 +20362,14 @@ readers do not read off random characters that represent icons */
   margin-bottom: 0.1rem;
 }
 
-.navbar .dropdown .dropdown-menu .dropdown-item:hover, .navbar .dropdown .dropdown-menu .dropdown-item:focus {
-  background-color: #343a40;
+.tools-list-item {
+  position: relative;
+  top: 0;
+  transition: top ease 0.5s;
+}
+
+.tools-list-item:hover {
+  top: -3px;
 }
 
 #guildlist .bg-cards-grey {
@@ -20374,14 +20388,4 @@ readers do not read off random characters that represent icons */
 
 #help h2 a, #help .h2 a {
   opacity: 50%;
-}
-
-.tools-list-item {
-  position: relative;
-  top: 0;
-  transition: top ease 0.5s;
-}
-
-.tools-list-item:hover {
-  top: -3px;
 }

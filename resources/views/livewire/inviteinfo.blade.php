@@ -70,7 +70,7 @@
                                         <b>{{ __('Guild NSFW Level') }}:</b> {{ $guildIsNSFWLevel }}<br>
                                     @endif
                                     <b>{{ __('Guild Features') }}:</b>
-                                    <ul style="text-transform: capitalize;">
+                                    <ul class="text-capitalize">
                                         @foreach($guildFeatures as $feature)
                                             <li>{{ $feature }}</li>
                                         @endforeach
@@ -101,14 +101,13 @@
 
     @push('scripts')
         <script>
-            var inputInviteUrl = document.getElementById("inviteUrl");
+            var inputInviteUrl = document.getElementById('inviteUrl');
             inputInviteUrl.addEventListener("keyup", function(event) {
                 if (event.keyCode === 13) {
                     loadInvite();
                 }
             });
 
-            {{-- TODO: Remove jQuery --}}
             function loadInvite() {
 
                 $('#displaysectionContent').hide();
@@ -126,7 +125,7 @@
                         Livewire.emit(
                             'parseJson',
                             respond,
-                            moment.utc( respond.expires_at ).local().format("YYYY-MM-DD HH:mm:ss") + ' (' +  moment.utc( respond.expires_at ).local().fromNow() + ')'
+                            moment.utc(respond.expires_at).local().format("YYYY-MM-DD HH:mm:ss") + ' (' +  moment.utc( respond.expires_at ).local().fromNow() + ')'
                         );
                     },
                     error: function (error) {
@@ -134,7 +133,7 @@
                     }
                 });
 
-                window.history.replaceState("", "", '{{ route('inviteinfo') }}/' + code);
+                window.history.replaceState('', '', '{{ route('inviteinfo') }}/' + code);
             }
         </script>
     @endpush

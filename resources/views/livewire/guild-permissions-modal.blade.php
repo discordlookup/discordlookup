@@ -6,9 +6,9 @@
                     <h5 class="modal-title" id="modalPermissionsTitle"><b>{{ __('Permissions') }}:</b> {{ $guildName }}</h5>
                 </div>
                 <div class="modal-body bg-dark">
-                    <ul style="text-transform: capitalize;">
+                    <ul class="text-capitalize">
                         @foreach($permissionsList as $permission)
-                            <li>{{ strtolower(str_replace("_", " ", $permission)) }}</li>
+                            <li>{{ strtolower(str_replace('_', ' ', $permission)) }}</li>
                         @endforeach
                     </ul>
                 </div>

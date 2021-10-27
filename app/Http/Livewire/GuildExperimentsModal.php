@@ -21,10 +21,15 @@ class GuildExperimentsModal extends Component
 
         $this->reset();
 
+        $this->guildId = $guildId;
+        $this->guildName = urldecode($guildName);
+        $this->features = json_decode($features);
+
         $experimentsJson = [];
         if(Cache::has('experimentsJson')) {
             $experimentsJson = Cache::get('experimentsJson');
         }else{
+            // Thanks to advaith for allowing me to use his API | https://rollouts.advaith.io/
             $response = Http::get('https://rollouts.advaith.workers.dev/');
             if($response->ok()) {
                 $experimentsJson = $response->json();
@@ -32,17 +37,13 @@ class GuildExperimentsModal extends Component
             }
         }
 
-        $this->guildId = $guildId;
-        $this->guildName = urldecode($guildName);
-        $this->features = json_decode($features);
-
         $allExperiments = [];
         foreach ($experimentsJson as $entry) {
             array_push($allExperiments, $entry);
         }
 
         foreach ($allExperiments as $experiment) {
-            $murmurhash = Murmur::hash3_int($experiment['data']['id'] . ":" . $this->guildId);
+            $murmurhash = Murmur::hash3_int($experiment['data']['id'] . ':' . $this->guildId);
             $murmurhash = $murmurhash % 10000;
 
             $treatments = [];
@@ -53,7 +54,6 @@ class GuildExperimentsModal extends Component
 
                 foreach ($population[1] as $filter) {
                     switch ($filter[0]) {
-
                         case 1604612045: // Feature
                             foreach ($filter[1][0][1] as $popfilter) {
                                 if(!in_array($popfilter, $this->features)) {
@@ -61,18 +61,14 @@ class GuildExperimentsModal extends Component
                                 }
                             }
                             break;
-
                         case 2918402255: // MemberCount
-                            array_push($filters, "<span class='text-muted'>(Only if server member count is " . ($filter[1][1][1] ? ("in range " . ($filter[1][0][1] ?? 0) . "-" . $filter[1][1][1]) : ($filter[1][0][1] . " or more")) . ")</span>");
+                            array_push($filters, "(Only if server member count is " . ($filter[1][1][1] ? ("in range " . ($filter[1][0][1] ?? 0) . "-" . $filter[1][1][1]) : ($filter[1][0][1] . " or more")) . ")");
                             break;
-
                         case 2404720969: // ID
-                            if(
-                                !(
-                                    $this->guildId >= ($filter[1][0][1] ?? 0) &&
-                                    $this->guildId <= $filter[1][1][1]
-                                )
-                            ) {
+                            if(!(
+                                $this->guildId >= ($filter[1][0][1] ?? 0) &&
+                                $this->guildId <= $filter[1][1][1]
+                            )) {
                                 $filterPassed = false;
                             }
                             break;
@@ -80,9 +76,7 @@ class GuildExperimentsModal extends Component
                 }
 
                 if($filterPassed) {
-
                     $treatment = "None";
-
                     foreach ($population[0] as $bucket) {
                         foreach ($experiment['data']['description'] as $treatmentsList) {
                             if(str_starts_with($treatmentsList, "Treatment " . $bucket[0] . ":")) {
@@ -125,12 +119,12 @@ class GuildExperimentsModal extends Component
                 }
             }
 
-            if(sizeof($treatments) > 0) {
+            if(!empty($treatments)) {
                 array_push($this->experiments, [
                     'title' => $experiment['data']['title'],
                     'treatments' => $treatments,
-                    'filters' => $filters,
                     'override' => $isOverride,
+                    'filters' => $filters,
                 ]);
             }
         }

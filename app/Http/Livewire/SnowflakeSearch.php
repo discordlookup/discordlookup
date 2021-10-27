@@ -149,7 +149,6 @@ class SnowflakeSearch extends Component
             $guildWidget = $response->json();
 
             if (key_exists('id', $guildWidget)) {
-
                 $this->guildId = $guildWidget['id'];
                 $this->guildName = $guildWidget['name'];
                 $this->guildInstantInvite = str_replace('https://discord.com/invite/', '', $guildWidget['instant_invite']);
@@ -164,7 +163,6 @@ class SnowflakeSearch extends Component
         ])->get(env('DISCORD_API_URL') . '/guilds/' . $this->snowflake . '/preview');
 
         if($response->status() == 200) {
-
             $guild = $response->json();
 
             $this->guildId = $guild['id'];
@@ -209,6 +207,7 @@ class SnowflakeSearch extends Component
                 $this->guildId = $json['guild']['id'];
                 $this->guildName = $json['guild']['name'];
                 $this->guildDescription = $json['guild']['description'];
+
                 if($json['guild']['icon'] != null) {
                     $this->guildIconUrl = "https://cdn.discordapp.com/icons/" . $this->guildId . "/" . $json['guild']['icon'] . "?size=128";
                 }
