@@ -276,7 +276,7 @@
                                             <a role="button" class="btn btn-sm btn-outline-primary" href="{{ route('snowflake', ['snowflake' => $guild['id']]) }}">{{ __('Guild Info') }}</a>
                                             <button wire:click="$emitTo('guild-features-modal', 'update', '{{ urlencode($guild['name']) }}', '{{ json_encode($guild['features']) }}')" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalFeatures">{{ __('Features') }}</button>
                                             <button wire:click="$emitTo('guild-permissions-modal', 'update', '{{ urlencode($guild['name']) }}', '{{ $guild['permissions'] }}')" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalPermissions">{{ __('Permissions') }}</button>
-                                            <button onclick="openExperiments('{{ $guild['id'] }}', '{{ urlencode($guild['name']) }}', '{{ json_encode($guild['features']) }}')" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalExperiments">{{ __('Experiments') }}</button>
+                                            <button wire:click="$emitTo('guild-experiments-modal', 'update', '{{ $guild['id'] }}', '{{ urlencode($guild['name']) }}', '{{ json_encode($guild['features']) }}')" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalExperiments">{{ __('Experiments') }}</button>
                                         </div>
                                     </div>
                                     @if(!$loop->last)
@@ -297,22 +297,6 @@
             window.addEventListener('scrollToSearch', () => {
                 document.getElementById('scrollToSearch').scrollIntoView(true);
             });
-
-            var experimentsJson = null;
-            function openExperiments(guildId, guildName, guildFeatures) {
-                if(experimentsJson === null) {
-                    $.ajax({
-                        type: 'GET',
-                        url: 'https://rollouts.advaith.workers.dev/',
-                        success: function (respond) {
-                            experimentsJson = respond;
-                            Livewire.emit('parseJson', experimentsJson, guildId, guildName, guildFeatures);
-                        }
-                    });
-                }else{
-                    Livewire.emit('parseJson', experimentsJson, guildId, guildName, guildFeatures);
-                }
-            }
         </script>
     @endpush
 </div>

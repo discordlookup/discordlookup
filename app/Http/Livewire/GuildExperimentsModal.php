@@ -2,31 +2,42 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use lastguest\Murmur;
 use Livewire\Component;
 
 class GuildExperimentsModal extends Component
 {
 
-    public $json = "[]";
     public $guildId = "";
     public $guildName = "";
     public $features = [];
     public $experiments = [];
 
-    protected $listeners = ['parseJson'];
+    protected $listeners = ['update'];
 
-    public function parseJson($json, $guildId, $guildName, $features) {
+    public function update($guildId, $guildName, $features) {
 
         $this->reset();
 
-        $this->json = $json;
+        $experimentsJson = [];
+        if(Cache::has('experimentsJson')) {
+            $experimentsJson = Cache::get('experimentsJson');
+        }else{
+            $response = Http::get('https://rollouts.advaith.workers.dev/');
+            if($response->ok()) {
+                $experimentsJson = $response->json();
+                Cache::put('experimentsJson', $experimentsJson, 3600);
+            }
+        }
+
         $this->guildId = $guildId;
         $this->guildName = urldecode($guildName);
         $this->features = json_decode($features);
 
         $allExperiments = [];
-        foreach ($this->json as $entry) {
+        foreach ($experimentsJson as $entry) {
             array_push($allExperiments, $entry);
         }
 
