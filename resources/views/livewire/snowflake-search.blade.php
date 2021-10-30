@@ -44,6 +44,15 @@
                 </div>
             </div>
 
+            @if(!$isLoggedIn)
+                <div id="displaysectionLogin" class="col-12 col-lg-6 offset-lg-3">
+                    <div class="alert alert-info fade show text-center" role="alert">
+                        {{ __('To get Discord information about this Snowflake you need to log in with Discord.') }}<br>
+                        <a role="button" class="btn btn-info mt-3" href="{{ route('login') }}"><i class="fas fa-sign-in-alt"></i> {{ __('Login') }}</a>
+                    </div>
+                </div>
+            @endif
+
             @if($rateLimitHit)
                 <div id="displaysectionRatelimit" class="col-12 col-lg-6 offset-lg-3">
                     <div class="alert alert-danger fade show" role="alert">
@@ -313,6 +322,7 @@
 
             function hideSections() {
                 $('#displaysectionLoading').show();
+                $('#displaysectionLogin').hide();
                 $('#displaysectionRatelimit').hide();
                 $('#displaysectionNotfound').hide();
                 $('#displaysectionContent').hide();

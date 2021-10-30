@@ -12,6 +12,7 @@ class SnowflakeSearch extends Component
 
     use WithRateLimiting;
 
+    public $isLoggedIn = true;
     public $rateLimitHit = false;
     public $rateLimitAvailableIn = 0;
 
@@ -58,6 +59,9 @@ class SnowflakeSearch extends Component
         $snowflake = $this->snowflake;
         $this->reset();
         $this->snowflake = $snowflake;
+
+        $this->isLoggedIn = auth()->check();
+        if (!$this->isLoggedIn) return;
 
         if(is_numeric($this->snowflake) && $this->snowflake >= 4194304) {
 
