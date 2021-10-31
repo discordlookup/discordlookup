@@ -35,6 +35,12 @@
                 </li>
             </ul>
             <ul class="navbar-nav ms-md-auto mt-3 mt-lg-0">
+                <li class="nav-item me-0 d-none d-lg-block">
+                    <a class="nav-link h5" href="{{ env('GITHUB_URL') }}" target="_blank"><i class="fab fa-github"></i></a>
+                </li>
+                <li class="nav-item mx-0 d-none d-lg-block">
+                    <a class="nav-link h5" href="{{ env('DISCORD_URL') }}" target="_blank"><i class="fab fa-discord"></i></a>
+                </li>
                 {{--<li class="nav-item">
                     <a class="nav-link h5"><i class="fas fa-sun"></i></a>
                 </li>

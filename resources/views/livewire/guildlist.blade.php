@@ -11,6 +11,7 @@
                         </div>
                         <div class="card-body text-center">
                             <h4>{{ __('To get an overview and stats about your guilds you need to log in with Discord.') }}</h4>
+                            <h5>{!! __('This website is open source on :github.', ['github' => '<a href="' . env('GITHUB_URL') . '" target="_blank">GitHub</a>']) !!}</h5>
                             <a role="button" class="btn btn-info mt-3" href="{{ route('login') }}"><i class="fas fa-sign-in-alt"></i> {{ __('Login') }}</a>
                         </div>
                     @endguest

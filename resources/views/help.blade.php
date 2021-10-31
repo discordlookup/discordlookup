@@ -9,7 +9,7 @@
     <div id="help" class="container">
         <h1 class="mb-2 mt-5 text-center text-white">{{ __('DiscordLookup Help') }}</h1>
         <div class="mb-4 text-center">
-            <a role="button" href="https://discord.gg/ep" target="_blank" class="btn btn-primary"><i class="fab fa-discord"></i> {{ __('Support Discord') }}</a>
+            <a role="button" href="{{ env('DISCORD_URL') }}" target="_blank" class="btn btn-primary"><i class="fab fa-discord"></i> {{ __('Support Discord') }}</a>
         </div>
         <div class="mt-2 mb-4">
             <div class="row">
@@ -73,7 +73,7 @@
                             <div id="i-need-support-or-have-bugs-feature-requests">
                                 <h2 class="h4">{{ __('I need support or have bugs/feature requests') }} <a href="#i-need-support-or-have-bugs-feature-requests" class="text-decoration-none">#</a></h2>
                                 <p>
-                                    Visit our <a href="https://discord.gg/ep" target="_blank" class="text-decoration-none">Discord server</a> from our partner <a href="https://easypoll.bot" target="_blank" class="text-decoration-none">EasyPoll Bot</a>.<br>
+                                    Visit our <a href="{{ env('DISCORD_URL') }}" target="_blank" class="text-decoration-none">Discord server</a> from our partner <a href="https://easypoll.bot" target="_blank" class="text-decoration-none">EasyPoll Bot</a>.<br>
                                     There is a separate category for DiscordLookup. We will be happy to help you there as soon as possible.
                                 </p>
                             </div>
@@ -87,6 +87,16 @@
                                     We do not receive your email address or other data from Discord.<br>
                                     The list of your guilds is not stored by us and is only associated with your current session. As soon as you log out or close your browser, this list is automatically deleted.<br>
                                     For more information please visit our <a href="{{ route('legal.privacy') }}" class="text-decoration-none">privacy policy</a>.
+                                </p>
+                            </div>
+
+                            <hr>
+
+                            <div id="is-discordlookup-open-source">
+                                <h2 class="h4">{{ __('Is DiscordLookup open source?') }} <a href="#is-discordlookup-open-source" class="text-decoration-none">#</a></h2>
+                                <p>
+                                    Yes! DiscordLookup is fully open source on <a href="{{ env('GITHUB_URL') }}" target="_blank">GitHub</a>.<br>
+                                    Feel free to give us a star on <a href="{{ env('GITHUB_URL') }}/stargazers" target="_blank">GitHub</a> if you like our work.
                                 </p>
                             </div>
 
