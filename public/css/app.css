@@ -20380,6 +20380,9 @@ footer {
   height: 16px;
   margin-top: -0.2rem;
 }
+#guildlist .bg-cards-grey:hover {
+  background: #404652 !important;
+}
 
 #snowflake button:disabled {
   cursor: not-allowed;
