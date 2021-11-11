@@ -53,6 +53,9 @@ class User extends Authenticatable
      * @return string
      */
     public function getAvatarUrlAttribute(){
-        return 'https://cdn.discordapp.com/avatars/' . $this->discord_id . '/' . $this->avatar;
+        if($this->avatar != null) {
+            return 'https://cdn.discordapp.com/avatars/' . $this->discord_id . '/' . $this->avatar;
+        }
+        return 'https://cdn.discordapp.com/embed/avatars/5.png';
     }
 }
