@@ -20384,7 +20384,7 @@ footer {
   background: #404652 !important;
 }
 
-#snowflake button:disabled {
+#snowflakedecoder button:disabled, #userlookup button:disabled, #guildlookup button:disabled, #applicationlookup button:disabled {
   cursor: not-allowed;
   pointer-events: all;
 }

@@ -11,9 +11,30 @@ class LandingController extends Controller
         return view('home');
     }
 
+    /* Snowflake */
     public function snowflake($snowflake = '')
     {
-        return view('snowflake', ['snowflake' => $snowflake]);
+        return view('snowflake-decoder', ['snowflake' => $snowflake]);
+    }
+
+    public function userlookup($snowflake = '')
+    {
+        return view('user-lookup', ['snowflake' => $snowflake]);
+    }
+
+    public function guildlookup($snowflake = '')
+    {
+        return view('guild-lookup', ['snowflake' => $snowflake]);
+    }
+
+    public function applicationlookup($snowflake = '')
+    {
+        return view('application-lookup', ['snowflake' => $snowflake]);
+    }
+
+    public function snowflakedistancecalculator($snowflake1 = '', $snowflake2 = '')
+    {
+        return view('snowflake-distance-calculator', ['snowflake1' => $snowflake1, 'snowflake2' => $snowflake2]);
     }
 
     public function guildlist()

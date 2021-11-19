@@ -50,7 +50,7 @@ Get detailed information about every invite and vanity url.
 ---
 
 ### Snowflake Distance Calculator
-&#128279; [discordlookup.com/snowflake-distance-calculator](https://discordlookup.com/snowflake-distance-calculator)
+&#128279; [discordlookup.com/snowflake-distance](https://discordlookup.com/snowflake-distance)
 
 Calculate the distance between two Discord Snowflakes.
 

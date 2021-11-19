@@ -19,7 +19,14 @@ use Illuminate\Support\Facades\Session;
 */
 
 Route::get('/', [LandingController::class, 'home'])->name('home');
+
+/* Snowflakes */
 Route::get('/snowflake/{snowflake?}', [LandingController::class, 'snowflake'])->name('snowflake');
+Route::get('/user/{snowflake?}', [LandingController::class, 'userlookup'])->name('userlookup');
+Route::get('/guild/{snowflake?}', [LandingController::class, 'guildlookup'])->name('guildlookup');
+Route::get('/application/{snowflake?}', [LandingController::class, 'applicationlookup'])->name('applicationlookup');
+Route::get('/snowflake-distance/{snowflake1?}/{snowflake2?}', [LandingController::class, 'snowflakedistancecalculator'])->name('snowflake-distance-calculator');
+
 Route::get('/guildlist', [LandingController::class, 'guildlist'])->name('guildlist');
 
 /* Other */

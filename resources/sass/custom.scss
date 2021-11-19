@@ -67,7 +67,7 @@ footer {
     }
 }
 
-#snowflake {
+#snowflakedecoder, #userlookup, #guildlookup, #applicationlookup {
     button:disabled {
         cursor: not-allowed;
         pointer-events: all;
