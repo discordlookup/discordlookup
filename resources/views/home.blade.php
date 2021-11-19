@@ -57,7 +57,7 @@
                 </div>
             </div>
         </a>
-        <a href="{{ route('inviteinfo') }}" class="tools-list-item text-decoration-none">
+        <a href="{{ route('inviteresolver') }}" class="tools-list-item text-decoration-none">
             <div class="card text-white bg-dark border-0 mb-3">
                 <div class="card-body">
                     <div class="row">
@@ -65,7 +65,7 @@
                             <i class="fas fa-link ms-auto me-auto" style="font-size: 2rem;"></i>
                         </div>
                         <div class="col-12 col-md-2 d-flex align-items-center">
-                            <p class="fw-bold my-auto">{{ __('Invite Info') }}</p>
+                            <p class="fw-bold my-auto">{{ __('Invite Resolver') }}</p>
                         </div>
                         <div class="col-12 col-md-8 d-flex align-items-center">
                             <p class="my-auto">{{ __('Get detailed information about every invite and vanity url.') }}</p>

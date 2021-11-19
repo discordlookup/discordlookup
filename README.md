@@ -41,7 +41,7 @@ Show all the guilds you are on, with counters, permissions, features, experiment
 ---
 
 ### Invite Info
-&#128279; [discordlookup.com/inviteinfo](https://discordlookup.com/inviteinfo)
+&#128279; [discordlookup.com/inviteresolver](https://discordlookup.com/inviteresolver)
 
 Get detailed information about every invite and vanity url.
 

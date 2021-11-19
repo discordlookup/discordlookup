@@ -1,6 +1,6 @@
-<div id="inviteinfo">
+<div id="inviteresolver">
 
-    <h1 class="mb-4 mt-5 text-center text-white">{{ __('Invite Info') }}</h1>
+    <h1 class="mb-4 mt-5 text-center text-white">{{ __('Invite Resolver') }}</h1>
     <div class="mt-2 mb-4">
         <div class="row">
 
@@ -61,7 +61,7 @@
                                     @endif
                                     <b>{{ __('Invite Expires') }}:</b> {!! $inviteExpiresAtFormatted !!}<br>
                                     <br>
-                                    <b>{{ __('Guild ID') }}:</b> <a href="https://discord.com/channels/{{ $guildId }}" target="_blank" class="text-decoration-none">{{ $guildId }}</a><br>
+                                    <b>{{ __('Guild ID') }}:</b> <a href="{{ route('guildlookup') }}/{{ $guildId }}" class="text-decoration-none">{{ $guildId }}</a><br>
                                     @if($guildVanityUrlCode)
                                         <b>{{ __('Guild Vanity URL') }}:</b> <a href="{{ $guildVanityUrl }}" target="_blank" class="text-decoration-none">{{ $guildVanityUrl }}</a><br>
                                     @endif
@@ -133,7 +133,7 @@
                     }
                 });
 
-                window.history.replaceState('', '', '{{ route('inviteinfo') }}/' + code);
+                window.history.replaceState('', '', '{{ route('inviteresolver') }}/' + code);
             }
         </script>
     @endpush

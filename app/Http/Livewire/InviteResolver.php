@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 
-class Inviteinfo extends Component
+class InviteResolver extends Component
 {
 
     public $found = true;
@@ -104,6 +104,6 @@ class Inviteinfo extends Component
 
     public function render()
     {
-        return view('livewire.inviteinfo');
+        return view('livewire.invite-resolver');
     }
 }

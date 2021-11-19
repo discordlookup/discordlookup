@@ -19,7 +19,7 @@
                     <a class="nav-link p-2 {{ request()->routeIs('guildlist') ? 'active' : '' }}" href="{{ route('guildlist') }}">{{ __('Guild List') }}</a>
                 </li>
                 <li class="nav-item ms-lg-1">
-                    <a class="nav-link p-2 {{ request()->routeIs('inviteinfo') ? 'active' : '' }}" href="{{ route('inviteinfo') }}">{{ __('Invite Info') }}</a>
+                    <a class="nav-link p-2 {{ request()->routeIs('inviteresolver') ? 'active' : '' }}" href="{{ route('inviteresolver') }}">{{ __('Invite Resolver') }}</a>
                 </li>
                 <li class="nav-item ms-lg-1 dropdown">
                     <a class="nav-link p-2 dropdown-toggle {{ (request()->routeIs('snowflake-distance-calculator') || request()->routeIs('guild-shard-calculator')) ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

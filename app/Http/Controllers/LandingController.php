@@ -21,9 +21,10 @@ class LandingController extends Controller
         return view('guildlist');
     }
 
-    public function inviteinfo($code = '')
+    /* Invite Resolver */
+    public function inviteresolver($code = '')
     {
-        return view('inviteinfo', ['code' => $code]);
+        return view('inviteresolver', ['code' => $code]);
     }
 
     public function guildshardcalculator($guildId = '', $totalShards = '')
