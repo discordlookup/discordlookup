@@ -1,6 +1,6 @@
 <div>
     <div wire:ignore.self class="modal fade" id="modalExperiments" tabindex="-1" aria-labelledby="modalExperimentsTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content bg-dark border-0">
                 <div class="modal-header bg-dark">
                     <h5 class="modal-title" id="modalExperimentsTitle"><b>{{ __('Experiments') }}:</b> {{ $guildName }}</h5>
@@ -27,11 +27,8 @@
                         @endforeach
                     </ul>
                 </div>
-                <div class="modal-footer bg-dark justify-content-between">
-                    <span class="text-muted small">
-                        {{ __('Powered by') }} <a href="https://rollouts.advaith.io/" target="_blank" rel="noopener" class="text-decoration-none">Advaith's Experiment Rollout Site</a>
-                    </span>
-                    <button type="button" class="btn btn-secondary ms-auto" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                <div class="modal-footer bg-dark">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
                 </div>
             </div>
         </div>

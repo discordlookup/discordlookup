@@ -30,7 +30,6 @@ class Guildlist extends Component
         $this->guildsJson = session('guildsJson');
 
         if($this->guildsJson != null) {
-
             foreach ($this->guildsJson as $guild) {
                 $this->countGuilds++;
                 if ($guild['owner']) $this->countOwner++;

@@ -29,21 +29,22 @@ class GuildExperimentsModal extends Component
         if(Cache::has('experimentsJson')) {
             $experimentsJson = Cache::get('experimentsJson');
         }else{
-            // Thanks to advaith for allowing me to use his API | https://rollouts.advaith.io/
-            $response = Http::get('https://rollouts.advaith.workers.dev/');
+            $response = Http::get('https://experiments.fbrettnich.workers.dev/');
             if($response->ok()) {
                 $experimentsJson = $response->json();
-                Cache::put('experimentsJson', $experimentsJson, 3600);
+                Cache::put('experimentsJson', $experimentsJson, 900); // 15 minutes
             }
         }
 
         $allExperiments = [];
         foreach ($experimentsJson as $entry) {
-            array_push($allExperiments, $entry);
+            if($entry['type'] == "guild" && !empty($entry['rollout'])) {
+                array_push($allExperiments, $entry);
+            }
         }
 
         foreach ($allExperiments as $experiment) {
-            $murmurhash = Murmur::hash3_int($experiment['data']['id'] . ':' . $this->guildId);
+            $murmurhash = Murmur::hash3_int($experiment['id'] . ':' . $this->guildId);
             $murmurhash = $murmurhash % 10000;
 
             $treatments = [];
@@ -78,9 +79,9 @@ class GuildExperimentsModal extends Component
                 if($filterPassed) {
                     $treatment = "None";
                     foreach ($population[0] as $bucket) {
-                        foreach ($experiment['data']['description'] as $treatmentsList) {
-                            if(str_starts_with($treatmentsList, "Treatment " . $bucket[0] . ":")) {
-                                $treatment = $treatmentsList;
+                        foreach ($experiment['buckets'] as $treatmentsList) {
+                            if($treatmentsList['id'] == $bucket[0]) {
+                                $treatment = $treatmentsList['name'] . ": " . $treatmentsList['description'];
                                 break;
                             }
                         }
@@ -89,7 +90,7 @@ class GuildExperimentsModal extends Component
                                 $murmurhash >= $rollout['s'] &&
                                 $murmurhash <= $rollout['e']
                             ) {
-                                if($treatment != "None") {
+                                if(!str_starts_with($treatment, "None:")) {
                                     array_push($treatments, $treatment);
                                 }
                             }
@@ -101,15 +102,15 @@ class GuildExperimentsModal extends Component
             $isOverride = false;
             foreach ($experiment['rollout'][4] as $overrides) {
                 $treatment = "None";
-                foreach ($experiment['data']['description'] as $treatmentsList) {
-                    if(str_starts_with($treatmentsList, "Treatment " . $overrides['b'] . ":")) {
-                        $treatment = $treatmentsList;
+                foreach ($experiment['buckets'] as $treatmentsList) {
+                    if($treatmentsList['id'] == $overrides['b']) {
+                        $treatment = $treatmentsList['name'] . ": " . $treatmentsList['description'];
                         break;
                     }
                 }
                 foreach ($overrides['k'] as $guildId) {
                     if($guildId == $this->guildId) {
-                        if($treatment != "None") {
+                        if(!str_starts_with($treatment, "None:")) {
                             if(!in_array($treatment, $treatments)) {
                                 array_push($treatments, $treatment);
                             }
@@ -121,7 +122,7 @@ class GuildExperimentsModal extends Component
 
             if(!empty($treatments)) {
                 array_push($this->experiments, [
-                    'title' => $experiment['data']['title'],
+                    'title' => $experiment['name'],
                     'treatments' => $treatments,
                     'override' => $isOverride,
                     'filters' => $filters,
