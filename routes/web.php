@@ -26,11 +26,13 @@ Route::get('/user/{snowflake?}', [LandingController::class, 'userlookup'])->name
 Route::get('/guild/{snowflake?}', [LandingController::class, 'guildlookup'])->name('guildlookup');
 Route::get('/application/{snowflake?}', [LandingController::class, 'applicationlookup'])->name('applicationlookup');
 Route::get('/snowflake-distance/{snowflake1?}/{snowflake2?}', [LandingController::class, 'snowflakedistancecalculator'])->name('snowflake-distance-calculator');
+Route::redirect('/snowflake-distance-calculator/{snowflake1?}/{snowflake2?}', '/snowflake-distance/{snowflake1?}/{snowflake2?}', 301); // Redirect old url
 
 Route::get('/guildlist', [LandingController::class, 'guildlist'])->name('guildlist');
 
 /* Other */
 Route::get('/inviteresolver/{code?}', [LandingController::class, 'inviteresolver'])->name('inviteresolver');
+Route::redirect('/inviteinfo/{code?}', '/inviteresolver/{code?}', 301); // Redirect old url
 
 Route::get('/guild-shard-calculator/{guildId?}/{totalShards?}', [LandingController::class, 'guildshardcalculator'])->name('guild-shard-calculator');
 Route::get('/help', [LandingController::class, 'help'])->name('help');
