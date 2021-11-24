@@ -45,7 +45,7 @@ Show all the guilds you are on, with counters, permissions, features, experiment
 
 Get detailed information about every invite and vanity url.
 
-![Invite Info Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-inviteinfo.png)
+![Invite Info Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-inviteresolver.png)
 
 ---
 

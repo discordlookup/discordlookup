@@ -68,7 +68,7 @@
                             <p class="fw-bold my-auto">{{ __('Invite Resolver') }}</p>
                         </div>
                         <div class="col-12 col-md-8 d-flex align-items-center">
-                            <p class="my-auto">{{ __('Get detailed information about every invite and vanity url.') }}</p>
+                            <p class="my-auto">{{ __('Get detailed information about every invite and vanity url including event information.') }}</p>
                         </div>
                         <div class="col-0 col-md-1 d-flex align-items-center">
                             <i class="fas fa-arrow-right ms-auto" style="font-size: 2rem;"></i>

@@ -5,10 +5,11 @@
         <div class="row">
 
             <div wire:ignore class="col-12 col-lg-6 offset-lg-3 mb-5">
-                <div class="input-group input-group-lg mb-3">
+                <div class="input-group input-group-lg mb-2">
                     <span class="input-group-text bg-dark">discord.gg/</span>
-                    <input type="text" class="form-control" id="inviteUrl" placeholder="ep" value="{{ $inviteCode }}">
+                    <input id="inviteUrl" type="text" class="form-control" placeholder="ep" value="{{ $inviteCode }}">
                 </div>
+                <input id="inviteEventId" class="form-control mb-3" type="text" placeholder="{{ __('Event ID') }}" value="{{ $eventId }}">
                 <button type="button" onclick="loadInvite();" class="btn btn-primary w-100">{{ __('Fetch Invite Information') }}</button>
             </div>
 
@@ -56,11 +57,11 @@
                                     <b>{{ __('Invite Channel') }}:</b> <a href="https://discord.com/channels/{{ $guildId }}/{{ $inviteChannelId }}" target="_blank" class="text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $inviteChannelId }}">{{ $inviteChannelName }}</a><br>
                                     @if($inviteInviterName)
                                         <b>{{ __('Invite Creator') }}:</b> <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $inviteInviterId }}">
-                                            <a href="{{ route('snowflake', ['snowflake' => $inviteInviterId]) }}">{{ $inviteInviterName }}</a>
+                                            <a href="{{ route('userlookup', ['snowflake' => $inviteInviterId]) }}">{{ $inviteInviterName }}</a>
                                         </span><br>
                                     @endif
-                                    <b>{{ __('Invite Expires') }}:</b> {!! $inviteExpiresAtFormatted !!}<br>
-                                    <br>
+                                    <b>{{ __('Invite Expires') }}:</b> <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $inviteExpiresAt }}">{!! $inviteExpiresAtFormatted !!}</span><br>
+                                    <hr>
                                     <b>{{ __('Guild ID') }}:</b> <a href="{{ route('guildlookup') }}/{{ $guildId }}" class="text-decoration-none">{{ $guildId }}</a><br>
                                     @if($guildVanityUrlCode)
                                         <b>{{ __('Guild Vanity URL') }}:</b> <a href="{{ $guildVanityUrl }}" target="_blank" class="text-decoration-none">{{ $guildVanityUrl }}</a><br>
@@ -69,12 +70,45 @@
                                     @if($guildIsNSFW)
                                         <b>{{ __('Guild NSFW Level') }}:</b> {{ $guildIsNSFWLevel }}<br>
                                     @endif
-                                    <b>{{ __('Guild Features') }}:</b>
-                                    <ul class="text-capitalize">
-                                        @foreach($guildFeatures as $feature)
-                                            <li>{{ $feature }}</li>
-                                        @endforeach
-                                    </ul>
+                                    @if(!empty($guildFeatures))
+                                        <b>{{ __('Guild Features') }}:</b>
+                                        <ul class="text-capitalize">
+                                            @foreach($guildFeatures as $feature)
+                                                <li>{{ $feature }}</li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+
+                                    @if($inviteHasEvent)
+                                        <hr>
+                                        <b>{{ __('Event ID') }}:</b> {{ $eventId }}<br>
+                                        @if($eventChannelId)
+                                            <b>{{ __('Channel ID') }}:</b> <a href="https://discord.com/{{ $guildId }}/{{ $eventChannelId }}" target="_blank" class="text-decoration-none">{{ $eventChannelId }}</a><br>
+                                        @endif
+                                        @if($eventCreatorId)
+                                            <b>{{ __('Creator ID') }}:</b> <a href="{{ route('userlookup', ['snowflake' => $eventCreatorId]) }}" class="text-decoration-none">{{ $eventCreatorId }}</a><br>
+                                        @endif
+                                        <b>{{ __('Name') }}:</b> {{ $eventName }}<br>
+                                        @if($eventDescription)
+                                            <b>{{ __('Description') }}:</b> {{ $eventDescription }}<br>
+                                        @endif
+                                        <b>{{ __('Start') }}:</b> <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $eventStartTime }}">{!! $eventStartFormatted !!}</span><br>
+                                        @if($eventEndTime)
+                                            <b>{{ __('End') }}:</b> <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $eventEndTime }}">{!! $eventEndFormatted !!}</span><br>
+                                        @endif
+                                        <b>{{ __('Privacy Level') }}:</b> <span class="badge bg-body">{{ $eventPrivacyLevel }}</span><br>
+                                        <b>{{ __('Status') }}:</b> {!! $eventStatus !!}<br>
+                                        <b>{{ __('Entity Type') }}:</b> <span class="badge bg-body">{{ $eventEntityType }}</span><br>
+                                        @if($eventEntityId)
+                                            <b>{{ __('Entity ID') }}:</b> {{ $eventEntityId }}<br>
+                                        @endif
+                                        @if($eventEntityMetadataLocation)
+                                            <b>{{ __('Entity Location') }}:</b> <a href="{{ $eventEntityMetadataLocation }}" target="_blank" class="text-decoration-none">{{ $eventEntityMetadataLocation }}</a><br>
+                                        @endif
+                                        @if($eventUserCount)
+                                            <b>{{ __('Interested users') }}:</b> {{ $eventUserCount }}<br>
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -101,6 +135,18 @@
 
     @push('scripts')
         <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                $(function () {
+                    $('[data-bs-toggle="tooltip"]').tooltip();
+                })
+
+                Livewire.hook('message.processed', (message, component) => {
+                    $(function () {
+                        $('[data-bs-toggle="tooltip"]').tooltip()
+                    })
+                })
+            });
+
             var inputInviteUrl = document.getElementById('inviteUrl');
             inputInviteUrl.addEventListener("keyup", function(event) {
                 if (event.keyCode === 13) {
@@ -113,27 +159,44 @@
                 $('#displaysectionContent').hide();
                 $('#displaysectionLoading').show();
 
-                var code = $('#inviteUrl').val();
-                code = code.split('/');
-                code = code[code.length - 1];
-                $('#inviteUrl').val(code);
+                var inviteUrl = document.getElementById("inviteUrl").value;
+                var eventId = document.getElementById("inviteEventId").value;
+                inviteUrl = inviteUrl.split('?event=');
+
+                var inviteCode = inviteUrl[0].split('/');
+                inviteCode = inviteCode[inviteCode.length - 1];
+
+                if(inviteUrl.length > 1) {
+                    eventId = inviteUrl[1];
+                }
+
+                document.getElementById("inviteUrl").value = inviteCode;
+                document.getElementById("inviteEventId").value = eventId;
 
                 $.ajax({
                     type: 'GET',
-                    url: 'https://discord.com/api/v9/invites/' + code + '?with_counts=true&with_expiration=true',
+                    url: 'https://discord.com/api/v9/invites/' + inviteCode + '?with_counts=true&with_expiration=true' + (eventId !== "" ? '&guild_scheduled_event_id=' + eventId : ''),
                     success: function (respond) {
-                        Livewire.emit(
-                            'parseJson',
-                            respond,
-                            moment.utc(respond.expires_at).local().format("YYYY-MM-DD HH:mm:ss") + ' (' +  moment.utc( respond.expires_at ).local().fromNow() + ')'
-                        );
+                        let inviteExpiresAt = moment.utc(respond.expires_at).local().format("YYYY-MM-DD HH:mm:ss") + ' (' +  moment.utc( respond.expires_at ).local().fromNow() + ')';
+                        let eventStart = "";
+                        let eventEnd = "";
+                        if(respond.guild_scheduled_event != null) {
+                            if(respond.guild_scheduled_event.scheduled_start_time != null) {
+                                eventStart = moment.utc(respond.guild_scheduled_event.scheduled_start_time).local().format("YYYY-MM-DD HH:mm:ss") + ' (' +  moment.utc( respond.guild_scheduled_event.scheduled_start_time ).local().fromNow() + ')';
+                            }
+                            if(respond.guild_scheduled_event.scheduled_end_time != null) {
+                                eventEnd = moment.utc(respond.guild_scheduled_event.scheduled_end_time).local().format("YYYY-MM-DD HH:mm:ss") + ' (' +  moment.utc( respond.guild_scheduled_event.scheduled_end_time ).local().fromNow() + ')';
+                            }
+                        }
+
+                        Livewire.emit('parseJson', respond, inviteExpiresAt, eventStart, eventEnd);
                     },
                     error: function (error) {
-                        Livewire.emit('parseJson', null, null);
+                        Livewire.emit('parseJson', null, null, null, null);
                     }
                 });
 
-                window.history.replaceState('', '', '{{ route('inviteresolver') }}/' + code);
+                window.history.replaceState('', '', '{{ route('inviteresolver') }}/' + inviteCode + (eventId !== "" ? '/' + eventId : ''));
             }
         </script>
     @endpush

@@ -43,9 +43,9 @@ class LandingController extends Controller
     }
 
     /* Invite Resolver */
-    public function inviteresolver($code = '')
+    public function inviteresolver($code = '', $eventId = '')
     {
-        return view('inviteresolver', ['code' => $code]);
+        return view('inviteresolver', ['code' => $code, 'eventId' => $eventId]);
     }
 
     public function guildshardcalculator($guildId = '', $totalShards = '')
