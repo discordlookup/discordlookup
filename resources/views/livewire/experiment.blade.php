@@ -51,7 +51,7 @@
                                 <div>
                                     <b>Overrides ({{ sizeof($this->overrides[$bucket['id']]) }})</b> <i class="far fa-question-circle text-muted small align-middle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Server that have the treatment in any case') }}"></i><br>
                                     @foreach($this->overrides[$bucket['id']] as $override)
-                                        <a href="{{ route('guildlookup', ['snowflake' => $override]) }}" class="text-decoration-none">
+                                        <a href="{{ route('guildlookup', ['snowflake' => $override]) }}" class="text-decoration-none" rel="nofollow">
                                             <span class="badge bg-body">{{ $override }}</span>
                                         </a>
                                     @endforeach

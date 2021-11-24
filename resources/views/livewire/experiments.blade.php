@@ -1,5 +1,5 @@
 <div id="experiments">
-    <h1 class="mb-4 mt-5 text-center text-white">{{ __('Experiments') }}</h1>
+    <h1 class="mb-4 mt-5 text-center text-white">{{ __('Discord Experiments') }}</h1>
     <div class="mt-2 mb-4">
         <div class="row">
             <div class="col-12 col-lg-10 offset-lg-1">
@@ -18,8 +18,10 @@
                         <select wire:model="order" class="form-select">
                             <option value="name-asc">{{ __('Name Ascending') }}</option>
                             <option value="name-desc">{{ __('Name Descending') }}</option>
-                            <option value="updated-asc">{{ __('Created Ascending') }}</option>
-                            <option value="updated-desc" selected>{{ __('Created Descending') }}</option>
+                            <option value="updated-asc">{{ __('Updated Ascending') }}</option>
+                            <option value="updated-desc" selected>{{ __('Updated Descending') }}</option>
+                            <option value="created-asc">{{ __('Created Ascending') }}</option>
+                            <option value="created-desc">{{ __('Created Descending') }}</option>
                         </select>
                     </div>
                 </div>
