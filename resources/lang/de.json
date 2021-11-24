@@ -116,5 +116,9 @@
     "This Guild has an override for this experiment": "Diese Guild hat eine Sonderregelung für dieses Experiment",
     "To get Discord information about this Snowflake you need to log in with Discord.": "Um Discord-Informationen über diese Snowflake zu erhalten, musst du dich mit Discord anmelden.",
     "This website is open source on :github.": "Diese Website ist Open Source auf :github.",
-    "Is DiscordLookup open source?": "Ist DiscordLookup Open-Source?"
+    "Is DiscordLookup open source?": "Ist DiscordLookup Open-Source?",
+    "The filters apply to all treatments and must be fulfilled": "Die Filter gelten für alle Treatments und müssen erfüllt sein",
+    "Different versions of the experiment that can be activated": "Verschiedene Versionen des Experiments, die aktiviert werden können",
+    "Guilds that have the treatment in any case": "Guilds die das Treatment auf jeden Fall haben",
+    "The percentage of guilds that have this treatment": "Der Prozentsatz der Guilds die dieses Treatments haben"
 }

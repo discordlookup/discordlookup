@@ -30,6 +30,10 @@ Route::redirect('/snowflake-distance-calculator/{snowflake1?}/{snowflake2?}', '/
 
 Route::get('/guildlist', [LandingController::class, 'guildlist'])->name('guildlist');
 
+/* Experiments */
+Route::get('/experiments', [LandingController::class, 'experiments'])->name('experiments');
+Route::get('/experiment/{experimentId}', [LandingController::class, 'experiment'])->name('experiment');
+
 /* Other */
 Route::get('/inviteresolver/{code?}/{eventId?}', [LandingController::class, 'inviteresolver'])->name('inviteresolver');
 Route::redirect('/inviteinfo/{code?}', '/inviteresolver/{code?}', 301); // Redirect old url

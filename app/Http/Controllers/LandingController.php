@@ -42,6 +42,17 @@ class LandingController extends Controller
         return view('guildlist');
     }
 
+    /* Experiments */
+    public function experiments()
+    {
+        return view('experiments');
+    }
+
+    public function experiment($experimentId = '')
+    {
+        return view('experiment', ['experimentId' => $experimentId]);
+    }
+
     /* Invite Resolver */
     public function inviteresolver($code = '', $eventId = '')
     {

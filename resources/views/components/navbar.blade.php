@@ -26,8 +26,9 @@
                     </ul>
                 </li>
                 <li class="nav-item ms-lg-1">
-                    <a class="nav-link p-2 {{ request()->routeIs('guildlist') ? 'active' : '' }}" href="{{ route('guildlist') }}">{{ __('Guild List') }}</a>
+                    <a class="nav-link p-2 {{ (request()->routeIs('experiments') || request()->routeIs('experiment')) ? 'active' : '' }}" href="{{ route('experiments') }}">{{ __('Experiments') }}</a>
                 </li>
+
                 <li class="nav-item ms-lg-1">
                     <a class="nav-link p-2 {{ request()->routeIs('inviteresolver') ? 'active' : '' }}" href="{{ route('inviteresolver') }}">{{ __('Invite Resolver') }}</a>
                 </li>
