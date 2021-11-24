@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', __('User Lookup'))
-@section('description', __('Get the creation date of a Snoflake, and detailed information about Discord users.'))
+@section('description', __('Get detailed information about Discord users with creation date, profile picture, banner and badges.'))
 @section('keywords', '')
 @section('robots', 'index, follow')
 

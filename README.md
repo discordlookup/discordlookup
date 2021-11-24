@@ -4,9 +4,12 @@ Get more out of Discord with Discord Lookup! Snowflake Decoder, Guild List with 
 - [Website](#website)
 - [Getting Help](#getting-help)
 - [Tools](#tools)
-    - [Snowflake](#snowflake)
+    - [Snowflake Decoder](#snowflake-decoder)
+    - [User Lookup](#user-lookup)
+    - [Guild Lookup](#guild-lookup)
+    - [Discord Experiments](#discord-experiments)
     - [Guild List](#guild-list)
-    - [Invite Info](#invite-info)
+    - [Invite Resolver](#invite-resolver)
     - [Snowflake Distance Calculator](#snowflake-distance-calculator)
     - [Guild Shard Calculator](#guild-shard-calculator)
 - [Self-Hosting](#self-hosting)
@@ -21,12 +24,40 @@ Alternatively you can also have a look at our [Help Page](https://discordlookup.
 
 ## Tools
 
-### Snowflake
+### Snowflake Decoder
 &#128279; [discordlookup.com/snowflake](https://discordlookup.com/snowflake)
 
 Get the creation date of a Snowflake, and detailed information about Discord users and guilds.
 
 ![Snowflake Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-snowflake.png)
+
+---
+
+### User Lookup
+&#128279; [discordlookup.com/user](https://discordlookup.com/user)
+
+Get detailed information about Discord users with creation date, profile picture, banner and badges.
+
+![User Lookup Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-userlookup.png)
+
+---
+
+### Guild Lookup
+&#128279; [discordlookup.com/guild](https://discordlookup.com/guild)
+
+Get detailed information about Discord Guilds with creation date, Invite/Vanity URL, features and emojis.
+
+![Guild Lookup Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-guildlookup.png)
+
+---
+
+## Discord Experiments
+&#128279; [discordlookup.com/experiments](https://discordlookup.com/experiments)
+
+All Discord Client & Guild Experiments with Rollout Status and detailed information about Treatments, Groups and Overrides.
+
+![Discord Experiments Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-experiments.png)
+![Experiment Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-experiment.png)
 
 ---
 
@@ -40,12 +71,12 @@ Show all the guilds you are on, with counters, permissions, features, experiment
 
 ---
 
-### Invite Info
+### Invite Resolver
 &#128279; [discordlookup.com/inviteresolver](https://discordlookup.com/inviteresolver)
 
 Get detailed information about every invite and vanity url.
 
-![Invite Info Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-inviteresolver.png)
+![Invite Resolver Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-inviteresolver.png)
 
 ---
 

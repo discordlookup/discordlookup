@@ -20392,3 +20392,7 @@ footer {
 #help h2 a, #help .h2 a {
   opacity: 50%;
 }
+
+#homelist .fas, #homelist .fab, #homelist .far {
+  font-size: 2rem;
+}

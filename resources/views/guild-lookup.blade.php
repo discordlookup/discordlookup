@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', __('Guild Lookup'))
-@section('description', __('Get the creation date of a Snoflake, and detailed information about Discord guilds.'))
+@section('description', __('Get detailed information about Discord Guilds with creation date, Invite/Vanity URL, features and emojis.'))
 @section('keywords', '')
 @section('robots', 'index, follow')
 
