@@ -42,7 +42,7 @@
 
                     <a id="buttonUser" role="button" href="{{ route('userlookup') }}" class="btn btn-primary w-100 mt-5">{{ __('Lookup User') }}</a>
                     <a id="buttonGuild" role="button" href="{{ route('guildlookup') }}" class="btn btn-primary w-100 mt-3">{{ __('Lookup Guild') }}</a>
-                    <a id="buttonApplication" role="button" href="{{ route('applicationlookup') }}" class="btn btn-primary w-100 mt-3">{{ __('Lookup Application') }}</a>
+                    {{--<a id="buttonApplication" role="button" href="{{ route('applicationlookup') }}" class="btn btn-primary w-100 mt-3">{{ __('Lookup Application') }}</a>--}}
 
                 </div>
 

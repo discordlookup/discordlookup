@@ -21,10 +21,15 @@
                         <li><a class="dropdown-item text-white {{ request()->routeIs('snowflake') ? 'active' : '' }}" href="{{ route('snowflake') }}">{{ __('Snowflake Decoder') }}</a></li>
                         <li><a class="dropdown-item text-white {{ request()->routeIs('userlookup') ? 'active' : '' }}" href="{{ route('userlookup') }}">{{ __('User Lookup') }}</a></li>
                         <li><a class="dropdown-item text-white {{ request()->routeIs('guildlookup') ? 'active' : '' }}" href="{{ route('guildlookup') }}">{{ __('Guild Lookup') }}</a></li>
-                        <li><a class="dropdown-item text-white {{ request()->routeIs('applicationlookup') ? 'active' : '' }}" href="{{ route('applicationlookup') }}">{{ __('Application Lookup') }}</a></li>
+                        {{--<li><a class="dropdown-item text-white {{ request()->routeIs('applicationlookup') ? 'active' : '' }}" href="{{ route('applicationlookup') }}">{{ __('Application Lookup') }}</a></li>--}}
                         <li><a class="dropdown-item text-white {{ request()->routeIs('snowflake-distance-calculator') ? 'active' : '' }}" href="{{ route('snowflake-distance-calculator') }}">{{ __('Snowflake Distance Calculator') }}</a></li>
                     </ul>
                 </li>
+
+                <li class="nav-item ms-lg-1">
+                    <a class="nav-link p-2 {{ request()->routeIs('guildlist') ? 'active' : '' }}" href="{{ route('guildlist') }}">{{ __('Guild List') }}</a>
+                </li>
+
                 <li class="nav-item ms-lg-1">
                     <a class="nav-link p-2 {{ (request()->routeIs('experiments') || request()->routeIs('experiment')) ? 'active' : '' }}" href="{{ route('experiments') }}">{{ __('Experiments') }}</a>
                 </li>

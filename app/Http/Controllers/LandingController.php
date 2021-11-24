@@ -59,14 +59,10 @@ class LandingController extends Controller
         return view('inviteresolver', ['code' => $code, 'eventId' => $eventId]);
     }
 
+    /* Others */
     public function guildshardcalculator($guildId = '', $totalShards = '')
     {
         return view('guild-shard-calculator', ['guildId' => $guildId, 'totalShards' => $totalShards]);
-    }
-
-    public function snowflakedistancecalculator($snowflake1 = '', $snowflake2 = '')
-    {
-        return view('snowflake-distance-calculator', ['snowflake1' => $snowflake1, 'snowflake2' => $snowflake2]);
     }
 
     public function help()

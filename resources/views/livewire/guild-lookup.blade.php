@@ -186,7 +186,7 @@
                                                         <tr>
                                                             <td>
                                                                 <a href="https://cdn.discordapp.com/emojis/{{ $emoji['id'] }}{{ $emoji['animated'] ? '.gif' : '.png' }}" target="_blank" class="text-decoration-none">
-                                                                    <img src="https://cdn.discordapp.com/emojis/{{ $emoji['id'] }}{{ $emoji['animated'] ? '.gif' : '.png' }}?size=32" loading="lazy" style="height: 32px; max-width: 32px;" height="32px" alt="{{ $emoji['name'] }} emoji" title="{{ $emoji['name'] }}">
+                                                                    <img src="https://cdn.discordapp.com/emojis/{{ $emoji['id'] }}{{ $emoji['animated'] ? '.gif' : '.png' }}?size=32" loading="lazy" style="max-height: 32px; max-width: 32px;" alt="{{ $emoji['name'] }} emoji" title="{{ $emoji['name'] }}">
                                                                 </a>
                                                             </td>
                                                             <td>{{ $emoji['name'] }}</td>
