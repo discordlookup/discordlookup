@@ -54,7 +54,7 @@
                                     <hr>
                                 @endif
                                 <div>
-                                    <b>{{ __('Invite Channel') }}:</b> <a href="https://discord.com/channels/{{ $guildId }}/{{ $inviteChannelId }}" target="_blank" class="text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $inviteChannelId }}">{{ $inviteChannelName }}</a><br>
+                                    <b>{{ __('Invite Channel') }}:</b> <a href="https://discord.com/channels/{{ $guildId }}/{{ $inviteChannelId }}" target="_blank" rel="noopener" class="text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $inviteChannelId }}">{{ $inviteChannelName }}</a><br>
                                     @if($inviteInviterName)
                                         <b>{{ __('Invite Creator') }}:</b> <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $inviteInviterId }}">
                                             <a href="{{ route('userlookup', ['snowflake' => $inviteInviterId]) }}">{{ $inviteInviterName }}</a>
@@ -83,7 +83,7 @@
                                         <hr>
                                         <b>{{ __('Event ID') }}:</b> {{ $eventId }}<br>
                                         @if($eventChannelId)
-                                            <b>{{ __('Channel ID') }}:</b> <a href="https://discord.com/{{ $guildId }}/{{ $eventChannelId }}" target="_blank" class="text-decoration-none">{{ $eventChannelId }}</a><br>
+                                            <b>{{ __('Channel ID') }}:</b> <a href="https://discord.com/channels/{{ $guildId }}/{{ $eventChannelId }}" target="_blank" rel="noopener" class="text-decoration-none">{{ $eventChannelId }}</a><br>
                                         @endif
                                         @if($eventCreatorId)
                                             <b>{{ __('Creator ID') }}:</b> <a href="{{ route('userlookup', ['snowflake' => $eventCreatorId]) }}" class="text-decoration-none">{{ $eventCreatorId }}</a><br>
@@ -103,7 +103,7 @@
                                             <b>{{ __('Entity ID') }}:</b> {{ $eventEntityId }}<br>
                                         @endif
                                         @if($eventEntityMetadataLocation)
-                                            <b>{{ __('Entity Location') }}:</b> <a href="{{ $eventEntityMetadataLocation }}" target="_blank" class="text-decoration-none">{{ $eventEntityMetadataLocation }}</a><br>
+                                            <b>{{ __('Entity Location') }}:</b> <a href="{{ $eventEntityMetadataLocation }}" target="_blank" rel="noopener" class="text-decoration-none">{{ $eventEntityMetadataLocation }}</a><br>
                                         @endif
                                         @if($eventUserCount)
                                             <b>{{ __('Interested users') }}:</b> {{ $eventUserCount }}<br>

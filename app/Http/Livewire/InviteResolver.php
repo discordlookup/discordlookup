@@ -119,7 +119,6 @@ class InviteResolver extends Component
 
             if(array_key_exists("guild_scheduled_event", $json)) {
                 $this->inviteHasEvent = true;
-                $this->guildId = $json['guild_scheduled_event']['id'];
 
                 $this->eventId = $json['guild_scheduled_event']['id'];
                 $this->eventChannelId = $json['guild_scheduled_event']['channel_id'];
@@ -171,7 +170,7 @@ class InviteResolver extends Component
                 $this->eventEntityId = $json['guild_scheduled_event']['entity_id'];
 
                 if(array_key_exists("entity_metadata", $json['guild_scheduled_event'])) {
-                    if(array_key_exists("location", $json['guild_scheduled_event']['entity_metadata'])) {
+                    if($json['guild_scheduled_event']['entity_metadata'] != null && array_key_exists("location", $json['guild_scheduled_event']['entity_metadata'])) {
                         $this->eventEntityMetadataLocation = $json['guild_scheduled_event']['entity_metadata']['location'];
                     }
                     // speaker_ids soon?
