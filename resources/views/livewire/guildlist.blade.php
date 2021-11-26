@@ -225,6 +225,18 @@
 
     @push('scripts')
         <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                $(function () {
+                    $('[data-bs-toggle="tooltip"]').tooltip();
+                })
+
+                Livewire.hook('message.processed', (message, component) => {
+                    $(function () {
+                        $('[data-bs-toggle="tooltip"]').tooltip()
+                    })
+                })
+            });
+
             window.addEventListener('scrollToSearch', () => {
                 document.getElementById('scrollToSearch').scrollIntoView(true);
             });

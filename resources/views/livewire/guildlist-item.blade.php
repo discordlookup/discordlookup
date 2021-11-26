@@ -13,9 +13,9 @@
             {{ $guild['name'] }}
 
             @if($guild['owner'])
-                <img src="{{ asset('images/discord/icons/server/owner.png') }}" class="discord-badge" alt="owner badge">
+                <img src="{{ asset('images/discord/icons/server/owner.png') }}" class="discord-badge" alt="owner badge" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('You own') }}">
             @elseif((($guild['permissions'] & (1 << 3)) == (1 << 3)))
-                <img src="{{ asset('images/discord/icons/server/administrator.png') }}" class="discord-badge">
+                <img src="{{ asset('images/discord/icons/server/administrator.png') }}" class="discord-badge" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('You administrate') }}">
             @elseif((
                 (($guild['permissions'] & (1 << 1)) == (1 << 1)) || // KICK_MEMBERS
                 (($guild['permissions'] & (1 << 2)) == (1 << 2)) || // BAN_MEMBERS
@@ -27,13 +27,13 @@
                 (($guild['permissions'] & (1 << 29)) == (1 << 29)) || // MANAGE_WEBHOOKS
                 (($guild['permissions'] & (1 << 34)) == (1 << 34)) // MANAGE_THREADS
             ))
-                <img src="{{ asset('images/discord/icons/server/moderator.png') }}" class="discord-badge" alt="moderator badge">
+                <img src="{{ asset('images/discord/icons/server/moderator.png') }}" class="discord-badge" alt="moderator badge" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('You moderate') }}">
             @endif
             @if(in_array('VERIFIED', $guild['features']))
-                <img src="{{ asset('images/discord/icons/server/verified.png') }}" class="discord-badge" alt="verified badge">
+                <img src="{{ asset('images/discord/icons/server/verified.png') }}" class="discord-badge" alt="verified badge" data-bs-toggle="tooltip" data-bs-placement="top" title="Discord Verified">
             @endif
             @if(in_array('PARTNERED', $guild['features']))
-                <img src="{{ asset('images/discord/icons/server/partner.png') }}" class="discord-badge" alt="partner badge">
+                <img src="{{ asset('images/discord/icons/server/partner.png') }}" class="discord-badge" alt="partner badge" data-bs-toggle="tooltip" data-bs-placement="top" title="Discord Partner">
             @endif
         </div>
         <div class="mt-n1">
