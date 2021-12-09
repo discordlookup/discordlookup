@@ -124,5 +124,7 @@
     "Get detailed information about Discord users with creation date, profile picture, banner and badges.": "Erhalte detaillierte Informierten über Discord User mit Erstellungsdatum, Profilbild, Banner und Badges.",
     "Get detailed information about Discord Guilds with creation date, Invite/Vanity URL, features and emojis.": "Erhalte detaillierte Informierten über Discord Guilds mit Erstellungsdatum, Invite/Vanity URL, Features und Emojis.",
     "All Discord Client & Guild Experiments with Rollout Status and detailed information about Treatments, Groups and Overrides.": "Alle Discord Client- und Guild-Experiments mit Rollout-Status und detaillierten Informationen zu Treatments, Gruppen und Überschreibungen.",
-    "Show all": "Alle anzeigen"
+    "Show all": "Alle anzeigen",
+    "Made by": "Erstellt von",
+    "OpenSource on :github": "OpenSource auf :github"
 }

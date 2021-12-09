@@ -1,7 +1,7 @@
 <footer class="py-4 mt-auto">
     <div class="container">
         <div class="row">
-            <div class="col-12 text-md-start text-center">
+            <div class="col-12 col-md-6 text-md-start text-center">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="javascript:;" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -14,6 +14,16 @@
                         </div>
                     </li>
                 </ul>
+            </div>
+            <div class="col-12 col-md-6 text-md-end text-center mt-md-auto mt-3">
+                {{ __('Made by') }}
+                <a href="https://discord.com/users/231091710195662848" target="_blank" rel="noopener">
+                    <span class="badge bg-body">
+                        <img src="{{ asset('images/discord/user/avatar/231091710195662848.png') }}" height="16px" width="16px" class="rounded"> Felix#9000
+                    </span>
+                </a>
+                <br>
+                {!! __('OpenSource on :github', ['github' => '<a href="' . env('GITHUB_URL') . '" target="_blank" class="text-decoration-none">GitHub</a>']) !!}
             </div>
         </div>
         <div class="row mt-3">
