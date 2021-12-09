@@ -59,6 +59,35 @@ discord, discord lookup, discordlookup, lookup, snowflake, guild count, invite i
 
 @livewireScripts
 
+@auth
+    @if(session()->exists('github-upsell'))
+        <div class="modal fade" id="modalLikeUs" tabindex="-1" aria-labelledby="modalLikeUsLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-primary border-0">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Do you like DiscordLookup?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        We would be happy if you leave us a star on GitHub to support us &#129321;
+                    </div>
+                    <div class="modal-footer bg-primary justify-content-center">
+                        <a role="button" href="{{ env('GITHUB_URL') }}" target="_blank" class="btn btn-dark"><i class="fas fa-star text-warning"></i> Star us on Github</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                if(localStorage.getItem('github-upsell') == null) {
+                    $('#modalLikeUs').modal('show');
+                    localStorage.setItem('github-upsell', 'viewed');
+                }
+            });
+        </script>
+    @endif
+@endauth
+
 @if(!empty(env('GOOGLETAGMANAGER_ID')))
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('GOOGLETAGMANAGER_ID') }}"></script>
 <script>
