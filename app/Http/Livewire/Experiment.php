@@ -101,7 +101,7 @@ class Experiment extends Component
         $this->guilds = [];
         $guildsJson = session('guildsJson');
 
-        if($guildsJson != null) {
+        if($guildsJson != null && !empty($this->experiment['rollout'])) {
             foreach ($guildsJson as $guild) {
                 $murmurhash = Murmur::hash3_int($this->experimentId . ':' . $guild['id']);
                 $murmurhash = $murmurhash % 10000;

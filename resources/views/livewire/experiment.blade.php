@@ -78,7 +78,7 @@
             </div>
         </div>
 
-        @if($this->experiment['type'] == "guild")
+        @if($this->experiment['type'] == "guild" && !empty($this->experiment['rollout']))
         <div class="row">
             <div class="col-12 col-lg-10 offset-lg-1">
                 <div class="card text-white bg-dark border-0">
