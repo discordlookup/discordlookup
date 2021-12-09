@@ -29,7 +29,7 @@ class GuildExperimentsModal extends Component
         if(Cache::has('experimentsJson')) {
             $experimentsJson = Cache::get('experimentsJson');
         }else{
-            $response = Http::get('https://experiments.fbrettnich.workers.dev/');
+            $response = Http::get(env('EXPERIMENTS_WORKER'));
             if($response->ok()) {
                 $experimentsJson = $response->json();
                 Cache::put('experimentsJson', $experimentsJson, 900); // 15 minutes
@@ -39,7 +39,7 @@ class GuildExperimentsModal extends Component
         $allExperiments = [];
         foreach ($experimentsJson as $entry) {
             if($entry['type'] == "guild" && !empty($entry['rollout'])) {
-                array_push($allExperiments, $entry);
+                $allExperiments[] = $entry;
             }
         }
 
@@ -63,7 +63,7 @@ class GuildExperimentsModal extends Component
                             }
                             break;
                         case 2918402255: // MemberCount
-                            array_push($filters, "(Only if server member count is " . ($filter[1][1][1] ? ("in range " . ($filter[1][0][1] ?? 0) . "-" . $filter[1][1][1]) : ($filter[1][0][1] . " or more")) . ")");
+                            $filters[] = "(Only if server member count is " . ($filter[1][1][1] ? ("in range " . ($filter[1][0][1] ?? 0) . "-" . $filter[1][1][1]) : ($filter[1][0][1] . " or more")) . ")";
                             break;
                         case 2404720969: // ID
                             if(!(
@@ -91,7 +91,7 @@ class GuildExperimentsModal extends Component
                                 $murmurhash <= $rollout['e']
                             ) {
                                 if(!str_starts_with($treatment, "None:")) {
-                                    array_push($treatments, $treatment);
+                                    $treatments[] = $treatment;
                                 }
                             }
                         }
@@ -112,7 +112,7 @@ class GuildExperimentsModal extends Component
                     if($guildId == $this->guildId) {
                         if(!str_starts_with($treatment, "None:")) {
                             if(!in_array($treatment, $treatments)) {
-                                array_push($treatments, $treatment);
+                                $treatments[] = $treatment;
                             }
                             $isOverride = true;
                         }
@@ -121,12 +121,12 @@ class GuildExperimentsModal extends Component
             }
 
             if(!empty($treatments)) {
-                array_push($this->experiments, [
+                $this->experiments[] = [
                     'title' => $experiment['name'],
                     'treatments' => $treatments,
                     'override' => $isOverride,
                     'filters' => $filters,
-                ]);
+                ];
             }
         }
     }

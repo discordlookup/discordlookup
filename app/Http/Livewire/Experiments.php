@@ -21,7 +21,7 @@ class Experiments extends Component
         if(Cache::has('experimentsJson')) {
             $this->experimentsJson = Cache::get('experimentsJson');
         }else{
-            $response = Http::get('https://experiments.fbrettnich.workers.dev/');
+            $response = Http::get(env('EXPERIMENTS_WORKER'));
             if($response->ok()) {
                 $this->experimentsJson = $response->json();
                 Cache::put('experimentsJson', $this->experimentsJson, 900); // 15 minutes

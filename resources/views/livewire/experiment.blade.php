@@ -1,13 +1,13 @@
-@section('title', "{$experiment['name']} Experiment")
-@section('description', "Information and rollout status about the {$experiment['name']} Experiment.")
-@section('keywords', "client, guild, experiments, discord experiments, rollout, rollouts, treatments, groups, overrides, population, {$experiment['id']}")
+@section('title', "{$this->experiment['name']} Experiment")
+@section('description', "Information and rollout status about the {$this->experiment['name']} Experiment.")
+@section('keywords', "client, guild, experiments, discord experiments, rollout, rollouts, treatments, groups, overrides, population, {$this->experiment['id']}")
 
 <div id="experiment">
-    <h1 class="mb-1 mt-5 text-center text-white">{{ $experiment['name'] }}</h1>
-    <h4 class="mb-4 text-center text-muted">{{ $experiment['id'] }} ({{ $experiment['hash'] }})</h4>
+    <h1 class="mb-1 mt-5 text-center text-white">{{ $this->experiment['name'] }}</h1>
+    <h4 class="mb-4 text-center text-muted">{{ $this->experiment['id'] }} ({{ $this->experiment['hash'] }})</h4>
     <div class="mt-2 mb-4">
 
-        @if($experiment['type'] == "guild" && !empty($filters))
+        @if($this->experiment['type'] == "guild" && !empty($this->filters))
         <div class="row mb-2">
             <div class="col-12 col-lg-10 offset-lg-1">
                 <div class="card text-white bg-dark border-0">
@@ -16,7 +16,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            @foreach($filters as $filter)
+                            @foreach($this->filters as $filter)
                                 <span class="badge bg-primary my-1" style="font-size: 1rem;">{{ $filter }}</span>
                             @endforeach
                         </div>
@@ -35,19 +35,19 @@
                     <div class="card-body">
                         @foreach($this->buckets as $bucket)
                             <h5 class="mb-3 text-primary">{{ $bucket['name'] }} <small class="text-white-50">{!! ($bucket['description'] == "" ? "<i>No description</i>" : $bucket['description']) !!}</small></h5>
-                            @if(($experiment['type'] == "guild" && $bucket['id'] == 0 && array_key_exists($bucket['id'], $this->groups) && $this->groups[$bucket['id']]['count'] > 0) || (!empty($this->groups[$bucket['id']]['groups']) && array_key_exists($bucket['id'], $this->groups)))
+                            @if(($this->experiment['type'] == "guild" && $bucket['id'] == 0 && array_key_exists("BUCKET {$bucket['id']}", $this->groups) && $this->groups["BUCKET {$bucket['id']}"]['count'] > 0) || (!empty($this->groups["BUCKET {$bucket['id']}"]['groups']) && array_key_exists("BUCKET {$bucket['id']}", $this->groups)))
                                 <div class="mb-3">
                                     <b>Groups</b> <i class="far fa-question-circle text-muted small align-middle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('The percentage of guilds that have this treatment') }}"></i><br>
-                                    @foreach($this->groups[$bucket['id']]['groups'] as $group)
+                                    @foreach($this->groups["BUCKET {$bucket['id']}"]['groups'] as $group)
                                         <span class="badge bg-primary">{{ ($group['end'] - $group['start']) / (10000)*100 }}% ({{ $group['start'] }} - {{ $group['end'] }})</span>
                                     @endforeach
-                                    @if($bucket['id'] == 0 && $this->groups[$bucket['id']]['count'] > 0)
-                                        <span class="badge bg-primary">{{ $this->groups[$bucket['id']]['count'] / (10000)*100 }}%</span>
+                                    @if($bucket['id'] == 0 && $this->groups["BUCKET {$bucket['id']}"]['count'] > 0)
+                                        <span class="badge bg-primary">{{ $this->groups["BUCKET {$bucket['id']}"]['count'] / (10000)*100 }}%</span>
                                     @endif
                                     <br>
                                 </div>
                             @endif
-                            @if(!empty($this->overrides) && array_key_exists($bucket['id'], $this->overrides))
+                            @if(!empty($this->overrides) && array_key_exists("BUCKET {$bucket['id']}", $this->overrides))
                                 <div>
                                     <b>Overrides ({{ sizeof($this->overrides[$bucket['id']]) }})</b> <i class="far fa-question-circle text-muted small align-middle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Server that have the treatment in any case') }}"></i><br>
                                     @foreach($this->overrides[$bucket['id']] as $override)
@@ -71,14 +71,14 @@
                         @endforeach
                         @if(!empty($this->experiment['rollout']))
                             <hr>
-                            <div id="treatmentsChart" style="width: 100%; height: 400px;"></div>
+                            <div wire:ignore id="treatmentsChart" style="width: 100%; height: 400px;"></div>
                         @endif
                     </div>
                 </div>
             </div>
         </div>
 
-        @if($experiment['type'] == "guild")
+        @if($this->experiment['type'] == "guild")
         <div class="row">
             <div class="col-12 col-lg-10 offset-lg-1">
                 <div class="card text-white bg-dark border-0">
@@ -94,10 +94,37 @@
                             </div>
                         @endguest
                         @auth
-                            <div class="text-center">
-                                <h2 class="fw-bold">Coming soon!</h2>
-                                <h3>A list of all your guilds that have this experiment will be available soon.</h3>
+                            <div class="row mb-3">
+                                <div class="col-12 col-md-6">
+                                    <select wire:model="treatment" class="form-select">
+                                        @foreach($this->buckets as $bucket)
+                                            <option value="{{ $bucket['name'] }}">{{ $bucket['name'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-6 mt-2 mt-md-0">
+                                    <select wire:model="order" class="form-select">
+                                        <option value="name-asc" selected>{{ __('Name Ascending') }}</option>
+                                        <option value="name-desc">{{ __('Name Descending') }}</option>
+                                        <option value="id-asc">{{ __('Created Ascending') }}</option>
+                                        <option value="id-desc">{{ __('Created Descending') }}</option>
+                                    </select>
+                                </div>
                             </div>
+
+                            <hr>
+
+                            @if(empty($this->guilds))
+                                <div>
+                                    {{ __('No Guild found.') }}
+                                </div>
+                            @endif
+                            @foreach($this->guilds as $guildTreatments)
+                                <livewire:guildlist-item key="{{ now() }}" :guild="$guildTreatments['guild']" />
+                                @if(!$loop->last)
+                                    <hr>
+                                @endif
+                            @endforeach
                         @endauth
                     </div>
                 </div>
@@ -105,7 +132,7 @@
         </div>
         @endif
 
-        @if($experiment['type'] == "guild" && !empty($this->experiment['rollout']))
+        @if($this->experiment['type'] == "guild" && !empty($this->experiment['rollout']))
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript">
             google.charts.load('current', {packages:['corechart']});
@@ -114,8 +141,8 @@
                 var data = google.visualization.arrayToDataTable([
                     ['Treatment', 'Count'],
                     @foreach($this->buckets as $bucket)
-                        @if(!empty($this->groups) && array_key_exists($bucket['id'], $this->groups))
-                            ['{{ $bucket['name'] }}', {{ $this->groups[$bucket['id']]['count'] }}],
+                        @if(!empty($this->groups) && array_key_exists("BUCKET {$bucket['id']}", $this->groups))
+                            ['{{ $bucket['name'] }}', {{ $this->groups["BUCKET {$bucket['id']}"]['count'] }}],
                         @endif
                     @endforeach
                 ]);
