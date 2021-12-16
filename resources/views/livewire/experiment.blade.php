@@ -47,7 +47,7 @@
                                     <br>
                                 </div>
                             @endif
-                            @if(!empty($this->overrides) && array_key_exists("BUCKET {$bucket['id']}", $this->overrides))
+                            @if(!empty($this->overrides) && array_key_exists($bucket['id'], $this->overrides))
                                 <div>
                                     <b>Overrides ({{ sizeof($this->overrides[$bucket['id']]) }})</b> <i class="far fa-question-circle text-muted small align-middle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Server that have the treatment in any case') }}"></i><br>
                                     @foreach($this->overrides[$bucket['id']] as $override)
