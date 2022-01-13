@@ -1,0 +1,32 @@
+version: '3.3'
+
+services:
+    website:
+      container_name: website
+      image: 'ghcr.io/fbrettnich/discordlookup:main'
+      restart: unless-stopped
+      env_file: .env
+      depends_on:
+        - mysql
+      ports:
+        - 127.0.0.1:8080:80
+      networks:
+        - discordlookup
+    mysql:
+      container_name: mysql
+      image: mariadb
+      restart: unless-stopped
+      environment:
+        - MYSQL_ROOT_PASSWORD=discordlookup
+        - MYSQL_DATABASE=discordlookup
+        - MYSQL_USER=discordlookup
+        - MYSQL_PASSWORD=discordlookup
+      volumes:
+        - mysqldata:/var/lib/mysql
+      networks:
+        - discordlookup
+volumes:
+    mysqldata:
+networks:
+  discordlookup:
+    driver: bridge
