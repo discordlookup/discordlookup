@@ -39,7 +39,7 @@
                 </li>
 
                 <li class="nav-item ms-lg-1 dropdown">
-                    <a class="nav-link p-2 dropdown-toggle {{ (request()->routeIs('snowflake-distance-calculator') || request()->routeIs('guild-shard-calculator')) ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link p-2 dropdown-toggle {{ request()->routeIs('guild-shard-calculator') ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {{ __('Advanced') }}
                     </a>
                     <ul class="dropdown-menu bg-dark border-0" aria-labelledby="navbarDropdown">
@@ -57,12 +57,6 @@
                 <li class="nav-item mx-0 d-none d-lg-block">
                     <a class="nav-link h5" href="{{ env('DISCORD_URL') }}" target="_blank"><i class="fab fa-discord"></i></a>
                 </li>
-                {{--<li class="nav-item">
-                    <a class="nav-link h5"><i class="fas fa-sun"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link h5"><i class="fas fa-moon"></i></a>
-                </li>--}}
                 @guest()
                     <li class="nav-item">
                         <a role="button" class="btn btn-info w-100" href="{{ route('login') }}"><i class="fas fa-sign-in-alt"></i> {{ __('Login') }}</a>
