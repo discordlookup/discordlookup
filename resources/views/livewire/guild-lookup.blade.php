@@ -1,3 +1,4 @@
+@section('og.sitename', $ogSiteName)
 @section('og.title', $ogTitle)
 @section('og.image', $ogImage)
 @section('og.description', $ogDescription)

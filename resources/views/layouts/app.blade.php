@@ -16,12 +16,21 @@
     @hasSection('robots')<meta name="robots" content="@yield('robots')">@endif
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="theme-color" content="#5865F2">
+    @hasSection('themecolor')
+        <meta name="theme-color" content="@yield('themecolor')">
+    @else
+        <meta name="theme-color" content="#5865F2">
+    @endif
     @hasSection('description')<meta name="description" content="@yield('description')">@endif
 
     <meta name="keywords" content="@hasSection('keywords')@yield('keywords'), @endif
 discord, discord lookup, discordlookup, lookup, snowflake, guild count, invite info, user info, discord tools, tools">
 
+    @hasSection('og.sitename')
+        <meta property="og:site_name" content="@yield('og.sitename')">
+    @else
+        <meta property="og:site_name" content="DiscordLookup.com">
+    @endif
     @hasSection('og.title')
         <meta property="og:title" content="@yield('og.title')">
     @else
@@ -40,7 +49,6 @@ discord, discord lookup, discordlookup, lookup, snowflake, guild count, invite i
         @endif
     @endif
 
-    <meta property="og:site_name" content="DiscordLookup.com">
     <meta property="og:site" content="{{ route('home') }}">
     <meta property="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}">
     <meta property="og:url" content="{{ Request::url() }}">
