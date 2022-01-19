@@ -1,0 +1,7 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+    <ShortName>DiscordLookup</ShortName>
+    <LongName>DiscordLookup.com</LongName>
+    <Description>Get more out of Discord with Discord Lookup</Description>
+    <InputEncoding>UTF-8</InputEncoding>
+    <Url type="text/html" method="get" template="https://discordlookup.com/snowflake/{searchTerms}"/>
+</OpenSearchDescription>

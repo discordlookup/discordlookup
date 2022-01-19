@@ -32,6 +32,8 @@ discord, discord lookup, discordlookup, lookup, snowflake, guild count, invite i
     <meta property="og:image" content="{{ asset('images/logo-rounded.svg') }}">
     <meta property="og:type" content="website">
 
+    <link rel="search" type="application/opensearchdescription+xml" title="DiscordLookup" href="/opensearch.xml">
+
     @foreach (Config::get('languages') as $lang => $language)
         <link rel="alternate" href="{{ route('language.switch', $lang) }}" hreflang="{{ $lang }}" />
     @endforeach
