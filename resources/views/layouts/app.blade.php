@@ -22,14 +22,28 @@
     <meta name="keywords" content="@hasSection('keywords')@yield('keywords'), @endif
 discord, discord lookup, discordlookup, lookup, snowflake, guild count, invite info, user info, discord tools, tools">
 
+    @hasSection('og.title')
+        <meta property="og:title" content="@yield('og.title')">
+    @else
+        <meta property="og:title" content="@yield('title') | {{ env('APP_NAME') }}">
+    @endif
+    @hasSection('og.image')
+        <meta property="og:image" content="@yield('og.image')">
+    @else
+        <meta property="og:image" content="{{ asset('images/logo-rounded.svg') }}">
+    @endif
+    @hasSection('og.description')
+        <meta property="og:description" content="@yield('og.description')">
+    @else
+        @hasSection('description')
+            <meta property="og:description" content="@yield('description')">
+        @endif
+    @endif
+
     <meta property="og:site_name" content="DiscordLookup.com">
     <meta property="og:site" content="{{ route('home') }}">
-    <meta property="og:title" content="@yield('title') | {{ env('APP_NAME') }}">
     <meta property="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}">
-    @hasSection('description')<meta property="og:description" content="@yield('description')">@endif
-
     <meta property="og:url" content="{{ Request::url() }}">
-    <meta property="og:image" content="{{ asset('images/logo-rounded.svg') }}">
     <meta property="og:type" content="website">
 
     <link rel="search" type="application/opensearchdescription+xml" title="DiscordLookup" href="/opensearch.xml">

@@ -1,3 +1,7 @@
+@section('og.title', $ogTitle)
+@section('og.image', $ogImage)
+@section('og.description', $ogDescription)
+
 <div id="guildlookup">
 
     <h1 class="mb-4 mt-5 text-center text-white">{{ __('Guild Lookup') }}</h1>

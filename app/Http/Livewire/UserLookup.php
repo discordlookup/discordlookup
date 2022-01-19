@@ -9,7 +9,6 @@ use Livewire\Component;
 
 class UserLookup extends Component
 {
-
     use WithRateLimiting;
 
     public $isLoggedIn = true;
@@ -32,6 +31,10 @@ class UserLookup extends Component
     public $userAccentColor = "";
     public $userFlags = "";
     public $userFlagList = [];
+
+    public $ogTitle = "";
+    public $ogImage = "";
+    public $ogDescription = "";
 
     protected $listeners = ['fetchSnowflake'];
 
@@ -64,6 +67,33 @@ class UserLookup extends Component
             }else{
                 $this->found = false;
                 $this->template = "notfound";
+            }
+        }
+    }
+
+    public function getOpenGraph() {
+        if(is_numeric($this->snowflake) && $this->snowflake >= 4194304) {
+            if($this->fetchUser()) {
+                $this->ogTitle = $this->userUsername . "#" . $this->userDiscriminator;
+                $this->ogImage = $this->userAvatarUrl;
+                $this->ogDescription = "ID: " . $this->userId . "\n";
+                $this->ogDescription .= "Created: " . date('Y-m-d H:i:s', (($this->userId >> 22) + 1420070400000) / 1000) . "\n";
+                $this->ogDescription .= "Bot: " . ($this->userIsBot ? 'Yes' : 'No') . "\n";
+                if($this->userIsBot) {
+                    $this->ogDescription .= "Verified Bot: " . ($this->userIsVerifiedBot ? 'Yes' : 'No') . "\n";
+                }
+                if($this->userBannerColor) {
+                    $this->ogDescription .= "Banner Color: " . $this->userBannerColor . "\n";
+                }
+                if($this->userAccentColor) {
+                    $this->ogDescription .= "Accent Color: " . $this->userAccentColor . "\n";
+                }
+                if(!empty($this->userFlagList)) {
+                    $this->ogDescription .= "Badges:\n";
+                    foreach ($this->userFlagList as $flag) {
+                        $this->ogDescription .= "- " . $flag['name'] . "\n";
+                    }
+                }
             }
         }
     }
@@ -134,6 +164,10 @@ class UserLookup extends Component
         if($flags & (1 << 18)) array_push($list, ['name' => 'Discord Certified Moderator', 'image' => asset('images/discord/icons/badges/discord_certified_moderator.png')]);
 
         return $list;
+    }
+
+    public function mount() {
+        $this->getOpenGraph();
     }
 
     public function render()

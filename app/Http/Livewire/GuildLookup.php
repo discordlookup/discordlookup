@@ -9,7 +9,6 @@ use Livewire\Component;
 
 class GuildLookup extends Component
 {
-
     use WithRateLimiting;
 
     public $isLoggedIn = true;
@@ -39,6 +38,10 @@ class GuildLookup extends Component
     public $inviteChannelId = "";
     public $inviteChannelName = "";
 
+    public $ogTitle = "";
+    public $ogImage = "";
+    public $ogDescription = "";
+
     protected $listeners = ['fetchSnowflake', 'parseInviteJson'];
 
     public function fetchSnowflake() {
@@ -47,8 +50,8 @@ class GuildLookup extends Component
         $this->reset();
         $this->snowflake = $snowflake;
 
-        $this->isLoggedIn = auth()->check();
-        if (!$this->isLoggedIn) return;
+        //$this->isLoggedIn = auth()->check();
+        //if (!$this->isLoggedIn) return;
 
         if(is_numeric($this->snowflake) && $this->snowflake >= 4194304) {
 
@@ -76,6 +79,41 @@ class GuildLookup extends Component
                 'snowflake' => $this->snowflake,
                 'invitecode' => $this->guildInstantInvite,
             ]);
+        }
+    }
+
+    public function getOpenGraph() {
+        if(is_numeric($this->snowflake) && $this->snowflake >= 4194304) {
+            if($this->fetchGuild()) {
+                $this->ogTitle = $this->guildName;
+                $this->ogImage = $this->guildIconUrl;
+                $this->ogDescription = "ID: " . $this->guildId . "\n";
+                $this->ogDescription .= "Created: " . date('Y-m-d H:i:s', (($this->guildId >> 22) + 1420070400000) / 1000) . "\n";
+                if($this->guildDescription) {
+                    $this->ogDescription .= "Description: " . $this->guildDescription . "\n\n";
+                }
+                if($this->guildOnlineCount) {
+                    $this->ogDescription .= "Online: " . $this->guildOnlineCount . "\n";
+                }
+                if($this->guildMemberCount) {
+                    $this->ogDescription .= "Members: " . $this->guildMemberCount . "\n";
+                }
+                if($this->guildIsVerified) {
+                    $this->ogDescription .= "Verified: Yes\n";
+                }
+                if($this->guildIsPartnered) {
+                    $this->ogDescription .= "Partner: Yes\n";
+                }
+                if(!empty($this->guildFeatures)) {
+                    $this->ogDescription .= "Features: " . sizeof($this->guildFeatures) . "\n";
+                }
+                if(!empty($this->guildEmojis)) {
+                    $this->ogDescription .= "Emojis: " . sizeof($this->guildEmojis) . "\n";
+                }
+                if($this->guildIsNSFW) {
+                    $this->ogDescription .= "NSFW: " . $this->guildIsNSFW . " (LVL " . $this->guildIsNSFWLevel . ")\n";
+                }
+            }
         }
     }
 
@@ -195,6 +233,10 @@ class GuildLookup extends Component
                 }
             }
         }
+    }
+
+    public function mount() {
+        $this->getOpenGraph();
     }
 
     public function render()
