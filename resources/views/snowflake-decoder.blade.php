@@ -73,7 +73,7 @@
                         document.getElementById('snowflakeDistanceCalculatorUrl').href = "{{ route('snowflake-distance-calculator') }}/" + value;
                         document.getElementById('buttonUser').href = "{{ route('userlookup') }}/" + value;
                         document.getElementById('buttonGuild').href = "{{ route('guildlookup') }}/" + value;
-                        document.getElementById('buttonApplication').href = "{{ route('applicationlookup') }}/" + value;
+                        {{--document.getElementById('buttonApplication').href = "{{ route('applicationlookup') }}/" + value;--}}
                         window.history.replaceState('', '', '{{ route('snowflake') }}/' + value);
                     }
                 }else{
