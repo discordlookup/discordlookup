@@ -17,7 +17,7 @@
             </div>
             <div class="col-12 col-md-6 text-md-end text-center mt-md-auto mt-3">
                 {{ __('Made by') }}
-                <a href="https://discord.com/users/231091710195662848" target="_blank" rel="noopener">
+                <a href="https://discord.com/users/231091710195662848" target="_blank" rel="noopener" class="text-decoration-none">
                     <span class="badge bg-body">
                         <img src="{{ asset('images/discord/user/avatar/231091710195662848.png') }}" height="16px" width="16px" class="rounded"> Felix#9000
                     </span>
