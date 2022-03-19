@@ -6,26 +6,6 @@
     <h1 class="mb-1 mt-5 text-center text-white">{{ $this->experiment['name'] }}</h1>
     <h4 class="mb-4 text-center text-muted">{{ $this->experiment['id'] }} ({{ $this->experiment['hash'] }})</h4>
     <div class="mt-2 mb-4">
-
-        @if($this->experiment['type'] == "guild" && !empty($this->filters))
-        <div class="row mb-2">
-            <div class="col-12 col-lg-10 offset-lg-1">
-                <div class="card text-white bg-dark border-0">
-                    <div class="card-header">
-                        <h1 class="fw-bold">{{ __('Filters') }} <i class="far fa-question-circle text-muted align-middle" style="font-size: 0.5em !important;" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('The filters apply to all treatments and must be fulfilled') }}"></i></h1>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            @foreach($this->filters as $filter)
-                                <span class="badge bg-primary my-1" style="font-size: 1rem;">{{ $filter }}</span>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endif
-
         <div class="row mb-5">
             <div class="col-12 col-lg-10 offset-lg-1">
                 <div class="card text-white bg-dark border-0">
@@ -37,7 +17,7 @@
                             <h5 class="mb-3 text-primary">{{ $bucket['name'] }} <small class="text-white-50">{!! ($bucket['description'] == "" ? "<i>No description</i>" : $bucket['description']) !!}</small></h5>
                             @if(($this->experiment['type'] == "guild" && $bucket['id'] == 0 && array_key_exists("BUCKET {$bucket['id']}", $this->groups) && $this->groups["BUCKET {$bucket['id']}"]['count'] > 0) || (!empty($this->groups["BUCKET {$bucket['id']}"]['groups']) && array_key_exists("BUCKET {$bucket['id']}", $this->groups)))
                                 <div class="mb-3">
-                                    <b>Groups</b> <i class="far fa-question-circle text-muted small align-middle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('The percentage of guilds that have this treatment') }}"></i><br>
+                                    <b>{{ __('Groups') }}</b> <i class="far fa-question-circle text-muted small align-middle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('The percentage of guilds that have this treatment') }}"></i><br>
                                     @foreach($this->groups["BUCKET {$bucket['id']}"]['groups'] as $group)
                                         <span class="badge bg-primary">{{ ($group['end'] - $group['start']) / (10000)*100 }}% ({{ $group['start'] }} - {{ $group['end'] }})</span>
                                     @endforeach
@@ -46,10 +26,19 @@
                                     @endif
                                     <br>
                                 </div>
+                                @if(!empty($this->groups["BUCKET {$bucket['id']}"]['filters']))
+                                    <div class="mb-3">
+                                        <b>{{ __('Filters') }}</b> <i class="far fa-question-circle text-muted small align-middle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('The filters apply to this treatment and must be fulfilled') }}"></i><br>
+                                        @foreach($this->groups["BUCKET {$bucket['id']}"]['filters'] as $filter)
+                                            <span class="badge bg-primary">{{ $filter }}</span>
+                                        @endforeach
+                                        <br>
+                                    </div>
+                                @endif
                             @endif
                             @if(!empty($this->overrides) && array_key_exists($bucket['id'], $this->overrides))
                                 <div>
-                                    <b>Overrides ({{ sizeof($this->overrides[$bucket['id']]) }})</b> <i class="far fa-question-circle text-muted small align-middle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Server that have the treatment in any case') }}"></i><br>
+                                    <b>{{ __('Overrides') }} ({{ sizeof($this->overrides[$bucket['id']]) }})</b> <i class="far fa-question-circle text-muted small align-middle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Server that have the treatment in any case') }}"></i><br>
                                     @foreach($this->overrides[$bucket['id']] as $override)
                                         @if($loop->index == 15)
                                             <span class="badge bg-primary" style="cursor: pointer;" onclick="document.getElementById('allOverrides{{ $bucket['id'] }}').style.display = '';this.style.display = 'none';">{{ __('Show all') }}</span>

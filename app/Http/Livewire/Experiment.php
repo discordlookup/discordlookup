@@ -14,7 +14,6 @@ class Experiment extends Component
     public $experimentsJson = [];
     public $experiment = [];
     public $buckets = [];
-    public $filters = [];
     public $groups = [];
     public $overrides = [];
     public $guilds = [];
@@ -50,7 +49,32 @@ class Experiment extends Component
         }
 
         if(!empty($this->experiment['rollout'])) {
+
+            $bucketFilters = [];
+            $bucketFiltersCounter = 0;
+
             foreach ($this->experiment['rollout'][3] as $population) {
+                $filters = [];
+                foreach ($population[1] as $filter) {
+                    switch ($filter[0]) {
+                        case 1604612045: // Feature
+                            $allFeatures = [];
+                            foreach ($filter[1][0][1] as $popfilter) {
+                                $allFeatures[] = $popfilter;
+                            }
+                            $filters[] = "Server must have feature " . implode(', ', $allFeatures);
+                            break;
+                        case 2918402255: // MemberCount
+                            $filters[] = "Server member count is " . ($filter[1][1][1] ? ("in range " . ($filter[1][0][1] ?? 0) . "-" . $filter[1][1][1]) : ($filter[1][0][1] . " or more"));
+                            break;
+                        case 2404720969: // ID
+                            $filters[] = "Server ID is between " . ($filter[1][0][1] ?? 0) . " and " . $filter[1][1][1];
+                            break;
+                    }
+                    $bucketFilters["BUCKET {$bucketFiltersCounter}"] = $filters;
+                    $bucketFiltersCounter++;
+                }
+
                 $globalCount = 0;
                 foreach ($population[0] as $bucket) {
                     $count = 0;
@@ -65,29 +89,15 @@ class Experiment extends Component
                     $this->groups["BUCKET {$bucket[0]}"] = [
                         'count' => $count,
                         'groups' => $groups,
+                        'filters' => $bucketFilters["BUCKET {$bucket[0]}"] ?? [],
                     ];
                     $globalCount += $count;
                 }
                 $this->groups["BUCKET 0"] = [
                     'count' => (10000 - $globalCount),
                     'groups' => [],
+                    'filters' => $bucketFilters["BUCKET 0"] ?? [],
                 ];
-
-                foreach ($population[1] as $filter) {
-                    switch ($filter[0]) {
-                        case 1604612045: // Feature
-                            foreach ($filter[1][0][1] as $popfilter) {
-                                $this->filters[] = "Server must have feature " . $popfilter;
-                            }
-                            break;
-                        case 2918402255: // MemberCount
-                            $this->filters[] = "Server member count is " . ($filter[1][1][1] ? ("in range " . ($filter[1][0][1] ?? 0) . "-" . $filter[1][1][1]) : ($filter[1][0][1] . " or more"));
-                            break;
-                        case 2404720969: // ID
-                            $this->filters[] = "Server ID is between " . ($filter[1][0][1] ?? 0) . " and " . $filter[1][1][1];
-                            break;
-                    }
-                }
             }
 
             foreach ($this->experiment['rollout'][4] as $overrides) {
