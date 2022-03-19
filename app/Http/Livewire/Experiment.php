@@ -40,12 +40,14 @@ class Experiment extends Component
             }
         }
 
-        foreach ($this->experiment['buckets'] as $bucketList) {
-            $this->buckets[] = [
-                'id' => $bucketList['id'],
-                'name' => $bucketList['name'],
-                'description' => $bucketList['description'],
-            ];
+        if(!empty($this->experiment['buckets'])) {
+            foreach ($this->experiment['buckets'] as $bucketList) {
+                $this->buckets[] = [
+                    'id' => $bucketList['id'],
+                    'name' => $bucketList['name'],
+                    'description' => $bucketList['description'],
+                ];
+            }
         }
 
         if(!empty($this->experiment['rollout'])) {

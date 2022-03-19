@@ -40,9 +40,9 @@ class Experiments extends Component
         $array = [];
         foreach ($this->experimentsJsonSearch as $experiment) {
             if ($this->category == "guild" && $experiment['type'] == "guild") {
-                array_push($array, $experiment);
+                $array[] = $experiment;
             }else if ($this->category == "user" && $experiment['type'] == "user") {
-                array_push($array, $experiment);
+                $array[] = $experiment;
             }
         }
 
