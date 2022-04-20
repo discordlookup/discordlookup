@@ -70,7 +70,7 @@ class GuildPermissionsModal extends Component
 
         foreach ($permissions as $permission => $value) {
             if (($bitwise & $value) == $value) {
-                array_push($this->permissionsList, $permission);
+                $this->permissionsList[] = $permission;
             }
         }
     }

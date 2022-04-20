@@ -19,7 +19,7 @@ class AuthController extends Controller
         return Socialite::driver('discord')
             ->setScopes(['identify', 'guilds'])
             ->with([
-                'prompt' => 'none',
+                //'prompt' => 'none',
             ])
             ->redirect();
     }

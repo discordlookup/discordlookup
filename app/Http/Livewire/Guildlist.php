@@ -32,30 +32,35 @@ class Guildlist extends Component
         if($this->guildsJson != null) {
             foreach ($this->guildsJson as $guild) {
                 $this->countGuilds++;
-                if ($guild['owner']) $this->countOwner++;
 
-                if (
-                    (($guild['permissions'] & (1 << 3)) == (1 << 3)) // ADMINISTRATOR
-                ) $this->countAdministrator++;
+                if(array_key_exists('owner', $guild) && $guild['owner']) $this->countOwner++;
 
-                if (
-                    (($guild['permissions'] & (1 << 1)) == (1 << 1)) || // KICK_MEMBERS
-                    (($guild['permissions'] & (1 << 2)) == (1 << 2)) || // BAN_MEMBERS
-                    (($guild['permissions'] & (1 << 4)) == (1 << 4)) || // MANAGE_CHANNELS
-                    (($guild['permissions'] & (1 << 5)) == (1 << 5)) || // MANAGE_GUILD
-                    (($guild['permissions'] & (1 << 13)) == (1 << 13)) || // MANAGE_MESSAGES
-                    (($guild['permissions'] & (1 << 27)) == (1 << 27)) || // MANAGE_NICKNAMES
-                    (($guild['permissions'] & (1 << 28)) == (1 << 28)) || // MANAGE_ROLES
-                    (($guild['permissions'] & (1 << 29)) == (1 << 29)) || // MANAGE_WEBHOOKS
-                    (($guild['permissions'] & (1 << 34)) == (1 << 34)) // MANAGE_THREADS
-                )  $this->countModerator++;
+                if(array_key_exists('permissions', $guild)) {
+                    if (
+                        (($guild['permissions'] & (1 << 3)) == (1 << 3)) // ADMINISTRATOR
+                    ) $this->countAdministrator++;
 
-                if (in_array('VERIFIED', $guild['features'])) $this->countVerified++;
-                if (in_array('PARTNERED', $guild['features'])) $this->countPartnered++;
-                if (in_array('VANITY_URL', $guild['features'])) $this->countVanityUrl++;
-                if (in_array('COMMUNITY', $guild['features'])) $this->countCommunityEnabled++;
-                if (in_array('DISCOVERABLE', $guild['features'])) $this->countDiscoveryEnabled++;
-                if (in_array('WELCOME_SCREEN_ENABLED', $guild['features'])) $this->countWelcomeScreenEnabled++;
+                    if (
+                        (($guild['permissions'] & (1 << 1)) == (1 << 1)) || // KICK_MEMBERS
+                        (($guild['permissions'] & (1 << 2)) == (1 << 2)) || // BAN_MEMBERS
+                        (($guild['permissions'] & (1 << 4)) == (1 << 4)) || // MANAGE_CHANNELS
+                        (($guild['permissions'] & (1 << 5)) == (1 << 5)) || // MANAGE_GUILD
+                        (($guild['permissions'] & (1 << 13)) == (1 << 13)) || // MANAGE_MESSAGES
+                        (($guild['permissions'] & (1 << 27)) == (1 << 27)) || // MANAGE_NICKNAMES
+                        (($guild['permissions'] & (1 << 28)) == (1 << 28)) || // MANAGE_ROLES
+                        (($guild['permissions'] & (1 << 29)) == (1 << 29)) || // MANAGE_WEBHOOKS
+                        (($guild['permissions'] & (1 << 34)) == (1 << 34)) // MANAGE_THREADS
+                    ) $this->countModerator++;
+                }
+
+                if(array_key_exists('features', $guild)) {
+                    if (in_array('VERIFIED', $guild['features'])) $this->countVerified++;
+                    if (in_array('PARTNERED', $guild['features'])) $this->countPartnered++;
+                    if (in_array('VANITY_URL', $guild['features'])) $this->countVanityUrl++;
+                    if (in_array('COMMUNITY', $guild['features'])) $this->countCommunityEnabled++;
+                    if (in_array('DISCOVERABLE', $guild['features'])) $this->countDiscoveryEnabled++;
+                    if (in_array('WELCOME_SCREEN_ENABLED', $guild['features'])) $this->countWelcomeScreenEnabled++;
+                }
             }
 
             $this->countAdministrator -= $this->countOwner;
@@ -75,22 +80,22 @@ class Guildlist extends Component
         $array = [];
         foreach ($this->guildsJsonSearch as $guild) {
             if (
-                $this->category == "owner" &&
+                $this->category == 'owner' &&
                 $guild['owner']
             ) {
-                array_push($array, $guild);
+                $array[] = $guild;
             }
             if (
-                $this->category == "administrator" &&
+                $this->category == 'administrator' &&
                 !$guild['owner'] &&
                 (
                     (($guild['permissions'] & (1 << 3)) == (1 << 3)) // ADMINISTRATOR
                 )
             ) {
-                array_push($array, $guild);
+                $array[] = $guild;
             }
             if (
-                $this->category == "moderator" &&
+                $this->category == 'moderator' &&
                 !$guild['owner'] &&
                 !(
                     (($guild['permissions'] & (1 << 3)) == (1 << 3)) // ADMINISTRATOR
@@ -107,25 +112,27 @@ class Guildlist extends Component
                     (($guild['permissions'] & (1 << 34)) == (1 << 34)) // MANAGE_THREADS
                 )
             ) {
-                array_push($array, $guild);
+                $array[] = $guild;
             }
-            if ($this->category == "verified" && in_array('VERIFIED', $guild['features'])) {
-                array_push($array, $guild);
-            }
-            if ($this->category == "partnered" && in_array('PARTNERED', $guild['features'])) {
-                array_push($array, $guild);
-            }
-            if ($this->category == "vanityurl" && in_array('VANITY_URL', $guild['features'])) {
-                array_push($array, $guild);
-            }
-            if ($this->category == "community" && in_array('COMMUNITY', $guild['features'])) {
-                array_push($array, $guild);
-            }
-            if ($this->category == "discovery" && in_array('DISCOVERABLE', $guild['features'])) {
-                array_push($array, $guild);
-            }
-            if ($this->category == "welcomescreen" && in_array('WELCOME_SCREEN_ENABLED', $guild['features'])) {
-                array_push($array, $guild);
+            if(array_key_exists('features', $guild)) {
+                if ($this->category == 'verified' && in_array('VERIFIED', $guild['features'])) {
+                    $array[] = $guild;
+                }
+                if ($this->category == 'partnered' && in_array('PARTNERED', $guild['features'])) {
+                    $array[] = $guild;
+                }
+                if ($this->category == 'vanityurl' && in_array('VANITY_URL', $guild['features'])) {
+                    $array[] = $guild;
+                }
+                if ($this->category == 'community' && in_array('COMMUNITY', $guild['features'])) {
+                    $array[] = $guild;
+                }
+                if ($this->category == 'discovery' && in_array('DISCOVERABLE', $guild['features'])) {
+                    $array[] = $guild;
+                }
+                if ($this->category == 'welcomescreen' && in_array('WELCOME_SCREEN_ENABLED', $guild['features'])) {
+                    $array[] = $guild;
+                }
             }
         }
         $this->guildsJsonSearch = $array;
@@ -143,7 +150,7 @@ class Guildlist extends Component
         $this->updateCategory();
 
         $sortKey = explode('-', $this->order);
-        if($sortKey[1] == "desc") {
+        if($sortKey[1] == 'desc') {
             usort($this->guildsJsonSearch, function($a, $b) use ($sortKey) {
                 return $b[$sortKey[0]] <=> $a[$sortKey[0]];
             });

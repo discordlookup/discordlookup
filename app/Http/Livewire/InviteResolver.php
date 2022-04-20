@@ -56,7 +56,7 @@ class InviteResolver extends Component
         $this->reset();
 
         if($json != null) {
-            if(array_key_exists("guild", $json)) {
+            if(array_key_exists('guild', $json)) {
                 $this->guildId = $json['guild']['id'];
                 $this->guildName = $json['guild']['name'];
                 $this->guildDescription = $json['guild']['description'];
@@ -65,7 +65,7 @@ class InviteResolver extends Component
                     $this->guildIconUrl = "https://cdn.discordapp.com/icons/" . $this->guildId . "/" . $json['guild']['icon'] . "?size=128";
                 }
 
-                if(array_key_exists("banner", $json['guild']) && $json['guild']['banner'] != null) {
+                if(array_key_exists('banner', $json['guild']) && $json['guild']['banner'] != null) {
                     $this->guildBannerUrl = "https://cdn.discordapp.com/banners/" . $this->guildId . "/" . $json['guild']['banner'] . "?size=512";
                 }
 
