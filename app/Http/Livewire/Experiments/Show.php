@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Experiments;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use lastguest\Murmur;
 use Livewire\Component;
 
-class Experiment extends Component
+class Show extends Component
 {
 
     public $experimentId = "";
@@ -235,6 +235,6 @@ class Experiment extends Component
             $this->loadGuilds();
             $this->order();
         }
-        return view('livewire.experiment');
+        return view('experiments.show')->extends('layouts.app');
     }
 }

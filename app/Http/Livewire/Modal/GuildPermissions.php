@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Modal;
 
 use Livewire\Component;
 
-class GuildPermissionsModal extends Component
+class GuildPermissions extends Component
 {
 
     public $guildName = "";
@@ -77,6 +77,6 @@ class GuildPermissionsModal extends Component
 
     public function render()
     {
-        return view('livewire.guild-permissions-modal');
+        return view('modal.guild-permissions');
     }
 }

@@ -69,7 +69,7 @@ discord, discord lookup, discordlookup, lookup, snowflake, guild count, invite i
 
     @include('components.navbar')
 
-    <div>
+    <div class="container">
         @yield('content')
     </div>
 </main>

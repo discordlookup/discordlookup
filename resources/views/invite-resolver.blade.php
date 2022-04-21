@@ -1,13 +1,18 @@
+@section('title', __('Invite Resolver'))
+@section('description', __('Get detailed information about every invite and vanity url including event information.'))
+@section('keywords', 'event, vanity')
+@section('robots', 'index, follow')
+
 <div id="inviteresolver">
 
     <h1 class="mb-4 mt-5 text-center text-white">{{ __('Invite Resolver') }}</h1>
     <div class="mt-2 mb-4">
         <div class="row">
 
-            <div wire:ignore class="col-12 col-lg-6 offset-lg-3 mb-5">
+            <div class="col-12 col-lg-6 offset-lg-3 mb-5">
                 <div class="input-group input-group-lg mb-2">
                     <span class="input-group-text bg-dark">discord.gg/</span>
-                    <input id="inviteUrl" type="text" class="form-control" placeholder="ep" value="{{ $inviteCode }}">
+                    <input wire:model="inviteCode" id="inviteUrl" type="text" class="form-control" placeholder="ep" value="{{ $inviteCode }}">
                 </div>
                 <input id="inviteEventId" class="form-control mb-3" type="text" placeholder="{{ __('Event ID') }}" value="{{ $eventId }}">
                 <button type="button" onclick="loadInvite();" class="btn btn-primary w-100">{{ __('Fetch Invite Information') }}</button>
@@ -202,3 +207,4 @@
     @endpush
 
 </div>
+

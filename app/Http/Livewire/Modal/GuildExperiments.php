@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Modal;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use lastguest\Murmur;
 use Livewire\Component;
 
-class GuildExperimentsModal extends Component
+class GuildExperiments extends Component
 {
 
     public $guildId = "";
@@ -133,6 +133,6 @@ class GuildExperimentsModal extends Component
 
     public function render()
     {
-        return view('livewire.guild-experiments-modal');
+        return view('modal.guild-experiments');
     }
 }

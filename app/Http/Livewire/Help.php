@@ -4,11 +4,10 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 
-class ApplicationLookup extends Component
+class Help extends Component
 {
-
     public function render()
     {
-        return view('livewire.application-lookup');
+        return view('help')->extends('layouts.app');
     }
 }

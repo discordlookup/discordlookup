@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Experiments;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
-class Experiments extends Component
+class Index extends Component
 {
 
     public $experimentsJson = [];
@@ -80,6 +80,6 @@ class Experiments extends Component
     public function render()
     {
         $this->search();
-        return view('livewire.experiments');
+        return view('experiments.index')->extends('layouts.app');
     }
 }

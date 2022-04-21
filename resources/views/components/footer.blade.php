@@ -35,7 +35,7 @@
             <div class="col-12 col-md-6 text-md-end text-center mt-md-auto mt-3">
                 <small class="d-block">
                     <a class="text-white text-decoration-none" href="{{ route('legal.imprint') }}">{{ __('Imprint') }}</a>
-                    {{-- <a class="text-white text-decoration-none ms-2" href="{{ route('legal.terms-of-service') }}">{{ __('Terms of Service') }}</a> --}}
+                    <a class="text-white text-decoration-none ms-2" href="{{ route('legal.terms-of-service') }}">{{ __('Terms of Service') }}</a>
                     <a class="text-white text-decoration-none ms-2" href="{{ route('legal.privacy') }}">{{ __('Privacy Policy') }}</a>
                 </small>
             </div>

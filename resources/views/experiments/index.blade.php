@@ -1,3 +1,8 @@
+@section('title', __('Discord Experiments & Rollouts'))
+@section('description', __('All Discord Client & Guild Experiments with Rollout Status and detailed information about Treatments, Groups and Overrides.'))
+@section('keywords', 'client, guild, experiments, discord experiments, rollout, rollouts, treatments, groups, overrides, population')
+@section('robots', 'index, follow')
+
 <div id="experiments">
     <h1 class="mb-4 mt-5 text-center text-white">{{ __('Discord Experiments') }}</h1>
     <div class="mt-2 mb-4">

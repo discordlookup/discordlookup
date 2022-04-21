@@ -1,3 +1,7 @@
+@section('title', __('User Lookup'))
+@section('description', __('Get detailed information about Discord users with creation date, profile picture, banner and badges.'))
+@section('keywords', '')
+@section('robots', 'index, follow')
 @section('og.sitename', $ogSiteName)
 @section('og.title', $ogTitle)
 @section('og.image', $ogImage)

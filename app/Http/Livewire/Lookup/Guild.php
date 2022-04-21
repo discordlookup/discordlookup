@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Lookup;
 
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
-class GuildLookup extends Component
+class Guild extends Component
 {
     use WithRateLimiting;
 
@@ -48,9 +48,7 @@ class GuildLookup extends Component
 
     public function fetchSnowflake() {
 
-        $snowflake = $this->snowflake;
-        $this->reset();
-        $this->snowflake = $snowflake;
+        $this->resetExcept(['snowflake']);
 
         $this->isLoggedIn = auth()->check();
         if (!$this->isLoggedIn) return;
@@ -256,6 +254,6 @@ class GuildLookup extends Component
 
     public function render()
     {
-        return view('livewire.guild-lookup');
+        return view('lookup.guild')->extends('layouts.app');
     }
 }

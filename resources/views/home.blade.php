@@ -1,12 +1,9 @@
-@extends('layouts.app')
-
 @section('title', __('Home'))
 @section('description', __('Get more out of Discord with Discord Lookup! Snowflake Decoder, Guild List with Stats, Invite Info and more...'))
 @section('keywords', '')
 @section('robots', 'index, follow')
 
-@section('content')
-
+<div>
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
@@ -15,8 +12,7 @@
             </div>
         </div>
     </section>
-
-    <div id="homelist" class="container">
+    <div id="homelist">
         <a href="{{ route('snowflake') }}" class="tools-list-item text-decoration-none">
             <div class="card text-white bg-dark border-0 mb-3">
                 <div class="card-body">
@@ -198,5 +194,4 @@
             </div>
         </a>
     </div>
-
-@endsection
+</div>

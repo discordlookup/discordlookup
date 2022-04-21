@@ -7,12 +7,16 @@
 
 @section('content')
 
-    <div class="container mt-5 user-select-none">
-
+    <div class="container mt-5">
         <div class="page-header mt-2">
             <h2 class="pb-2 fw-bold">{{ __('Terms of Service') }}</h2>
         </div>
-        ...
+
+        <div class="user-select-none">
+            @if(\Illuminate\Support\Facades\View::exists('legal.content.terms-of-service'))
+                @include('legal.content.terms-of-service')
+            @endif
+        </div>
     </div>
 
 @endsection

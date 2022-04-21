@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LegalController;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -18,33 +17,31 @@ use Illuminate\Support\Facades\Session;
 |
 */
 
-Route::get('/', [LandingController::class, 'home'])->name('home');
+Route::get('/', \App\Http\Livewire\Home::class)->name('home');
 
 /* Snowflakes */
-Route::get('/snowflake/{snowflake?}', [LandingController::class, 'snowflake'])->name('snowflake');
-Route::get('/user/{snowflake?}', [LandingController::class, 'userlookup'])->name('userlookup');
-Route::get('/guild/{snowflake?}', [LandingController::class, 'guildlookup'])->name('guildlookup');
-Route::get('/application/{snowflake?}', [LandingController::class, 'applicationlookup'])->name('applicationlookup');
-Route::get('/snowflake-distance/{snowflake1?}/{snowflake2?}', [LandingController::class, 'snowflakedistancecalculator'])->name('snowflake-distance-calculator');
-Route::redirect('/snowflake-distance-calculator/{snowflake1?}/{snowflake2?}', '/snowflake-distance/{snowflake1?}/{snowflake2?}', 301); // Redirect old url
+Route::get('/snowflake/{snowflake?}', \App\Http\Livewire\Snowflake\Index::class)->name('snowflake');
+Route::get('/user/{snowflake?}', \App\Http\Livewire\Lookup\User::class)->name('userlookup');
+Route::get('/guild/{snowflake?}', \App\Http\Livewire\Lookup\Guild::class)->name('guildlookup');
+Route::get('/application/{snowflake?}', \App\Http\Livewire\Lookup\Application::class)->name('applicationlookup');
+Route::get('/snowflake-distance/{snowflake1?}/{snowflake2?}', \App\Http\Livewire\Snowflake\Distance::class)->name('snowflake-distance-calculator');
 
-Route::get('/guildlist', [LandingController::class, 'guildlist'])->name('guildlist');
+Route::get('/guildlist', \App\Http\Livewire\Guildlist::class)->name('guildlist');
 
 /* Experiments */
-Route::get('/experiments', [LandingController::class, 'experiments'])->name('experiments');
-Route::get('/experiment/{experimentId}', [LandingController::class, 'experiment'])->name('experiment');
+Route::get('/experiments', \App\Http\Livewire\Experiments\Index::class)->name('experiments');
+Route::get('/experiment/{experimentId}', \App\Http\Livewire\Experiments\Show::class)->name('experiment');
 
 /* Other */
-Route::get('/inviteresolver/{code?}/{eventId?}', [LandingController::class, 'inviteresolver'])->name('inviteresolver');
-Route::redirect('/inviteinfo/{code?}', '/inviteresolver/{code?}', 301); // Redirect old url
+Route::get('/inviteresolver/{inviteCode?}/{eventId?}', \App\Http\Livewire\InviteResolver::class)->name('inviteresolver');
 
-Route::get('/guild-shard-calculator/{guildId?}/{totalShards?}', [LandingController::class, 'guildshardcalculator'])->name('guild-shard-calculator');
-Route::get('/help', [LandingController::class, 'help'])->name('help');
+Route::get('/guild-shard-calculator/{guildId?}/{totalShards?}', \App\Http\Livewire\GuildShardCalculator::class)->name('guild-shard-calculator');
+Route::get('/help', \App\Http\Livewire\Help::class)->name('help');
 
 Route::name('legal.')->group(function () {
     Route::get('/imprint', [LegalController::class, 'imprint'])->name('imprint');
     Route::get('/privacy', [LegalController::class, 'privacy'])->name('privacy');
-    //Route::get('/terms-of-service', [LegalController::class, 'termsofservice'])->name('terms-of-service');
+    Route::get('/terms-of-service', [LegalController::class, 'termsofservice'])->name('terms-of-service');
 });
 
 /* Auth (Discord) */

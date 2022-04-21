@@ -53,7 +53,7 @@ class InviteResolver extends Component
 
     public function parseJson($json, $inviteExpiresAtFormatted, $eventStartFormatted, $eventEndFormatted) {
 
-        $this->reset();
+        $this->resetExcept(['inviteCode', 'eventId']);
 
         if($json != null) {
             if(array_key_exists('guild', $json)) {
@@ -186,8 +186,13 @@ class InviteResolver extends Component
         }
     }
 
+    public function mount()
+    {
+
+    }
+
     public function render()
     {
-        return view('livewire.invite-resolver');
+        return view('invite-resolver')->extends('layouts.app');
     }
 }

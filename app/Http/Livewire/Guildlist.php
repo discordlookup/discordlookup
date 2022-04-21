@@ -172,6 +172,6 @@ class Guildlist extends Component
         if(auth()->check()) {
             $this->search();
         }
-        return view('livewire.guildlist');
+        return view('guildlist')->extends('layouts.app');
     }
 }
