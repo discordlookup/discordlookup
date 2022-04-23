@@ -66,7 +66,7 @@
                     <li class="nav-item dropdown">
                         <a role="button" class="btn btn-info w-100 dropdown-toggle" data-bs-toggle="dropdown" href="#">
                             <img src="{{ auth()->user()->avatarUrl }}" height="16px" width="16px" class="mr-2 rounded" alt="user image">
-                            {{ auth()->user()->displayName }}
+                            {{ auth()->user()->username }}
                         </a>
                         <div class="dropdown-menu bg-dark border-0">
                             <a class="dropdown-item text-danger" href="{{ route('logout') }}">{{ __('Logout') }}</a>

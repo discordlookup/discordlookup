@@ -2,54 +2,46 @@
 
 namespace App\Http\Livewire\Experiments;
 
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
 class Index extends Component
 {
-
     public $experimentsJson = [];
     public $experimentsJsonSearch = [];
 
-    public $category = "all";
-    public $search = "";
-    public $order = "updated-desc";
+    public $category = 'all';
+    public $search = '';
+    public $sorting = 'updated-desc';
 
-    public function loadExperiments() {
-        $this->experimentsJson = [];
-        if(Cache::has('experimentsJson')) {
-            $this->experimentsJson = Cache::get('experimentsJson');
-        }else{
-            $response = Http::get(env('EXPERIMENTS_WORKER'));
-            if($response->ok()) {
-                $this->experimentsJson = $response->json();
-                Cache::put('experimentsJson', $this->experimentsJson, 900); // 15 minutes
-            }
-        }
+    public function loadExperiments()
+    {
+        $this->experimentsJson = getExperiments();
     }
 
-    public function changeCategory($category) {
+    public function changeCategory($category)
+    {
         $this->category = $category;
     }
 
-    public function updateCategory() {
-
-        if($this->category == "all") return;
+    public function updateCategory()
+    {
+        if($this->category == 'all') return;
 
         $array = [];
-        foreach ($this->experimentsJsonSearch as $experiment) {
-            if ($this->category == "guild" && $experiment['type'] == "guild") {
+        foreach ($this->experimentsJsonSearch as $experiment)
+        {
+            if ($this->category == 'guild' && $experiment['type'] == 'guild')
                 $array[] = $experiment;
-            }else if ($this->category == "user" && $experiment['type'] == "user") {
+
+            else if ($this->category == 'user' && $experiment['type'] == 'user')
                 $array[] = $experiment;
-            }
         }
 
         $this->experimentsJsonSearch = $array;
     }
 
-    public function search() {
+    public function search()
+    {
         $filterBy = $this->search;
         $this->experimentsJsonSearch = array_filter($this->experimentsJson, function ($var) use ($filterBy) {
             return (
@@ -61,8 +53,8 @@ class Index extends Component
 
         $this->updateCategory();
 
-        $sortKey = explode('-', $this->order);
-        if($sortKey[1] == "desc") {
+        $sortKey = explode('-', $this->sorting);
+        if($sortKey[1] == 'desc') {
             usort($this->experimentsJsonSearch, function($a, $b) use ($sortKey) {
                 return $b[$sortKey[0]] <=> $a[$sortKey[0]];
             });
@@ -73,7 +65,8 @@ class Index extends Component
         }
     }
 
-    public function mount() {
+    public function mount()
+    {
         $this->loadExperiments();
     }
 

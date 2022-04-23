@@ -68,7 +68,7 @@
             </div>
         </div>
 
-        @if($this->experiment['type'] == "guild" && !empty($this->experiment['rollout']))
+        @if($this->experiment['type'] == 'guild' && !empty($this->experiment['rollout']))
             <div class="row">
                 <div class="col-12 col-lg-10 offset-lg-1">
                     <div class="card text-white bg-dark border-0">
@@ -93,7 +93,7 @@
                                         </select>
                                     </div>
                                     <div class="col-12 col-md-6 mt-2 mt-md-0">
-                                        <select wire:model="order" class="form-select">
+                                        <select wire:model="sorting" class="form-select">
                                             <option value="name-asc" selected>{{ __('Name Ascending') }}</option>
                                             <option value="name-desc">{{ __('Name Descending') }}</option>
                                             <option value="id-asc">{{ __('Created Ascending') }}</option>
@@ -101,9 +101,7 @@
                                         </select>
                                     </div>
                                 </div>
-
                                 <hr>
-
                                 @if(empty($this->guilds))
                                     <div>
                                         {{ __('No Guild found.') }}
@@ -124,36 +122,15 @@
                                         <div class="col-12 col-md-6 text-center text-md-start">
                                             <div>
                                                 {{ $guild['name'] }}
-
-                                                @if($guild['owner'])
-                                                    <img src="{{ asset('images/discord/icons/server/owner.png') }}" class="discord-badge" alt="owner badge" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('You own') }}">
-                                                @elseif((($guild['permissions'] & (1 << 3)) == (1 << 3)))
-                                                    <img src="{{ asset('images/discord/icons/server/administrator.png') }}" class="discord-badge" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('You administrate') }}">
-                                                @elseif((
-                                                    (($guild['permissions'] & (1 << 1)) == (1 << 1)) || // KICK_MEMBERS
-                                                    (($guild['permissions'] & (1 << 2)) == (1 << 2)) || // BAN_MEMBERS
-                                                    (($guild['permissions'] & (1 << 4)) == (1 << 4)) || // MANAGE_CHANNELS
-                                                    (($guild['permissions'] & (1 << 5)) == (1 << 5)) || // MANAGE_GUILD
-                                                    (($guild['permissions'] & (1 << 13)) == (1 << 13)) || // MANAGE_MESSAGES
-                                                    (($guild['permissions'] & (1 << 27)) == (1 << 27)) || // MANAGE_NICKNAMES
-                                                    (($guild['permissions'] & (1 << 28)) == (1 << 28)) || // MANAGE_ROLES
-                                                    (($guild['permissions'] & (1 << 29)) == (1 << 29)) || // MANAGE_WEBHOOKS
-                                                    (($guild['permissions'] & (1 << 34)) == (1 << 34)) // MANAGE_THREADS
-                                                ))
-                                                    <img src="{{ asset('images/discord/icons/server/moderator.png') }}" class="discord-badge" alt="moderator badge" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('You moderate') }}">
-                                                @endif
-                                                @if(in_array('VERIFIED', $guild['features']))
-                                                    <img src="{{ asset('images/discord/icons/server/verified.png') }}" class="discord-badge" alt="verified badge" data-bs-toggle="tooltip" data-bs-placement="top" title="Discord Verified">
-                                                @endif
-                                                @if(in_array('PARTNERED', $guild['features']))
-                                                    <img src="{{ asset('images/discord/icons/server/partner.png') }}" class="discord-badge" alt="partner badge" data-bs-toggle="tooltip" data-bs-placement="top" title="Discord Partner">
-                                                @endif
+                                                @if($guild['owner']) {!! getBadgeImageWithTooltip('owner', __('You own')) !!}
+                                                @elseif(hasAdministrator($guild['permissions'])) {!! getBadgeImageWithTooltip('administrator', __('You administrate')) !!}
+                                                @elseif(hasModerator($guild['permissions'])) {!! getBadgeImageWithTooltip('moderator', __('You moderate')) !!} @endif
+                                                @if(in_array('VERIFIED', $guild['features'])) {!! getBadgeImageWithTooltip('verified', __('Discord Verified')) !!} @endif
+                                                @if(in_array('PARTNERED', $guild['features'])) {!! getBadgeImageWithTooltip('partner', __('Discord Partner')) !!} @endif
                                             </div>
                                             <div class="mt-n1">
                                                 <small class="text-muted">
-                                                    {{ $guild['id'] }}
-                                                    &bull;
-                                                    {{ date('Y-m-d', (($guild['id'] >> 22) + 1420070400000) / 1000) }}
+                                                    {{ $guild['id'] }} &bull; {{ date('Y-m-d', getTimestamp($guild['id']) / 1000) }}
                                                 </small>
                                             </div>
                                         </div>
@@ -175,7 +152,7 @@
             </div>
         @endif
 
-        @if($this->experiment['type'] == "guild" && !empty($this->experiment['rollout']))
+        @if($this->experiment['type'] == 'guild' && !empty($this->experiment['rollout']))
             <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
             <script type="text/javascript">
                 google.charts.load('current', {packages:['corechart']});
@@ -183,10 +160,10 @@
                 function drawChart() {
                     var data = google.visualization.arrayToDataTable([
                         ['Treatment', 'Count'],
-                            @foreach($this->buckets as $bucket)
+                        @foreach($this->buckets as $bucket)
                             @if(!empty($this->groups) && array_key_exists("BUCKET {$bucket['id']}", $this->groups))
-                        ['{{ $bucket['name'] }}', {{ $this->groups["BUCKET {$bucket['id']}"]['count'] }}],
-                        @endif
+                                ['{{ $bucket['name'] }}', {{ $this->groups["BUCKET {$bucket['id']}"]['count'] }}],
+                            @endif
                         @endforeach
                     ]);
 
@@ -202,8 +179,20 @@
                 }
             </script>
         @endif
-
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            $(function () {
+                $('[data-bs-toggle="tooltip"]').tooltip()
+            })
+            Livewire.hook('message.processed', (message, component) => {
+                $(function () {
+                    $('[data-bs-toggle="tooltip"]').tooltip()
+                })
+            })
+        })
+    </script>
 
     @livewire('modal.guild-features')
     @livewire('modal.guild-permissions')

@@ -12,7 +12,7 @@
                     <span class="input-group-text bg-dark">
                         <i class="fas fa-fingerprint"></i>
                     </span>
-                    <input id="guildIdInput" class="form-control form-control-lg" type="text" placeholder="{{ __('Guild ID') }}" value="{{ $guildId }}" oninput="update();" onchange="update();" onkeyup="update();">
+                    <input wire:model="guildId" class="form-control form-control-lg" type="text" placeholder="{{ __('Guild ID') }}">
                 </div>
             </div>
             <div class="col-12 col-xl-2 mt-3 mt-xl-0">
@@ -20,63 +20,25 @@
                     <span class="input-group-text bg-dark">
                         <i class="fas fa-server"></i>
                     </span>
-                    <input id="totalShardsInput" class="form-control form-control-lg" type="text" placeholder="{{ __('Shards') }}" value="{{ $totalShards }}" oninput="update();" onchange="update();" onkeyup="update();">
+                    <input wire:model="totalShards" class="form-control form-control-lg" type="text" placeholder="{{ __('Shards') }}">
                 </div>
             </div>
-
-            <div id="invalidInput" class="col-12 col-xl-6 offset-xl-3 mt-3" style="display: none;">
-                <div id="invalidInputMessage" class="alert alert-danger fade show" role="alert"></div>
-            </div>
-
-            <div id="infoCard" class="col-12 col-xl-6 offset-xl-3 mt-3" style="display: none;">
-                <div class="card text-white bg-dark">
-                    <div class="card-body text-center">
-                        <h2 class="fw-bold">{{ __('This Guild is on Shard ID') }} <span id="shardId" class="text-primary"></span></h2>
-                        <small><i>{{ __('The Shard ID is zero-based.') }}</i></small>
+            @if($errorMessage)
+                <div class="col-12 col-xl-6 offset-xl-3 mt-3">
+                    <div class="alert alert-danger fade show" role="alert">
+                        {{ $errorMessage }}
                     </div>
                 </div>
-            </div>
+            @elseif($shardId !== null)
+                <div class="col-12 col-xl-6 offset-xl-3 mt-3">
+                    <div class="card text-white bg-dark">
+                        <div class="card-body text-center">
+                            <h2 class="fw-bold">{{ __('This Guild is on Shard ID') }} <span class="text-primary">{{ $shardId }}</span></h2>
+                            <span class="small fst-italic">{{ __('The Shard ID is zero-based.') }}</span>
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
-
-    @push('scripts')
-        <script>
-            window.onload = function() {
-                update();
-            };
-
-            function update() {
-                var guildIdInput = document.getElementById('guildIdInput');
-                var guildIdInputValue = guildIdInput.value;
-                var totalShardsInput = document.getElementById('totalShardsInput');
-                var totalShardsInputValue = totalShardsInput.value;
-                var infoCard = document.getElementById('infoCard');
-                var date = validateSnowflake(guildIdInputValue);
-                var invalidInput = document.getElementById('invalidInput');
-                var invalidInputMessage = document.getElementById('invalidInputMessage');
-
-                invalidInput.style.display = 'none';
-
-                if(guildIdInputValue !== "" && totalShardsInputValue !== "" && !date.toString().startsWith("That") && Number.isInteger(+totalShardsInputValue)) {
-                    document.getElementById('shardId').innerText = getShardId(guildIdInputValue, totalShardsInputValue);
-                    infoCard.style.display = '';
-                    window.history.replaceState('', '', '{{ route('guild-shard-calculator') }}/' + guildIdInputValue + '/' + totalShardsInputValue);
-                }else{
-                    infoCard.style.display = 'none';
-                    if(guildIdInputValue.length > 0 && date.toString().startsWith("That")) {
-                        invalidInputMessage.innerText = date;
-                        invalidInput.style.display = '';
-                    }else if(!Number.isInteger(+totalShardsInputValue)) {
-                        invalidInputMessage.innerText = "{{ __('Total Shards must be a valid number!') }}";
-                        invalidInput.style.display = '';
-                    }
-                    window.history.replaceState('', '', '{{ route('guild-shard-calculator') }}');
-                }
-            }
-
-            function getShardId(guildId, totalShards) {
-                return parseInt(parseInt(guildId).toString(2).slice(0, -22), 2) % parseInt(totalShards);
-            }
-        </script>
-    @endpush
 </div>

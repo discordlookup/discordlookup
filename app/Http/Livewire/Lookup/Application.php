@@ -6,11 +6,8 @@ use Livewire\Component;
 
 class Application extends Component
 {
-
     public function mount()
-    {
-
-    }
+    {}
 
     public function render()
     {

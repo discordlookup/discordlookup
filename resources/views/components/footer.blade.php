@@ -30,7 +30,13 @@
             <div class="col-12 col-md-6 text-md-start text-center">
                 <small class="d-block mt-2 text-white">&copy; {{ date('Y') }} {{ env('APP_NAME') }}</small>
                 <small class="text-muted mt-n3">{{ __('Not affiliated with Discord, Inc.') }}</small><br>
-                <small class="text-muted mt-n3">{{ __('Discord is a registered trademark of Discord, Inc.') }}</small>
+                <small class="text-muted mt-n3">{{ __('Discord is a registered trademark of Discord, Inc.') }}</small><br>
+                <small class="text-muted mt-n3">
+                    {{ __('Commit') }}:
+                    <a href="{{ env('GITHUB_URL') }}/commit/{{ getCurrentGitCommit() }}" class="text-muted text-decoration-none" target="_blank" rel="noopener">
+                        {{ getCurrentGitCommit() }}
+                    </a>
+                </small>
             </div>
             <div class="col-12 col-md-6 text-md-end text-center mt-md-auto mt-3">
                 <small class="d-block">

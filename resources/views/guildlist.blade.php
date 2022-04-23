@@ -4,7 +4,6 @@
 @section('robots', 'index, follow')
 
 <div id="guildlist">
-
     <h1 class="mb-4 mt-5 text-center text-white">{{ __('Guild List') }}</h1>
     <div class="mt-2 mb-4">
         <div class="row">
@@ -27,9 +26,7 @@
                         <div class="card-body">
                             <div class="row mt-3">
                                 <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('owner')"
-                                         class="card text-white bg-cards-grey text-center mb-3"
-                                         style="cursor: pointer;">
+                                    <div wire:click="changeCategory('owner')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
                                                 <img src="{{ asset('images/discord/icons/server/owner.png') }}" class="discord-badge" alt="owner badge"> {{ __('You own') }}
@@ -43,7 +40,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('administrator')" class="card text-white bg-cards-grey text-center mb-3" style="cursor: pointer;">
+                                    <div wire:click="changeCategory('administrator')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
                                                 <img src="{{ asset('images/discord/icons/server/administrator.png') }}" class="discord-badge" alt="administrator badge"> {{ __('You administrate') }}
@@ -57,7 +54,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('moderator')" class="card text-white bg-cards-grey text-center mb-3" style="cursor: pointer;">
+                                    <div wire:click="changeCategory('moderator')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
                                                 <img src="{{ asset('images/discord/icons/server/moderator.png') }}" class="discord-badge" alt="moderator badge"> {{ __('You moderate') }}
@@ -73,7 +70,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('verified')" class="card text-white bg-cards-grey text-center mb-3" style="cursor: pointer;">
+                                    <div wire:click="changeCategory('verified')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
                                                 <img src="{{ asset('images/discord/icons/server/verified.png') }}" class="discord-badge" alt="verified badge"> {{ __('Verified') }}
@@ -87,7 +84,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('partnered')" class="card text-white bg-cards-grey text-center mb-3" style="cursor: pointer;">
+                                    <div wire:click="changeCategory('partnered')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
                                                 <img src="{{ asset('images/discord/icons/server/partner.png') }}" class="discord-badge" alt="partnered badge"> {{ __('Partnered') }}
@@ -101,7 +98,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('vanityurl')" class="card text-white bg-cards-grey text-center mb-3" style="cursor: pointer;">
+                                    <div wire:click="changeCategory('vanityurl')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
                                                 <img src="{{ asset('images/discord/icons/server/vanity-url.svg') }}" class="discord-badge" alt="vanity url badge"> {{ __('Vanity URL') }}
@@ -117,7 +114,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('community')" class="card text-white bg-cards-grey text-center mb-3" style="cursor: pointer;">
+                                    <div wire:click="changeCategory('community')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
                                                 <img src="{{ asset('images/discord/icons/server/community.svg') }}" class="discord-badge" alt="community badge"> {{ __('Community enabled') }}
@@ -131,7 +128,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('discovery')" class="card text-white bg-cards-grey text-center mb-3" style="cursor: pointer;">
+                                    <div wire:click="changeCategory('discovery')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
                                                 <img src="{{ asset('images/discord/icons/server/discovery.png') }}" class="discord-badge" alt="discovery badge"> {{ __('Discovery enabled') }}
@@ -145,7 +142,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('welcomescreen')" class="card text-white bg-cards-grey text-center mb-3" style="cursor: pointer;">
+                                    <div wire:click="changeCategory('welcomescreen')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
                                                 <img src="{{ asset('images/discord/icons/server/welcome-screen-enabled.svg') }}" class="discord-badge" alt="welcome screen badge"> {{ __('Welcome Screen enabled') }}
@@ -169,7 +166,6 @@
                 </div>
             </div>
         </div>
-
         @auth
             <div id="scrollToSearch" class="row mt-5">
                 <div class="col-12 col-lg-10 offset-lg-1">
@@ -195,7 +191,7 @@
                             <input wire:model="search" type="text" class="form-control" placeholder="{{ __('Search...') }}">
                         </div>
                         <div class="col-12 col-md-3 mt-2 mt-md-0">
-                            <select wire:model="order" class="form-select">
+                            <select wire:model="sorting" class="form-select">
                                 <option value="name-asc" selected>{{ __('Name Ascending') }}</option>
                                 <option value="name-desc">{{ __('Name Descending') }}</option>
                                 <option value="id-asc">{{ __('Created Ascending') }}</option>
@@ -203,7 +199,6 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="card text-white bg-dark border-0">
                         <div class="card-body">
                             <div class="row">
@@ -227,36 +222,15 @@
                                             <div class="col-12 col-md-6 text-center text-md-start">
                                                 <div>
                                                     {{ $guild['name'] }}
-
-                                                    @if($guild['owner'])
-                                                        <img src="{{ asset('images/discord/icons/server/owner.png') }}" class="discord-badge" alt="owner badge" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('You own') }}">
-                                                    @elseif((($guild['permissions'] & (1 << 3)) == (1 << 3)))
-                                                        <img src="{{ asset('images/discord/icons/server/administrator.png') }}" class="discord-badge" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('You administrate') }}">
-                                                    @elseif((
-                                                        (($guild['permissions'] & (1 << 1)) == (1 << 1)) || // KICK_MEMBERS
-                                                        (($guild['permissions'] & (1 << 2)) == (1 << 2)) || // BAN_MEMBERS
-                                                        (($guild['permissions'] & (1 << 4)) == (1 << 4)) || // MANAGE_CHANNELS
-                                                        (($guild['permissions'] & (1 << 5)) == (1 << 5)) || // MANAGE_GUILD
-                                                        (($guild['permissions'] & (1 << 13)) == (1 << 13)) || // MANAGE_MESSAGES
-                                                        (($guild['permissions'] & (1 << 27)) == (1 << 27)) || // MANAGE_NICKNAMES
-                                                        (($guild['permissions'] & (1 << 28)) == (1 << 28)) || // MANAGE_ROLES
-                                                        (($guild['permissions'] & (1 << 29)) == (1 << 29)) || // MANAGE_WEBHOOKS
-                                                        (($guild['permissions'] & (1 << 34)) == (1 << 34)) // MANAGE_THREADS
-                                                    ))
-                                                        <img src="{{ asset('images/discord/icons/server/moderator.png') }}" class="discord-badge" alt="moderator badge" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('You moderate') }}">
-                                                    @endif
-                                                    @if(in_array('VERIFIED', $guild['features']))
-                                                        <img src="{{ asset('images/discord/icons/server/verified.png') }}" class="discord-badge" alt="verified badge" data-bs-toggle="tooltip" data-bs-placement="top" title="Discord Verified">
-                                                    @endif
-                                                    @if(in_array('PARTNERED', $guild['features']))
-                                                        <img src="{{ asset('images/discord/icons/server/partner.png') }}" class="discord-badge" alt="partner badge" data-bs-toggle="tooltip" data-bs-placement="top" title="Discord Partner">
-                                                    @endif
+                                                    @if($guild['owner']) {!! getBadgeImageWithTooltip('owner', __('You own')) !!}
+                                                    @elseif(hasAdministrator($guild['permissions'])) {!! getBadgeImageWithTooltip('administrator', __('You administrate')) !!}
+                                                    @elseif(hasModerator($guild['permissions'])) {!! getBadgeImageWithTooltip('moderator', __('You moderate')) !!} @endif
+                                                    @if(in_array('VERIFIED', $guild['features'])) {!! getBadgeImageWithTooltip('verified', __('Discord Verified')) !!} @endif
+                                                    @if(in_array('PARTNERED', $guild['features'])) {!! getBadgeImageWithTooltip('partner', __('Discord Partner')) !!} @endif
                                                 </div>
                                                 <div class="mt-n1">
                                                     <small class="text-muted">
-                                                        {{ $guild['id'] }}
-                                                        &bull;
-                                                        {{ date('Y-m-d', (($guild['id'] >> 22) + 1420070400000) / 1000) }}
+                                                        {{ $guild['id'] }} &bull; {{ date('Y-m-d', getTimestamp($guild['id']) / 1000) }}
                                                     </small>
                                                 </div>
                                             </div>
@@ -280,25 +254,19 @@
         @endauth
     </div>
 
-    @push('scripts')
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            $(function () {
+                $('[data-bs-toggle="tooltip"]').tooltip()
+            })
+            Livewire.hook('message.processed', (message, component) => {
                 $(function () {
-                    $('[data-bs-toggle="tooltip"]').tooltip();
+                    $('[data-bs-toggle="tooltip"]').tooltip()
                 })
-
-                Livewire.hook('message.processed', (message, component) => {
-                    $(function () {
-                        $('[data-bs-toggle="tooltip"]').tooltip()
-                    })
-                })
-            });
-
-            window.addEventListener('scrollToSearch', () => {
-                document.getElementById('scrollToSearch').scrollIntoView(true);
-            });
-        </script>
-    @endpush
+            })
+        })
+        window.addEventListener('scrollToSearch', () => document.getElementById('scrollToSearch').scrollIntoView(true))
+    </script>
 
     @livewire('modal.guild-features')
     @livewire('modal.guild-permissions')

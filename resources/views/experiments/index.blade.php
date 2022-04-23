@@ -20,7 +20,7 @@
                         <input wire:model="search" type="text" class="form-control" placeholder="{{ __('Search...') }}">
                     </div>
                     <div class="col-12 col-md-3 mt-2 mt-md-0">
-                        <select wire:model="order" class="form-select">
+                        <select wire:model="sorting" class="form-select">
                             <option value="name-asc">{{ __('Name Ascending') }}</option>
                             <option value="name-desc">{{ __('Name Descending') }}</option>
                             <option value="updated-asc">{{ __('Updated Ascending') }}</option>
@@ -30,22 +30,19 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="card text-white bg-dark border-0">
                     <div class="card-body">
                         <div class="row">
                             @if(empty($this->experimentsJsonSearch))
-                                <div>
-                                    {{ __('No experiments found.') }}
-                                </div>
+                                <div>{{ __('No experiments found.') }}</div>
                             @endif
                             @foreach($this->experimentsJsonSearch as $experiment)
                                 <div class="col-12 mt-1 mb-1">
                                     <div class="row">
                                         <div class="col-12 col-md-1 text-center">
-                                            @if($experiment['type'] == "user")
+                                            @if($experiment['type'] == 'user')
                                                 <i class="fas fa-user text-primary" style="font-size: 44px;"></i>
-                                            @elseif($experiment['type'] == "guild")
+                                            @elseif($experiment['type'] == 'guild')
                                                 <i class="fas fa-server text-success" style="font-size: 44px;"></i>
                                             @else
                                                 <i class="fas fa-question text-danger" style="font-size: 44px;"></i>
@@ -53,18 +50,16 @@
                                         </div>
                                         <div class="col-12 col-md-7 text-center text-md-start">
                                             <div>
-                                                {{ $experiment['name'] }}
+                                                {{ $experiment['name'] ?? 'n/a' }}
                                             </div>
                                             <div class="mt-n1">
                                                 <small class="text-muted">
-                                                    {{ $experiment['id'] }}
-                                                    &bull;
-                                                    {{ date('Y-m-d g:i A', $experiment['updated']) }}
+                                                    {{ $experiment['id'] }} &bull; {{ date('Y-m-d g:i A', $experiment['updated']) }}
                                                 </small>
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-4 text-center text-md-end">
-                                            @if($experiment['type'] == "guild")
+                                            @if($experiment['type'] == 'guild')
                                                 <a role="button" href="{{ route('experiment', ['experimentId' => $experiment['id']]) }}#guilds" class="btn btn-sm btn-outline-warning mt-2 mt-xl-0">{{ __('Guilds') }}</a>
                                             @endif
                                             <a role="button" href="{{ route('experiment', ['experimentId' => $experiment['id']]) }}" class="btn btn-sm btn-outline-primary mt-2 mt-xl-0">{{ __('Experiment Info') }}</a>

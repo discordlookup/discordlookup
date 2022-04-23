@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class LegalController extends Controller
 {
-    public function imprint() {
+    public function imprint()
+    {
         return view('legal.imprint');
     }
 
-    public function termsofservice() {
+    public function termsofservice()
+    {
         return view('legal.terms-of-service');
     }
 
-    public function privacy() {
+    public function privacy()
+    {
         return view('legal.privacy-policy');
     }
 }

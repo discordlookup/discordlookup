@@ -6,14 +6,13 @@ use Livewire\Component;
 
 class GuildFeatures extends Component
 {
-
-    public $guildName = "";
+    public $guildName = '';
     public $features = [];
 
     protected $listeners = ['update'];
 
-    public function update($guildName, $features) {
-
+    public function update($guildName, $features)
+    {
         $this->reset();
 
         $this->guildName = urldecode($guildName);

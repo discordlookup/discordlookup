@@ -13,7 +13,6 @@
             <div class="col-12 col-lg-10 offset-lg-1">
                 <div class="card text-white bg-dark border-0">
                     <div class="card-body">
-
                         <div id="what-is-a-snowflake-and-how-do-i-find-one">
                             <h2 class="h4">{{ __('What is a Snowflake and how do I find one?') }} <a href="#what-is-a-snowflake-and-how-do-i-find-one" class="text-decoration-none">#</a></h2>
                             <p>
@@ -36,9 +35,7 @@
                             <i>If you want to learn more about Snowflakes visit the <a href="https://discord.com/developers/docs/reference#snowflakes" class="text-decoration-none">Discord Developer Documentation</a>.</i>
                             </p>
                         </div>
-
                         <hr>
-
                         <div id="why-some-guilds-cant-be-found-by-their-id">
                             <h2 class="h4">{{ __('Why some guilds can\'t be found by their ID/Snowflake?') }} <a href="#why-some-guilds-cant-be-found-by-their-id" class="text-decoration-none">#</a></h2>
                             <p>
@@ -49,9 +46,7 @@
                                 To enable the server widget, go to <code>Server Settings</code> => <code>Widget</code> => <code>Enable Server Widget</code> <b>and</b> select a channel under <code>Invite Channel</code>.
                             </p>
                         </div>
-
                         <hr>
-
                         <div id="how-are-my-personal-stats-calculated-in-the-guild-list">
                             <h2 class="h4">{{ __('How are my personal stats calculated in the Guild List?') }} <a href="#how-are-my-personal-stats-calculated-in-the-guild-list" class="text-decoration-none">#</a></h2>
                             <p>
@@ -64,9 +59,7 @@
                                 For example, guilds on which you have <code>ADMINISTRATOR</code> and <code>MANAGE_MESSAGES</code> permissions only count towards "You administrate".
                             </p>
                         </div>
-
                         <hr>
-
                         <div id="i-need-support-or-have-bugs-feature-requests">
                             <h2 class="h4">{{ __('I need support or have bugs/feature requests') }} <a href="#i-need-support-or-have-bugs-feature-requests" class="text-decoration-none">#</a></h2>
                             <p>
@@ -74,9 +67,7 @@
                                 There is a separate category for DiscordLookup. We will be happy to help you there as soon as possible.
                             </p>
                         </div>
-
                         <hr>
-
                         <div id="what-happens-to-my-data-when-i-login-with-discord">
                             <h2 class="h4">{{ __('What happens to my data when I login with Discord?') }} <a href="#what-happens-to-my-data-when-i-login-with-discord" class="text-decoration-none">#</a></h2>
                             <p>
@@ -86,9 +77,7 @@
                                 For more information please visit our <a href="{{ route('legal.privacy') }}" class="text-decoration-none">privacy policy</a>.
                             </p>
                         </div>
-
                         <hr>
-
                         <div id="is-discordlookup-open-source">
                             <h2 class="h4">{{ __('Is DiscordLookup open source?') }} <a href="#is-discordlookup-open-source" class="text-decoration-none">#</a></h2>
                             <p>
@@ -96,7 +85,6 @@
                                 Feel free to give us a star on <a href="{{ env('GITHUB_URL') }}/stargazers" target="_blank">GitHub</a> if you like our work.
                             </p>
                         </div>
-
                     </div>
                 </div>
             </div>
