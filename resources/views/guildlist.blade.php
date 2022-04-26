@@ -35,7 +35,7 @@
                                         <div class="card-body">
                                             <h1 class="card-title">{{ $countOwner }}</h1>
                                             <hr>
-                                            <h4 class="card-title">{{ number_format($countOwner / $countGuilds * 100, 1) }}%</h4>
+                                            <h4 class="card-title">{{ calcPercent($countOwner, $countGuilds, 1) }}%</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -49,7 +49,7 @@
                                         <div class="card-body">
                                             <h1 class="card-title">{{ $countAdministrator }}</h1>
                                             <hr>
-                                            <h4 class="card-title">{{ number_format($countAdministrator / $countGuilds * 100, 1) }}%</h4>
+                                            <h4 class="card-title">{{ calcPercent($countAdministrator, $countGuilds, 1) }}%</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
                                         <div class="card-body">
                                             <h1 class="card-title">{{ $countModerator }}</h1>
                                             <hr>
-                                            <h4 class="card-title">{{ number_format($countModerator / $countGuilds * 100, 1) }}%</h4>
+                                            <h4 class="card-title">{{ calcPercent($countModerator, $countGuilds, 1) }}%</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@
                                         <div class="card-body">
                                             <h1 class="card-title">{{ $countVerified }}</h1>
                                             <hr>
-                                            <h4 class="card-title">{{ number_format($countVerified / $countGuilds * 100, 1) }}%</h4>
+                                            <h4 class="card-title">{{ calcPercent($countVerified, $countGuilds, 1) }}%</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -93,7 +93,7 @@
                                         <div class="card-body">
                                             <h1 class="card-title">{{ $countPartnered }}</h1>
                                             <hr>
-                                            <h4 class="card-title">{{ number_format($countPartnered / $countGuilds * 100, 1) }}%</h4>
+                                            <h4 class="card-title">{{ calcPercent($countPartnered, $countGuilds, 1) }}%</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -107,7 +107,7 @@
                                         <div class="card-body">
                                             <h1 class="card-title">{{ $countVanityUrl }}</h1>
                                             <hr>
-                                            <h4 class="card-title">{{ number_format($countVanityUrl / $countGuilds * 100, 1) }}%</h4>
+                                            <h4 class="card-title">{{ calcPercent($countVanityUrl, $countGuilds, 1) }}%</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -123,7 +123,7 @@
                                         <div class="card-body">
                                             <h1 class="card-title">{{ $countCommunityEnabled }}</h1>
                                             <hr>
-                                            <h4 class="card-title">{{ number_format($countCommunityEnabled / $countGuilds * 100, 1) }}%</h4>
+                                            <h4 class="card-title">{{ calcPercent($countCommunityEnabled, $countGuilds, 1) }}%</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -137,7 +137,7 @@
                                         <div class="card-body">
                                             <h1 class="card-title">{{ $countDiscoveryEnabled }}</h1>
                                             <hr>
-                                            <h4 class="card-title">{{ number_format($countDiscoveryEnabled / $countGuilds * 100, 1) }}%</h4>
+                                            <h4 class="card-title">{{ calcPercent($countDiscoveryEnabled, $countGuilds, 1) }}%</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -151,7 +151,7 @@
                                         <div class="card-body">
                                             <h1 class="card-title">{{ $countWelcomeScreenEnabled }}</h1>
                                             <hr>
-                                            <h4 class="card-title">{{ number_format($countWelcomeScreenEnabled / $countGuilds * 100, 1) }}%</h4>
+                                            <h4 class="card-title">{{ calcPercent($countWelcomeScreenEnabled, $countGuilds, 1) }}%</h4>
                                         </div>
                                     </div>
                                 </div>

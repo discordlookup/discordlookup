@@ -10,6 +10,20 @@ function validateInt($int): bool
 }
 
 /**
+ * @param $count
+ * @param $total
+ * @param $decimals
+ * @return string
+ */
+function calcPercent($count, $total, $decimals = 1)
+{
+    if($total == 0)
+        return number_format(0, $decimals);
+
+    return number_format($count / $total * 100, $decimals);
+}
+
+/**
  * @return false|string
  */
 function getGitHEAD()
