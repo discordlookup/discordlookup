@@ -29,8 +29,10 @@ Route::get('/snowflake-distance/{snowflake1?}/{snowflake2?}', \App\Http\Livewire
 Route::get('/guildlist', \App\Http\Livewire\Guildlist::class)->name('guildlist');
 
 /* Experiments */
-Route::get('/experiments', \App\Http\Livewire\Experiments\Index::class)->name('experiments');
-Route::get('/experiment/{experimentId}', \App\Http\Livewire\Experiments\Show::class)->name('experiment');
+Route::name('experiments.')->group(function () {
+    Route::get('/experiments', \App\Http\Livewire\Experiments\Index::class)->name('index');
+    Route::get('/experiment/{experimentId}', \App\Http\Livewire\Experiments\Show::class)->name('show');
+});
 
 /* Other */
 Route::get('/inviteresolver/{inviteCode?}/{eventId?}', \App\Http\Livewire\InviteResolver::class)->name('inviteresolver');

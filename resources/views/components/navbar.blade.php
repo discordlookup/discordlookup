@@ -31,7 +31,7 @@
                 </li>
 
                 <li class="nav-item ms-lg-1">
-                    <a class="nav-link p-2 {{ (request()->routeIs('experiments') || request()->routeIs('experiment')) ? 'active' : '' }}" href="{{ route('experiments') }}">{{ __('Experiments') }}</a>
+                    <a class="nav-link p-2 {{ (request()->routeIs('experiments.*')) ? 'active' : '' }}" href="{{ route('experiments.index') }}">{{ __('Experiments') }}</a>
                 </li>
 
                 <li class="nav-item ms-lg-1">

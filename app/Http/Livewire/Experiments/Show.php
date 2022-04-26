@@ -265,6 +265,7 @@ class Show extends Component
             $this->loadGuilds();
             $this->sorting();
         }
+
         return view('experiments.show')->extends('layouts.app');
     }
 }

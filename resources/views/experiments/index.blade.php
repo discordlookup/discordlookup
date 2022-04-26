@@ -60,9 +60,9 @@
                                         </div>
                                         <div class="col-12 col-md-4 text-center text-md-end">
                                             @if($experiment['type'] == 'guild')
-                                                <a role="button" href="{{ route('experiment', ['experimentId' => $experiment['id']]) }}#guilds" class="btn btn-sm btn-outline-warning mt-2 mt-xl-0">{{ __('Guilds') }}</a>
+                                                <a role="button" href="{{ route('experiments.show', ['experimentId' => $experiment['id']]) }}#guilds" class="btn btn-sm btn-outline-warning mt-2 mt-xl-0">{{ __('Guilds') }}</a>
                                             @endif
-                                            <a role="button" href="{{ route('experiment', ['experimentId' => $experiment['id']]) }}" class="btn btn-sm btn-outline-primary mt-2 mt-xl-0">{{ __('Experiment Info') }}</a>
+                                            <a role="button" href="{{ route('experiments.show', ['experimentId' => $experiment['id']]) }}" class="btn btn-sm btn-outline-primary mt-2 mt-xl-0">{{ __('Experiment Info') }}</a>
                                         </div>
                                     </div>
                                     @if(!$loop->last)
