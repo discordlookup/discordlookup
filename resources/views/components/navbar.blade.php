@@ -14,7 +14,7 @@
                 </li>
 
                 <li class="nav-item ms-lg-1 dropdown">
-                    <a class="nav-link p-2 dropdown-toggle {{ (request()->routeIs('snowflake') || request()->routeIs('userlookup') || request()->routeIs('guildlookup') || request()->routeIs('applicationlookup') || request()->routeIs('snowflake-distance-calculator')) ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link p-2 dropdown-toggle {{ (request()->routeIs('snowflake') || request()->routeIs('userlookup') || request()->routeIs('guildlookup') || request()->routeIs('applicationlookup') || request()->routeIs('timestamp') || request()->routeIs('snowflake-distance-calculator')) ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {{ __('Snowflake') }}
                     </a>
                     <ul class="dropdown-menu bg-dark border-0" aria-labelledby="navbarDropdown">
@@ -22,6 +22,7 @@
                         <li><a class="dropdown-item text-white {{ request()->routeIs('userlookup') ? 'active' : '' }}" href="{{ route('userlookup') }}">{{ __('User Lookup') }}</a></li>
                         <li><a class="dropdown-item text-white {{ request()->routeIs('guildlookup') ? 'active' : '' }}" href="{{ route('guildlookup') }}">{{ __('Guild Lookup') }}</a></li>
                         {{--<li><a class="dropdown-item text-white {{ request()->routeIs('applicationlookup') ? 'active' : '' }}" href="{{ route('applicationlookup') }}">{{ __('Application Lookup') }}</a></li>--}}
+                        <li><a class="dropdown-item text-white {{ request()->routeIs('timestamp') ? 'active' : '' }}" href="{{ route('timestamp') }}">{{ __('Timestamp Styles') }}</a></li>
                         <li><a class="dropdown-item text-white {{ request()->routeIs('snowflake-distance-calculator') ? 'active' : '' }}" href="{{ route('snowflake-distance-calculator') }}">{{ __('Snowflake Distance Calculator') }}</a></li>
                     </ul>
                 </li>

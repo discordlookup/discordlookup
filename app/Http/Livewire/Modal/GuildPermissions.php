@@ -16,7 +16,7 @@ class GuildPermissions extends Component
         $this->reset();
 
         $this->guildName = urldecode($guildName);
-        $this->permissionsList = getPermissionsNames($permissions);
+        $this->permissionsList = getPermissionFlagListNames($permissions);
         sort($this->permissionsList);
     }
 

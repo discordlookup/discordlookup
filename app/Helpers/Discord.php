@@ -16,6 +16,7 @@ function getTimestamp($snowflake)
  * @param $guildId
  * @param $totalShards
  * @return int
+ * @see https://discord.com/developers/docs/reference#snowflake-ids-in-pagination-generating-a-snowflake-id-from-a-timestamp-example
  */
 function getShardId($guildId, $totalShards): int
 {
@@ -42,6 +43,7 @@ function invalidateSnowflake($snowflake)
 /**
  * @param $permissions
  * @return bool
+ * @see https://discord.com/developers/docs/topics/permissions#permissions-bitwise-permission-flags
  */
 function hasAdministrator($permissions)
 {
@@ -51,6 +53,7 @@ function hasAdministrator($permissions)
 /**
  * @param $permissions
  * @return bool
+ * @see https://discord.com/developers/docs/topics/permissions#permissions-bitwise-permission-flags
  */
 function hasModerator($permissions)
 {
@@ -72,7 +75,7 @@ function hasModerator($permissions)
  * @return array
  * @see https://discord.com/developers/docs/topics/permissions#permissions-bitwise-permission-flags
  */
-function getPermissionsNames($bitwise): array
+function getPermissionFlagListNames($bitwise): array
 {
     $permissions = [
         'CREATE_INSTANT_INVITE' => (1 << 0),
@@ -118,10 +121,38 @@ function getPermissionsNames($bitwise): array
     ];
 
     $permissionsList = [];
-    foreach ($permissions as $permission => $value) {
-        if (($bitwise & $value) == $value) {
+    foreach ($permissions as $permission => $value)
+    {
+        if (($bitwise & $value) == $value)
             $permissionsList[] = $permission;
-        }
+    }
+
+    return $permissionsList;
+}
+
+/**
+ * @param $bitwise
+ * @return array
+ * @see https://discord.com/developers/docs/resources/application#application-object-application-flags
+ */
+function getApplicationFlagListNames($bitwise): array
+{
+    $permissions = [
+        'GATEWAY_PRESENCE' => (1 << 12),
+        'GATEWAY_PRESENCE_LIMITED' => (1 << 13),
+        'GATEWAY_GUILD_MEMBERS' => (1 << 14),
+        'GATEWAY_GUILD_MEMBERS_LIMITED' => (1 << 15),
+        'VERIFICATION_PENDING_GUILD_LIMIT' => (1 << 16),
+        'EMBEDDED' => (1 << 17),
+        'GATEWAY_MESSAGE_CONTENT' => (1 << 18),
+        'GATEWAY_MESSAGE_CONTENT_LIMITED' => (1 << 19),
+    ];
+
+    $permissionsList = [];
+    foreach ($permissions as $permission => $value)
+    {
+        if (($bitwise & $value) == $value)
+            $permissionsList[] = $permission;
     }
 
     return $permissionsList;
@@ -132,7 +163,7 @@ function getPermissionsNames($bitwise): array
  * @return array
  * @see https://discord.com/developers/docs/resources/user#user-object-user-flags
  */
-function getFlagList($flags)
+function getUserFlagList($flags)
 {
     $list = [];
 
@@ -205,8 +236,12 @@ function getUser($userId)
         return null;
 
     $array['id'] = $responseJson['id'];
-    $array['username'] = $responseJson['username'];
-    $array['discriminator'] = $responseJson['discriminator'];
+
+    if (key_exists('username', $responseJson))
+        $array['username'] = $responseJson['username'];
+
+    if (key_exists('discriminator', $responseJson))
+        $array['discriminator'] = $responseJson['discriminator'];
 
     if (key_exists('bot', $responseJson))
         $array['isBot'] = $responseJson['bot'];
@@ -226,7 +261,7 @@ function getUser($userId)
     if (key_exists('public_flags', $responseJson))
     {
         $array['flags'] = $responseJson['public_flags'];
-        $array['flagsList'] = getFlagList($array['flags']);
+        $array['flagsList'] = getUserFlagList($array['flags']);
         if ($array['flags'] & (1 << 16))
             $array['isVerifiedBot']  = true;
     }

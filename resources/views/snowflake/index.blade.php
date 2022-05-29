@@ -32,7 +32,7 @@
                         <div class="card-body">
                             <b>{{ __('Date') }}:</b> {{ $snowflakeDate }}<br>
                             <b>{{ __('Relative') }}:</b> <span id="snowflakeRelative"></span><br>
-                            <b>{{ __('Unix Timestamp') }}:</b> {{ $snowflakeTimestamp }}<br>
+                            <b>{{ __('Unix Timestamp') }}:</b> <a href="{{ route('timestamp', ['timestamp' => round($snowflakeTimestamp / 1000)]) }}" class="text-decoration-none">{{ $snowflakeTimestamp }}</a><br>
                             <span class="small fst-italic">
                                 <a href="{{ route('snowflake-distance-calculator', ['snowflake1' => $snowflake]) }}" class="text-decoration-none">
                                     {{ __('Click here to go to the Snowflake Distance Calculator') }}

@@ -133,6 +133,26 @@
                 </div>
             </div>
         </a>
+        <a href="{{ route('timestamp') }}" class="tools-list-item text-decoration-none">
+            <div class="card text-white bg-dark border-0 mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 col-md-1 d-flex align-items-center">
+                            <i class="far fa-clock ms-auto me-auto"></i>
+                        </div>
+                        <div class="col-12 col-md-2 d-flex align-items-center">
+                            <p class="fw-bold my-auto">{{ __('Timestamp Styles') }}</p>
+                        </div>
+                        <div class="col-12 col-md-8 d-flex align-items-center">
+                            <p class="my-auto">{{ __('Generate Discord timestamp styles based on a date, time, snowflake or timestamp.') }}</p>
+                        </div>
+                        <div class="col-0 col-md-1 d-flex align-items-center">
+                            <i class="fas fa-arrow-right ms-auto"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
         <a href="{{ route('snowflake-distance-calculator') }}" class="tools-list-item text-decoration-none">
             <div class="card text-white bg-dark border-0 mb-3">
                 <div class="card-body">
