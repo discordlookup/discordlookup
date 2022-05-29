@@ -71,8 +71,9 @@
                             <td>
                                 <div class="input-group">
                                     <input type="text" class="form-control bg-gray-800 border-0 shadow-none" id="inputShortTime" aria-label="Copy to clipboard" aria-describedby="buttonShortTime" value="<t:{{ $timestamp }}:t>" readonly>
-                                    <button class="btn btn-primary" type="button" id="buttonShortTime" onclick="copyToClipboard('inputShortTime')"><i class="far fa-clipboard"></i></button>
+                                    <button class="btn btn-primary" type="button" id="buttonShortTime" onclick="copyToClipboard('ShortTime')"><i class="far fa-clipboard"></i></button>
                                 </div>
+                                <div class="valid-feedback" id="successShortTime">{{ __('Successfully copied to the clipboard.') }}</div>
                             </td>
                             <td id="momentShortTime"></td>
                             <td>{{ __('Short Time') }}</td>
@@ -81,8 +82,9 @@
                             <td>
                                 <div class="input-group">
                                     <input type="text" class="form-control bg-gray-800 border-0 shadow-none" id="inputLongTime" aria-label="Copy to clipboard" aria-describedby="buttonLongTime" value="<t:{{ $timestamp }}:T>" readonly>
-                                    <button class="btn btn-primary" type="button" id="buttonLongTime" onclick="copyToClipboard('inputLongTime')"><i class="far fa-clipboard"></i></button>
+                                    <button class="btn btn-primary" type="button" id="buttonLongTime" onclick="copyToClipboard('LongTime')"><i class="far fa-clipboard"></i></button>
                                 </div>
+                                <div class="valid-feedback" id="successLongTime">{{ __('Successfully copied to the clipboard.') }}</div>
                             </td>
                             <td id="momentLongTime"></td>
                             <td>{{ __('Long Time') }}</td>
@@ -91,8 +93,9 @@
                             <td>
                                 <div class="input-group">
                                     <input type="text" class="form-control bg-gray-800 border-0 shadow-none" id="inputShortDate" aria-label="Copy to clipboard" aria-describedby="buttonShortDate" value="<t:{{ $timestamp }}:d>" readonly>
-                                    <button class="btn btn-primary" type="button" id="buttonShortDate" onclick="copyToClipboard('inputShortDate')"><i class="far fa-clipboard"></i></button>
+                                    <button class="btn btn-primary" type="button" id="buttonShortDate" onclick="copyToClipboard('ShortDate')"><i class="far fa-clipboard"></i></button>
                                 </div>
+                                <div class="valid-feedback" id="successShortDate">{{ __('Successfully copied to the clipboard.') }}</div>
                             </td>
                             <td id="momentShortDate"></td>
                             <td>{{ __('Short Date') }}</td>
@@ -101,8 +104,9 @@
                             <td>
                                 <div class="input-group">
                                     <input type="text" class="form-control bg-gray-800 border-0 shadow-none" id="inputLongDate" aria-label="Copy to clipboard" aria-describedby="buttonLongDate" value="<t:{{ $timestamp }}:D>" readonly>
-                                    <button class="btn btn-primary" type="button" id="buttonLongDate" onclick="copyToClipboard('inputLongDate')"><i class="far fa-clipboard"></i></button>
+                                    <button class="btn btn-primary" type="button" id="buttonLongDate" onclick="copyToClipboard('LongDate')"><i class="far fa-clipboard"></i></button>
                                 </div>
+                                <div class="valid-feedback" id="successLongDate">{{ __('Successfully copied to the clipboard.') }}</div>
                             </td>
                             <td id="momentLongDate"></td>
                             <td>{{ __('Long Date') }}</td>
@@ -111,8 +115,9 @@
                             <td>
                                 <div class="input-group">
                                     <input type="text" class="form-control bg-gray-800 border-0 shadow-none" id="inputShortDateTime" aria-label="Copy to clipboard" aria-describedby="buttonShortDateTime" value="<t:{{ $timestamp }}:f>" readonly>
-                                    <button class="btn btn-primary" type="button" id="buttonShortDateTime" onclick="copyToClipboard('inputShortDateTime')"><i class="far fa-clipboard"></i></button>
+                                    <button class="btn btn-primary" type="button" id="buttonShortDateTime" onclick="copyToClipboard('ShortDateTime')"><i class="far fa-clipboard"></i></button>
                                 </div>
+                                <div class="valid-feedback" id="successShortDateTime">{{ __('Successfully copied to the clipboard.') }}</div>
                             </td>
                             <td id="momentShortDateTime"></td>
                             <td>{{ __('Short Date/Time') }}</td>
@@ -121,8 +126,9 @@
                             <td>
                                 <div class="input-group">
                                     <input type="text" class="form-control bg-gray-800 border-0 shadow-none" id="inputLongDateTime" aria-label="Copy to clipboard" aria-describedby="buttonLongDateTime" value="<t:{{ $timestamp }}:F>" readonly>
-                                    <button class="btn btn-primary" type="button" id="buttonLongDateTime" onclick="copyToClipboard('inputLongDateTime')"><i class="far fa-clipboard"></i></button>
+                                    <button class="btn btn-primary" type="button" id="buttonLongDateTime" onclick="copyToClipboard('LongDateTime')"><i class="far fa-clipboard"></i></button>
                                 </div>
+                                <div class="valid-feedback" id="successLongDateTime">{{ __('Successfully copied to the clipboard.') }}</div>
                             </td>
                             <td id="momentLongDateTime"></td>
                             <td>{{ __('Long Date/Time') }}</td>
@@ -131,8 +137,9 @@
                             <td>
                                 <div class="input-group">
                                     <input type="text" class="form-control bg-gray-800 border-0 shadow-none" id="inputRelativeTime" aria-label="Copy to clipboard" aria-describedby="buttonRelativeTime" value="<t:{{ $timestamp }}:R>" readonly>
-                                    <button class="btn btn-primary" type="button" id="buttonRelativeTime" onclick="copyToClipboard('inputRelativeTime')"><i class="far fa-clipboard"></i></button>
+                                    <button class="btn btn-primary" type="button" id="buttonRelativeTime" onclick="copyToClipboard('RelativeTime')"><i class="far fa-clipboard"></i></button>
                                 </div>
+                                <div class="valid-feedback" id="successRelativeTime">{{ __('Successfully copied to the clipboard.') }}</div>
                             </td>
                             <td id="momentRelativeTime"></td>
                             <td>{{ __('Relative Time') }}</td>
@@ -141,8 +148,9 @@
                             <td>
                                 <div class="input-group">
                                     <input type="text" class="form-control bg-gray-800 border-0 shadow-none" id="inputTimestamp" aria-label="Copy to clipboard" aria-describedby="buttonTimestamp" value="{{ $timestamp }}" readonly>
-                                    <button class="btn btn-primary" type="button" id="buttonTimestamp" onclick="copyToClipboard('inputTimestamp')"><i class="far fa-clipboard"></i></button>
+                                    <button class="btn btn-primary" type="button" id="buttonTimestamp" onclick="copyToClipboard('Timestamp')"><i class="far fa-clipboard"></i></button>
                                 </div>
+                                <div class="valid-feedback" id="successTimestamp">{{ __('Successfully copied to the clipboard.') }}</div>
                             </td>
                             <td>{{ $timestamp }}</td>
                             <td>{{ __('Timestamp') }}</td>
@@ -183,10 +191,14 @@
         }
 
         function copyToClipboard(elemId) {
-            const copyElem = document.getElementById(elemId);
-            copyElem.select();
-            copyElem.setSelectionRange(0, 99999);
-            navigator.clipboard.writeText(copyElem.value);
+            const inputElem = document.getElementById('input' + elemId);
+            inputElem.select();
+            inputElem.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(inputElem.value);
+
+            const successElem = document.getElementById('success' + elemId);
+            successElem.style.display = 'block';
+            setTimeout(() => successElem.style.display = 'none', 3000);
         }
     </script>
 </div>
