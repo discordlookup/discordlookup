@@ -42,11 +42,13 @@ function watchExperiments()
             $experimentsNew[] = $experiment;
             $updateExperimentItem = true;
         }
-
-        if($experimentItem->experiment_updated != round($experiment['updated']))
+        else if($experimentItem->experiment_updated != round($experiment['updated']))
         {
             $experimentsUpdated[] = $experiment;
             $updateExperimentItem = true;
+
+            echo $experimentItem->experiment_updated . ' | ' . round($experiment['updated']) . '
+            ';
         }
 
         if($updateExperimentItem)
@@ -54,8 +56,8 @@ function watchExperiments()
             $experimentItem->experiment_id = $experiment['id'];
             $experimentItem->experiment_hash = $experiment['hash'];
             $experimentItem->experiment_name = $experiment['name'];
-            $experimentItem->experiment_created = $experiment['created'];
-            $experimentItem->experiment_updated = $experiment['updated'];
+            $experimentItem->experiment_created = round($experiment['created']);
+            $experimentItem->experiment_updated = round($experiment['updated']);
             $experimentItem->experiment_type = $experiment['type'];
             $experimentItem->save();
         }
@@ -109,12 +111,12 @@ function postExperiments($experimentsNew, $experimentsUpdated)
                 ],
                 [
                     'name' => 'Created',
-                    'value' => '<t:' . $experiment['created'] . ':f> (<t:' . $experiment['created'] . ':R>)',
+                    'value' => '<t:' . round($experiment['created']) . ':f> (<t:' . round($experiment['created']) . ':R>)',
                     'inline' => true,
                 ],
                 [
                     'name' => 'Updated',
-                    'value' => '<t:' . $experiment['updated'] . ':f> (<t:' . $experiment['updated'] . ':R>)',
+                    'value' => '<t:' . round($experiment['updated']) . ':f> (<t:' . round($experiment['updated']) . ':R>)',
                     'inline' => true,
                 ],
             ],
@@ -160,12 +162,12 @@ function postExperiments($experimentsNew, $experimentsUpdated)
                 ],
                 [
                     'name' => 'Created',
-                    'value' => '<t:' . $experiment['created'] . ':f> (<t:' . $experiment['created'] . ':R>)',
+                    'value' => '<t:' . round($experiment['created']) . ':f> (<t:' . round($experiment['created']) . ':R>)',
                     'inline' => true,
                 ],
                 [
                     'name' => 'Updated',
-                    'value' => '<t:' . $experiment['updated'] . ':f> (<t:' . $experiment['updated'] . ':R>)',
+                    'value' => '<t:' . round($experiment['updated']) . ':f> (<t:' . round($experiment['updated']) . ':R>)',
                     'inline' => true,
                 ],
             ],
