@@ -1,9 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-        <a href="{{ route('home') }}" class="navbar-brand">
-            {{--<img src="{{ asset('images/logo-rounded.svg') }}" height="64px" width="64px" alt="{{ env('APP_NAME') }} Logo">--}}
+        {{--<a href="{{ route('home') }}" class="navbar-brand">
             <h1 class="text-primary fw-bolder">DiscordLookup</h1>
-        </a>
+            <img src="{{ asset('images/icon-blurple.png') }}" height="32px" alt="{{ env('APP_NAME') }} Logo">
+        </a>--}}
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

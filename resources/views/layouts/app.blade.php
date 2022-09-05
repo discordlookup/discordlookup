@@ -9,9 +9,7 @@
 
     <link rel="icon" sizes="any" type="image/svg+xml" href="{{ asset('images/favicon.svg') }}">
     <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="{{ asset('images/favicon.svg') }}"/>
+    <link rel="apple-touch-icon" href="{{ asset('images/favicon.png') }}"/>
 
     @hasSection('robots')<meta name="robots" content="@yield('robots')">@endif
 
