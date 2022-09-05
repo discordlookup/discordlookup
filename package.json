@@ -21,7 +21,7 @@
         "jszip-utils": "^0.1.0",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
-        "moment": "^2.29.1",
+        "moment": "^2.29.4",
         "postcss": "^8.1.14",
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.42.1",
