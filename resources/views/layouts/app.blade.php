@@ -37,7 +37,7 @@ discord, discord lookup, discordlookup, lookup, snowflake, guild count, invite i
     @hasSection('og.image')
         <meta property="og:image" content="@yield('og.image')">
     @else
-        <meta property="og:image" content="{{ asset('images/branding/icon-blurple.svg') }}">
+        <meta property="og:image" content="{{ asset('images/branding/icon-blurple.png') }}">
     @endif
     @hasSection('og.description')
         <meta property="og:description" content="@yield('og.description')">
