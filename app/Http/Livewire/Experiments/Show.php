@@ -116,9 +116,9 @@ class Show extends Component
     public function loadGuilds()
     {
         $this->guilds = [];
-        $guildsJson = session('guildsJson');
+        $guildsJson = auth()->user()->guildList;
 
-        if($guildsJson != null && !empty($this->experiment['rollout']))
+        if($guildsJson != null && is_array($guildsJson) && !empty($this->experiment['rollout']))
         {
             foreach ($guildsJson as $guild)
             {

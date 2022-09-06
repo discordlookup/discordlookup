@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Http;
 /**
  * @param $snowflake
  * @return float|int
+ * @see https://discord.com/developers/docs/reference#convert-snowflake-to-datetime
  */
 function getTimestamp($snowflake)
 {
@@ -16,7 +17,7 @@ function getTimestamp($snowflake)
  * @param $guildId
  * @param $totalShards
  * @return int
- * @see https://discord.com/developers/docs/reference#snowflake-ids-in-pagination-generating-a-snowflake-id-from-a-timestamp-example
+ * @see https://discord.com/developers/docs/topics/gateway#sharding-sharding-formula
  */
 function getShardId($guildId, $totalShards): int
 {

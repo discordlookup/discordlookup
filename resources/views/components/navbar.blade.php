@@ -59,7 +59,7 @@
                 </li>
                 @guest()
                     <li class="nav-item">
-                        <a role="button" class="btn btn-info w-100" href="{{ route('login') }}"><i class="fas fa-sign-in-alt"></i> {{ __('Login') }}</a>
+                        <a role="button" class="btn btn-info w-100" href="{{ route('login') }}" data-bs-toggle="modal" data-bs-target="#loginModal"><i class="fas fa-sign-in-alt"></i> {{ __('Login') }}</a>
                     </li>
                 @endguest
                 @auth()

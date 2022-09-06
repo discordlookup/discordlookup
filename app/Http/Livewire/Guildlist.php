@@ -26,7 +26,12 @@ class Guildlist extends Component
 
     public function loadGuilds()
     {
-        $this->guildsJson = session('guildsJson');
+        $this->guildsJson = auth()->user()->guildList;
+
+        if(key_exists('message', $this->guildsJson)) {
+            $this->redirect(route('login'));
+            return;
+        }
 
         if($this->guildsJson != null)
         {

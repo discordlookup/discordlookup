@@ -16,8 +16,13 @@ class AuthController extends Controller
     {
         $request->session()->put('loginRedirect', url()->previous());
 
+        $scopes = ['identify', 'guilds'];
+
+        if ($request->session()->exists('joinDiscordAfterLogin') && $request->session()->get('joinDiscordAfterLogin'))
+            $scopes[] = 'guilds.join';
+
         return Socialite::driver('discord')
-            ->setScopes(['identify', 'guilds'])
+            ->setScopes($scopes)
             ->with([
                 //'prompt' => 'none',
             ])
@@ -36,7 +41,6 @@ class AuthController extends Controller
 
     public function callback(Request $request)
     {
-
         try {
             $discordUser = Socialite::driver('discord')->user();
         } catch (\Throwable $th) {
@@ -44,17 +48,24 @@ class AuthController extends Controller
             return redirect(RouteServiceProvider::HOME);
         }
 
-        $response = Http::withHeaders([
-            'Authorization' => "Bearer " . $discordUser->token
-        ])->get(env('DISCORD_API_URL') . '/users/@me/guilds');
-
-        $request->session()->put('guildsJson', $response->json());
+        if($request->session()->exists('joinDiscordAfterLogin')) {
+            Http::withHeaders([
+                'Authorization' => 'Bot ' . env('DISCORD_BOT_TOKEN')
+            ])->put(
+                env('DISCORD_API_URL') . '/guilds/' . env('DISCORD_GUILD_ID') . '/members/' . $discordUser->user['id'],
+                [
+                    'access_token' => $discordUser->token,
+                ]
+            );
+            $request->session()->remove('joinDiscordAfterLogin');
+        }
 
         $userData = [
             'username' => $discordUser->user['username'],
             'discriminator' => $discordUser->user['discriminator'],
             'avatar' => str_replace('https://cdn.discordapp.com/avatars/' . $discordUser->user['id'] . '/', '', $discordUser->avatar),
             'locale' => $discordUser->user['locale'],
+            'discord_token' => encrypt($discordUser->token),
         ];
 
         $user = User::firstOrCreate(
@@ -69,7 +80,7 @@ class AuthController extends Controller
             $request->session()->put('github-upsell', true);
         }
 
-        Auth::login($user);
+        Auth::login($user, true);
 
         return redirect($request->session()->get('loginRedirect'));
     }

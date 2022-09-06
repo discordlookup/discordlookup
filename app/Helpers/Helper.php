@@ -15,12 +15,10 @@ function validateInt($int): bool
  * @param $decimals
  * @return string
  */
-function calcPercent($count, $total, $decimals = 1)
+function calcPercent($count, $total, int $decimals = 1)
 {
-    if($total == 0)
-        return number_format(0, $decimals);
-
-    return number_format($count / $total * 100, $decimals);
+    if($total == 0) return 0;
+    return round($count / $total * 100, $decimals);
 }
 
 /**
@@ -28,11 +26,9 @@ function calcPercent($count, $total, $decimals = 1)
  */
 function getGitHEAD()
 {
-    if ($head = file_get_contents(base_path() . '/.git/HEAD')) {
+    if ($head = file_get_contents(base_path() . '/.git/HEAD'))
         return substr($head, 5, -1);
-    } else {
-        return false;
-    }
+    return false;
 }
 
 /**
@@ -41,14 +37,10 @@ function getGitHEAD()
 function getCurrentGitCommit()
 {
     try {
-        if ($hash = file_get_contents(base_path() . '/.git/' . getGitHEAD())) {
+        if ($hash = file_get_contents(base_path() . '/.git/' . getGitHEAD()))
             return $hash;
-        } else {
-            return false;
-        }
-    } catch (Exception $e) {
-        return false;
-    }
+    } catch (Exception $e) { }
+    return false;
 }
 
 /**

@@ -10,7 +10,7 @@
             <div class="col-12 col-xl-4 offset-xl-3">
                 <div class="input-group input-group-lg">
                     <span class="input-group-text bg-dark">
-                        <i class="fas fa-fingerprint"></i>
+                        <i class="far fa-snowflake"></i>
                     </span>
                     <input wire:model="guildId" class="form-control form-control-lg" type="text" placeholder="{{ __('Guild ID') }}">
                 </div>
