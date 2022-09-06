@@ -7,9 +7,9 @@
 
     <title>@hasSection('title')@yield('title') | @endif{{ env('APP_NAME') }}</title>
 
-    <link rel="icon" sizes="any" type="image/svg+xml" href="{{ asset('images/favicon.svg') }}">
-    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
-    <link rel="apple-touch-icon" href="{{ asset('images/favicon.png') }}"/>
+    <link rel="icon" sizes="any" type="image/svg+xml" href="{{ asset('images/branding/favicon/favicon.svg') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/branding/favicon/favicon.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/branding/favicon/favicon.png') }}"/>
 
     @hasSection('robots')<meta name="robots" content="@yield('robots')">@endif
 
@@ -37,7 +37,7 @@ discord, discord lookup, discordlookup, lookup, snowflake, guild count, invite i
     @hasSection('og.image')
         <meta property="og:image" content="@yield('og.image')">
     @else
-        <meta property="og:image" content="{{ asset('images/logo-rounded.svg') }}">
+        <meta property="og:image" content="{{ asset('images/branding/icon-blurple.svg') }}">
     @endif
     @hasSection('og.description')
         <meta property="og:description" content="@yield('og.description')">

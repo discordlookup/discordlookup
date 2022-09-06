@@ -7,7 +7,7 @@
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="mx-auto">
-                <img src="{{ asset('images/logo-light.svg') }}" class="img-fluid" style="max-height: 64px" alt="{{ env('APP_NAME') }} Logo">
+                <img src="{{ asset('images/branding/logo-light.svg') }}" class="img-fluid" style="max-height: 64px" alt="{{ env('APP_NAME') }} Logo">
                 <p class="lead fw-bold text-white">{{ __('Get more out of Discord with Discord Lookup') }}</p>
             </div>
         </div>

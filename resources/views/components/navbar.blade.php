@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
         <a href="{{ route('home') }}" class="navbar-brand">
-            <img src="{{ asset('images/logo-blurple.svg') }}" class="img-fluid" style="max-height: 16px" alt="{{ env('APP_NAME') }} Logo">
+            <img src="{{ asset('images/branding/logo-blurple.svg') }}" class="img-fluid" style="max-height: 16px" alt="{{ env('APP_NAME') }} Logo">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
