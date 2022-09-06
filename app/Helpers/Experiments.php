@@ -70,7 +70,7 @@ function postExperiments($experimentsNew, $experimentsUpdated)
 {
     $i = 1;
     $embed = [
-        'content' => null,
+        'content' => '<@&1016667060580909066>',
         'embeds' => [],
     ];
 
