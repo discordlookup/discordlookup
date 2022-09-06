@@ -176,7 +176,8 @@ function postExperiments($experimentsNew, $experimentsUpdated)
         $i++;
     }
 
-    Http::withBody(json_encode($embed), 'application/json')->post(env('EXPERIMENTS_WATCHER_WEBHOOK'));
+    if($i > 1)
+        Http::withBody(json_encode($embed), 'application/json')->post(env('EXPERIMENTS_WATCHER_WEBHOOK'));
 
     if(!empty($experimentsNew) || !empty($experimentsUpdated))
         postExperiments($experimentsNew, $experimentsUpdated);
