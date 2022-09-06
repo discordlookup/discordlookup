@@ -314,7 +314,7 @@ function getGuildWidget($guildId)
     if(array_key_exists('instant_invite', $responseJson))
     {
         $array['instantInviteUrlCode'] = str_replace('https://discord.com/invite/', '', $responseJson['instant_invite']);
-        $array['instantInviteUrl'] = env('DISCORD_INVITE_PREFIX') . $array['instantInviteUrlCode'];
+        $array['instantInviteUrl'] = empty($array['instantInviteUrlCode']) ? '' : env('DISCORD_INVITE_PREFIX') . $array['instantInviteUrlCode'];
     }
 
     if(array_key_exists('presence_count', $responseJson))
@@ -487,7 +487,7 @@ function parseInviteJson($json)
         if(array_key_exists('vanity_url_code', $json['guild']))
         {
             $array['guild']['vanityUrlCode'] = $json['guild']['vanity_url_code'];
-            $array['guild']['vanityUrl'] = env('DISCORD_INVITE_PREFIX') . $array['guild']['vanityUrlCode'];
+            $array['guild']['vanityUrl'] = empty($array['guild']['vanityUrlCode']) ? '' : env('DISCORD_INVITE_PREFIX') . $array['guild']['vanityUrlCode'];
         }
 
         foreach ($json['guild']['features'] as $feature)
