@@ -75,10 +75,8 @@ class AuthController extends Controller
             $userData
         );
 
-        if (!$user->wasRecentlyCreated) {
+        if (!$user->wasRecentlyCreated)
             $user->update($userData);
-            $request->session()->put('github-upsell', true);
-        }
 
         Auth::login($user, true);
 

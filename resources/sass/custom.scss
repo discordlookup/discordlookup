@@ -95,3 +95,22 @@ footer {
         font-size: 2rem;
     }
 }
+
+.banner {
+    background-color: $blue;
+    padding: 0.3rem !important;
+    font-weight: 700 !important;
+}
+
+.banner-btn-outline-light {
+    color: #f8f9fa;
+    border-color: #f8f9fa;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    border-radius: 0.2rem;
+}
+.banner-btn-outline-light:hover {
+    color: #000;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+}
