@@ -1,20 +1,13 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\LegalController;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Website
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
 */
 
 Route::get('/', \App\Http\Livewire\Home::class)->name('home');
@@ -33,7 +26,8 @@ Route::get('/timestamp/{timestamp?}', \App\Http\Livewire\Timestamp::class)->name
 /* Experiments */
 Route::name('experiments.')->group(function () {
     Route::get('/experiments', \App\Http\Livewire\Experiments\Index::class)->name('index');
-    Route::get('/experiment/{experimentId}', \App\Http\Livewire\Experiments\Show::class)->name('show');
+    Route::get('/experiments/{experimentId}', \App\Http\Livewire\Experiments\Show::class)->name('show');
+    Route::redirect('/experiment/{experimentId}', '/experiments/{experimentId}', 301);
 });
 
 /* Other */
@@ -43,17 +37,39 @@ Route::get('/guild-shard-calculator/{guildId?}/{totalShards?}', \App\Http\Livewi
 Route::get('/help', \App\Http\Livewire\Help::class)->name('help');
 
 Route::name('legal.')->group(function () {
-    Route::get('/imprint', [LegalController::class, 'imprint'])->name('imprint');
-    Route::get('/privacy', [LegalController::class, 'privacy'])->name('privacy');
-    Route::get('/terms-of-service', [LegalController::class, 'termsofservice'])->name('terms-of-service');
+    Route::view('/imprint', 'legal.imprint')->name('imprint');
+    Route::view('/privacy', 'legal.privacy-policy')->name('privacy');
+    Route::view('/terms-of-service', 'legal.terms-of-service')->name('terms-of-service');
 });
 
-/* Auth (Discord) */
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/auth/callback', [AuthController::class, 'callback']);
 
-/* Language switcher */
+/*
+|--------------------------------------------------------------------------
+| Auth
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
+Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
+Route::get('/auth/callback', [\App\Http\Controllers\AuthController::class, 'callback']);
+
+
+/*
+|--------------------------------------------------------------------------
+| Redirects
+|--------------------------------------------------------------------------
+*/
+
+Route::redirect('/invite', env('INVITE_URL'), 302)->name('invite');
+Route::redirect('/discord', env('DISCORD_URL'), 302)->name('discord');
+
+
+/*
+|--------------------------------------------------------------------------
+| Language
+|--------------------------------------------------------------------------
+*/
+
 Route::get('/language/{locale}', function ($locale) {
     Session::put('locale', $locale);
     return Redirect::back();

@@ -134,7 +134,7 @@ function postExperiments($experimentsNew, $experimentsUpdated)
 
         $embed['embeds'][] = [
             'title' => $experiment['name'],
-            'url' => 'https://discordlookup.com/experiment/' . $experiment['id'],
+            'url' => route('experiments.show', ['experimentId' => $experiment['id']]),
             'color' => 16705372,
             'author' => [
                 'name' => 'Updated Experiment',
