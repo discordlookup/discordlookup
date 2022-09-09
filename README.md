@@ -7,7 +7,7 @@
 
 [ ![discord-shield][] ][discord-invite]
 [ ![license-shield][] ][license]
-[ ![workflowstatus-shield][] ](https://github.com/easypoll-bot/easypoll-v3/actions/workflows/java-ci-maven.yml)
+[ ![workflowstatus-shield][] ](https://github.com/fbrettnich/DiscordLookup/actions/workflows/docker-publish.yml)
 
 <img align="right" src="https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/discordlookup-logo.png" height="200" width="200">
 
