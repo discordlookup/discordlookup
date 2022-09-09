@@ -1,3 +1,16 @@
+[bot-invite]: https://discordlookup.com/invite?utm_source=github&utm_medium=readme&utm_campaign=discordlookup
+[discord-invite]: https://discordlookup.com/discord
+[license]: https://github.com/fbrettnich/DiscordLookup/blob/main/LICENSE
+[discord-shield]: https://discord.com/api/guilds/980791496833908778/widget.png
+[license-shield]: https://img.shields.io/github/license/fbrettnich/DiscordLookup?label=License
+[workflowstatus-shield]: https://img.shields.io/github/workflow/status/fbrettnich/DiscordLookup/Publish%20Docker%20Container?label=Build
+
+[ ![discord-shield][] ][discord-invite]
+[ ![license-shield][] ][license]
+[ ![workflowstatus-shield][] ](https://github.com/easypoll-bot/easypoll-v3/actions/workflows/java-ci-maven.yml)
+
+<img align="right" src="https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/discordlookup-logo.png" height="200" width="200">
+
 # DiscordLookup
 Get more out of Discord with Discord Lookup! Snowflake Decoder, Guild List with Stats, Invite Info and more...
 
@@ -19,7 +32,7 @@ You can use the tools of DiscordLookup through our website:
 &#128279; **[discordlookup.com](https://discordlookup.com/)**
 
 ## Getting Help
-If you have any questions about using the DiscordLookup.com, feel free to visit the official [Support Discord](https://discord.gg/ep).   
+If you have any questions about using the DiscordLookup.com, feel free to visit the official [Support Discord](https://discordlookup.com/discord).   
 Alternatively you can also have a look at our [Help Page](https://discordlookup.com/help).
 
 ## Tools

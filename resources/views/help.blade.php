@@ -63,8 +63,7 @@
                         <div id="i-need-support-or-have-bugs-feature-requests">
                             <h2 class="h4">{{ __('I need support or have bugs/feature requests') }} <a href="#i-need-support-or-have-bugs-feature-requests" class="text-decoration-none">#</a></h2>
                             <p>
-                                Visit our <a href="{{ env('DISCORD_URL') }}" target="_blank" class="text-decoration-none">Discord server</a> from our partner <a href="https://easypoll.bot" target="_blank" class="text-decoration-none">EasyPoll Bot</a>.<br>
-                                There is a separate category for DiscordLookup. We will be happy to help you there as soon as possible.
+                                Visit our <a href="{{ env('DISCORD_URL') }}" target="_blank" class="text-decoration-none">Discord server</a>. We will be happy to help you there as soon as possible.
                             </p>
                         </div>
                         <hr>
