@@ -64,7 +64,27 @@
                             <p class="fw-bold my-auto">{{ __('Guild Lookup') }}</p>
                         </div>
                         <div class="col-12 col-md-8 d-flex align-items-center">
-                            <p class="my-auto">{{ __('Get detailed information about Discord Guilds with creation date, Invite/Vanity URL, features and emojis.') }}</p>
+                            <p class="my-auto">{{ __('Get detailed information about Discord guilds with creation date, Invite/Vanity URL, features and emojis.') }}</p>
+                        </div>
+                        <div class="col-0 col-md-1 d-flex align-items-center">
+                            <i class="fas fa-arrow-right ms-auto"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="{{ route('applicationlookup') }}" class="tools-list-item text-decoration-none">
+            <div class="card text-white bg-dark border-0 mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 col-md-1 d-flex align-items-center">
+                            <i class="fas fa-puzzle-piece ms-auto me-auto"></i>
+                        </div>
+                        <div class="col-12 col-md-2 d-flex align-items-center">
+                            <p class="fw-bold my-auto">{{ __('Application Lookup') }}</p>
+                        </div>
+                        <div class="col-12 col-md-8 d-flex align-items-center">
+                            <p class="my-auto">{{ __('Get detailed information about Discord applications with description, links, tags and flags.') }}</p>
                         </div>
                         <div class="col-0 col-md-1 d-flex align-items-center">
                             <i class="fas fa-arrow-right ms-auto"></i>

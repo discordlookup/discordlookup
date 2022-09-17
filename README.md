@@ -20,6 +20,7 @@ Get more out of Discord with Discord Lookup! Snowflake Decoder, Guild List with 
     - [Snowflake Decoder](#snowflake-decoder)
     - [User Lookup](#user-lookup)
     - [Guild Lookup](#guild-lookup)
+    - [Application Lookup](#application-lookup)
     - [Discord Experiments](#discord-experiments)
     - [Guild List](#guild-list)
     - [Invite Resolver](#invite-resolver)
@@ -58,9 +59,18 @@ Get detailed information about Discord users with creation date, profile picture
 ### Guild Lookup
 &#128279; [discordlookup.com/guild](https://discordlookup.com/guild)
 
-Get detailed information about Discord Guilds with creation date, Invite/Vanity URL, features and emojis.
+Get detailed information about Discord guilds with creation date, Invite/Vanity URL, features and emojis.
 
 ![Guild Lookup Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-guildlookup.png)
+
+---
+
+### Application Lookup
+&#128279; [discordlookup.com/application](https://discordlookup.com/application)
+
+Get detailed information about Discord applications with description, links, tags and flags.
+
+![Application Lookup Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-applicationlookup.png)
 
 ---
 

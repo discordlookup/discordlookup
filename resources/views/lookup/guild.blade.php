@@ -1,5 +1,5 @@
 @section('title', __('Guild Lookup'))
-@section('description', __('Get detailed information about Discord Guilds with creation date, Invite/Vanity URL, features and emojis.'))
+@section('description', __('Get detailed information about Discord guilds with creation date, Invite/Vanity URL, features and emojis.'))
 @section('keywords', '')
 @section('robots', 'index, follow')
 

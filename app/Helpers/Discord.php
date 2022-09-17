@@ -147,6 +147,7 @@ function getApplicationFlagListNames($bitwise): array
         'EMBEDDED' => (1 << 17),
         'GATEWAY_MESSAGE_CONTENT' => (1 << 18),
         'GATEWAY_MESSAGE_CONTENT_LIMITED' => (1 << 19),
+        'APPLICATION_COMMAND_BADGE' => (1 << 23),
     ];
 
     $permissionsList = [];
@@ -607,6 +608,110 @@ function parseInviteJson($json)
             // TODO: Speaker IDs
         }
     }
+
+    return $array;
+}
+
+function getApplicationRpc($applicationId)
+{
+    $array = [
+        'id' => '',
+        'name' => '',
+        'description' => '',
+        'descriptionFormatted' => '',
+        'summary' => '',
+        'type' => '',
+        'iconUrl' => env('DISCORD_CDN_URL') . '/embed/avatars/0.png',
+        'coverImageUrl' => '',
+        'hook' => '',
+        'guildId' => '',
+        'botPublic' => '',
+        'botRequireCodeGrant' => '',
+        'termsOfServiceUrl' => '',
+        'privacyPolicyUrl' => '',
+        'customInstallUrl' => '',
+        'verifyKey' => '',
+        'flags' => '',
+        'flagsList' => [],
+        'tags' => [],
+    ];
+
+    if(Cache::has('applicationRpc:' . $applicationId))
+    {
+        $responseJson = Cache::get('applicationRpc:' . $applicationId);
+    }
+    else
+    {
+        $response = Http::get(env('DISCORD_API_URL') . '/applications/' . $applicationId . '/rpc');
+
+        if(!$response->ok())
+            return null;
+
+        $responseJson = $response->json();
+        Cache::put('applicationRpc:' . $applicationId, $responseJson, 900); // 15 minutes
+    }
+
+    if ($responseJson == null || !key_exists('id', $responseJson))
+        return null;
+
+    $array['id'] = $responseJson['id'];
+
+    if(array_key_exists('name', $responseJson))
+        $array['name'] = $responseJson['name'];
+
+    if(array_key_exists('description', $responseJson))
+    {
+        $array['description'] = $responseJson['description'];
+        // No Markdown parse for security reasons (show images, ...)
+        // TODO: Only Discord Markdown (Bold, Italic, Underline)
+        //$array['descriptionFormatted'] = \Illuminate\Mail\Markdown::parse(str_replace("\n", "<br>", $array['description']));
+        $array['descriptionFormatted'] = str_replace("\n", "<br>", $array['description']);
+    }
+
+    if(array_key_exists('summary', $responseJson))
+        $array['summary'] = $responseJson['summary'];
+
+    if(array_key_exists('type', $responseJson))
+        $array['type'] = $responseJson['type'];
+
+    if (key_exists('icon', $responseJson) && $responseJson['icon'] != null)
+        $array['iconUrl'] = env('DISCORD_CDN_URL') . '/app-icons/' . $responseJson['id'] . '/' . $responseJson['icon'] . '?size=512';
+
+    if (key_exists('cover_image', $responseJson) && $responseJson['cover_image'] != null)
+        $array['coverImageUrl'] = env('DISCORD_CDN_URL') . '/app-icons/' . $responseJson['id'] . '/' . $responseJson['cover_image'] . '?size=512';
+
+    if(array_key_exists('hook', $responseJson))
+        $array['hook'] = $responseJson['hook'];
+
+    if(array_key_exists('guild_id', $responseJson))
+        $array['guildId'] = $responseJson['guild_id'];
+
+    if(array_key_exists('bot_public', $responseJson))
+        $array['botPublic'] = $responseJson['bot_public'];
+
+    if(array_key_exists('bot_require_code_grant', $responseJson))
+        $array['botRequireCodeGrant'] = $responseJson['bot_require_code_grant'];
+
+    if(array_key_exists('terms_of_service_url', $responseJson))
+        $array['termsOfServiceUrl'] = $responseJson['terms_of_service_url'];
+
+    if(array_key_exists('privacy_policy_url', $responseJson))
+        $array['privacyPolicyUrl'] = $responseJson['privacy_policy_url'];
+
+    if(array_key_exists('custom_install_url', $responseJson))
+        $array['customInstallUrl'] = $responseJson['custom_install_url'];
+
+    if(array_key_exists('verify_key', $responseJson))
+        $array['verifyKey'] = $responseJson['verify_key'];
+
+    if (key_exists('flags', $responseJson))
+    {
+        $array['flags'] = $responseJson['flags'];
+        $array['flagsList'] = getApplicationFlagListNames($array['flags']);
+    }
+
+    if(array_key_exists('tags', $responseJson))
+        $array['tags'] = $responseJson['tags'];
 
     return $array;
 }

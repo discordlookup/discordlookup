@@ -145,6 +145,9 @@
                             </div>
                         </div>
                     </div>
+                    @if($userData['isBot'])
+                        <a role="button" href="{{ route('applicationlookup', $userData['id']) }}" class="btn btn-primary w-100 mt-3">{{ __('More information about this application') }}</a>
+                    @endif
                 </div>
             @endif
         </div>
