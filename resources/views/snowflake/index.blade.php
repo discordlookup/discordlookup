@@ -1,5 +1,5 @@
 @section('title', __('Snowflake Decoder'))
-@section('description', __('Get the creation date of a Snoflake, and detailed information about Discord users, guilds and applications.'))
+@section('description', __('Get the creation date of a Snowflake, and detailed information about Discord users, guilds and applications.'))
 @section('keywords', '')
 @section('robots', 'index, follow')
 

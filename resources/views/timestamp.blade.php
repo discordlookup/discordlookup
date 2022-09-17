@@ -62,7 +62,7 @@
                     <thead>
                         <tr>
                             <th scope="col">{{ __('Syntax') }}</th>
-                            <th class="w-50" scope="col">{{ __('Example') }}</th>
+                            <th class="w-50" scope="col">{{ __('Preview') }}</th>
                             <th scope="col">{{ __('Description') }}</th>
                         </tr>
                     </thead>
