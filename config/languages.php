@@ -9,4 +9,12 @@ return [
         'display' => 'German',
         'flag-icon' => 'de'
     ],
+    'fr' => [
+        'display' => 'French',
+        'flag-icon' => 'fr'
+    ],
+    'it' => [
+        'display' => 'Italian',
+        'flag-icon' => 'it'
+    ],
 ];
