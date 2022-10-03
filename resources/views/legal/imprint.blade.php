@@ -17,6 +17,16 @@
                 @include('legal.content.imprint')
             @endif
         </div>
+
+        <br>
+        <br>
+
+        <h3>{{ __('Disclaimer') }}</h3>
+        <div>
+            {{ __('DiscordLookup is not affiliated, associated, authorized, endorsed by, or in anyway officially connected with Discord Inc., or any of its subsidiaries or its affiliates.') }}
+            <br>
+            {{ __('Any new products or features discovered are subject to change and not guaranteed to release.') }}
+        </div>
     </div>
 
 @endsection

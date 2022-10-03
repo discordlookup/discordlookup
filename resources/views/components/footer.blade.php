@@ -29,8 +29,8 @@
         <div class="row mt-3">
             <div class="col-12 col-md-6 text-md-start text-center">
                 <small class="d-block mt-2 text-white">&copy; {{ date('Y') }} {{ env('APP_NAME') }}</small>
-                <small class="text-muted mt-n3">{{ __('Not affiliated with Discord, Inc.') }}</small><br>
-                <small class="text-muted mt-n3">{{ __('Discord is a registered trademark of Discord, Inc.') }}</small><br>
+                <small class="text-muted mt-n3">{{ __('DiscordLookup is not affiliated, associated, authorized, endorsed by, or in anyway officially connected with Discord Inc., or any of its subsidiaries or its affiliates.') }}</small><br>
+                <br>
                 <small class="text-muted mt-n3">
                     {{ __('Commit') }}:
                     <a href="{{ env('GITHUB_URL') }}/commit/{{ getCurrentGitCommit() }}" class="text-muted text-decoration-none" target="_blank" rel="noopener">
