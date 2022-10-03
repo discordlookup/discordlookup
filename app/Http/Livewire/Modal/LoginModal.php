@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class LoginModal extends Component
 {
-    public $joinDiscord = true;
+    public $joinDiscord = false;
 
     public function mount()
     {
