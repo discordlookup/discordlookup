@@ -135,7 +135,11 @@
                                     <ul style="list-style-type: none;">
                                         @foreach($userData['flagsList'] as $flag)
                                             <li style="margin-left: -1rem;">
-                                                <img src="{{ $flag['image'] }}" loading="lazy" style="max-height: 16px; max-width: 16px;" alt="{{ $flag['name'] }} badge icon"> {{ $flag['name'] }}
+                                                @if($flag['image'])
+                                                    <img src="{{ $flag['image'] }}" loading="lazy" style="max-height: 16px; max-width: 16px;" alt="{{ $flag['name'] }} badge icon"> {{ $flag['name'] }}
+                                                @else
+                                                    {{ $flag['name'] }}
+                                                @endif
                                             </li>
                                         @endforeach
                                     </ul>

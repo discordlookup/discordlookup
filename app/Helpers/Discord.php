@@ -207,7 +207,7 @@ function getUser($userId)
         'id' => '',
         'username' => '',
         'discriminator' => '',
-        'avatarUrl' => '',
+        'avatarUrl' => env('DISCORD_CDN_URL') . '/embed/avatars/0.png',
         'bannerUrl' => '',
         'bannerColor' => '',
         'accentColor' => '',
