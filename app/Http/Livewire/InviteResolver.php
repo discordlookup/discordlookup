@@ -7,6 +7,7 @@ use Livewire\Component;
 class InviteResolver extends Component
 {
     public $inviteCode;
+    public $inviteCodeDisplay;
     public $eventId;
     public $inviteData = [];
 
@@ -16,7 +17,7 @@ class InviteResolver extends Component
 
     public function fetchInvite()
     {
-        $this->resetExcept(['inviteCode', 'eventId']);
+        $this->resetExcept(['inviteCode', 'inviteCodeDisplay', 'eventId']);
 
         if(str_contains($this->inviteCode, '?event='))
         {
@@ -39,7 +40,7 @@ class InviteResolver extends Component
 
     public function processInviteJson($json)
     {
-        $this->resetExcept(['inviteCode', 'eventId']);
+        $this->resetExcept(['inviteCode', 'inviteCodeDisplay', 'eventId']);
 
         if($this->inviteCode)
         {
@@ -80,9 +81,35 @@ class InviteResolver extends Component
 
     public function mount()
     {
-        if($this->inviteCode)
-            $this->loading = true;
+        if($this->inviteCode && $this->inviteCode != '-') { 
+			$this->loading = true;
+		}
+
+		$this->inviteCodeDisplay = $this->inviteCode;
+
+		if ($this->inviteCode == '-') {
+			$this->inviteCodeDisplay = '';
+		}
     }
+
+	public function updated($name, $value)
+	{
+		if ($name == 'inviteCodeDisplay') {
+			$this->inviteCode = $value;
+		}
+
+		if($this->inviteCode == '' && $this->eventId != '') {
+			$this->inviteCode = '-';
+		}
+
+		if($this->inviteCode == '-' && $this->eventId == '') {
+			$this->inviteCode = '';
+		}
+
+		if ($this->inviteCode == '-') {
+			$this->inviteCodeDisplay = '';
+		}
+	}
 
     public function render()
     {
