@@ -19,7 +19,7 @@ class Distance extends Component
     {
         $this->resetExcept(['snowflake1', 'snowflake1Display', 'snowflake2']);
 
-        if($this->snowflake1 == '-' || $this->snowflake1Display == null || $this->snowflake2 == null) return;
+        if($this->snowflake1 == null || $this->snowflake1 == '-' || $this->snowflake1Display == null || $this->snowflake2 == null) return;
 
         $this->errorMessage = invalidateSnowflake($this->snowflake1);
         if($this->errorMessage) return;
