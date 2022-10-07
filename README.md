@@ -79,8 +79,9 @@ Get detailed information about Discord applications with description, links, tag
 
 All Discord Client & Guild Experiments with Rollout Status and detailed information about Treatments, Groups and Overrides.
 
-![Discord Experiments Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-experiments.png)
-![Experiment Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-experiment.png)
+![image](https://user-images.githubusercontent.com/58097612/194620279-1909a91f-260a-4076-939f-24fee1dd5082.png)
+![image](https://user-images.githubusercontent.com/58097612/194620354-c8999252-2a2f-42ae-96e9-c904958dad2c.png)
+
 
 ---
 
