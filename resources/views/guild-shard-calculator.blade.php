@@ -12,7 +12,7 @@
                     <span class="input-group-text bg-dark">
                         <i class="far fa-snowflake"></i>
                     </span>
-                    <input wire:model="guildId" class="form-control form-control-lg" type="text" placeholder="{{ __('Guild ID') }}">
+                    <input wire:model="guildIdDisplay" class="form-control form-control-lg" type="text" placeholder="{{ __('Guild ID') }}">
                 </div>
             </div>
             <div class="col-12 col-xl-2 mt-3 mt-xl-0">
