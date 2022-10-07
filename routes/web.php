@@ -21,7 +21,7 @@ Route::get('/snowflake-distance/{snowflake1?}/{snowflake2?}', \App\Http\Livewire
 
 Route::get('/guildlist', \App\Http\Livewire\Guildlist::class)->name('guildlist');
 
-Route::get('/timestamp/{timestamp?}', \App\Http\Livewire\Timestamp::class)->name('timestamp');
+Route::get('/timestamp/{timestampSlug?}', \App\Http\Livewire\Timestamp::class)->name('timestamp');
 
 /* Experiments */
 Route::name('experiments.')->group(function () {
