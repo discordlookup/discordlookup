@@ -7,6 +7,7 @@ use Livewire\Component;
 class Distance extends Component
 {
     public $snowflake1;
+    public $snowflake1Display;
     public $snowflake2;
     public $snowflake1Date;
     public $snowflake2Date;
@@ -16,9 +17,9 @@ class Distance extends Component
 
     public function processSnowflake()
     {
-        $this->resetExcept(['snowflake1', 'snowflake2']);
+        $this->resetExcept(['snowflake1', 'snowflake1Display', 'snowflake2']);
 
-        if($this->snowflake1 == null || $this->snowflake2 == null) return;
+        if($this->snowflake1 == '-' || $this->snowflake1Display == null || $this->snowflake2 == null) return;
 
         $this->errorMessage = invalidateSnowflake($this->snowflake1);
         if($this->errorMessage) return;
@@ -37,8 +38,32 @@ class Distance extends Component
         ]);
     }
 
-    public function mount()
-    {}
+	public function mount()
+	{
+		$this->snowflake1Display = $this->snowflake1;
+
+		if ($this->snowflake1 == '-') {
+			$this->snowflake1Display = '';
+		}
+	}
+
+	public function updated($name, $value){
+		if ($name == 'snowflake1Display') {
+			$this->snowflake1 = $value;
+		}
+
+		if($this->snowflake1 == '' && $this->snowflake2 != '') {
+			$this->snowflake1 = '-';
+		}
+
+		if($this->snowflake1 == '-' && $this->snowflake2 == '') {
+			$this->snowflake1 = '';
+		}
+
+		if ($this->snowflake1 == '-') {
+			$this->snowflake1Display = '';
+		}
+	}
 
     public function render()
     {
