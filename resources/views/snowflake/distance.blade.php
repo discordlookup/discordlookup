@@ -12,7 +12,7 @@
                     <span class="input-group-text bg-dark">
                         <i class="far fa-snowflake"></i>
                     </span>
-                    <input wire:model="snowflake1" class="form-control form-control-lg" type="text" placeholder="{{ __('Snowflake 1') }}">
+                    <input wire:model="snowflake1Display" class="form-control form-control-lg" type="text" placeholder="{{ __('Snowflake 1') }}">
                 </div>
             </div>
             <div class="col-12 col-xl-6 offset-xl-3 mt-3">
