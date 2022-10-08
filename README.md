@@ -14,114 +14,47 @@
 # DiscordLookup
 Get more out of Discord with Discord Lookup! Snowflake Decoder, Guild List with Stats, Invite Info and more...
 
-- [Website](#website)
+- [Website & Tools](#website--tools)
 - [Getting Help](#getting-help)
-- [Tools](#tools)
-    - [Snowflake Decoder](#snowflake-decoder)
-    - [User Lookup](#user-lookup)
-    - [Guild Lookup](#guild-lookup)
-    - [Application Lookup](#application-lookup)
-    - [Discord Experiments](#discord-experiments)
-    - [Guild List](#guild-list)
-    - [Invite Resolver](#invite-resolver)
-    - [Snowflake Distance Calculator](#snowflake-distance-calculator)
-    - [Guild Shard Calculator](#guild-shard-calculator)
+- [Translations](#translations)
 - [Self-Hosting](#self-hosting)
+- [Disclaimer](#disclaimer)
 
-## Website
+## Website & Tools
 You can use the tools of DiscordLookup through our website:  
 &#128279; **[discordlookup.com](https://discordlookup.com/)**
+
+Tools:
+- [Snowflake Decoder](https://discordlookup.com/snowflake)
+- [User Lookup](https://discordlookup.com/user)
+- [Guild Lookup](https://discordlookup.com/guild)
+- [Application Lookup](https://discordlookup.com/application)
+- [Guild List & Stats](https://discordlookup.com/guildlist)
+- [Discord Server & Client Experiments](https://discordlookup.com/experiments)
+- [Invite Resolver](https://discordlookup.com/inviteresolver)
+- [Timestamp Styles](https://discordlookup.com/timestamp)
+- [Snowflake Distance Calculator](https://discordlookup.com/snowflake-distance)
+- [Guild Shard Calculator](https://discordlookup.com/guild-shard-calculator)
 
 ## Getting Help
 If you have any questions about using the DiscordLookup.com, feel free to visit the official [Support Discord](https://discordlookup.com/discord).   
 Alternatively you can also have a look at our [Help Page](https://discordlookup.com/help).
 
-## Tools
+## Translations
+- [English](https://poeditor.com/projects/po_edit?id_language=43&per_page=100&id=486559)
+- [French](https://poeditor.com/projects/po_edit?id_language=50&per_page=100&id=486559) (thanks to [Syhix](https://github.com/Syhix))
+- [German](https://poeditor.com/projects/po_edit?id_language=55&per_page=100&id=486559)
+- [Italian](https://poeditor.com/projects/po_edit?id_language=75&per_page=100&id=486559) (thanks to [LoryPelli](https://github.com/LoryPelli))
 
-### Snowflake Decoder
-&#128279; [discordlookup.com/snowflake](https://discordlookup.com/snowflake)
-
-Get the creation date of a Snowflake, and detailed information about Discord users and guilds.
-
-![Snowflake Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-snowflake.png)
-
----
-
-### User Lookup
-&#128279; [discordlookup.com/user](https://discordlookup.com/user)
-
-Get detailed information about Discord users with creation date, profile picture, banner and badges.
-
-![User Lookup Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-userlookup.png)
-
----
-
-### Guild Lookup
-&#128279; [discordlookup.com/guild](https://discordlookup.com/guild)
-
-Get detailed information about Discord guilds with creation date, Invite/Vanity URL, features and emojis.
-
-![Guild Lookup Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-guildlookup.png)
-
----
-
-### Application Lookup
-&#128279; [discordlookup.com/application](https://discordlookup.com/application)
-
-Get detailed information about Discord applications with description, links, tags and flags.
-
-![Application Lookup Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-applicationlookup.png)
-
----
-
-## Discord Experiments
-&#128279; [discordlookup.com/experiments](https://discordlookup.com/experiments)
-
-All Discord Client & Guild Experiments with Rollout Status and detailed information about Treatments, Groups and Overrides.
-
-![Discord Experiments Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-experiments.png)
-![Experiment Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-experiment.png)
-
----
-
-### Guild List
-&#128279; [discordlookup.com/guildlist](https://discordlookup.com/guildlist)
-
-Show all the guilds you are on, with counters, permissions, features, experiments and more information about the guilds.
-
-![Guildlist 1 Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-guildlist-1.png)  
-![Guildlist 2 Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-guildlist-2.png)
-
----
-
-### Invite Resolver
-&#128279; [discordlookup.com/inviteresolver](https://discordlookup.com/inviteresolver)
-
-Get detailed information about every invite and vanity url.
-
-![Invite Resolver Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-inviteresolver.png)
-
----
-
-### Snowflake Distance Calculator
-&#128279; [discordlookup.com/snowflake-distance](https://discordlookup.com/snowflake-distance)
-
-Calculate the distance between two Discord Snowflakes.
-
-![Snowflake Distance Calculator Page](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-snowflake-distance-calculator.png)
-
----
-
-### Guild Shard Calculator
-&#128279; [discordlookup.com/guild-shard-calculator](https://discordlookup.com/guild-shard-calculator)
-
-Calculate the Shard ID of a guild using the Guild ID and the total number of shards.
-
-![Guild Shard Calculator](https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/page-guild-shard-calculator.png)
-
+If you want to help translate the website, please go to the [POEditor project page](https://poeditor.com/join/project/4PHNUb17NN).  
+Please make sure you are also on our [Discord server](https://discordlookup.com/discord) to simplify the communication.  
+If your language is not listed yet, please contact us on the [Discord server](https://discordlookup.com/discord).
 
 ## Self-Hosting
 Please don't self-host DiscordLookup!  
 Running your own version of DiscordLookup.com is not supported.  
 No help is provided for editing, compiling or building this code.  
 All changes must follow the [license](https://github.com/fbrettnich/DiscordLookup/blob/main/LICENSE).
+
+## Disclaimer
+DiscordLookup is not affiliated, associated, authorized, endorsed by, or in anyway officially connected with Discord Inc., or any of its subsidiaries or its affiliates.
