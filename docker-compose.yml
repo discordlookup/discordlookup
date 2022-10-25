@@ -5,7 +5,7 @@ services:
       container_name: website
       image: 'ghcr.io/fbrettnich/discordlookup:main'
       restart: unless-stopped
-      env_file: .env
+      env_file: .env.example
       depends_on:
         - mysql
       ports:
