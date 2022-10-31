@@ -32,7 +32,7 @@
                         @php
                             $tzList = DateTimeZone::listIdentifiers();
                             foreach ($tzList as $tz)
-                                echo "<option>{$tz}</option>";
+                                echo '<option value="' . $tz . '">' . $tz . '</option>';
                         @endphp
                     </select>
                 </div>

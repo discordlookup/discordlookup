@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use DateTimeZone;
 use Livewire\Component;
 
 class Timestamp extends Component
@@ -16,7 +17,7 @@ class Timestamp extends Component
 
     protected $listeners = ['changeTimezone'];
 
-	protected function updateSlug() 
+	protected function updateSlug()
 	{
 		if ($this->timestampChanged) {
 			$this->timestampSlug = $this->timestamp;
@@ -64,10 +65,13 @@ class Timestamp extends Component
         if($this->date || $this->time)
         {
             $tz = date_default_timezone_get();
-            if($this->timezone)
-                date_default_timezone_set($this->timezone);
+            if($this->timezone) {
+                if(in_array($this->timezone, DateTimeZone::listIdentifiers())) {
+                    date_default_timezone_set($this->timezone);
+                }
+            }
 
-            $this->timestamp = strtotime($this->date . " " . $this->time);
+            $this->timestamp = strtotime($this->date . ' ' . $this->time);
 			$this->updateSlug();
 
             if($this->timezone)
@@ -83,8 +87,11 @@ class Timestamp extends Component
 		$this->updateSlug();
 
         $tz = date_default_timezone_get();
-        if($this->timezone)
-            date_default_timezone_set($this->timezone);
+        if($this->timezone) {
+            if(in_array($this->timezone, DateTimeZone::listIdentifiers())) {
+                date_default_timezone_set($this->timezone);
+            }
+        }
 
         $this->date = date('Y-m-d', $this->timestamp);
         $this->time = date('H:i', $this->timestamp);
