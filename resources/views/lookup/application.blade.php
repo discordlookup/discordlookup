@@ -114,9 +114,9 @@
                                 @if(!is_null($applicationData['hook']))
                                     <b>{{ __('Hook') }}:</b>
                                     @if($applicationData['hook'])
-                                        &#10004;
+                                        <img src="{{ asset('images/discord/icons/check.svg') }}" class="discord-badge" alt="Check">
                                     @else
-                                        &#10060;
+                                        <img src="{{ asset('images/discord/icons/cross.svg') }}" class="discord-badge" alt="Cross">
                                     @endif
                                     <br>
                                 @endif
@@ -124,9 +124,9 @@
                                 @if(!is_null($applicationData['botPublic']))
                                     <b>{{ __('Public Bot') }}:</b>
                                     @if($applicationData['botPublic'])
-                                        &#10004;
+                                        <img src="{{ asset('images/discord/icons/check.svg') }}" class="discord-badge" alt="Check">
                                     @else
-                                        &#10060;
+                                        <img src="{{ asset('images/discord/icons/cross.svg') }}" class="discord-badge" alt="Cross">
                                     @endif
                                     <br>
                                 @endif
@@ -134,9 +134,9 @@
                                 @if(!is_null($applicationData['botRequireCodeGrant']))
                                     <b>{{ __('Requires OAuth2 Code Grant') }}:</b>
                                     @if($applicationData['botRequireCodeGrant'])
-                                        &#10004;
+                                        <img src="{{ asset('images/discord/icons/check.svg') }}" class="discord-badge" alt="Check">
                                     @else
-                                        &#10060;
+                                        <img src="{{ asset('images/discord/icons/cross.svg') }}" class="discord-badge" alt="Cross">
                                     @endif
                                     <br>
                                 @endif

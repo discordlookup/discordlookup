@@ -104,18 +104,18 @@
 
                                 <b>{{ __('Bot') }}:</b>
                                 @if($userData['isBot'])
-                                    &#10004;
+                                    <img src="{{ asset('images/discord/icons/check.svg') }}" class="discord-badge" alt="Check">
                                 @else
-                                    &#10060;
+                                    <img src="{{ asset('images/discord/icons/cross.svg') }}" class="discord-badge" alt="Cross">
                                 @endif
                                 <br>
 
                                 @if($userData['isBot'])
                                     <b>{{ __('Verified Bot') }}:</b>
                                     @if($userData['isVerifiedBot'])
-                                        &#10004;
+                                        <img src="{{ asset('images/discord/icons/check.svg') }}" class="discord-badge" alt="Check">
                                     @else
-                                        &#10060;
+                                        <img src="{{ asset('images/discord/icons/cross.svg') }}" class="discord-badge" alt="Cross">
                                     @endif
                                     <br>
                                 @endif
@@ -136,7 +136,7 @@
                                         @foreach($userData['flagsList'] as $flag)
                                             <li style="margin-left: -1rem;">
                                                 @if($flag['image'])
-                                                    <img src="{{ $flag['image'] }}" loading="lazy" style="max-height: 16px; max-width: 16px;" alt="{{ $flag['name'] }} badge icon"> {{ $flag['name'] }}
+                                                    <img src="{{ $flag['image'] }}" loading="lazy" height="18" width="18" alt="{{ $flag['name'] }} badge icon"> {{ $flag['name'] }}
                                                 @else
                                                     {{ $flag['name'] }}
                                                 @endif

@@ -50,9 +50,9 @@
                         <div id="how-are-my-personal-stats-calculated-in-the-guild-list">
                             <h2 class="h4">{{ __('How are my personal stats calculated in the Guild List?') }} <a href="#how-are-my-personal-stats-calculated-in-the-guild-list" class="text-decoration-none">#</a></h2>
                             <p>
-                                <img src="{{ asset('images/discord/icons/server/owner.png') }}" class="discord-badge" alt="owner badge"> <b>{{ __('You own') }}:</b> Here are servers listed that you own completely (owner)<br>
-                                <img src="{{ asset('images/discord/icons/server/administrator.png') }}" class="discord-badge" alt="administrator badge"> <b>{{ __('You administrate') }}:</b> Here are listed servers on which you have the <code>ADMINISTRATOR</code> permission<br>
-                                <img src="{{ asset('images/discord/icons/server/moderator.png') }}" class="discord-badge" alt="moderator badge"> <b>{{ __('You moderate') }}:</b> Here are listed servers on which you have at least one of the following permissions:
+                                <img src="{{ asset('images/discord/icons/server/owner.svg') }}" class="discord-badge" alt="owner badge"> <b>{{ __('You own') }}:</b> Here are servers listed that you own completely (owner)<br>
+                                <img src="{{ asset('images/discord/icons/server/administrator.svg') }}" class="discord-badge" alt="administrator badge"> <b>{{ __('You administrate') }}:</b> Here are listed servers on which you have the <code>ADMINISTRATOR</code> permission<br>
+                                <img src="{{ asset('images/discord/icons/server/moderator.svg') }}" class="discord-badge" alt="moderator badge"> <b>{{ __('You moderate') }}:</b> Here are listed servers on which you have at least one of the following permissions:
                                 <code>KICK_MEMBERS</code>, <code>BAN_MEMBERS</code>, <code>MANAGE_CHANNELS</code>, <code>MANAGE_GUILD</code>, <code>MANAGE_MESSAGES</code>, <code>MANAGE_NICKNAMES</code>, <code>MANAGE_ROLES</code>, <code>MANAGE_WEBHOOKS</code>, <code>MANAGE_THREADS</code><br>
                                 <br>
                                 If a guild is already counted in a higher category, it will not be counted again.<br>

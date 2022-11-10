@@ -88,11 +88,11 @@
                                     @endif
 
                                     @if(array_key_exists('isPartnered', $guildData) && $guildData['isPartnered'])
-                                        <img src="{{ asset('images/discord/icons/server/partner.png') }}" class="discord-badge" alt="discord partner badge">
+                                        <img src="{{ asset('images/discord/icons/server/partner.svg') }}" class="discord-badge" alt="discord partner badge">
                                     @endif
 
                                     @if(array_key_exists('isVerified', $guildData) && $guildData['isVerified'])
-                                        <img src="{{ asset('images/discord/icons/server/verified.png') }}" class="discord-badge" alt="discord verified badge">
+                                        <img src="{{ asset('images/discord/icons/server/verified.svg') }}" class="discord-badge" alt="discord verified badge">
                                     @endif
                                     <div class="small">
                                         <div>
@@ -106,10 +106,11 @@
                                                 {{ number_format($guildData['memberCount'], 0, '', '.') }} {{ __('Members') }}
                                             @endif
                                         </div>
-                                        @if(array_key_exists('boostCount', $guildData) && $guildData['boostCount'])
+                                        @if(array_key_exists('boostCount', $guildData) && array_key_exists('boostLevel', $guildData))
                                             <div>
-                                                <img src="{{ asset('images/discord/icons/boosts.png') }}" class="discord-badge ms-n1" alt="discord boosts">
+                                                {!! getDiscordBadgeServerBoosts($guildData['boostLevel']) !!}
                                                 {{ number_format($guildData['boostCount'], 0, '', '.') }} {{ __('Boosts') }}
+                                                <small>({{ __('Level') }} {{ $guildData['boostLevel'] }})</small>
                                             </div>
                                         @endif
                                     </div>
@@ -159,9 +160,9 @@
                                 @if(array_key_exists('isNSFW', $guildData))
                                     <b>{{ __('NSFW') }}:</b>
                                     @if($guildData['isNSFW'])
-                                        &#10004;
+                                        <img src="{{ asset('images/discord/icons/check.svg') }}" class="discord-badge" alt="Check">
                                     @else
-                                        &#10060;
+                                        <img src="{{ asset('images/discord/icons/cross.svg') }}" class="discord-badge" alt="Cross">
                                     @endif
                                     <br>
                                     @if(array_key_exists('isNSFWLevel', $guildData) && $guildData['isNSFW'])

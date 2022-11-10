@@ -169,20 +169,21 @@ function getUserFlagList($flags)
 {
     $list = [];
 
-    if($flags & (1 << 0)) $list[] = ['name' => 'Discord Employee', 'image' => asset('images/discord/icons/badges/discord_employee.png')];
-    if($flags & (1 << 1)) $list[] = ['name' => 'Partnered Server Owner', 'image' => asset('images/discord/icons/badges/partnered_server_owner.png')];
-    if($flags & (1 << 2)) $list[] = ['name' => 'HypeSquad Events', 'image' => asset('images/discord/icons/badges/hypesquad_events.png')];
-    if($flags & (1 << 3)) $list[] = ['name' => 'Bug Hunter Level 1', 'image' => asset('images/discord/icons/badges/bug_hunter_level_1.png')];
-    if($flags & (1 << 6)) $list[] = ['name' => 'HypeSquad House Bravery', 'image' => asset('images/discord/icons/badges/hypesquad-house-bravery.png')];
-    if($flags & (1 << 7)) $list[] = ['name' => 'HypeSquad House Brilliance', 'image' => asset('images/discord/icons/badges/hypesquad-house-brilliance.png')];
-    if($flags & (1 << 8)) $list[] = ['name' => 'HypeSquad House Balance', 'image' => asset('images/discord/icons/badges/hypesquad-house-balance.png')];
-    if($flags & (1 << 9)) $list[] = ['name' => 'Early Supporter', 'image' => asset('images/discord/icons/badges/early_supporter.png')];
+    if($flags & (1 << 0)) $list[] = ['name' => 'Discord Staff', 'image' => asset('images/discord/icons/badges/discord_staff.svg')];
+    if($flags & (1 << 1)) $list[] = ['name' => 'Partnered Server Owner', 'image' => asset('images/discord/icons/badges/partnered_server_owner.svg')];
+    if($flags & (1 << 2)) $list[] = ['name' => 'HypeSquad Events', 'image' => asset('images/discord/icons/badges/hypesquad_events.svg')];
+    if($flags & (1 << 3)) $list[] = ['name' => 'Bug Hunter Level 1', 'image' => asset('images/discord/icons/badges/bug_hunter_level-1.svg')];
+    if($flags & (1 << 6)) $list[] = ['name' => 'HypeSquad House Bravery', 'image' => asset('images/discord/icons/badges/hypesquad_house-bravery.svg')];
+    if($flags & (1 << 7)) $list[] = ['name' => 'HypeSquad House Brilliance', 'image' => asset('images/discord/icons/badges/hypesquad_house-brilliance.svg')];
+    if($flags & (1 << 8)) $list[] = ['name' => 'HypeSquad House Balance', 'image' => asset('images/discord/icons/badges/hypesquad_house-balance.svg')];
+    if($flags & (1 << 9)) $list[] = ['name' => 'Early Supporter', 'image' => asset('images/discord/icons/badges/early_supporter.svg')];
     if($flags & (1 << 10)) $list[] = ['name' => 'Team User', 'image' => ''];
     if($flags & (1 << 12)) $list[] = ['name' => 'System User', 'image' => ''];
-    if($flags & (1 << 14)) $list[] = ['name' => 'Bug Hunter Level 2', 'image' => asset('images/discord/icons/badges/bug_hunter_level_2.png')];
-    if($flags & (1 << 16)) $list[] = ['name' => 'Verified Bot', 'image' => asset('images/discord/icons/badges/verified_bot.svg')];;
-    if($flags & (1 << 17)) $list[] = ['name' => 'Early Verified Bot Developer', 'image' => asset('images/discord/icons/badges/early-verified-bot-developer.png')];
-    if($flags & (1 << 18)) $list[] = ['name' => 'Discord Certified Moderator', 'image' => asset('images/discord/icons/badges/discord_certified_moderator.png')];
+    if($flags & (1 << 14)) $list[] = ['name' => 'Bug Hunter Level 2', 'image' => asset('images/discord/icons/badges/bug_hunter_level-2.svg')];
+    if($flags & (1 << 16)) $list[] = ['name' => 'Verified Bot', 'image' => asset('images/discord/icons/badges/verified_bot.svg')];
+    if($flags & (1 << 17)) $list[] = ['name' => 'Early Verified Bot Developer', 'image' => asset('images/discord/icons/badges/early_verified_bot_developer.svg')];
+    if($flags & (1 << 18)) $list[] = ['name' => 'Discord Certified Moderator', 'image' => asset('images/discord/icons/badges/discord_certified_moderator.svg')];
+    if($flags & (1 << 22)) $list[] = ['name' => 'Active Developer', 'image' => asset('images/discord/icons/badges/active_developer.svg')];
 
     return $list;
 }
@@ -192,9 +193,15 @@ function getUserFlagList($flags)
  * @param $title
  * @return string
  */
-function getBadgeImageWithTooltip($name, $title)
+function getDiscordBadgeServerIcons($name, $title)
 {
-    return "<img src=\"" . asset('images/discord/icons/server/' . $name . '.png') . "\" class=\"discord-badge\" alt=\"{$name} badge\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"{$title}\">";
+    return "<img src=\"" . asset('images/discord/icons/server/' . $name . '.svg') . "\" class=\"discord-badge\" alt=\"{$name} badge\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"{$title}\">";
+}
+
+
+function getDiscordBadgeServerBoosts($boostLevel)
+{
+    return "<img src=\"" . asset('images/discord/icons/boosts/boost-' . $boostLevel . '.svg') . "\" class=\"discord-badge ms-n1\" alt=\"Boost Level {$boostLevel}\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Boost Level {$boostLevel}\">";
 }
 
 /**
@@ -437,6 +444,7 @@ function parseInviteJson($json)
             'memberCount' => 0,
             'onlineCount' => 0,
             'boostCount' => 0,
+            'boostLevel' => 0,
         ],
         'invite' => [
             'channelId' => '',
@@ -478,6 +486,17 @@ function parseInviteJson($json)
         $array['guild']['isNSFW'] = $json['guild']['nsfw'];
         $array['guild']['isNSFWLevel'] = $json['guild']['nsfw_level'];
         $array['guild']['boostCount'] = $json['guild']['premium_subscription_count'];
+
+        $boosts = $array['guild']['boostCount'];
+        if ($boosts >= 14) {
+            $array['guild']['boostLevel'] = 3;
+        }else if ($boosts >= 7) {
+            $array['guild']['boostLevel'] = 2;
+        }else if ($boosts >= 2) {
+            $array['guild']['boostLevel'] = 1;
+        }else{
+            $array['guild']['boostLevel'] = 0;
+        }
 
         if($json['guild']['icon'] != null)
             $array['guild']['iconUrl'] = env('DISCORD_CDN_URL') . '/icons/' . $array['guild']['id'] . '/' . $json['guild']['icon'] . '?size=128';

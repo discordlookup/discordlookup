@@ -29,13 +29,13 @@
                                     <div wire:click="changeCategory('owner')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/owner.png') }}" class="discord-badge" alt="owner badge"> {{ __('You own') }}
+                                                <img src="{{ asset('images/discord/icons/server/owner.svg') }}" class="discord-badge" alt="owner badge"> {{ __('You own') }}
                                             </p>
                                         </div>
                                         <div class="card-body">
                                             <h1 class="card-title">{{ $countOwner }}</h1>
                                             <hr>
-                                            <h4 class="card-title">{{ calcPercent($countOwner, $countGuilds, 1) }}%</h4>
+                                            <h4 class="card-title">{{ calcPercent($countOwner, $countGuilds, 1) }}&percnt;</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -43,13 +43,13 @@
                                     <div wire:click="changeCategory('administrator')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/administrator.png') }}" class="discord-badge" alt="administrator badge"> {{ __('You administrate') }}
+                                                <img src="{{ asset('images/discord/icons/server/administrator.svg') }}" class="discord-badge" alt="administrator badge"> {{ __('You administrate') }}
                                             </p>
                                         </div>
                                         <div class="card-body">
                                             <h1 class="card-title">{{ $countAdministrator }}</h1>
                                             <hr>
-                                            <h4 class="card-title">{{ calcPercent($countAdministrator, $countGuilds, 1) }}%</h4>
+                                            <h4 class="card-title">{{ calcPercent($countAdministrator, $countGuilds, 1) }}&percnt;</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -57,13 +57,13 @@
                                     <div wire:click="changeCategory('moderator')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/moderator.png') }}" class="discord-badge" alt="moderator badge"> {{ __('You moderate') }}
+                                                <img src="{{ asset('images/discord/icons/server/moderator.svg') }}" class="discord-badge" alt="moderator badge"> {{ __('You moderate') }}
                                             </p>
                                         </div>
                                         <div class="card-body">
                                             <h1 class="card-title">{{ $countModerator }}</h1>
                                             <hr>
-                                            <h4 class="card-title">{{ calcPercent($countModerator, $countGuilds, 1) }}%</h4>
+                                            <h4 class="card-title">{{ calcPercent($countModerator, $countGuilds, 1) }}&percnt;</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -73,13 +73,13 @@
                                     <div wire:click="changeCategory('verified')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/verified.png') }}" class="discord-badge" alt="verified badge"> {{ __('Verified') }}
+                                                <img src="{{ asset('images/discord/icons/server/verified.svg') }}" class="discord-badge" alt="verified badge"> {{ __('Verified') }}
                                             </p>
                                         </div>
                                         <div class="card-body">
                                             <h1 class="card-title">{{ $countVerified }}</h1>
                                             <hr>
-                                            <h4 class="card-title">{{ calcPercent($countVerified, $countGuilds, 1) }}%</h4>
+                                            <h4 class="card-title">{{ calcPercent($countVerified, $countGuilds, 1) }}&percnt;</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -87,13 +87,13 @@
                                     <div wire:click="changeCategory('partnered')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/partner.png') }}" class="discord-badge" alt="partnered badge"> {{ __('Partnered') }}
+                                                <img src="{{ asset('images/discord/icons/server/partner.svg') }}" class="discord-badge" alt="partnered badge"> {{ __('Partnered') }}
                                             </p>
                                         </div>
                                         <div class="card-body">
                                             <h1 class="card-title">{{ $countPartnered }}</h1>
                                             <hr>
-                                            <h4 class="card-title">{{ calcPercent($countPartnered, $countGuilds, 1) }}%</h4>
+                                            <h4 class="card-title">{{ calcPercent($countPartnered, $countGuilds, 1) }}&percnt;</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -107,7 +107,7 @@
                                         <div class="card-body">
                                             <h1 class="card-title">{{ $countVanityUrl }}</h1>
                                             <hr>
-                                            <h4 class="card-title">{{ calcPercent($countVanityUrl, $countGuilds, 1) }}%</h4>
+                                            <h4 class="card-title">{{ calcPercent($countVanityUrl, $countGuilds, 1) }}&percnt;</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -123,7 +123,7 @@
                                         <div class="card-body">
                                             <h1 class="card-title">{{ $countCommunityEnabled }}</h1>
                                             <hr>
-                                            <h4 class="card-title">{{ calcPercent($countCommunityEnabled, $countGuilds, 1) }}%</h4>
+                                            <h4 class="card-title">{{ calcPercent($countCommunityEnabled, $countGuilds, 1) }}&percnt;</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -131,13 +131,13 @@
                                     <div wire:click="changeCategory('discovery')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
                                         <div class="card-header">
                                             <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/discovery.png') }}" class="discord-badge" alt="discovery badge"> {{ __('Discovery enabled') }}
+                                                <img src="{{ asset('images/discord/icons/server/discovery.svg') }}" class="discord-badge" alt="discovery badge"> {{ __('Discovery enabled') }}
                                             </p>
                                         </div>
                                         <div class="card-body">
                                             <h1 class="card-title">{{ $countDiscoveryEnabled }}</h1>
                                             <hr>
-                                            <h4 class="card-title">{{ calcPercent($countDiscoveryEnabled, $countGuilds, 1) }}%</h4>
+                                            <h4 class="card-title">{{ calcPercent($countDiscoveryEnabled, $countGuilds, 1) }}&percnt;</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -151,7 +151,7 @@
                                         <div class="card-body">
                                             <h1 class="card-title">{{ $countWelcomeScreenEnabled }}</h1>
                                             <hr>
-                                            <h4 class="card-title">{{ calcPercent($countWelcomeScreenEnabled, $countGuilds, 1) }}%</h4>
+                                            <h4 class="card-title">{{ calcPercent($countWelcomeScreenEnabled, $countGuilds, 1) }}&percnt;</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -222,11 +222,11 @@
                                             <div class="col-12 col-md-6 text-center text-md-start">
                                                 <div>
                                                     {{ $guild['name'] }}
-                                                    @if($guild['owner']) {!! getBadgeImageWithTooltip('owner', __('You own')) !!}
-                                                    @elseif(hasAdministrator($guild['permissions'])) {!! getBadgeImageWithTooltip('administrator', __('You administrate')) !!}
-                                                    @elseif(hasModerator($guild['permissions'])) {!! getBadgeImageWithTooltip('moderator', __('You moderate')) !!} @endif
-                                                    @if(in_array('VERIFIED', $guild['features'])) {!! getBadgeImageWithTooltip('verified', __('Discord Verified')) !!} @endif
-                                                    @if(in_array('PARTNERED', $guild['features'])) {!! getBadgeImageWithTooltip('partner', __('Discord Partner')) !!} @endif
+                                                    @if($guild['owner']) {!! getDiscordBadgeServerIcons('owner', __('You own')) !!}
+                                                    @elseif(hasAdministrator($guild['permissions'])) {!! getDiscordBadgeServerIcons('administrator', __('You administrate')) !!}
+                                                    @elseif(hasModerator($guild['permissions'])) {!! getDiscordBadgeServerIcons('moderator', __('You moderate')) !!} @endif
+                                                    @if(in_array('VERIFIED', $guild['features'])) {!! getDiscordBadgeServerIcons('verified', __('Discord Verified')) !!} @endif
+                                                    @if(in_array('PARTNERED', $guild['features'])) {!! getDiscordBadgeServerIcons('partner', __('Discord Partner')) !!} @endif
                                                 </div>
                                                 <div class="mt-n1">
                                                     <small class="text-muted">
