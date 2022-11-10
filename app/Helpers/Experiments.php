@@ -8,20 +8,26 @@ use Illuminate\Support\Facades\Http;
  */
 function getExperiments()
 {
+    /* TODO: Disabled experiments
     if(!Cache::has('experimentsJson'))
         loadExperiments();
 
     return Cache::get('experimentsJson');
+    */
+
+    return [];
 }
 
 
 function loadExperiments()
 {
+    /* TODO: Disabled experiments
     $response = Http::timeout(10)->get(env('EXPERIMENTS_WORKER'));
     if($response->ok()) {
         $experimentsJson = $response->json();
         Cache::put('experimentsJson', $experimentsJson);
     }
+    */
 }
 
 function watchExperiments()

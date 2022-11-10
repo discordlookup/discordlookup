@@ -113,6 +113,7 @@
                 </div>
             </div>
         </a>
+        {{-- TODO: Disabled experiments
         <a href="{{ route('experiments.index') }}" class="tools-list-item text-decoration-none">
             <div class="card text-white bg-dark border-0 mb-3">
                 <div class="card-body">
@@ -133,6 +134,7 @@
                 </div>
             </div>
         </a>
+        --}}
         <a href="{{ route('inviteresolver') }}" class="tools-list-item text-decoration-none">
             <div class="card text-white bg-dark border-0 mb-3">
                 <div class="card-body">

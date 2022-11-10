@@ -30,9 +30,11 @@
                     <a class="nav-link p-2 {{ request()->routeIs('guildlist') ? 'active' : '' }}" href="{{ route('guildlist') }}">{{ __('Guild List') }}</a>
                 </li>
 
+                {{-- TODO: Disabled experiments
                 <li class="nav-item ms-lg-1">
                     <a class="nav-link p-2 {{ (request()->routeIs('experiments.*')) ? 'active' : '' }}" href="{{ route('experiments.index') }}">{{ __('Experiments') }}</a>
                 </li>
+                --}}
 
                 <li class="nav-item ms-lg-1">
                     <a class="nav-link p-2 {{ request()->routeIs('inviteresolver') ? 'active' : '' }}" href="{{ route('inviteresolver') }}">{{ __('Invite Resolver') }}</a>
