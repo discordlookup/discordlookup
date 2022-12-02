@@ -182,7 +182,7 @@ function getUserFlagList($flags)
     if($flags & (1 << 14)) $list[] = ['name' => 'Bug Hunter Level 2', 'image' => asset('images/discord/icons/badges/bug_hunter_level-2.svg')];
     if($flags & (1 << 16)) $list[] = ['name' => 'Verified Bot', 'image' => asset('images/discord/icons/badges/verified_bot.svg')];
     if($flags & (1 << 17)) $list[] = ['name' => 'Early Verified Bot Developer', 'image' => asset('images/discord/icons/badges/early_verified_bot_developer.svg')];
-    if($flags & (1 << 18)) $list[] = ['name' => 'Discord Certified Moderator', 'image' => asset('images/discord/icons/badges/discord_certified_moderator.svg')];
+    if($flags & (1 << 18)) $list[] = ['name' => 'Moderator Programs Alumni', 'image' => asset('images/discord/icons/badges/moderator_programs_alumni.svg')];
     if($flags & (1 << 22)) $list[] = ['name' => 'Active Developer', 'image' => asset('images/discord/icons/badges/active_developer.svg')];
 
     return $list;
