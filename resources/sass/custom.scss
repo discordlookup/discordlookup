@@ -25,6 +25,18 @@ footer {
     }
 }
 
+.user-avatar {
+    width: 64px;
+    height: 64px;
+}
+
+.user-avatar-decoration {
+    width: 80px;
+    height: 80px;
+    margin-left: -8px;
+    margin-top: -8px;
+}
+
 .discord-status-pill {
     display: inline-block;
     margin-right: 2px;
