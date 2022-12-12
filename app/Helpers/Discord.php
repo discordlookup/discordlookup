@@ -653,6 +653,7 @@ function getApplicationRpc($applicationId)
         'termsOfServiceUrl' => '',
         'privacyPolicyUrl' => '',
         'customInstallUrl' => '',
+        'roleConnectionsVerificationUrl' => '',
         'verifyKey' => '',
         'flags' => '',
         'flagsList' => [],
@@ -723,6 +724,9 @@ function getApplicationRpc($applicationId)
 
     if(array_key_exists('custom_install_url', $responseJson))
         $array['customInstallUrl'] = $responseJson['custom_install_url'];
+
+    if(array_key_exists('role_connections_verification_url', $responseJson))
+        $array['roleConnectionsVerificationUrl'] = $responseJson['role_connections_verification_url'];
 
     if(array_key_exists('verify_key', $responseJson))
         $array['verifyKey'] = $responseJson['verify_key'];

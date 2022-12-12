@@ -141,12 +141,17 @@
                                     <br>
                                 @endif
 
-                                @if($applicationData['customInstallUrl'] || $applicationData['termsOfServiceUrl'] || $applicationData['privacyPolicyUrl'])
+                                @if($applicationData['customInstallUrl'] || $applicationData['roleConnectionsVerificationUrl'] || $applicationData['termsOfServiceUrl'] || $applicationData['privacyPolicyUrl'])
                                     <b>{{ __('Links') }}:</b>
                                     <ul>
                                         @if($applicationData['customInstallUrl'])
                                             <li>
                                                 <a href="{{ $applicationData['customInstallUrl'] }}" target="_blank" rel="noopener">{{ __('Custom Install Url') }}</a>
+                                            </li>
+                                        @endif
+                                        @if($applicationData['roleConnectionsVerificationUrl'])
+                                            <li>
+                                                <a href="{{ $applicationData['roleConnectionsVerificationUrl'] }}" target="_blank" rel="noopener">{{ __('Role Connections Verification Url') }}</a>
                                             </li>
                                         @endif
                                         @if($applicationData['termsOfServiceUrl'])
