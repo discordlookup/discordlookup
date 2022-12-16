@@ -642,7 +642,7 @@ function getApplicationRpc($applicationId)
         'name' => '',
         'description' => '',
         'descriptionFormatted' => '',
-        'summary' => '',
+        'summary' => '', // TODO: Deprecated and will be removed in v11
         'type' => '',
         'iconUrl' => env('DISCORD_CDN_URL') . '/embed/avatars/0.png',
         'coverImageUrl' => '',
@@ -692,7 +692,7 @@ function getApplicationRpc($applicationId)
         $array['descriptionFormatted'] = str_replace("\n", "<br>", $array['description']);
     }
 
-    if(array_key_exists('summary', $responseJson))
+    if(array_key_exists('summary', $responseJson)) // TODO: Deprecated and will be removed in v11
         $array['summary'] = $responseJson['summary'];
 
     if(array_key_exists('type', $responseJson))

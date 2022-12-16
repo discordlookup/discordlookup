@@ -12,7 +12,7 @@ use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    public function login(Request $request, $roleConnections = false)
     {
         $request->session()->put('loginRedirect', url()->previous());
 
@@ -21,12 +21,20 @@ class AuthController extends Controller
         if ($request->session()->exists('joinDiscordAfterLogin') && $request->session()->get('joinDiscordAfterLogin'))
             $scopes[] = 'guilds.join';
 
+        if ($roleConnections)
+            $scopes[] = 'role_connections.write';
+
         return Socialite::driver('discord')
             ->setScopes($scopes)
             ->with([
                 //'prompt' => 'none',
             ])
             ->redirect();
+    }
+
+    public function loginWithRoleConnections(Request $request)
+    {
+        return $this->login($request, true);
     }
 
     public function logout(Request $request)
@@ -50,7 +58,7 @@ class AuthController extends Controller
 
         if($request->session()->exists('joinDiscordAfterLogin')) {
             Http::withHeaders([
-                'Authorization' => 'Bot ' . env('DISCORD_BOT_TOKEN')
+                'Authorization' => 'Bot ' . env('DISCORD_BOT_TOKEN'),
             ])->put(
                 env('DISCORD_API_URL') . '/guilds/' . env('DISCORD_GUILD_ID') . '/members/' . $discordUser->user['id'],
                 [
@@ -77,6 +85,8 @@ class AuthController extends Controller
 
         if (!$user->wasRecentlyCreated)
             $user->update($userData);
+
+        $user->updateRoleConnectionsMetadata();
 
         Auth::login($user, true);
 

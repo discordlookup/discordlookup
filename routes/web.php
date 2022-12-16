@@ -58,8 +58,9 @@ Route::name('legal.')->group(function () {
 */
 
 Route::get('/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
-Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
+Route::get('/login/verify-role-connection', [\App\Http\Controllers\AuthController::class, 'loginWithRoleConnections'])->name('login.verify-role-connection');
 Route::get('/auth/callback', [\App\Http\Controllers\AuthController::class, 'callback']);
+Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
 
 /*

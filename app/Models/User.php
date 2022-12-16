@@ -43,6 +43,62 @@ class User extends Authenticatable
     protected $casts = [];
 
     /**
+     * Set the user role connection metadata
+     *
+     * @return bool
+     */
+    public function updateRoleConnectionsMetadata()
+    {
+        $countOwner = 0;
+        $countAdministrator = 0;
+        $countModerator = 0;
+        $countAdministratorVerified = 0;
+        $countAdministratorPartnered = 0;
+
+        if($this->guild_list != null)
+        {
+            foreach ($this->guild_list as $guild)
+            {
+                if(array_key_exists('owner', $guild) && $guild['owner']) $countOwner++;
+
+                if(array_key_exists('permissions', $guild)) {
+                    if (hasAdministrator($guild['permissions'])) {
+                        $countAdministrator++;
+
+                        if(array_key_exists('features', $guild))
+                        {
+                            if (in_array('VERIFIED', $guild['features'])) $countAdministratorVerified++;
+                            if (in_array('PARTNERED', $guild['features'])) $countAdministratorPartnered++;
+                        }
+                    }
+                    if (hasModerator($guild['permissions'])) $countModerator++;
+                }
+            }
+
+            $countAdministrator -= $countOwner;
+            $countModerator = $countModerator - $countOwner - $countAdministrator;
+        }
+
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . decrypt($this->discord_token),
+        ])->put(
+            env('DISCORD_API_URL') . '/users/@me/applications/' . env('DISCORD_CLIENT_ID') . '/role-connection',
+            [
+                'platform_name' => 'Discord Guild Stats',
+                'metadata' => [
+                    'guilds_owner' => $countOwner,
+                    'guilds_admin' => $countAdministrator,
+                    'guilds_mod' => $countModerator,
+                    'guilds_admin_verified' => $countAdministratorVerified,
+                    'guilds_admin_partnered' => $countAdministratorPartnered,
+                ]
+            ]
+        );
+
+        return $response->ok();
+    }
+
+    /**
      * The user displayname (username + discriminator)
      *
      * @return string
@@ -68,14 +124,13 @@ class User extends Authenticatable
      *
      * @return string
      */
-    public function getGuildListAttribute(){
-
-        if(session()->exists('guildsJson')) {
+    public function getGuildListAttribute()
+    {
+        if(session()->exists('guildsJson'))
             return session()->get('guildsJson');
-        }
 
         $response = Http::withHeaders([
-            'Authorization' => "Bearer " . decrypt($this->discord_token)
+            'Authorization' => 'Bearer ' . decrypt($this->discord_token),
         ])->get(env('DISCORD_API_URL') . '/users/@me/guilds');
 
         if($response->ok())
