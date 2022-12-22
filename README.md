@@ -3,7 +3,7 @@
 [license]: https://github.com/fbrettnich/DiscordLookup/blob/main/LICENSE
 [discord-shield]: https://discord.com/api/guilds/980791496833908778/widget.png
 [license-shield]: https://img.shields.io/github/license/fbrettnich/DiscordLookup?label=License
-[workflowstatus-shield]: https://img.shields.io/github/actions/workflow/status/fbrettnich/DiscordLookup/docker-publish.yml?branch=main&label=Build
+[workflowstatus-shield]: https://img.shields.io/github/actions/workflow/status/fbrettnich/DiscordLookup/docker-publish-deploy.yml?branch=main&label=Build
 
 [ ![discord-shield][] ][discord-invite]
 [ ![license-shield][] ][license]
