@@ -214,7 +214,7 @@ function getUser($userId)
         'id' => '',
         'username' => '',
         'discriminator' => '',
-        'avatarUrl' => env('DISCORD_CDN_URL') . '/embed/avatars/0.png',
+        'avatarUrl' => '',
         'avatarDecorationUrl' => '',
         'bannerUrl' => '',
         'bannerColor' => '',
@@ -258,6 +258,9 @@ function getUser($userId)
 
     if (key_exists('avatar', $responseJson) && $responseJson['avatar'] != null)
         $array['avatarUrl'] = env('DISCORD_CDN_URL') . '/avatars/' . $responseJson['id'] . '/' . $responseJson['avatar'] . '?size=512';
+
+    if (empty($array['avatarUrl']))
+        $array['avatarUrl'] = env('DISCORD_CDN_URL') . '/embed/avatars/' . ($array['discriminator'] % 5) . '.png';
 
     if (key_exists('avatar_decoration', $responseJson) && $responseJson['avatar_decoration'] != null)
         $array['avatarDecorationUrl'] = env('DISCORD_CDN_URL') . '/avatar-decorations/' . $responseJson['id'] . '/' . $responseJson['avatar_decoration'] . '?size=512';
