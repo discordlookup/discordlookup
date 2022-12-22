@@ -19,15 +19,6 @@ class InviteResolver extends Component
     {
         $this->resetExcept(['inviteCode', 'inviteCodeDisplay', 'eventId']);
 
-        if(str_contains($this->inviteCode, '?event='))
-        {
-            $url = explode('?event=', $this->inviteCode);
-            $this->eventId = end($url);
-            $this->inviteCode = $url[0];
-        }
-        $url = explode('/', $this->inviteCode);
-        $this->inviteCode = end($url);
-
         if($this->inviteCode)
         {
             $this->loading = true;
@@ -81,7 +72,7 @@ class InviteResolver extends Component
 
     public function mount()
     {
-        if($this->inviteCode && $this->inviteCode != '-') { 
+        if($this->inviteCode && $this->inviteCode != '-') {
 			$this->loading = true;
 		}
 
@@ -96,6 +87,16 @@ class InviteResolver extends Component
 	{
 		if ($name == 'inviteCodeDisplay') {
 			$this->inviteCode = $value;
+
+            if(str_contains($this->inviteCode, '?event='))
+            {
+                $url = explode('?event=', $this->inviteCode);
+                $this->eventId = end($url);
+                $this->inviteCode = $url[0];
+            }
+            $url = explode('/', $this->inviteCode);
+            $this->inviteCode = end($url);
+            $this->inviteCodeDisplay = end($url);
 		}
 
 		if($this->inviteCode == '' && $this->eventId != '') {
