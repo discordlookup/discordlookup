@@ -1,0 +1,18 @@
+name: Delete old packages
+
+on:
+  workflow_run:
+    workflows: ["Publish and deploy Docker Container"]
+    types:
+      - completed
+
+jobs:
+  delete:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: smartsquaregmbh/delete-old-packages@v0.6.0
+        with:
+          type: container
+          keep: 3
+          names: |
+            discordlookup
