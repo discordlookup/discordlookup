@@ -13,14 +13,23 @@
                 </li>
 
                 <li class="nav-item ms-lg-1 dropdown">
-                    <a class="nav-link p-2 dropdown-toggle {{ (request()->routeIs('snowflake') || request()->routeIs('userlookup') || request()->routeIs('guildlookup') || request()->routeIs('applicationlookup') || request()->routeIs('timestamp') || request()->routeIs('snowflake-distance-calculator')) ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ __('Snowflake') }}
+                    <a class="nav-link p-2 dropdown-toggle {{ (request()->routeIs('userlookup') || request()->routeIs('guildlookup') || request()->routeIs('applicationlookup') || request()->routeIs('inviteresolver')) ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ __('Lookups') }}
                     </a>
                     <ul class="dropdown-menu bg-dark border-0" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item text-white {{ request()->routeIs('snowflake') ? 'active' : '' }}" href="{{ route('snowflake') }}">{{ __('Snowflake Decoder') }}</a></li>
                         <li><a class="dropdown-item text-white {{ request()->routeIs('userlookup') ? 'active' : '' }}" href="{{ route('userlookup') }}">{{ __('User Lookup') }}</a></li>
                         <li><a class="dropdown-item text-white {{ request()->routeIs('guildlookup') ? 'active' : '' }}" href="{{ route('guildlookup') }}">{{ __('Guild Lookup') }}</a></li>
                         <li><a class="dropdown-item text-white {{ request()->routeIs('applicationlookup') ? 'active' : '' }}" href="{{ route('applicationlookup') }}">{{ __('Application Lookup') }}</a></li>
+                        <li><a class="dropdown-item text-white {{ request()->routeIs('inviteresolver') ? 'active' : '' }}" href="{{ route('inviteresolver') }}">{{ __('Invite Resolver') }}</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item ms-lg-1 dropdown">
+                    <a class="nav-link p-2 dropdown-toggle {{ (request()->routeIs('snowflake') || request()->routeIs('timestamp') || request()->routeIs('snowflake-distance-calculator')) ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ __('Timestamps') }}
+                    </a>
+                    <ul class="dropdown-menu bg-dark border-0" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item text-white {{ request()->routeIs('snowflake') ? 'active' : '' }}" href="{{ route('snowflake') }}">{{ __('Snowflake Decoder') }}</a></li>
                         <li><a class="dropdown-item text-white {{ request()->routeIs('timestamp') ? 'active' : '' }}" href="{{ route('timestamp') }}">{{ __('Timestamp Styles') }}</a></li>
                         <li><a class="dropdown-item text-white {{ request()->routeIs('snowflake-distance-calculator') ? 'active' : '' }}" href="{{ route('snowflake-distance-calculator') }}">{{ __('Snowflake Distance Calculator') }}</a></li>
                     </ul>
@@ -35,10 +44,6 @@
                     <a class="nav-link p-2 {{ (request()->routeIs('experiments.*')) ? 'active' : '' }}" href="{{ route('experiments.index') }}">{{ __('Experiments') }}</a>
                 </li>
                 --}}
-
-                <li class="nav-item ms-lg-1">
-                    <a class="nav-link p-2 {{ request()->routeIs('inviteresolver') ? 'active' : '' }}" href="{{ route('inviteresolver') }}">{{ __('Invite Resolver') }}</a>
-                </li>
 
                 <li class="nav-item ms-lg-1 dropdown">
                     <a class="nav-link p-2 dropdown-toggle {{ request()->routeIs('guild-shard-calculator') ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
