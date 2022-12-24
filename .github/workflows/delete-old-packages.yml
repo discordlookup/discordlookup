@@ -14,4 +14,4 @@ jobs:
         with:
           keep: 3
           names: |
-            discordlookup
+            website
