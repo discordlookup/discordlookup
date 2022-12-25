@@ -24,19 +24,11 @@ Route::get('/guildlist', \App\Http\Livewire\Guildlist::class)->name('guildlist')
 Route::get('/timestamp/{timestampSlug?}', \App\Http\Livewire\Timestamp::class)->name('timestamp');
 
 /* Experiments */
-// TODO: Disabled experiments
-Route::name('experiments.')->group(function () {
-    Route::get('/experiments', fn () => abort(503))->name('index');
-    Route::get('/experiments/{experimentId}', fn () => abort(503))->name('show');
-    Route::redirect('/experiment/{experimentId}', '/experiments/{experimentId}', 301);
-});
-/* TODO: Disabled experiments
 Route::name('experiments.')->group(function () {
     Route::get('/experiments', \App\Http\Livewire\Experiments\Index::class)->name('index');
     Route::get('/experiments/{experimentId}', \App\Http\Livewire\Experiments\Show::class)->name('show');
     Route::redirect('/experiment/{experimentId}', '/experiments/{experimentId}', 301);
 });
-*/
 
 /* Other */
 Route::get('/inviteresolver/{inviteCode?}/{eventId?}', \App\Http\Livewire\InviteResolver::class)->name('inviteresolver');

@@ -11,11 +11,11 @@
                             {{ __('No experiments found') }}
                         @endif
                         @foreach($experiments as $experiment)
-                            <li class="mt-2">
-                                <b>{{ $experiment['title'] }}</b><br>
-                                @foreach($experiment['treatments'] as $treatment)
-                                    {{ $treatment }}<br>
-                                @endforeach
+                            <li class="mt-3">
+                                <span class="fw-bold">
+                                    <a class="text-decoration-none" href="{{ route('experiments.show', $experiment['id']) }}">{{ $experiment['title'] }}</a><br>
+                                </span>
+                                {{ $experiment['treatment'] }}<br>
                                 @if($experiment['override'])
                                     <span class="text-success">({{ __('This Guild has an override for this experiment') }})</span><br>
                                 @else

@@ -26,15 +26,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        /* TODO: Disabled experiments
         $schedule->call(function () {
-            loadExperiments();
+            fetchExperiments();
         })->name('load experiments')->everyThirtyMinutes();
-
-        $schedule->call(function () {
-            watchExperiments();
-        })->name('watch experiments')->hourly();
-        */
     }
 
     /**

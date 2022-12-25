@@ -21,12 +21,12 @@
                     </div>
                     <div class="col-12 col-md-3 mt-2 mt-md-0">
                         <select wire:model="sorting" class="form-select">
-                            <option value="name-asc">{{ __('Name Ascending') }}</option>
+                            <option value="name-asc" selected>{{ __('Name Ascending') }}</option>
                             <option value="name-desc">{{ __('Name Descending') }}</option>
-                            <option value="updated-asc">{{ __('Updated Ascending') }}</option>
+                            {{--<option value="updated-asc">{{ __('Updated Ascending') }}</option>
                             <option value="updated-desc" selected>{{ __('Updated Descending') }}</option>
                             <option value="created-asc">{{ __('Created Ascending') }}</option>
-                            <option value="created-desc">{{ __('Created Descending') }}</option>
+                            <option value="created-desc">{{ __('Created Descending') }}</option>--}}
                         </select>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                                             </div>
                                             <div class="mt-n1">
                                                 <small class="text-muted">
-                                                    {{ $experiment['id'] }} &bull; {{ date('Y-m-d g:i A', $experiment['updated']) }}
+                                                    {{ $experiment['id'] }}{{-- &bull; {{ date('Y-m-d g:i A', $experiment['updated']) }}--}}
                                                 </small>
                                             </div>
                                         </div>

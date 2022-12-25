@@ -39,11 +39,9 @@
                     <a class="nav-link p-2 {{ request()->routeIs('guildlist') ? 'active' : '' }}" href="{{ route('guildlist') }}">{{ __('Guild List') }}</a>
                 </li>
 
-                {{-- TODO: Disabled experiments
                 <li class="nav-item ms-lg-1">
                     <a class="nav-link p-2 {{ (request()->routeIs('experiments.*')) ? 'active' : '' }}" href="{{ route('experiments.index') }}">{{ __('Experiments') }}</a>
                 </li>
-                --}}
 
                 <li class="nav-item ms-lg-1 dropdown">
                     <a class="nav-link p-2 dropdown-toggle {{ request()->routeIs('guild-shard-calculator') ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
