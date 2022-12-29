@@ -33,6 +33,7 @@ Route::name('experiments.')->group(function () {
 /* Other */
 Route::get('/inviteresolver/{inviteCode?}/{eventId?}', \App\Http\Livewire\InviteResolver::class)->name('inviteresolver');
 
+Route::get('/permissions-calculator/{permissions?}', \App\Http\Livewire\PermissionsCalculator::class)->name('permissions-calculator');
 Route::get('/guild-shard-calculator/{guildId?}/{totalShards?}', \App\Http\Livewire\GuildShardCalculator::class)->name('guild-shard-calculator');
 Route::get('/help', \App\Http\Livewire\Help::class)->name('help');
 

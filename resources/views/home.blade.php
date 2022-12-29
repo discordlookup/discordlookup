@@ -173,6 +173,26 @@
                 </div>
             </div>
         </a>
+        <a href="{{ route('permissions-calculator') }}" class="tools-list-item text-decoration-none">
+            <div class="card text-white bg-dark border-0 mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 col-md-1 d-flex align-items-center">
+                            <i class="fas fa-sort-numeric-down ms-auto me-auto"></i>
+                        </div>
+                        <div class="col-12 col-md-2 d-flex align-items-center">
+                            <p class="fw-bold my-auto">{{ __('Permissions Calculator') }}</p>
+                        </div>
+                        <div class="col-12 col-md-8 d-flex align-items-center">
+                            <p class="my-auto">{{ __('Calculate Discord permissions integer based on the required bot permissions.') }}</p>
+                        </div>
+                        <div class="col-0 col-md-1 d-flex align-items-center">
+                            <i class="fas fa-arrow-right ms-auto"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
         <a href="{{ route('snowflake-distance-calculator') }}" class="tools-list-item text-decoration-none">
             <div class="card text-white bg-dark border-0 mb-3">
                 <div class="card-body">

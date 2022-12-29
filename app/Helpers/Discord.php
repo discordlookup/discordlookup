@@ -72,63 +72,283 @@ function hasModerator($permissions)
 }
 
 /**
+ * @return array[]
+ * @see https://discord.com/developers/docs/topics/permissions#permissions-bitwise-permission-flags
+ */
+function getPermissionList(): array
+{
+    return [
+        'CREATE_INSTANT_INVITE' => [
+            'name' => 'Create Instant Invite',
+            'bitwise' => (1 << 0),
+            'group' => 'general',
+            'requireTwoFactor' => false,
+        ],
+        'KICK_MEMBERS' => [
+            'name' => 'Kick Members',
+            'bitwise' => (1 << 1),
+            'group' => 'general',
+            'requireTwoFactor' => true,
+        ],
+        'BAN_MEMBERS' => [
+            'name' => 'Ban Members',
+            'bitwise' => (1 << 2),
+            'group' => 'general',
+            'requireTwoFactor' => true,
+        ],
+        'ADMINISTRATOR' => [
+            'name' => 'Administrator',
+            'bitwise' => (1 << 3),
+            'group' => 'general',
+            'requireTwoFactor' => true,
+        ],
+        'MANAGE_CHANNELS' => [
+            'name' => 'Manage Channels',
+            'bitwise' => (1 << 4),
+            'group' => 'general',
+            'requireTwoFactor' => true,
+        ],
+        'MANAGE_GUILD' => [
+            'name' => 'Manage Server',
+            'bitwise' => (1 << 5),
+            'group' => 'general',
+            'requireTwoFactor' => true,
+        ],
+        'ADD_REACTIONS' => [
+            'name' => 'Add Reactions',
+            'bitwise' => (1 << 6),
+            'group' => 'text',
+            'requireTwoFactor' => false,
+        ],
+        'VIEW_AUDIT_LOG' => [
+            'name' => 'View Audit Log',
+            'bitwise' => (1 << 7),
+            'group' => 'general',
+            'requireTwoFactor' => false,
+        ],
+        'PRIORITY_SPEAKER' => [
+            'name' => 'Priority Speaker',
+            'bitwise' => (1 << 8),
+            'group' => 'voice',
+            'requireTwoFactor' => false,
+        ],
+        'STREAM' => [
+            'name' => 'Video',
+            'bitwise' => (1 << 9),
+            'group' => 'voice',
+            'requireTwoFactor' => false,
+        ],
+        'VIEW_CHANNEL' => [
+            'name' => 'Read Messages/View Channels',
+            'bitwise' => (1 << 10),
+            'group' => 'general',
+            'requireTwoFactor' => false,
+        ],
+        'SEND_MESSAGES' => [
+            'name' => 'Send Messages',
+            'bitwise' => (1 << 11),
+            'group' => 'text',
+            'requireTwoFactor' => false,
+        ],
+        'SEND_TTS_MESSAGES' => [
+            'name' => 'Send TTS Messages',
+            'bitwise' => (1 << 12),
+            'group' => 'text',
+            'requireTwoFactor' => false,
+        ],
+        'MANAGE_MESSAGES' => [
+            'name' => 'Manage Messages',
+            'bitwise' => (1 << 13),
+            'group' => 'text',
+            'requireTwoFactor' => true,
+        ],
+        'EMBED_LINKS' => [
+            'name' => 'Embed Links',
+            'bitwise' => (1 << 14),
+            'group' => 'text',
+            'requireTwoFactor' => false,
+        ],
+        'ATTACH_FILES' => [
+            'name' => 'Attach Files',
+            'bitwise' => (1 << 15),
+            'group' => 'text',
+            'requireTwoFactor' => false,
+        ],
+        'READ_MESSAGE_HISTORY' => [
+            'name' => 'Read Message History',
+            'bitwise' => (1 << 16),
+            'group' => 'text',
+            'requireTwoFactor' => false,
+        ],
+        'MENTION_EVERYONE' => [
+            'name' => 'Mention @everyone, @here, and All Roles',
+            'bitwise' => (1 << 17),
+            'group' => 'text',
+            'requireTwoFactor' => false,
+        ],
+        'USE_EXTERNAL_EMOJIS' => [
+            'name' => 'Use External Emojis',
+            'bitwise' => (1 << 18),
+            'group' => 'text',
+            'requireTwoFactor' => false,
+        ],
+        'VIEW_GUILD_INSIGHTS' => [
+            'name' => 'View Server Insights',
+            'bitwise' => (1 << 19),
+            'group' => 'general',
+            'requireTwoFactor' => false,
+        ],
+        'CONNECT' => [
+            'name' => 'Connect',
+            'bitwise' => (1 << 20),
+            'group' => 'voice',
+            'requireTwoFactor' => false,
+        ],
+        'SPEAK' => [
+            'name' => 'Speak',
+            'bitwise' => (1 << 21),
+            'group' => 'voice',
+            'requireTwoFactor' => false,
+        ],
+        'MUTE_MEMBERS' => [
+            'name' => 'Mute Members',
+            'bitwise' => (1 << 22),
+            'group' => 'voice',
+            'requireTwoFactor' => false,
+        ],
+        'DEAFEN_MEMBERS' => [
+            'name' => 'Deafen Members',
+            'bitwise' => (1 << 23),
+            'group' => 'voice',
+            'requireTwoFactor' => false,
+        ],
+        'MOVE_MEMBERS' => [
+            'name' => 'Move Members',
+            'bitwise' => (1 << 24),
+            'group' => 'voice',
+            'requireTwoFactor' => false,
+        ],
+        'USE_VAD' => [
+            'name' => 'Use Voice Activity',
+            'bitwise' => (1 << 25),
+            'group' => 'voice',
+            'requireTwoFactor' => false,
+        ],
+        'CHANGE_NICKNAME' => [
+            'name' => 'Change Nickname',
+            'bitwise' => (1 << 26),
+            'group' => 'general',
+            'requireTwoFactor' => false,
+        ],
+        'MANAGE_NICKNAMES' => [
+            'name' => 'Manage Nicknames',
+            'bitwise' => (1 << 27),
+            'group' => 'general',
+            'requireTwoFactor' => false,
+        ],
+        'MANAGE_ROLES' => [
+            'name' => 'Manage Roles',
+            'bitwise' => (1 << 28),
+            'group' => 'general',
+            'requireTwoFactor' => true,
+        ],
+        'MANAGE_WEBHOOKS' => [
+            'name' => 'Manage Webhooks',
+            'bitwise' => (1 << 29),
+            'group' => 'general',
+            'requireTwoFactor' => true,
+        ],
+        'MANAGE_EMOJIS_AND_STICKERS' => [
+            'name' => 'Manage Emojis and Stickers',
+            'bitwise' => (1 << 30),
+            'group' => 'general',
+            'requireTwoFactor' => true,
+        ],
+        'USE_APPLICATION_COMMANDS' => [
+            'name' => 'Use Slash Commands',
+            'bitwise' => (1 << 31),
+            'group' => 'text',
+            'requireTwoFactor' => false,
+        ],
+        'REQUEST_TO_SPEAK' => [
+            'name' => 'Request To Speak',
+            'bitwise' => (1 << 32),
+            'group' => 'voice',
+            'requireTwoFactor' => false,
+        ],
+        'MANAGE_EVENTS' => [
+            'name' => 'Manage Events',
+            'bitwise' => (1 << 33),
+            'group' => 'general',
+            'requireTwoFactor' => false,
+        ],
+        'MANAGE_THREADS' => [
+            'name' => 'Manage Threads',
+            'bitwise' => (1 << 34),
+            'group' => 'text',
+            'requireTwoFactor' => true,
+        ],
+        'CREATE_PUBLIC_THREADS' => [
+            'name' => 'Create Public Threads',
+            'bitwise' => (1 << 35),
+            'group' => 'text',
+            'requireTwoFactor' => false,
+        ],
+        'CREATE_PRIVATE_THREADS' => [
+            'name' => 'Create Private Threads',
+            'bitwise' => (1 << 36),
+            'group' => 'text',
+            'requireTwoFactor' => false,
+        ],
+        'USE_EXTERNAL_STICKERS' => [
+            'name' => 'Use External Stickers',
+            'bitwise' => (1 << 37),
+            'group' => 'text',
+            'requireTwoFactor' => false,
+        ],
+        'SEND_MESSAGES_IN_THREADS' => [
+            'name' => 'Send Messages in Threads',
+            'bitwise' => (1 << 38),
+            'group' => 'text',
+            'requireTwoFactor' => false,
+        ],
+        'START_EMBEDDED_ACTIVITIES' => [
+            'name' => 'Use Embedded Activities',
+            'bitwise' => (1 << 39),
+            'group' => 'voice',
+            'requireTwoFactor' => false,
+        ],
+        'MODERATE_MEMBERS' => [
+            'name' => 'Moderate Members',
+            'bitwise' => (1 << 40),
+            'group' => 'general',
+            'requireTwoFactor' => false,
+        ],
+        'VIEW_CREATOR_MONETIZATION_ANALYTICS' => [
+            'name' => 'View Creator Monetization Insights',
+            'bitwise' => (1 << 41),
+            'group' => 'general',
+            'requireTwoFactor' => false,
+        ],
+    ];
+}
+
+/**
  * @param $bitwise
  * @return array
  * @see https://discord.com/developers/docs/topics/permissions#permissions-bitwise-permission-flags
  */
 function getPermissionFlagListNames($bitwise): array
 {
-    $permissions = [
-        'CREATE_INSTANT_INVITE' => (1 << 0),
-        'KICK_MEMBERS' => (1 << 1),
-        'BAN_MEMBERS' => (1 << 2),
-        'ADMINISTRATOR' => (1 << 3),
-        'MANAGE_CHANNELS' => (1 << 4),
-        'MANAGE_GUILD' => (1 << 5),
-        'ADD_REACTIONS' => (1 << 6),
-        'VIEW_AUDIT_LOG' => (1 << 7),
-        'PRIORITY_SPEAKER' => (1 << 8),
-        'STREAM' => (1 << 9),
-        'VIEW_CHANNEL' => (1 << 10),
-        'SEND_MESSAGES' => (1 << 11),
-        'SEND_TTS_MESSAGES' => (1 << 12),
-        'MANAGE_MESSAGES' => (1 << 13),
-        'EMBED_LINKS' => (1 << 14),
-        'ATTACH_FILES' => (1 << 15),
-        'READ_MESSAGE_HISTORY' => (1 << 16),
-        'MENTION_EVERYONE' => (1 << 17),
-        'USE_EXTERNAL_EMOJIS' => (1 << 18),
-        'VIEW_GUILD_INSIGHTS' => (1 << 19),
-        'CONNECT' => (1 << 20),
-        'SPEAK' => (1 << 21),
-        'MUTE_MEMBERS' => (1 << 22),
-        'DEAFEN_MEMBERS' => (1 << 23),
-        'MOVE_MEMBERS' => (1 << 24),
-        'USE_VOICE-ACTIVITY-DETECTION'/*USE_VAD*/ => (1 << 25),
-        'CHANGE_NICKNAME' => (1 << 26),
-        'MANAGE_NICKNAMES' => (1 << 27),
-        'MANAGE_ROLES' => (1 << 28),
-        'MANAGE_WEBHOOKS' => (1 << 29),
-        'MANAGE_EMOJIS_AND_STICKERS' => (1 << 30),
-        'USE_APPLICATION_COMMANDS' => (1 << 31),
-        'REQUEST_TO_SPEAK' => (1 << 32),
-        'MANAGE_THREADS' => (1 << 34),
-        'CREATE_PUBLIC_THREADS' => (1 << 35),
-        'CREATE_PRIVATE_THREADS' => (1 << 36),
-        'USE_EXTERNAL_STICKERS' => (1 << 37),
-        'SEND_MESSAGES_IN_THREADS' => (1 << 38),
-        'START_EMBEDDED_ACTIVITIES' => (1 << 39),
-        'MODERATE_MEMBERS' => (1 << 40),
-    ];
-
-    $permissionsList = [];
-    foreach ($permissions as $permission => $value)
+    $permissions = getPermissionList();
+    $permissionsNames = [];
+    foreach ($permissions as $permission)
     {
-        if (($bitwise & $value) == $value)
-            $permissionsList[] = $permission;
+        if (($bitwise & $permission['bitwise']) == $permission['bitwise'])
+            $permissionsNames[] = $permission['name'];
     }
 
-    return $permissionsList;
+    return $permissionsNames;
 }
 
 /**

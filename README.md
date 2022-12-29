@@ -33,6 +33,7 @@ Tools:
 - [Discord Server & Client Experiments](https://discordlookup.com/experiments)
 - [Invite Resolver](https://discordlookup.com/inviteresolver)
 - [Timestamp Styles](https://discordlookup.com/timestamp)
+- [Permissions Calculator](https://discordlookup.com/permissions-calculator)
 - [Snowflake Distance Calculator](https://discordlookup.com/snowflake-distance)
 - [Guild Shard Calculator](https://discordlookup.com/guild-shard-calculator)
 
