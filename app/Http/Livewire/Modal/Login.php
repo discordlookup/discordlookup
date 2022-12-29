@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Modal;
 
 use Livewire\Component;
 
-class LoginModal extends Component
+class Login extends Component
 {
     public $joinDiscord = false;
 
@@ -35,6 +35,6 @@ class LoginModal extends Component
 
     public function render()
     {
-        return view('modal.login-modal');
+        return view('modal.login');
     }
 }

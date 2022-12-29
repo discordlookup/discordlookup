@@ -15,6 +15,12 @@ footer {
     background-color: $gray-800 !important;
 }
 
+.modal-dialog-login {
+    display: flex;
+    align-items: center;
+    min-height: calc(50% - var(--bs-modal-margin) * 2);
+}
+
 .navbar {
     .dropdown {
         .dropdown-menu {

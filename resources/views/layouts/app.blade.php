@@ -81,7 +81,7 @@ discord, discord lookup, discordlookup, lookup, snowflake, guild count, invite i
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 @stack('scripts')
-@livewire('modal.login-modal')
+@livewire('modal.login')
 @livewireScripts
 
 @if(!empty(env('GOOGLETAGMANAGER_ID')))
