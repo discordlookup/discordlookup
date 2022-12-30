@@ -3,7 +3,7 @@
 @section('title', __('Terms of Service'))
 @section('description', __('Terms of Service of DiscordLookup.com'))
 @section('keywords', 'terms, service, terms of service, terms of use, use, legal')
-@section('robots', 'index, follow')
+@section('robots', 'noindex, nofollow')
 
 @section('content')
 

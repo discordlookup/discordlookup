@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /imprint
 Disallow: /privacy-policy
+Disallow: /terms-of-service
 
 Sitemap: https://discordlookup.com/sitemap.xml
