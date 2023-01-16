@@ -265,7 +265,7 @@ function getPermissionList(): array
             'requireTwoFactor' => true,
         ],
         'USE_APPLICATION_COMMANDS' => [
-            'name' => 'Use Slash Commands',
+            'name' => 'Use Application Commands',
             'bitwise' => (1 << 31),
             'group' => 'text',
             'requireTwoFactor' => false,

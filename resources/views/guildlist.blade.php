@@ -212,11 +212,11 @@
                                         <div class="row">
                                             <div class="col-12 col-md-1 text-center">
                                                 @if($guild['icon'])
-                                                    <a href="https://cdn.discordapp.com/icons/{{ $guild['id'] }}/{{ $guild['icon'] }}" target="_blank">
-                                                        <img src="https://cdn.discordapp.com/icons/{{ $guild['id'] }}/{{ $guild['icon'] }}?size=128" loading="lazy" class="rounded-circle" style="width: 48px; height: 48px;" width="48px" height="48px" alt="guild icon">
+                                                    <a href="{{ env('DISCORD_CDN_URL') }}/icons/{{ $guild['id'] }}/{{ $guild['icon'] }}" class="text-decoration-none" target="_blank">
+                                                        <img src="{{ env('DISCORD_CDN_URL') }}/icons/{{ $guild['id'] }}/{{ $guild['icon'] }}?size=128" loading="lazy" class="rounded-circle" style="width: 48px; height: 48px;" width="48px" height="48px" alt="guild icon">
                                                     </a>
                                                 @else
-                                                    <img src="https://cdn.discordapp.com/embed/avatars/0.png" loading="lazy" class="rounded-circle" style="width: 48px; height: 48px;" width="48px" height="48px" alt="guild icon">
+                                                    <img src="{{ env('DISCORD_CDN_URL') }}/embed/avatars/0.png" loading="lazy" class="rounded-circle" style="width: 48px; height: 48px;" width="48px" height="48px" alt="guild icon">
                                                 @endif
                                             </div>
                                             <div class="col-12 col-md-6 text-center text-md-start">

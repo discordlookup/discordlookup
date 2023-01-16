@@ -136,6 +136,16 @@
                                     <a href="{{ $inviteData['guild']['vanityUrl'] }}" target="_blank" class="text-decoration-none">{{ $inviteData['guild']['vanityUrl'] }}</a><br>
                                 @endif
 
+                                @if(array_key_exists('features', $inviteData['guild']) && !empty($inviteData['guild']['features']))
+                                    <b>{{ __('Invites Paused') }}:</b>
+                                    @if(in_array('invites disabled', $inviteData['guild']['features']) || in_array('INVITES_DISABLED', $inviteData['guild']['features']))
+                                        <img src="{{ asset('images/discord/icons/check.svg') }}" class="discord-badge" alt="Check">
+                                    @else
+                                        <img src="{{ asset('images/discord/icons/cross.svg') }}" class="discord-badge" alt="Cross">
+                                    @endif
+                                    <br>
+                                @endif
+
                                 @if(array_key_exists('isNSFW', $inviteData['guild']))
                                     <b>{{ __('NSFW') }}:</b>
                                     @if($inviteData['guild']['isNSFW'])
