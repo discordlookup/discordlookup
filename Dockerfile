@@ -1,4 +1,4 @@
-FROM webdevops/php-nginx:8.0-alpine
+FROM webdevops/php-nginx:8.2-alpine
 
 RUN apk add oniguruma-dev postgresql-dev libxml2-dev
 RUN docker-php-ext-install \
