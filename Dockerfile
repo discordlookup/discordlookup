@@ -14,6 +14,7 @@ ENV APP_ENV production
 WORKDIR /app
 COPY . .
 
+RUN echo "server_tokens off;" > /etc/nginx/conf.d/server_tokens.conf
 RUN echo "* * * * * cd /app && php artisan schedule:run >> /dev/null 2>&1" >> /etc/crontabs/root
 
 RUN composer install --no-interaction --optimize-autoloader --no-dev
