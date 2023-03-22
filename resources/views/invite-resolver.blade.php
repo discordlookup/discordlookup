@@ -10,7 +10,7 @@
             <div class="col-12 col-lg-6 offset-lg-3 mb-5">
                 <div class="input-group input-group-lg mb-2">
                     <span class="input-group-text bg-dark">{{ str_replace('https://', '', env('DISCORD_INVITE_PREFIX')) }}</span>
-                    <input wire:model="inviteCodeDisplay" wire:keydown.enter="fetchInvite" type="text" class="form-control" placeholder="ep">
+                    <input wire:model="inviteCodeDisplay" wire:keydown.enter="fetchInvite" type="text" class="form-control" placeholder="easypoll">
                 </div>
                 <input wire:model="eventId" wire:keydown.enter="fetchInvite" class="form-control mb-3" type="text" placeholder="{{ __('Event ID') }}">
                 <button wire:click="fetchInvite" type="button" class="btn btn-primary w-100">{{ __('Fetch Invite Information') }}</button>
