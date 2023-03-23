@@ -330,6 +330,24 @@ function getPermissionList(): array
             'group' => 'general',
             'requireTwoFactor' => false,
         ],
+        'USE_SOUNDBOARD' => [
+            'name' => 'Use Soundboard',
+            'bitwise' => (1 << 42),
+            'group' => 'voice',
+            'requireTwoFactor' => false,
+        ],
+        'CREATE_GUILD_EXPRESSIONS' => [
+            'name' => 'Create Expressions',
+            'bitwise' => (1 << 43),
+            'group' => 'general',
+            'requireTwoFactor' => false,
+        ],
+        'CREATE_EVENTS' => [
+            'name' => 'Create Events',
+            'bitwise' => (1 << 44),
+            'group' => 'general',
+            'requireTwoFactor' => false,
+        ],
     ];
 }
 
