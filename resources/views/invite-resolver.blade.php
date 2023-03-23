@@ -33,7 +33,13 @@
                     <div class="card text-white bg-dark">
                         <div class="card-header">
                             <div class="row">
-                                @if(array_key_exists('iconUrl', $inviteData['guild']) && $inviteData['guild']['iconUrl'])
+                                @if(array_key_exists('channelIcon', $inviteData['invite']) && $inviteData['invite']['channelIcon'])
+                                    <div class="col-auto me-auto ms-auto me-lg-0 ms-lg-0">
+                                        <a href="{{ $inviteData['invite']['channelIconUrl'] }}" target="_blank">
+                                            <img src="{{ $inviteData['invite']['channelIconUrl'] }}" loading="lazy" class="rounded-circle" style="max-width: 64px; max-height: 64px;" alt="group icon">
+                                        </a>
+                                    </div>
+                                @elseif(array_key_exists('iconUrl', $inviteData['guild']) && $inviteData['guild']['iconUrl'])
                                     <div class="col-auto me-auto ms-auto me-lg-0 ms-lg-0">
                                         <a href="{{ $inviteData['guild']['iconUrl'] }}" target="_blank">
                                             <img src="{{ $inviteData['guild']['iconUrl'] }}" loading="lazy" class="rounded-circle" style="max-width: 64px; max-height: 64px;" alt="guild icon">
@@ -43,6 +49,8 @@
                                 <div class="col-auto me-auto ms-auto me-lg-0 ms-lg-0 mt-3 mt-sm-0 text-center text-lg-start align-self-center">
                                     @if(array_key_exists('name', $inviteData['guild']) && $inviteData['guild']['name'])
                                         <b>{{ $inviteData['guild']['name'] }}</b>
+                                    @elseif(array_key_exists('channelName', $inviteData['invite']) && $inviteData['invite']['channelName'])
+                                        <b>{{ $inviteData['invite']['channelName'] }}</b>
                                     @endif
 
                                     @if(array_key_exists('isPartnered', $inviteData['guild']) && $inviteData['guild']['isPartnered'])
@@ -55,16 +63,20 @@
                                     <div class="small">
                                         <div>
                                             @if(array_key_exists('onlineCount', $inviteData['guild']) && $inviteData['guild']['onlineCount'])
-                                                <span class="discord-status-pill discord-status-pill-online"></span>
-                                                {{ number_format($inviteData['guild']['onlineCount'], 0, '', '.') }} {{ __('Online') }}
+                                                <span class="me-3">
+                                                    <span class="discord-status-pill discord-status-pill-online"></span>
+                                                    {{ number_format($inviteData['guild']['onlineCount'], 0, '', '.') }} {{ __('Online') }}
+                                                </span>
                                             @endif
 
                                             @if(array_key_exists('memberCount', $inviteData['guild']) && $inviteData['guild']['memberCount'])
-                                                <span class="discord-status-pill discord-status-pill-offline ms-3"></span>
-                                                {{ number_format($inviteData['guild']['memberCount'], 0, '', '.') }} {{ __('Members') }}
+                                                <span>
+                                                    <span class="discord-status-pill discord-status-pill-offline"></span>
+                                                    {{ number_format($inviteData['guild']['memberCount'], 0, '', '.') }} {{ __('Members') }}
+                                                </span>
                                             @endif
                                         </div>
-                                        @if(array_key_exists('boostCount', $inviteData['guild']) && array_key_exists('boostLevel', $inviteData['guild']))
+                                        @if(array_key_exists('boostCount', $inviteData['guild']) && array_key_exists('boostLevel', $inviteData['guild']) && $inviteData['type'] != 1)
                                             <div>
                                                 {!! getDiscordBadgeServerBoosts($inviteData['guild']['boostLevel']) !!}
                                                 {{ number_format($inviteData['guild']['boostCount'], 0, '', '.') }} {{ __('Boosts') }}
@@ -88,6 +100,12 @@
                                 <hr>
                             @endif
                             <div>
+                                @if(array_key_exists('channelId', $inviteData['invite']) && $inviteData['invite']['channelId'])
+                                    <b>{{ __('Invite Type') }}:</b>
+                                    {{ $inviteData['typeName'] }}
+                                    <br>
+                                @endif
+
                                 @if(array_key_exists('channelId', $inviteData['invite']) && $inviteData['invite']['channelId'])
                                     <b>{{ __('Invite Channel') }}:</b>
                                     <a href="https://discord.com/channels/{{ $inviteData['guild']['id'] }}/{{ $inviteData['invite']['channelId'] }}" target="_blank" class="text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $inviteData['invite']['channelId'] }}">
@@ -146,7 +164,7 @@
                                     <br>
                                 @endif
 
-                                @if(array_key_exists('isNSFW', $inviteData['guild']))
+                                @if(array_key_exists('isNSFW', $inviteData['guild']) && $inviteData['type'] != 1)
                                     <b>{{ __('NSFW') }}:</b>
                                     @if($inviteData['guild']['isNSFW'])
                                         <img src="{{ asset('images/discord/icons/check.svg') }}" class="discord-badge" alt="Check">
@@ -301,6 +319,15 @@
                                     <button id="buttonDownloadAllEmojis" class="btn btn-sm btn-primary w-100" data-bs-toggle="modal" data-bs-target="#emojiDownloadModal">
                                         <i class="fas fa-download"></i> {{ __('Download all Guild Emojis') }}
                                     </button>
+                                @endif
+
+                                @if(array_key_exists('channelRecipients', $inviteData['invite']) && !empty($inviteData['invite']['channelRecipients']))
+                                    <b>{{ __('Recipients') }}:</b>
+                                    <ul>
+                                        @foreach($inviteData['invite']['channelRecipients'] as $recipient)
+                                            <li>{{ $recipient['username'] }}</li>
+                                        @endforeach
+                                    </ul>
                                 @endif
                             </div>
                         </div>

@@ -655,6 +655,8 @@ function parseInviteJson($json)
 {
     $array = [
         'hasEvent' => false,
+        'type' => 0,
+        'typeName' => '',
         'guild' => [
             'id' => '',
             'name' => '',
@@ -676,6 +678,9 @@ function parseInviteJson($json)
         'invite' => [
             'channelId' => '',
             'channelName' => '',
+            'channelIcon' => '',
+            'channelIconUrl' => '',
+            'channelRecipients' => [],
             'inviterId' => '',
             'inviterName' => '',
             'expiresAt' => '',
@@ -703,6 +708,20 @@ function parseInviteJson($json)
 
     if($json == null)
         return null;
+
+    $array['type'] = $json['type'];
+    switch ($json['type'])
+    {
+        case 0:
+            $array['typeName'] = 'Guild';
+            break;
+        case 1:
+            $array['typeName'] = 'Group';
+            break;
+        default:
+            $array['typeName'] = $json['type'];
+            break;
+    }
 
     /* Guild */
     if(array_key_exists('guild', $json))
@@ -762,6 +781,12 @@ function parseInviteJson($json)
             $array['invite']['channelId'] = $json['channel']['id'];
         if(array_key_exists('name', $json['channel']))
             $array['invite']['channelName'] = $json['channel']['name'];
+        if(array_key_exists('icon', $json['channel'])) {
+            $array['invite']['channelIcon'] = $json['channel']['icon'];
+            $array['invite']['channelIconUrl'] = env('DISCORD_CDN_URL') . '/channel-icons/' . $array['invite']['channelId'] . '/' . $array['invite']['channelIcon'] . '?size=128';
+        }
+        if(array_key_exists('recipients', $json['channel']))
+            $array['invite']['channelRecipients'] = $json['channel']['recipients'];
     }
 
     if(array_key_exists('inviter', $json))
