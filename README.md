@@ -1,15 +1,15 @@
 [bot-invite]: https://discordlookup.com/invite?utm_source=github&utm_medium=readme&utm_campaign=discordlookup
 [discord-invite]: https://discordlookup.com/discord
-[license]: https://github.com/discordlookup/website/blob/main/LICENSE
+[license]: https://github.com/discordlookup/discordlookup/blob/main/LICENSE
 [discord-shield]: https://discord.com/api/guilds/980791496833908778/widget.png
-[license-shield]: https://img.shields.io/github/license/fbrettnich/DiscordLookup?label=License
-[workflowstatus-shield]: https://img.shields.io/github/actions/workflow/status/fbrettnich/DiscordLookup/docker-publish-deploy.yml?branch=main&label=Build
+[license-shield]: https://img.shields.io/github/license/discordlookup/discordlookup?label=License
+[workflowstatus-shield]: https://img.shields.io/github/actions/workflow/status/discordlookup/discordlookup/docker-publish-deploy.yml?branch=main&label=Build
 
 [ ![discord-shield][] ][discord-invite]
 [ ![license-shield][] ][license]
-[ ![workflowstatus-shield][] ](https://github.com/discordlookup/website/actions/workflows/docker-publish.yml)
+[ ![workflowstatus-shield][] ](https://github.com/discordlookup/discordlookup/actions/workflows/docker-publish.yml)
 
-<img align="right" src="https://raw.githubusercontent.com/fbrettnich/DiscordLookup/main/.github/images/discordlookup-logo.png" height="200" width="200">
+<img align="right" src="https://raw.githubusercontent.com/discordlookup/discordlookup/main/.github/images/discordlookup-logo.png" height="200" width="200">
 
 # DiscordLookup
 Get more out of Discord with Discord Lookup! Snowflake Decoder, Guild List with Stats, Invite Info and more...
@@ -55,7 +55,7 @@ If your language is not listed yet, please contact us on the [Discord server](ht
 Please don't self-host DiscordLookup!  
 Running your own version of DiscordLookup.com is not supported.  
 No help is provided for editing, compiling or building this code.  
-All changes must follow the [license](https://github.com/discordlookup/website/blob/main/LICENSE).
+All changes must follow the [license](https://github.com/discordlookup/discordlookup/blob/main/LICENSE).
 
 ## Disclaimer
 DiscordLookup is not affiliated, associated, authorized, endorsed by, or in anyway officially connected with Discord Inc., or any of its subsidiaries or its affiliates.

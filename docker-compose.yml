@@ -2,8 +2,7 @@ version: '3.3'
 
 services:
     website:
-      container_name: website
-      image: 'ghcr.io/fbrettnich/discordlookup:main'
+      image: 'ghcr.io/discordlookup/discordlookup:main'
       restart: unless-stopped
       env_file: .env.example
       depends_on:
@@ -13,7 +12,6 @@ services:
       networks:
         - discordlookup
     mysql:
-      container_name: mysql
       image: mariadb
       restart: unless-stopped
       environment:
