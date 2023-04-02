@@ -22,7 +22,8 @@ class Show extends Component
         $experimentHash = Murmur::hash3_int($this->experimentId);
         $this->experiment = getExperiments($experimentHash);
 
-        if($this->experiment['buckets'])
+
+        if(!empty($this->experiment['buckets']))
         {
             $this->buckets["BUCKET -1"] = [
                 'id' => -1,
@@ -40,7 +41,7 @@ class Show extends Component
             }
         }
 
-        if($this->experiment['rollout'])
+        if(!empty($this->experiment['rollout']))
         {
             foreach ($this->experiment['rollout'][3] as $population)
             {
