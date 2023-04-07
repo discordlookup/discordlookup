@@ -500,8 +500,9 @@ function getUser($userId)
     if (empty($array['avatarUrl']))
         $array['avatarUrl'] = env('DISCORD_CDN_URL') . '/embed/avatars/' . ($array['discriminator'] % 5) . '.png';
 
+    // TODO: Add custom avatar decorations once released and documented by Discord
     if (key_exists('avatar_decoration', $responseJson) && $responseJson['avatar_decoration'] != null)
-        $array['avatarDecorationUrl'] = env('DISCORD_CDN_URL') . '/avatar-decorations/' . $responseJson['id'] . '/' . $responseJson['avatar_decoration'] . '?size=512';
+        $array['avatarDecorationUrl'] = env('DISCORD_CDN_URL') . '/avatar-decoration-presets/' . $responseJson['avatar_decoration'] . '?size=512';
 
     if (key_exists('banner', $responseJson) && $responseJson['banner'] != null)
         $array['bannerUrl'] = env('DISCORD_CDN_URL') . '/banners/' . $responseJson['id'] . '/' . $responseJson['banner'] . '?size=512';
