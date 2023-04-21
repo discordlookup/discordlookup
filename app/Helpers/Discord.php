@@ -377,6 +377,7 @@ function getPermissionFlagListNames($bitwise): array
 function getApplicationFlagListNames($bitwise): array
 {
     $permissions = [
+        'APPLICATION_AUTO_MODERATION_RULE_CREATE_BADGE' => (1 << 6),
         'GATEWAY_PRESENCE' => (1 << 12),
         'GATEWAY_PRESENCE_LIMITED' => (1 << 13),
         'GATEWAY_GUILD_MEMBERS' => (1 << 14),
