@@ -348,6 +348,13 @@ function getPermissionList(): array
             'group' => 'general',
             'requireTwoFactor' => false,
         ],
+        // TODO: 45
+        'SEND_VOICE_MESSAGES' => [
+            'name' => 'Send Voice Message',
+            'bitwise' => (1 << 46),
+            'group' => 'text',
+            'requireTwoFactor' => false,
+        ],
     ];
 }
 
