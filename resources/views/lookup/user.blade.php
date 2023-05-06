@@ -88,7 +88,7 @@
                                 <div class="col-auto me-auto ms-auto me-lg-0 ms-lg-0">
                                     <a href="{{ $userData['avatarUrl'] }}" target="_blank">
                                         @if($userData['avatarDecorationUrl'])
-                                            <img src="{{ $userData['avatarDecorationUrl'] }}" loading="lazy" class="rounded-circle position-absolute user-avatar-decoration" width="80px" height="80px" alt="user avatar decoration">
+                                            <img src="{{ $userData['avatarDecorationUrl'] }}" loading="lazy" class="position-absolute user-avatar-decoration" width="80px" height="80px" alt="user avatar decoration">
                                         @endif
                                         <img src="{{ $userData['avatarUrl'] }}" loading="lazy" class="rounded-circle user-avatar" width="64px" height="64px" alt="user avatar">
                                     </a>
