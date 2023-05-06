@@ -460,6 +460,8 @@ function getUser($userId)
         'id' => '',
         'username' => '',
         'discriminator' => '',
+        'global_name' => '',
+        'display_name' => '',
         'avatarUrl' => '',
         'avatarDecorationUrl' => '',
         'bannerUrl' => '',
@@ -498,6 +500,12 @@ function getUser($userId)
 
     if (key_exists('discriminator', $responseJson))
         $array['discriminator'] = $responseJson['discriminator'];
+
+    if (key_exists('global_name', $responseJson))
+        $array['global_name'] = $responseJson['global_name'];
+
+    if (key_exists('display_name', $responseJson))
+        $array['display_name'] = $responseJson['display_name'];
 
     if (key_exists('bot', $responseJson))
         $array['isBot'] = $responseJson['bot'];
@@ -821,8 +829,11 @@ function parseInviteJson($json)
         if(array_key_exists('id', $json['inviter']))
             $array['invite']['inviterId'] = $json['inviter']['id'];
 
-        if(array_key_exists('username', $json['inviter']) && array_key_exists('discriminator', $json['inviter']))
+        if (array_key_exists('global_name', $json['inviter']) && array_key_exists('display_name', $json['inviter'])) {
+            $array['invite']['inviterName'] = $json['inviter']['display_name'] . ' (@' . $json['inviter']['global_name'] . ')';
+        } else if (array_key_exists('username', $json['inviter']) && array_key_exists('discriminator', $json['inviter'])) {
             $array['invite']['inviterName'] = $json['inviter']['username'] . '#' . $json['inviter']['discriminator'];
+        }
     }
 
     if(array_key_exists('expires_at', $json) && $json['expires_at'] != null)
