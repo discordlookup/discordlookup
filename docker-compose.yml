@@ -2,29 +2,44 @@ version: '3.3'
 
 services:
     website:
-      image: 'ghcr.io/discordlookup/discordlookup:main'
-      restart: unless-stopped
-      env_file: .env.example
-      depends_on:
-        - mysql
-      ports:
-        - 127.0.0.1:8080:80
-      networks:
-        - discordlookup
+        image: 'ghcr.io/discordlookup/discordlookup:main'
+        restart: unless-stopped
+        env_file: .env.example
+        depends_on:
+            - mysql
+        ports:
+            - 127.0.0.1:8080:80
+        networks:
+            - discordlookup
+        labels:
+            - 'com.centurylinklabs.watchtower.scope=discordlookup-website'
     mysql:
-      image: mariadb
-      restart: unless-stopped
-      environment:
-        - MYSQL_ROOT_PASSWORD=discordlookup
-        - MYSQL_DATABASE=discordlookup
-        - MYSQL_USER=discordlookup
-        - MYSQL_PASSWORD=discordlookup
-      volumes:
-        - mysqldata:/var/lib/mysql
-      networks:
-        - discordlookup
+        image: mariadb:10.11
+        restart: unless-stopped
+        environment:
+            - MYSQL_ROOT_PASSWORD=discordlookup
+            - MYSQL_DATABASE=discordlookup
+            - MYSQL_USER=discordlookup
+            - MYSQL_PASSWORD=discordlookup
+        volumes:
+            - mysqldata:/var/lib/mysql
+        networks:
+            - discordlookup
+        labels:
+            - 'com.centurylinklabs.watchtower.scope=discordlookup-website'
+    watchtower:
+        image: containrrr/watchtower
+        restart: unless-stopped
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - /root/.docker/config.json:/config.json
+        command: --interval 300 --cleanup --scope discordlookup-website
+        labels:
+            - 'com.centurylinklabs.watchtower.scope=discordlookup-website'
+
 volumes:
     mysqldata:
+
 networks:
-  discordlookup:
-    driver: bridge
+    discordlookup:
+        driver: bridge

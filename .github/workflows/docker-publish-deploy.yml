@@ -49,17 +49,3 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy container
-        if: github.event_name != 'pull_request'
-        shell: bash
-        run: |
-          curl ${{ secrets.DEPLOY_WEBHOOK_URL }} \
-            --request POST \
-            --location \
-            --header "CF-Access-Client-Id: ${{ secrets.DEPLOY_CF_CLIENT_ID }}" \
-            --header "CF-Access-Client-Secret: ${{ secrets.DEPLOY_CF_CLIENT_SECRET }}"
