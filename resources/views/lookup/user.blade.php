@@ -66,7 +66,7 @@
                     </div>
                 </div>
             @elseif($userData)
-
+                {{--
                 @if($userData['global_name'])
                     <div class="col-12 col-lg-6 offset-lg-3">
                         <div class="alert alert-success fade show" role="alert">
@@ -80,6 +80,7 @@
                         </div>
                     </div>
                 @endif
+                --}}
 
                 <div class="col-12 col-lg-6 offset-lg-3">
                     <div class="card text-white bg-dark">
@@ -94,12 +95,13 @@
                                     </a>
                                 </div>
                                 <div class="col-auto me-auto ms-auto me-lg-0 ms-lg-0 text-center text-lg-start align-self-center">
-                                    @if($userData['global_name'])
-                                        <b>{{ $userData['display_name'] }}</b>
-                                        <div class="small">&commat;{{ $userData['global_name'] }}</div>
+                                    <b>{{ $userData['username'] }}<span class="small text-muted">#{{ $userData['discriminator'] }}</span></b>
+                                    {{--@if($userData['global_name'])
+                                        <b>{{ $userData['global_name'] }}</b>
+                                        <div class="small">&commat;{{ $userData['username'] }}</div>
                                     @else
                                         <b>{{ $userData['username'] }}<span class="small text-muted">#{{ $userData['discriminator'] }}</span></b>
-                                    @endif
+                                    @endif--}}
                                     @if($userData['isBot'])
                                         <span class="badge" style="color: #fff; background-color: #5865f2; top: -1px; position: relative;">
                                             @if($userData['isVerifiedBot'])
@@ -125,15 +127,12 @@
                                 {{ $snowflakeDate }}
                                 <br>
 
-                                @if($userData['username'] && $userData['global_name'])
-                                    <b>{{ __('Old Username') }}:</b>
-                                    {{ $userData['username'] }}<br>
-                                @endif
-
+                                {{--
                                 @if($userData['discriminator'] && $userData['global_name'] && $userData['discriminator'] != "0")
                                     <b>{{ __('Old Discriminator') }}:</b>
                                     {{ $userData['discriminator'] }}<br>
                                 @endif
+                                --}}
 
                                 <b>{{ __('Bot') }}:</b>
                                 @if($userData['isBot'])
