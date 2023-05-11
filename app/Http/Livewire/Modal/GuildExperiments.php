@@ -142,7 +142,7 @@ class GuildExperiments extends Component
                 $bucket = $buckets["BUCKET {$guildBucket}"];
                 $this->experiments[] = [
                     'id' => $experiment['id'],
-                    'title' => $experiment['name'],
+                    'title' => $experiment['title'],
                     'treatment' => "{$bucket['name']}: {$bucket['description']}",
                     'filters' => $guildFilters,
                     'override' => $isOverride,

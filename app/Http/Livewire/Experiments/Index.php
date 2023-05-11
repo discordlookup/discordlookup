@@ -47,7 +47,7 @@ class Index extends Component
             return (
                 str_contains(strtolower($var['hash']), strtolower($filterBy)) ||
                 str_contains(strtolower($var['id']), strtolower($filterBy)) ||
-                str_contains(strtolower($var['name']), strtolower($filterBy))
+                str_contains(strtolower($var['title']), strtolower($filterBy))
             );
         });
 

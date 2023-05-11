@@ -15,7 +15,7 @@ class Show extends Component
     public $guilds = [];
 
     public $treatment = -1;
-    public $sorting = 'name-asc';
+    public $sorting = 'title-asc';
 
     public function loadExperiments()
     {

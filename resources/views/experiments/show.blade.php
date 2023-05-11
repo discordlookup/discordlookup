@@ -1,11 +1,11 @@
 @if($experiment)
-    @section('title', "{$experiment['name']} Experiment")
-    @section('description', "Information and rollout status about the {$experiment['name']} Experiment.")
+    @section('title', "{$experiment['title']} Experiment")
+    @section('description', "Information and rollout status about the {$experiment['title']} Experiment.")
     @section('keywords', "client, guild, experiments, discord experiments, rollout, rollouts, treatments, groups, overrides, population, {$experiment['id']}")
     @section('robots', 'index, follow')
 
     <div id="experiment">
-        <h1 class="mb-1 mt-5 text-center text-white">{{ $experiment['name'] }}</h1>
+        <h1 class="mb-1 mt-5 text-center text-white">{{ $experiment['title'] }}</h1>
         <h4 class="mb-4 text-center text-muted">{{ $experiment['id'] }} ({{ $experiment['hash'] }})</h4>
         <div class="mt-2 mb-4">
             <div class="row mb-4">

@@ -21,8 +21,8 @@
                     </div>
                     <div class="col-12 col-md-3 mt-2 mt-md-0">
                         <select wire:model="sorting" class="form-select">
-                            <option value="name-asc">{{ __('Name Ascending') }}</option>
-                            <option value="name-desc">{{ __('Name Descending') }}</option>
+                            <option value="title-asc">{{ __('Title Ascending') }}</option>
+                            <option value="title-desc">{{ __('Title Descending') }}</option>
                             <option value="updatedAt-asc">{{ __('Updated Ascending') }}</option>
                             <option value="updatedAt-desc" selected>{{ __('Updated Descending') }}</option>
                             <option value="createdAt-asc">{{ __('Created Ascending') }}</option>
@@ -50,7 +50,7 @@
                                         </div>
                                         <div class="col-12 col-md-7 text-center text-md-start">
                                             <div>
-                                                {{ $experiment['name'] ?? 'n/a' }}
+                                                {{ $experiment['title'] ?? 'n/a' }}
                                             </div>
                                             <div class="mt-n1">
                                                 <small class="text-muted">
