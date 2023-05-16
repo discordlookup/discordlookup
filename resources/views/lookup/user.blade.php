@@ -66,8 +66,7 @@
                     </div>
                 </div>
             @elseif($userData)
-                {{--
-                @if($userData['global_name'])
+                @if($userData['discriminator'] === "0")
                     <div class="col-12 col-lg-6 offset-lg-3">
                         <div class="alert alert-success fade show" role="alert">
                             This user has already migrated to <a href="https://dis.gd/usernames" class="text-decoration-none" target="_blank" rel="noopener">Discord's new username system</a>.
@@ -80,7 +79,6 @@
                         </div>
                     </div>
                 @endif
-                --}}
 
                 <div class="col-12 col-lg-6 offset-lg-3">
                     <div class="card text-white bg-dark">
@@ -95,13 +93,12 @@
                                     </a>
                                 </div>
                                 <div class="col-auto me-auto ms-auto me-lg-0 ms-lg-0 text-center text-lg-start align-self-center">
-                                    <b>{{ $userData['username'] }}<span class="small text-muted">#{{ $userData['discriminator'] }}</span></b>
-                                    {{--@if($userData['global_name'])
+                                    @if($userData['discriminator'] === "0")
                                         <b>{{ $userData['global_name'] }}</b>
                                         <div class="small">&commat;{{ $userData['username'] }}</div>
                                     @else
                                         <b>{{ $userData['username'] }}<span class="small text-muted">#{{ $userData['discriminator'] }}</span></b>
-                                    @endif--}}
+                                    @endif
                                     @if($userData['isBot'])
                                         <span class="badge" style="color: #fff; background-color: #5865f2; top: -1px; position: relative;">
                                             @if($userData['isVerifiedBot'])
@@ -127,12 +124,10 @@
                                 {{ $snowflakeDate }}
                                 <br>
 
-                                {{--
-                                @if($userData['discriminator'] && $userData['global_name'] && $userData['discriminator'] != "0")
-                                    <b>{{ __('Old Discriminator') }}:</b>
-                                    {{ $userData['discriminator'] }}<br>
+                                @if($userData['global_name'] && $userData['discriminator'] !== "0")
+                                    <b>{{ __('Global Name') }}:</b>
+                                    {{ $userData['global_name'] }}<br>
                                 @endif
-                                --}}
 
                                 <b>{{ __('Bot') }}:</b>
                                 @if($userData['isBot'])
