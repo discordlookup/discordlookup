@@ -21,6 +21,6 @@ function fetchExperiments($experiment = 'all')
     if($response->ok())
     {
         $responseJson = $response->json();
-        Cache::put('experiments:' . $experiment, $responseJson, 15*60);
+        Cache::put('experiments:' . $experiment, $responseJson, 60);
     }
 }
