@@ -101,10 +101,16 @@
                                     @endif
                                     @if($userData['isBot'])
                                         <span class="badge" style="color: #fff; background-color: #5865f2; top: -1px; position: relative;">
-                                            @if($userData['isVerifiedBot'])
+                                            @if($userData['isVerifiedBot'] || $userData['id'] === '643945264868098049')
                                                 <i class="fas fa-check"></i>&nbsp;
                                             @endif
-                                            <span class="text-uppercase">{{ __('Bot') }}</span>
+                                            <span class="text-uppercase">
+                                                @if($userData['id'] === '643945264868098049')
+                                                    {{ __('System') }}
+                                                @else
+                                                    {{ __('Bot') }}
+                                                @endif
+                                            </span>
                                         </span>
                                     @endif
                                     <div class="small text-muted">{{ $userData['id'] }}</div>
@@ -139,7 +145,7 @@
 
                                 @if($userData['isBot'])
                                     <b>{{ __('Verified Bot') }}:</b>
-                                    @if($userData['isVerifiedBot'])
+                                    @if($userData['isVerifiedBot'] || $userData['id'] === '643945264868098049')
                                         <img src="{{ asset('images/discord/icons/check.svg') }}" class="discord-badge" alt="Check">
                                     @else
                                         <img src="{{ asset('images/discord/icons/cross.svg') }}" class="discord-badge" alt="Cross">
