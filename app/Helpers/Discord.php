@@ -467,6 +467,7 @@ function getUser($userId)
         'bannerUrl' => '',
         'bannerColor' => '',
         'accentColor' => '',
+        'pronouns' => '',
         'flags' => '',
         'flagsList' => [],
         'isBot' => '',
@@ -528,6 +529,9 @@ function getUser($userId)
 
     if (key_exists('accent_color', $responseJson) && $responseJson['accent_color'] != null)
         $array['accentColor'] = '#' . dechex($responseJson['accent_color']);
+
+    if (key_exists('pronouns', $responseJson) && $responseJson['pronouns'] != null)
+        $array['pronouns'] = $responseJson['pronouns'];
 
     if (key_exists('public_flags', $responseJson))
     {

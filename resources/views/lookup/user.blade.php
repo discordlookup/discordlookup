@@ -163,6 +163,11 @@
                                     <span style="background-color: {{ $userData['accentColor'] }};">{{ $userData['accentColor'] }}</span><br>
                                 @endif
 
+                                @if($userData['pronouns'])
+                                    <b>{{ __('Pronouns') }}:</b>
+                                    {{ $userData['pronouns'] }}<br>
+                                @endif
+
                                 @if(!empty($userData['flagsList']))
                                     <b>{{ __('Badges') }}:</b>
                                     <ul style="list-style-type: none;">
