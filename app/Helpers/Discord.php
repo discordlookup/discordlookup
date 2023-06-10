@@ -435,6 +435,27 @@ function getUserFlagList($flags)
 }
 
 /**
+ * @param $userId
+ * @param $avatar
+ * @param int $size
+ * @param string $format
+ * @return string
+ */
+function getAvatarUrl($userId, $avatar, int $size = 64, string $format = 'webp')
+{
+    return env('DISCORD_CDN_URL') . "/avatars/{$userId}/{$avatar}.{$format}?size={$size}";
+}
+
+/**
+ * @param $userId
+ * @return int
+ */
+function getDefaultAvatarUrl($userId)
+{
+    return env('DISCORD_CDN_URL') . '/embed/avatars/' . (($userId >> 22) % 6) . '.png';
+}
+
+/**
  * @param $name
  * @param $title
  * @return string
@@ -512,10 +533,10 @@ function getUser($userId)
         $array['isBot'] = $responseJson['bot'];
 
     if (key_exists('avatar', $responseJson) && $responseJson['avatar'] != null)
-        $array['avatarUrl'] = env('DISCORD_CDN_URL') . '/avatars/' . $responseJson['id'] . '/' . $responseJson['avatar'] . '?size=512';
+        $array['avatarUrl'] = getAvatarUrl($responseJson['id'], $responseJson['avatar'], 512);
 
     if (empty($array['avatarUrl']))
-        $array['avatarUrl'] = env('DISCORD_CDN_URL') . '/embed/avatars/' . ($array['discriminator'] % 5) . '.png';
+        $array['avatarUrl'] = getDefaultAvatarUrl($responseJson['id']);
 
     // TODO: Add custom avatar decorations once released and documented by Discord
     if (key_exists('avatar_decoration', $responseJson) && $responseJson['avatar_decoration'] != null)
