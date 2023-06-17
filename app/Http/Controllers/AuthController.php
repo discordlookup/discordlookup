@@ -73,6 +73,7 @@ class AuthController extends Controller
             'discriminator' => $discordUser->user['discriminator'],
             'avatar' => str_replace('https://cdn.discordapp.com/avatars/' . $discordUser->user['id'] . '/', '', $discordUser->avatar),
             'locale' => $discordUser->user['locale'],
+            'flags' => $discordUser->user['flags'],
             'discord_token' => encrypt($discordUser->token),
         ];
 
