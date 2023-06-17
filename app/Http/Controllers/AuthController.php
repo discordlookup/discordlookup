@@ -70,6 +70,7 @@ class AuthController extends Controller
 
         $userData = [
             'username' => $discordUser->user['username'],
+            'global_name' => $discordUser->user['global_name'],
             'discriminator' => $discordUser->user['discriminator'],
             'avatar' => str_replace('https://cdn.discordapp.com/avatars/' . $discordUser->user['id'] . '/', '', $discordUser->avatar),
             'locale' => $discordUser->user['locale'],
