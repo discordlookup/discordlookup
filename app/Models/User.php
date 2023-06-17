@@ -20,9 +20,11 @@ class User extends Authenticatable
     protected $fillable = [
         'discord_id',
         'username',
+        'global_name',
         'discriminator',
         'avatar',
         'locale',
+        'flags',
         'discord_token',
     ];
 
@@ -99,12 +101,23 @@ class User extends Authenticatable
     }
 
     /**
-     * The user displayname (username + discriminator)
+     * Get the user display name
      *
      * @return string
      */
-    public function getDisplayNameAttribute(){
-        return $this->username . '#' . $this->discriminator;
+    public function getDisplayNameAttribute()
+    {
+        return $this->global_name ?? $this->username;
+    }
+
+    /**
+     * Get the full user username
+     *
+     * @return string
+     */
+    public function getFullUsernameAttribute()
+    {
+        return ($this->discriminator == '0') ? $this->username : $this->username . '#' . $this->discriminator;
     }
 
     /**
@@ -114,9 +127,9 @@ class User extends Authenticatable
      */
     public function getAvatarUrlAttribute(){
         if($this->avatar != null) {
-            return 'https://cdn.discordapp.com/avatars/' . $this->discord_id . '/' . $this->avatar;
+            return getAvatarUrl($this->discord_id, $this->avatar);
         }
-        return 'https://cdn.discordapp.com/embed/avatars/5.png';
+        return getDefaultAvatarUrl($this->discord_id);
     }
 
     /**
