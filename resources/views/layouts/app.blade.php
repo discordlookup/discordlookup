@@ -64,8 +64,6 @@ discord, discord lookup, discordlookup, lookup, snowflake, guild count, invite i
 
 <body class="min-h-full bg-[#292b2f]">
 
-@livewire('components.banners')
-
 <main class="bg-discord-gray-2 text-white">
 
     @include('components.navbar')
