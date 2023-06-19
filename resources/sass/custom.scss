@@ -1,34 +1,5 @@
-::placeholder {
-    color: $gray-500 !important;
-    opacity: 1;
-}
-
-footer {
-    background-color: #23272A;
-}
-
-.cursor-pointer {
-    cursor: pointer !important;
-}
-
-.bg-gray-800 {
-    background-color: $gray-800 !important;
-}
-
-.modal-dialog-login {
-    display: flex;
-    align-items: center;
-    min-height: calc(50% - var(--bs-modal-margin) * 2);
-}
-
-.navbar {
-    .dropdown {
-        .dropdown-menu {
-            .dropdown-item:hover, .dropdown-item:focus {
-                background-color: $gray-800;
-            }
-        }
-    }
+[x-cloak] {
+    display: none !important;
 }
 
 .user-avatar {
@@ -64,71 +35,4 @@ footer {
     width: 16px;
     height: 16px;
     margin-bottom: 0.1rem;
-}
-
-.tools-list-item {
-    position: relative;
-    top: 0;
-    transition: top ease 0.5s;
-}
-
-.tools-list-item:hover {
-    top: -3px;
-}
-
-
-#guildlist {
-    .bg-cards-grey {
-        background: #373d4c;
-    }
-
-    .discord-badge {
-        width: 16px;
-        height: 16px;
-        margin-top: -0.2rem;
-    }
-
-    .bg-cards-grey:hover {
-        background: #404652 !important;
-    }
-}
-
-#snowflakedecoder, #userlookup, #guildlookup, #applicationlookup {
-    button:disabled {
-        cursor: not-allowed;
-        pointer-events: all;
-    }
-}
-
-#help {
-    h2 {
-        a {
-            opacity: 50%;
-        }
-    }
-}
-
-#homelist {
-    .fas, .fab, .far {
-        font-size: 2rem;
-    }
-}
-
-.banner {
-    background-color: $blue;
-    padding: 0.3rem !important;
-    font-weight: 700 !important;
-}
-
-.banner-btn-outline-light {
-    color: #f8f9fa;
-    border-color: #f8f9fa;
-    padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
-    border-radius: 0.2rem;
-}
-.banner-btn-outline-light:hover {
-    color: #000;
-    background-color: #f8f9fa;
-    border-color: #f8f9fa;
 }

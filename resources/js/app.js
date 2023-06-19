@@ -1,9 +1,11 @@
-require('./bootstrap');
-
+window._ = require('lodash');
 window.Popper = require('@popperjs/core');
 
-import * as Bootstrap from 'bootstrap'
-window.Bootstrap = Bootstrap;
+import Alpine from 'alpinejs'
+import collapse from '@alpinejs/collapse'
+window.Alpine = Alpine
+Alpine.plugin(collapse)
+Alpine.start()
 
 import moment from 'moment'
 window.moment = moment;

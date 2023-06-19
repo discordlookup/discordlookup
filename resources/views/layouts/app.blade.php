@@ -62,15 +62,15 @@ discord, discord lookup, discordlookup, lookup, snowflake, guild count, invite i
     @livewireStyles
 </head>
 
-<body class="d-flex flex-column h-100">
+<body class="min-h-full bg-[#292b2f]">
 
 @livewire('components.banners')
 
-<main class="flex-shrink-0 mb-5">
+<main class="bg-discord-gray-2 text-white">
 
     @include('components.navbar')
 
-    <div class="container">
+    <div class="py-12 container xl:max-w-6xl mx-auto px-4 lg:px-10">
         @yield('content')
     </div>
 </main>
