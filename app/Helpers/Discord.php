@@ -854,10 +854,12 @@ function parseInviteJson($json)
         if(array_key_exists('id', $json['inviter']))
             $array['invite']['inviterId'] = $json['inviter']['id'];
 
-        if (array_key_exists('global_name', $json['inviter']) && array_key_exists('display_name', $json['inviter'])) {
-            $array['invite']['inviterName'] = $json['inviter']['display_name'] . ' (@' . $json['inviter']['global_name'] . ')';
-        } else if (array_key_exists('username', $json['inviter']) && array_key_exists('discriminator', $json['inviter'])) {
-            $array['invite']['inviterName'] = $json['inviter']['username'] . '#' . $json['inviter']['discriminator'];
+        if (array_key_exists('username', $json['inviter'])) {
+            if(array_key_exists('discriminator', $json['inviter']) && $json['inviter']['discriminator'] !== "0") {
+                $array['invite']['inviterName'] = $json['inviter']['username'] . '#' . $json['inviter']['discriminator'];
+            }else{
+                $array['invite']['inviterName'] = $json['inviter']['username'];
+            }
         }
     }
 
