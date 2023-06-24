@@ -36,12 +36,16 @@ Tools:
 - [Permissions Calculator](https://discordlookup.com/permissions-calculator)
 - [Snowflake Distance Calculator](https://discordlookup.com/snowflake-distance)
 - [Guild Shard Calculator](https://discordlookup.com/guild-shard-calculator)
+- [Discord Webhook Invalidator](https://discordlookup.com/webhook-invalidator)
 
 ## Getting Help
 If you have any questions about using the DiscordLookup.com, feel free to visit the official [Support Discord](https://discordlookup.com/discord).   
 Alternatively you can also have a look at our [Help Page](https://discordlookup.com/help).
 
 ## Translations
+
+> :warning: **Translations are currently paused.** No new translations will be accepted.
+
 - [English](https://poeditor.com/projects/po_edit?id_language=43&per_page=100&id=486559)
 - [French](https://poeditor.com/projects/po_edit?id_language=50&per_page=100&id=486559) (thanks to [Syhix](https://github.com/Syhix))
 - [German](https://poeditor.com/projects/po_edit?id_language=55&per_page=100&id=486559)
