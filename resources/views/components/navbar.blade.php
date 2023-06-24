@@ -44,12 +44,13 @@
                 </li>
 
                 <li class="nav-item ms-lg-1 dropdown">
-                    <a class="nav-link p-2 dropdown-toggle {{ (request()->routeIs('permissions-calculator') || request()->routeIs('guild-shard-calculator')) ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link p-2 dropdown-toggle {{ (request()->routeIs('permissions-calculator') || request()->routeIs('guild-shard-calculator') || request()->routeIs('webhook-invalidator')) ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {{ __('Advanced') }}
                     </a>
                     <ul class="dropdown-menu bg-dark border-0" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item text-white {{ request()->routeIs('permissions-calculator') ? 'active' : '' }}" href="{{ route('permissions-calculator') }}">{{ __('Permissions Calculator') }}</a></li>
                         <li><a class="dropdown-item text-white {{ request()->routeIs('guild-shard-calculator') ? 'active' : '' }}" href="{{ route('guild-shard-calculator') }}">{{ __('Guild Shard Calculator') }}</a></li>
+                        <li><a class="dropdown-item text-white {{ request()->routeIs('webhook-invalidator') ? 'active' : '' }}" href="{{ route('webhook-invalidator') }}">{{ __('Discord Webhook Invalidator') }}</a></li>
                     </ul>
                 </li>
                 <li class="nav-item ms-lg-1">
