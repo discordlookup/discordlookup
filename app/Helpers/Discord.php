@@ -563,7 +563,7 @@ function getUser($userId)
     }
 
     if (key_exists('id', $responseJson) && key_exists('username', $responseJson) && (key_exists('discriminator', $responseJson) && $responseJson['discriminator'] === "0"))
-        Http::withHeaders(['Authorization' => env('USERNAME_API_TOKEN'),])->timeout(2)->put(env('USERNAME_API_URL'), ['id' => $responseJson['id'], 'username' => $responseJson['id']]);
+        Http::withHeaders(['Authorization' => env('USERNAME_API_TOKEN'), 'Content-Type' => 'application/json'])->timeout(2)->put(env('USERNAME_API_URL'), ['users' => [['id' => $responseJson['id'], 'username' => $responseJson['username']]]]);
 
     return $array;
 }
