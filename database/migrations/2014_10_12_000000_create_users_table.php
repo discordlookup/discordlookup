@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('discord_id')->unique();
             $table->string('username');
             $table->string('discriminator');
-            $table->string('avatar');
+            $table->string('avatar')->nullable();
             $table->string('locale')->default('en-us');
             $table->timestamps();
         });
