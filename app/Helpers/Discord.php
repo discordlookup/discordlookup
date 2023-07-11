@@ -439,20 +439,39 @@ function getUserFlagList($flags)
  * @param $avatar
  * @param int $size
  * @param string $format
- * @return string
+ * @param bool $allowAnimated
+ * @return string Discord CDN User Avatar URL
+ * @see https://discord.com/developers/docs/reference#image-formatting
  */
-function getAvatarUrl($userId, $avatar, int $size = 64, string $format = 'webp')
+function getAvatarUrl($userId, $avatar, int $size = 64, string $format = 'webp', bool $allowAnimated = true)
 {
+    if ($allowAnimated && str_starts_with($avatar, 'a_')) $format = 'gif';
     return env('DISCORD_CDN_URL') . "/avatars/{$userId}/{$avatar}.{$format}?size={$size}";
 }
 
 /**
  * @param $userId
- * @return int
+ * @return string Discord CDN User Default Avatar URL
+ * @see https://discord.com/developers/docs/reference#image-formatting
  */
 function getDefaultAvatarUrl($userId)
 {
     return env('DISCORD_CDN_URL') . '/embed/avatars/' . (($userId >> 22) % 6) . '.png';
+}
+
+/**
+ * @param $userId
+ * @param $banner
+ * @param int $size
+ * @param string $format
+ * @param bool $allowAnimated
+ * @return string Discord CDN User Banner URL
+ * @see https://discord.com/developers/docs/reference#image-formatting
+ */
+function getBannerUrl($userId, $banner, int $size = 64, string $format = 'webp', bool $allowAnimated = true)
+{
+    if ($allowAnimated && str_starts_with($banner, 'a_')) $format = 'gif';
+    return env('DISCORD_CDN_URL') . "/banners/{$userId}/{$banner}.{$format}?size={$size}";
 }
 
 /**
@@ -533,7 +552,7 @@ function getUser($userId)
         $array['isBot'] = $responseJson['bot'];
 
     if (key_exists('avatar', $responseJson) && $responseJson['avatar'] != null)
-        $array['avatarUrl'] = getAvatarUrl($responseJson['id'], $responseJson['avatar'], 512);
+        $array['avatarUrl'] = getAvatarUrl($responseJson['id'], $responseJson['avatar'], 512, 'webp', true);
 
     if (empty($array['avatarUrl']))
         $array['avatarUrl'] = getDefaultAvatarUrl($responseJson['id']);
@@ -543,7 +562,7 @@ function getUser($userId)
         $array['avatarDecorationUrl'] = env('DISCORD_CDN_URL') . '/avatar-decoration-presets/' . $responseJson['avatar_decoration'] . '?size=512';
 
     if (key_exists('banner', $responseJson) && $responseJson['banner'] != null)
-        $array['bannerUrl'] = env('DISCORD_CDN_URL') . '/banners/' . $responseJson['id'] . '/' . $responseJson['banner'] . '?size=512';
+        $array['bannerUrl'] = getBannerUrl($responseJson['id'], $responseJson['banner'], 512, 'webp', true);
 
     if (key_exists('banner_color', $responseJson) && $responseJson['banner_color'] != null)
         $array['bannerColor'] = $responseJson['banner_color'];
@@ -811,7 +830,7 @@ function parseInviteJson($json)
             $array['guild']['iconUrl'] = env('DISCORD_CDN_URL') . '/icons/' . $array['guild']['id'] . '/' . $json['guild']['icon'] . '?size=128';
 
         if(array_key_exists('banner', $json['guild']) && $json['guild']['banner'] != null)
-            $array['guild']['bannerUrl'] = env('DISCORD_CDN_URL') . '/banners/' . $array['guild']['id'] . '/' . $json['guild']['banner'] . '?size=512';
+            $array['guild']['bannerUrl'] = getBannerUrl($array['guild']['id'], $json['guild']['banner'], 512, 'webp', true);
 
         if(array_key_exists('vanity_url_code', $json['guild']))
         {
