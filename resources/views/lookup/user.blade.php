@@ -100,13 +100,15 @@
                                         <b>{{ $userData['username'] }}<span class="small text-muted">#{{ $userData['discriminator'] }}</span></b>
                                     @endif
                                     @if($userData['isBot'])
-                                        <span class="badge" style="color: #fff; background-color: #5865f2; top: -1px; position: relative;">
-                                            @if($userData['isVerifiedBot'] || $userData['id'] === '643945264868098049')
+                                        <span class="badge" style="color: #fff; background-color: {{ $userData['id'] === '1081004946872352958' ? '#2abb69' : '#5865f2' }}; top: -1px; position: relative;">
+                                            @if($userData['isVerifiedBot'] || $userData['id'] === '643945264868098049' || $userData['id'] === '1081004946872352958')
                                                 <i class="fas fa-check"></i>&nbsp;
                                             @endif
                                             <span class="text-uppercase">
                                                 @if($userData['id'] === '643945264868098049')
                                                     {{ __('System') }}
+                                                @elseif($userData['id'] === '1081004946872352958')
+                                                    {{ __('AI') }}
                                                 @else
                                                     {{ __('Bot') }}
                                                 @endif
@@ -145,7 +147,7 @@
 
                                 @if($userData['isBot'])
                                     <b>{{ __('Verified Bot') }}:</b>
-                                    @if($userData['isVerifiedBot'] || $userData['id'] === '643945264868098049')
+                                    @if($userData['isVerifiedBot'] || $userData['id'] === '643945264868098049' || $userData['id'] === '1081004946872352958')
                                         <img src="{{ asset('images/discord/icons/check.svg') }}" class="discord-badge" alt="Check">
                                     @else
                                         <img src="{{ asset('images/discord/icons/cross.svg') }}" class="discord-badge" alt="Cross">
