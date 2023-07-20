@@ -84,14 +84,8 @@ discord, discord lookup, discordlookup, lookup, snowflake, guild count, invite i
 @livewire('modal.login')
 @livewireScripts
 
-@if(!empty(env('GOOGLETAGMANAGER_ID')))
-<script async src="https://www.googletagmanager.com/gtag/js?id={{ env('GOOGLETAGMANAGER_ID') }}"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', '{{ env('GOOGLETAGMANAGER_ID') }}', {'anonymize_ip': true});
-</script>
+@if(!empty(env('PLAUSIBLE_URL')) && !empty(env('PLAUSIBLE_WEBSITE_DOMAIN')))
+    <script defer data-domain="{{ env('PLAUSIBLE_WEBSITE_DOMAIN') }}" src="{{ env('PLAUSIBLE_URL') }}/js/script.js"></script>
 @endif
 
 </body>
