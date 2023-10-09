@@ -66,13 +66,7 @@
                     </div>
                 </div>
             @elseif($userData)
-                @if($userData['discriminator'] === "0")
-                    <div class="col-12 col-lg-6 offset-lg-3">
-                        <div class="alert alert-success fade show" role="alert">
-                            This user has already migrated to <a href="https://dis.gd/usernames" class="text-decoration-none" target="_blank" rel="noopener">Discord's new username system</a>.
-                        </div>
-                    </div>
-                @else
+                @if($userData['discriminator'] !== "0" && !$userData['isBot'])
                     <div class="col-12 col-lg-6 offset-lg-3">
                         <div class="alert alert-warning fade show" role="alert">
                             This user has not yet migrated to <a href="https://dis.gd/usernames" class="text-decoration-none" target="_blank" rel="noopener">Discord's new username system</a>.
