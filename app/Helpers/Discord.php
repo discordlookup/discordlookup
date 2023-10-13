@@ -558,8 +558,8 @@ function getUser($userId)
         $array['avatarUrl'] = getDefaultAvatarUrl($responseJson['id']);
 
     // TODO: Add custom avatar decorations once released and documented by Discord
-    if (key_exists('avatar_decoration', $responseJson) && $responseJson['avatar_decoration'] != null)
-        $array['avatarDecorationUrl'] = env('DISCORD_CDN_URL') . '/avatar-decoration-presets/' . $responseJson['avatar_decoration'] . '?size=512';
+    if (key_exists('avatar_decoration_data', $responseJson) && $responseJson['avatar_decoration_data'] != null && key_exists('asset', $responseJson['avatar_decoration_data']) && $responseJson['avatar_decoration_data']['asset'] != null)
+        $array['avatarDecorationUrl'] = env('DISCORD_CDN_URL') . '/avatar-decoration-presets/' . $responseJson['avatar_decoration_data']['asset'] . '?size=512';
 
     if (key_exists('banner', $responseJson) && $responseJson['banner'] != null)
         $array['bannerUrl'] = getBannerUrl($responseJson['id'], $responseJson['banner'], 512, 'webp', true);
