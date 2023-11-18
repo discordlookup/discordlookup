@@ -13,7 +13,7 @@
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.15.4",
         "@popperjs/core": "^2.10.1",
-        "axios": "^0.21",
+        "axios": "^1.6",
         "bootstrap": "^5.1.1",
         "bootswatch": "^5.1.1",
         "file-saver": "^2.0.5",
