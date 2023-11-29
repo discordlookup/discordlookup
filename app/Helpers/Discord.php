@@ -581,9 +581,6 @@ function getUser($userId)
             $array['isVerifiedBot']  = true;
     }
 
-    if (key_exists('id', $responseJson) && key_exists('username', $responseJson) && (key_exists('discriminator', $responseJson) && $responseJson['discriminator'] === "0"))
-        Http::withHeaders(['Authorization' => env('USERNAME_API_TOKEN'), 'Content-Type' => 'application/json'])->timeout(2)->put(env('USERNAME_API_URL'), ['users' => [['id' => $responseJson['id'], 'username' => $responseJson['username']]]]);
-
     return $array;
 }
 
