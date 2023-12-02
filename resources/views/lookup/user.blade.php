@@ -33,7 +33,7 @@
                         <div class="card-body">
                             <b>{{ __('Date') }}:</b> {{ $snowflakeDate }}<br>
                             <b>{{ __('Relative') }}:</b> <span wire:ignore id="snowflakeRelative"></span><br>
-                            <b>{{ __('Unix Timestamp') }}:</b> <a href="{{ route('timestamp', ['timestamp' => round($snowflakeTimestamp / 1000)]) }}" class="text-decoration-none">{{ $snowflakeTimestamp }}</a><br>
+                            <b>{{ __('Unix Timestamp') }}:</b> <a href="{{ route('timestamp', ['timestampSlug' => round($snowflakeTimestamp / 1000)]) }}" class="text-decoration-none">{{ $snowflakeTimestamp }}</a><br>
                         </div>
                     </div>
                 </div>
@@ -66,13 +66,7 @@
                     </div>
                 </div>
             @elseif($userData)
-                @if($userData['discriminator'] === "0")
-                    <div class="col-12 col-lg-6 offset-lg-3">
-                        <div class="alert alert-success fade show" role="alert">
-                            This user has already migrated to <a href="https://dis.gd/usernames" class="text-decoration-none" target="_blank" rel="noopener">Discord's new username system</a>.
-                        </div>
-                    </div>
-                @else
+                @if($userData['discriminator'] !== "0" && !$userData['isBot'])
                     <div class="col-12 col-lg-6 offset-lg-3">
                         <div class="alert alert-warning fade show" role="alert">
                             This user has not yet migrated to <a href="https://dis.gd/usernames" class="text-decoration-none" target="_blank" rel="noopener">Discord's new username system</a>.
@@ -100,13 +94,15 @@
                                         <b>{{ $userData['username'] }}<span class="small text-muted">#{{ $userData['discriminator'] }}</span></b>
                                     @endif
                                     @if($userData['isBot'])
-                                        <span class="badge" style="color: #fff; background-color: #5865f2; top: -1px; position: relative;">
-                                            @if($userData['isVerifiedBot'] || $userData['id'] === '643945264868098049')
+                                        <span class="badge" style="color: #fff; background-color: {{ $userData['id'] === '1081004946872352958' ? '#2abb69' : '#5865f2' }}; top: -1px; position: relative;">
+                                            @if($userData['isVerifiedBot'] || $userData['id'] === '643945264868098049' || $userData['id'] === '1081004946872352958')
                                                 <i class="fas fa-check"></i>&nbsp;
                                             @endif
                                             <span class="text-uppercase">
                                                 @if($userData['id'] === '643945264868098049')
                                                     {{ __('System') }}
+                                                @elseif($userData['id'] === '1081004946872352958')
+                                                    {{ __('AI') }}
                                                 @else
                                                     {{ __('Bot') }}
                                                 @endif
@@ -145,7 +141,7 @@
 
                                 @if($userData['isBot'])
                                     <b>{{ __('Verified Bot') }}:</b>
-                                    @if($userData['isVerifiedBot'] || $userData['id'] === '643945264868098049')
+                                    @if($userData['isVerifiedBot'] || $userData['id'] === '643945264868098049' || $userData['id'] === '1081004946872352958')
                                         <img src="{{ asset('images/discord/icons/check.svg') }}" class="discord-badge" alt="Check">
                                     @else
                                         <img src="{{ asset('images/discord/icons/cross.svg') }}" class="discord-badge" alt="Cross">

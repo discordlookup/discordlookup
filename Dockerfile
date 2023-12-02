@@ -22,3 +22,4 @@ RUN composer install --no-interaction --optimize-autoloader --no-dev
 RUN php artisan optimize:clear
 
 RUN chown -R application:application .
+RUN chmod -R 777 storage/

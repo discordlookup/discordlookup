@@ -43,7 +43,7 @@
                             <h5>{{ __('Snowflake 1') }}</h5>
                             <b>{{ __('Date') }}:</b> {{ $snowflake1Date }}<br>
                             <b>{{ __('Relative') }}:</b> <span id="snowflakeOneRelative"></span><br>
-                            <b>{{ __('Unix Timestamp') }}:</b> <a href="{{ route('timestamp', ['timestamp' => round($snowflake1Timestamp / 1000)]) }}" class="text-decoration-none">{{ $snowflake1Timestamp }}</a><br>
+                            <b>{{ __('Unix Timestamp') }}:</b> <a href="{{ route('timestamp', ['timestampSlug' => round($snowflake1Timestamp / 1000)]) }}" class="text-decoration-none">{{ $snowflake1Timestamp }}</a><br>
                         </div>
                     </div>
                     <div class="card text-white bg-dark mt-3">
@@ -51,7 +51,7 @@
                             <h5>{{ __('Snowflake 2') }}</h5>
                             <b>{{ __('Date') }}:</b> {{ $snowflake2Date }}<br>
                             <b>{{ __('Relative') }}:</b> <span id="snowflakeTwoRelative"></span><br>
-                            <b>{{ __('Unix Timestamp') }}:</b> <a href="{{ route('timestamp', ['timestamp' => round($snowflake2Timestamp / 1000)]) }}" class="text-decoration-none">{{ $snowflake2Timestamp }}</a><br>
+                            <b>{{ __('Unix Timestamp') }}:</b> <a href="{{ route('timestamp', ['timestampSlug' => round($snowflake2Timestamp / 1000)]) }}" class="text-decoration-none">{{ $snowflake2Timestamp }}</a><br>
                         </div>
                     </div>
                 </div>
