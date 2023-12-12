@@ -58,7 +58,7 @@
         </div>
         <div class="col-12 col-xl-10 offset-xl-1 mt-3">
             <div class="card text-white bg-dark">
-                <table class="table table-hover">
+                <table class="table table-dark">
                     <thead>
                         <tr>
                             <th scope="col">{{ __('Syntax') }}</th>
