@@ -348,7 +348,12 @@ function getPermissionList(): array
             'group' => 'general',
             'requireTwoFactor' => false,
         ],
-        // TODO: 45
+        'USE_EXTERNAL_SOUNDS' => [
+            'name' => 'Use External Sounds',
+            'bitwise' => (1 << 45),
+            'group' => 'voice',
+            'requireTwoFactor' => false,
+        ],
         'SEND_VOICE_MESSAGES' => [
             'name' => 'Send Voice Message',
             'bitwise' => (1 << 46),
@@ -435,6 +440,27 @@ function getUserFlagList($flags)
 }
 
 /**
+ * @param $premiumType
+ * @return string
+ * @see https://discord.com/developers/docs/resources/user#user-object-premium-types
+ */
+function getPremiumType($premiumType)
+{
+    switch ($premiumType) {
+        case 0:
+            return 'None';
+        case 1:
+            return 'Nitro Classic';
+        case 2:
+            return 'Nitro';
+        case 3:
+            return 'Nitro Basic';
+        default:
+            return 'Unknown (Type ' . $premiumType . ')';
+    }
+}
+
+/**
  * @param $userId
  * @param $avatar
  * @param int $size
@@ -468,10 +494,49 @@ function getDefaultAvatarUrl($userId)
  * @return string Discord CDN User Banner URL
  * @see https://discord.com/developers/docs/reference#image-formatting
  */
-function getBannerUrl($userId, $banner, int $size = 64, string $format = 'webp', bool $allowAnimated = true)
+function getGuildBannerUrl($userId, $banner, int $size = 64, string $format = 'webp', bool $allowAnimated = true)
 {
     if ($allowAnimated && str_starts_with($banner, 'a_')) $format = 'gif';
     return env('DISCORD_CDN_URL') . "/banners/{$userId}/{$banner}.{$format}?size={$size}";
+}
+
+/**
+ * @param $scheduledEventId
+ * @param $image
+ * @param int $size
+ * @param string $format
+ * @return string Discord CDN Guild Scheduled Event Cover URL
+ * @see https://discord.com/developers/docs/reference#image-formatting
+ */
+function getGuildScheduledEventCoverUrl($scheduledEventId, $image, int $size = 64, string $format = 'webp')
+{
+    return env('DISCORD_CDN_URL') . "/guild-events/{$scheduledEventId}/{$image}.{$format}?size={$size}";
+}
+
+/**
+ * @param $emojiId
+ * @param int $size
+ * @param string $format
+ * @param bool $animated
+ * @return string Discord CDN Emoji URL
+ * @see https://discord.com/developers/docs/reference#image-formatting
+ */
+function getCustomEmojiUrl($emojiId, int $size = 64, string $format = 'webp', bool $animated = true)
+{
+    if ($animated) $format = 'gif';
+    return env('DISCORD_CDN_URL') . "/emojis/{$emojiId}.{$format}?size={$size}";
+}
+
+/**
+ * @param $stickerId
+ * @param int $size
+ * @param string $format
+ * @return string Discord CDN Sticker URL
+ * @see https://discord.com/developers/docs/reference#image-formatting
+ */
+function getStickerUrl($stickerId, int $size = 128, string $format = 'png')
+{
+    return env('DISCORD_CDN_URL') . "/stickers/{$stickerId}.{$format}?size={$size}";
 }
 
 /**
@@ -487,7 +552,7 @@ function getDiscordBadgeServerIcons($name, $title)
 
 function getDiscordBadgeServerBoosts($boostLevel)
 {
-    return "<img src=\"" . asset('images/discord/icons/boosts/boost-' . $boostLevel . '.svg') . "\" class=\"discord-badge ms-n1\" alt=\"Boost Level {$boostLevel}\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Boost Level {$boostLevel}\">";
+    return "<img src=\"" . asset('images/discord/icons/boosts/boost-' . $boostLevel . '.svg') . "\" class=\"inline-block h-4 w-4 mb-0.5 mr-px\" alt=\"Boost Level {$boostLevel}\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Boost Level {$boostLevel}\">";
 }
 
 /**
@@ -501,13 +566,11 @@ function getUser($userId)
         'username' => '',
         'discriminator' => '',
         'global_name' => '',
-        'display_name' => '',
         'avatarUrl' => '',
         'avatarDecorationUrl' => '',
         'bannerUrl' => '',
         'bannerColor' => '',
         'accentColor' => '',
-        'pronouns' => '',
         'flags' => '',
         'flagsList' => [],
         'isBot' => '',
@@ -534,7 +597,8 @@ function getUser($userId)
     if ($responseJson == null || !key_exists('id', $responseJson))
         return null;
 
-    $array['id'] = $responseJson['id'];
+    if (key_exists('id', $responseJson))
+        $array['id'] = $responseJson['id'];
 
     if (key_exists('username', $responseJson))
         $array['username'] = $responseJson['username'];
@@ -544,9 +608,6 @@ function getUser($userId)
 
     if (key_exists('global_name', $responseJson))
         $array['global_name'] = $responseJson['global_name'];
-
-    if (key_exists('display_name', $responseJson))
-        $array['display_name'] = $responseJson['display_name'];
 
     if (key_exists('bot', $responseJson))
         $array['isBot'] = $responseJson['bot'];
@@ -562,16 +623,13 @@ function getUser($userId)
         $array['avatarDecorationUrl'] = env('DISCORD_CDN_URL') . '/avatar-decoration-presets/' . $responseJson['avatar_decoration_data']['asset'] . '?size=512';
 
     if (key_exists('banner', $responseJson) && $responseJson['banner'] != null)
-        $array['bannerUrl'] = getBannerUrl($responseJson['id'], $responseJson['banner'], 512, 'webp', true);
+        $array['bannerUrl'] = getGuildBannerUrl($responseJson['id'], $responseJson['banner'], 512, 'webp', true);
 
     if (key_exists('banner_color', $responseJson) && $responseJson['banner_color'] != null)
         $array['bannerColor'] = $responseJson['banner_color'];
 
     if (key_exists('accent_color', $responseJson) && $responseJson['accent_color'] != null)
         $array['accentColor'] = '#' . dechex($responseJson['accent_color']);
-
-    if (key_exists('pronouns', $responseJson) && $responseJson['pronouns'] != null)
-        $array['pronouns'] = $responseJson['pronouns'];
 
     if (key_exists('public_flags', $responseJson))
     {
@@ -736,6 +794,8 @@ function parseInviteJson($json)
         'hasEvent' => false,
         'type' => 0,
         'typeName' => '',
+        'expiresAt' => '',
+        'expiresAtFormatted' => '&infin;',
         'guild' => [
             'id' => '',
             'name' => '',
@@ -754,16 +814,29 @@ function parseInviteJson($json)
             'boostCount' => 0,
             'boostLevel' => 0,
         ],
-        'invite' => [
-            'channelId' => '',
-            'channelName' => '',
-            'channelIcon' => '',
-            'channelIconUrl' => '',
-            'channelRecipients' => [],
-            'inviterId' => '',
-            'inviterName' => '',
-            'expiresAt' => '',
-            'expiresAtFormatted' => '&infin;',
+        'inviter' => [
+            'id' => '',
+            'username' => '',
+            'discriminator' => '',
+            'global_name' => '',
+            'avatarUrl' => '',
+            'avatarDecorationUrl' => '',
+            'bannerUrl' => '',
+            'bannerColor' => '',
+            'accentColor' => '',
+            'premiumType' => 0,
+            'premiumTypeName' => '',
+            'flags' => '',
+            'flagsList' => [],
+            'isBot' => false,
+            'isVerifiedBot' => false,
+        ],
+        'channel' => [
+            'id' => '',
+            'name' => '',
+            'icon' => '',
+            'iconUrl' => '',
+            'recipients' => [],
         ],
         'event' => [
             'id' => '',
@@ -795,7 +868,10 @@ function parseInviteJson($json)
             $array['typeName'] = 'Guild';
             break;
         case 1:
-            $array['typeName'] = 'Group';
+            $array['typeName'] = 'Group DM';
+            break;
+        case 2:
+            $array['typeName'] = 'Friend';
             break;
         default:
             $array['typeName'] = $json['type'];
@@ -803,7 +879,7 @@ function parseInviteJson($json)
     }
 
     /* Guild */
-    if(array_key_exists('guild', $json))
+    if(array_key_exists('guild', $json) && $json['guild'] != null)
     {
         $array['guild']['id'] = $json['guild']['id'];
         $array['guild']['name'] = $json['guild']['name'];
@@ -827,7 +903,7 @@ function parseInviteJson($json)
             $array['guild']['iconUrl'] = env('DISCORD_CDN_URL') . '/icons/' . $array['guild']['id'] . '/' . $json['guild']['icon'] . '?size=128';
 
         if(array_key_exists('banner', $json['guild']) && $json['guild']['banner'] != null)
-            $array['guild']['bannerUrl'] = getBannerUrl($array['guild']['id'], $json['guild']['banner'], 512, 'webp', true);
+            $array['guild']['bannerUrl'] = getGuildBannerUrl($array['guild']['id'], $json['guild']['banner'], 512, 'webp', true);
 
         if(array_key_exists('vanity_url_code', $json['guild']))
         {
@@ -854,42 +930,78 @@ function parseInviteJson($json)
         $array['guild']['onlineCount'] = $json['approximate_presence_count'];
 
     /* Invite */
-    if(array_key_exists('channel', $json))
+    if(array_key_exists('channel', $json) && $json['channel'] != null)
     {
         if(array_key_exists('id', $json['channel']))
-            $array['invite']['channelId'] = $json['channel']['id'];
+            $array['channel']['id'] = $json['channel']['id'];
         if(array_key_exists('name', $json['channel']))
-            $array['invite']['channelName'] = $json['channel']['name'];
+            $array['channel']['name'] = $json['channel']['name'];
         if(array_key_exists('icon', $json['channel'])) {
-            $array['invite']['channelIcon'] = $json['channel']['icon'];
-            $array['invite']['channelIconUrl'] = env('DISCORD_CDN_URL') . '/channel-icons/' . $array['invite']['channelId'] . '/' . $array['invite']['channelIcon'] . '?size=128';
+            $array['channel']['icon'] = $json['channel']['icon'];
+            $array['channel']['iconUrl'] = env('DISCORD_CDN_URL') . '/channel-icons/' . $array['channel']['id'] . '/' . $array['channel']['icon'] . '?size=128';
         }
         if(array_key_exists('recipients', $json['channel']))
-            $array['invite']['channelRecipients'] = $json['channel']['recipients'];
+            $array['channel']['recipients'] = $json['channel']['recipients'];
     }
 
-    if(array_key_exists('inviter', $json))
+    if(array_key_exists('inviter', $json) && $json['inviter'] != null)
     {
-        if(array_key_exists('id', $json['inviter']))
-            $array['invite']['inviterId'] = $json['inviter']['id'];
+        if (key_exists('id', $json['inviter']))
+            $array['inviter']['id'] = $json['inviter']['id'];
 
-        if (array_key_exists('username', $json['inviter'])) {
-            if(array_key_exists('discriminator', $json['inviter']) && $json['inviter']['discriminator'] !== "0") {
-                $array['invite']['inviterName'] = $json['inviter']['username'] . '#' . $json['inviter']['discriminator'];
-            }else{
-                $array['invite']['inviterName'] = $json['inviter']['username'];
-            }
+        if (key_exists('username', $json['inviter']))
+            $array['inviter']['username'] = $json['inviter']['username'];
+
+        if (key_exists('discriminator', $json['inviter']))
+            $array['inviter']['discriminator'] = $json['inviter']['discriminator'];
+
+        if (key_exists('global_name', $json['inviter']))
+            $array['inviter']['global_name'] = $json['inviter']['global_name'];
+
+        if (key_exists('bot', $json['inviter']))
+            $array['inviter']['isBot'] = $json['inviter']['bot'];
+
+        if (key_exists('avatar', $json['inviter']) && $json['inviter']['avatar'] != null)
+            $array['inviter']['avatarUrl'] = getAvatarUrl($json['inviter']['id'], $json['inviter']['avatar'], 512, 'webp', true);
+
+        if (empty($array['inviter']['avatarUrl']))
+            $array['inviter']['avatarUrl'] = getDefaultAvatarUrl($json['inviter']['id']);
+
+        // TODO: Add custom avatar decorations once released and documented by Discord
+        if (key_exists('avatar_decoration_data', $json['inviter']) && $json['inviter']['avatar_decoration_data'] != null && key_exists('asset', $json['inviter']['avatar_decoration_data']) && $json['inviter']['avatar_decoration_data']['asset'] != null)
+            $array['inviter']['avatarDecorationUrl'] = env('DISCORD_CDN_URL') . '/avatar-decoration-presets/' . $json['inviter']['avatar_decoration_data']['asset'] . '?size=512';
+
+        if (key_exists('banner', $json['inviter']) && $json['inviter']['banner'] != null)
+            $array['inviter']['bannerUrl'] = getGuildBannerUrl($json['inviter']['id'], $json['inviter']['banner'], 512, 'webp', true);
+
+        if (key_exists('banner_color', $json['inviter']) && $json['inviter']['banner_color'] != null)
+            $array['inviter']['bannerColor'] = $json['inviter']['banner_color'];
+
+        if (key_exists('accent_color', $json['inviter']) && $json['inviter']['accent_color'] != null)
+            $array['inviter']['accentColor'] = '#' . dechex($json['inviter']['accent_color']);
+
+        if (key_exists('premium_type', $json['inviter']) && $json['inviter']['premium_type'] != null) {
+            $array['inviter']['premiumType'] = $json['inviter']['premium_type'];
+            $array['inviter']['premiumTypeName'] = getPremiumType($json['inviter']['premium_type']);
+        }
+
+        if (key_exists('public_flags', $json['inviter']))
+        {
+            $array['inviter']['flags'] = $json['inviter']['public_flags'];
+            $array['inviter']['flagsList'] = getUserFlagList($array['inviter']['flags']);
+            if ($array['inviter']['flags'] & (1 << 16))
+                $array['inviter']['isVerifiedBot']  = true;
         }
     }
 
     if(array_key_exists('expires_at', $json) && $json['expires_at'] != null)
     {
-        $array['invite']['expiresAt'] = $json['expires_at'];
-        $array['invite']['expiresAtFormatted'] = date('Y-m-d G:i:s \(T\)', strtotime($array['invite']['expiresAt']));
+        $array['expiresAt'] = $json['expires_at'];
+        $array['expiresAtFormatted'] = date('Y-m-d G:i:s \(T\)', strtotime($array['expiresAt']));
     }
 
     /* Event */
-    if(array_key_exists('guild_scheduled_event', $json))
+    if(array_key_exists('guild_scheduled_event', $json) && $json['guild_scheduled_event'] != null)
     {
         $array['hasEvent'] = true;
 
@@ -903,6 +1015,9 @@ function parseInviteJson($json)
         $array['event']['endTime'] = $json['guild_scheduled_event']['scheduled_end_time'];
         $array['event']['entityId'] = $json['guild_scheduled_event']['entity_id'];
         $array['event']['userCount'] = $json['guild_scheduled_event']['user_count'];
+
+        if($array['event']['image'] != null)
+            $array['event']['imageUrl'] = getGuildScheduledEventCoverUrl($array['event']['id'], $array['event']['image'], 512, 'webp');
 
         if($array['event']['startTime'])
             $array['event']['startTimeFormatted'] = date('Y-m-d G:i:s \(T\)', strtotime($array['event']['startTime']));
@@ -923,16 +1038,16 @@ function parseInviteJson($json)
         switch ($json['guild_scheduled_event']['status'])
         {
             case 1:
-                $array['event']['status'] = '<span class="badge bg-warning text-black">SCHEDULED</span>';
+                $array['event']['status'] = 'SCHEDULED';
                 break;
             case 2:
-                $array['event']['status'] = '<span class="badge bg-success text-black">ACTIVE</span>';
+                $array['event']['status'] = 'ACTIVE';
                 break;
             case 3:
-                $array['event']['status'] = '<span class="badge bg-primary">COMPLETED</span>';
+                $array['event']['status'] = 'COMPLETED';
                 break;
             case 4:
-                $array['event']['status'] = '<span class="badge bg-danger">CANCELED</span>';
+                $array['event']['status'] = 'CANCELED';
                 break;
             default:
                 $array['event']['status'] = $json['guild_scheduled_event']['status'];

@@ -4,7 +4,7 @@
     @section('keywords', "client, guild, experiments, discord experiments, rollout, rollouts, treatments, groups, overrides, population, {$experiment['id']}")
     @section('robots', 'index, follow')
 
-    <div id="experiment">
+    <div>
         <h1 class="mb-1 mt-5 text-center text-white">{{ $experiment['title'] }}</h1>
         <h4 class="mb-4 text-center text-muted">{{ $experiment['id'] }} ({{ $experiment['hash'] }})</h4>
         <div class="mt-2 mb-4">

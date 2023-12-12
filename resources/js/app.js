@@ -39,3 +39,14 @@ window.validateSnowflake = function(snowflake, epoch) {
 window.convertSnowflakeToDate = function(snowflake, epoch = 1420070400000) {
     return new Date(snowflake / 4194304 + epoch);
 }
+
+window.copyToClipboard = function(inputElemId, successElemId) {
+    const inputElem = document.getElementById(inputElemId);
+    inputElem.select();
+    inputElem.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(inputElem.value);
+
+    const successElem = document.getElementById(successElemId);
+    successElem.style.display = 'block';
+    setTimeout(() => successElem.style.display = 'none', 3000);
+}

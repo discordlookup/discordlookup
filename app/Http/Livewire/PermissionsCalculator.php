@@ -9,6 +9,7 @@ class PermissionsCalculator extends Component
     public $permissions = 0;
     public $permissionsList = [];
     public $permissionsListSelected = [];
+    public $permissionsGroupsList = [];
 
     protected $rules = [
         'permissions' => 'numeric',
@@ -61,6 +62,7 @@ class PermissionsCalculator extends Component
     public function mount()
     {
         $this->permissionsList = getPermissionList();
+        $this->permissionsGroupsList = array_unique(array_column(getPermissionList(), 'group'));
         usort($this->permissionsList, fn($a, $b) => $a['name'] <=> $b['name']);
         $this->update();
     }

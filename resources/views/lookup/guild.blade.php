@@ -3,8 +3,13 @@
 @section('keywords', '')
 @section('robots', 'index, follow')
 
-<div id="guildlookup">
-    <h1 class="mb-4 mt-5 text-center text-white">{{ __('Guild Lookup') }}</h1>
+<div>
+    <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('Guild Lookup') }}</h2>
+
+
+
+
+
     <div class="mt-2 mb-4">
         <div class="row">
             <div class="col-12 col-lg-6 offset-lg-3">

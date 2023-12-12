@@ -4,59 +4,44 @@
 @section('robots', 'index, follow')
 
 <div>
-    <h1 class="mb-4 mt-5 text-center text-white">{{ __('Snowflake Distance Calculator') }}</h1>
-    <div class="mt-2 mb-4">
-        <div class="row">
-            <div class="col-12 col-xl-6 offset-xl-3">
-                <div class="input-group input-group-lg">
-                    <span class="input-group-text bg-dark">
-                        <i class="far fa-snowflake"></i>
-                    </span>
-                    <input wire:model="snowflake1Display" class="form-control form-control-lg" type="text" placeholder="{{ __('Snowflake 1') }}">
+    <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('Snowflake Distance') }}</h2>
+    <div class="py-12 xl:max-w-3xl mx-auto px-4 lg:px-10 space-y-3">
+        <x-input-prepend-icon icon="far fa-snowflake">
+            <input
+                wire:model="snowflake1Display"
+                placeholder="{{ __('Snowflake 1') }}"
+                type="number"
+                class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0"
+            />
+        </x-input-prepend-icon>
+
+        <x-input-prepend-icon icon="far fa-snowflake">
+            <input
+                wire:model="snowflake2"
+                placeholder="{{ __('Snowflake 2') }}"
+                type="number"
+                class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0"
+            />
+        </x-input-prepend-icon>
+
+        @if($errorMessage)
+            <x-error-message>
+                {{ $errorMessage }}
+            </x-error-message>
+        @elseif($snowflake1Date && $snowflake1Timestamp && $snowflake2Date && $snowflake2Timestamp)
+            <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
+                <div class="p-5 lg:p-6 grow w-full text-center text-2xl font-bold">
+                    {{-- __('The Snowflakes occured at the same time.') --}}
+                    {{ __('Distance between the two Snowflakes:') }}
+                    <div class="text-discord-blurple font-bold">
+                        <span id="snowflakeDistance"></span>
+                    </div>
                 </div>
             </div>
-            <div class="col-12 col-xl-6 offset-xl-3 mt-3">
-                <div class="input-group input-group-lg">
-                    <span class="input-group-text bg-dark">
-                        <i class="far fa-snowflake"></i>
-                    </span>
-                    <input wire:model="snowflake2" class="form-control form-control-lg" type="text" placeholder="{{ __('Snowflake 2') }}">
-                </div>
-            </div>
-            @if($errorMessage)
-                <div class="col-12 col-xl-6 offset-xl-3 mt-3">
-                    <div class="alert alert-danger fade show" role="alert">
-                        {{ $errorMessage }}
-                    </div>
-                </div>
-            @elseif($snowflake1Date && $snowflake1Timestamp && $snowflake2Date && $snowflake2Timestamp)
-                <div class="col-12 col-xl-6 offset-xl-3 mt-3">
-                    <div class="card text-white bg-dark">
-                        <div class="card-body text-center">
-                            <h2 class="fw-bold">{{ __('Distance between the two Snowflakes:') }}</h2>
-                            <h3 class="fw-bold text-primary" id="snowflakeDistance"></h3>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="card text-white bg-dark">
-                        <div class="card-body text-center">
-                            <h5>{{ __('Snowflake 1') }}</h5>
-                            <b>{{ __('Date') }}:</b> {{ $snowflake1Date }}<br>
-                            <b>{{ __('Relative') }}:</b> <span id="snowflakeOneRelative"></span><br>
-                            <b>{{ __('Unix Timestamp') }}:</b> <a href="{{ route('timestamp', ['timestampSlug' => round($snowflake1Timestamp / 1000)]) }}" class="text-decoration-none">{{ $snowflake1Timestamp }}</a><br>
-                        </div>
-                    </div>
-                    <div class="card text-white bg-dark mt-3">
-                        <div class="card-body text-center">
-                            <h5>{{ __('Snowflake 2') }}</h5>
-                            <b>{{ __('Date') }}:</b> {{ $snowflake2Date }}<br>
-                            <b>{{ __('Relative') }}:</b> <span id="snowflakeTwoRelative"></span><br>
-                            <b>{{ __('Unix Timestamp') }}:</b> <a href="{{ route('timestamp', ['timestampSlug' => round($snowflake2Timestamp / 1000)]) }}" class="text-decoration-none">{{ $snowflake2Timestamp }}</a><br>
-                        </div>
-                    </div>
-                </div>
-            @endif
-        </div>
+            <x-date-information snowflake="{{ $snowflake1Date }}" title="Snowflake 1" />
+            <x-date-information snowflake="{{ $snowflake2Date }}" title="Snowflake 2" />
+        @endif
+
     </div>
 
     <script>

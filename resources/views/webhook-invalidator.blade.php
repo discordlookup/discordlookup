@@ -4,41 +4,40 @@
 @section('robots', 'index, follow')
 
 <div>
-    <h1 class="mb-4 mt-5 text-center text-white">{{ __('Discord Webhook Invalidator') }}</h1>
-    <div class="mt-2 mb-4">
-        <div class="row">
-            <div class="col-12 col-lg-6 offset-lg-3 mb-3">
-                <div class="input-group input-group-lg">
-                    <span class="input-group-text bg-dark">
-                        <i class="fas fa-link"></i>
-                    </span>
-                    <input id="webhookUrl" class="form-control form-control-lg" type="text" placeholder="{{ __('Discord Webhook URL') }}">
-                </div>
-            </div>
+    <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('Discord Webhook Invalidator') }}</h2>
+    <div class="py-12 xl:max-w-3xl mx-auto px-4 lg:px-10 space-y-3">
+        <x-input-prepend-icon icon="fas fa-link">
+            <input
+                id="webhookUrl"
+                type="text"
+                placeholder="{{ __('Discord Webhook URL') }}"
+                class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0"
+            />
+        </x-input-prepend-icon>
 
-            <div id="alertInvalidUrl" class="col-12 col-lg-6 offset-lg-3" style="display: none">
-                <div class="alert alert-danger fade show" role="alert">
-                    {{ __('The entered link is not a valid Discord webhook URL.') }}
-                </div>
-            </div>
+        <button onclick="deleteWebhook()" type="button" class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-4 py-2 leading-6 w-full border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]">
+            {{ __('Delete Webhook') }}
+        </button>
 
-            <div id="alertDeleteFailed" class="col-12 col-lg-6 offset-lg-3" style="display: none">
-                <div class="alert alert-danger fade show" role="alert">
-                    {{ __('Deleting the Discord webhook failed. The webhook may have already been deleted or is invalid.') }}
-                </div>
-            </div>
+        <div id="alertInvalidUrl" style="display: none">
+            <x-error-message>
+                {{ __('The entered link is not a valid Discord webhook URL.') }}
+            </x-error-message>
+        </div>
 
-            <div id="alertDeleted" class="col-12 col-lg-6 offset-lg-3" style="display: none">
-                <div class="alert alert-success fade show" role="alert">
-                    {{ __('The Discord webhook was successfully deleted.') }}
-                </div>
-            </div>
+        <div id="alertDeleteFailed" style="display: none">
+            <x-error-message>
+                {{ __('Deleting the Discord webhook failed. The webhook may have already been deleted or is invalid.') }}
+            </x-error-message>
+        </div>
 
-            <div class="col-12 col-lg-6 offset-lg-3">
-                <button onclick="deleteWebhook()" type="button" class="btn btn-primary w-100 mt-3">{{ __('Delete Webhook') }}</button>
-            </div>
+        <div id="alertDeleted" style="display: none">
+            <x-success-message>
+                {{ __('The Discord webhook was successfully deleted.') }}
+            </x-success-message>
         </div>
     </div>
+
 
     <script>
         const deleteWebhook = () => {

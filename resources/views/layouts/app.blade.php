@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="no-js h-100">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -62,24 +61,23 @@ discord, discord lookup, discordlookup, lookup, snowflake, guild count, invite i
     @livewireStyles
 </head>
 
-<body class="min-h-full bg-[#292b2f]">
+<body class="flex flex-col min-h-screen bg-[#292b2f]">
 
-<main class="bg-discord-gray-2 text-white">
-
-    @include('components.navbar')
-
-    <div class="py-12 container xl:max-w-6xl mx-auto px-4 lg:px-10">
+<main class="flex-grow bg-discord-gray-3 text-white">
+    <x-navbar />
+    <div class="py-12 container xl:max-w-7xl mx-auto px-4 lg:px-10">
         @yield('content')
     </div>
 </main>
 
-@include('components.footer')
+<x-footer />
 
 <script src="{{ asset('js/app.js') }}" defer></script>
+
+{{-- TODO: Remove jquery --}}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 @stack('scripts')
-@livewire('modal.login')
 @livewireScripts
 
 @if(!empty(env('PLAUSIBLE_URL')) && !empty(env('PLAUSIBLE_WEBSITE_DOMAIN')))

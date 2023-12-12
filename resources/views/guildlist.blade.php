@@ -3,169 +3,99 @@
 @section('keywords', '')
 @section('robots', 'index, follow')
 
-<div id="guildlist">
-    <h1 class="mb-4 mt-5 text-center text-white">{{ __('Guild List') }}</h1>
-    <div class="mt-2 mb-4">
-        <div class="row">
-            <div class="col-12 col-lg-10 offset-lg-1">
-                <div class="card text-white bg-dark border-0">
-                    @guest
-                        <div class="card-header text-center">
-                            <h1 class="fw-bold">{{ __('Login') }}</h1>
-                        </div>
-                        <div class="card-body text-center">
-                            <h4>{{ __('To get an overview and stats about your guilds you need to log in with Discord.') }}</h4>
-                            <h5>{!! __('This website is open source on :github.', ['github' => '<a href="' . env('GITHUB_URL') . '" target="_blank">GitHub</a>']) !!}</h5>
-                            <a role="button" class="btn btn-info mt-3" href="{{ route('login') }}" data-bs-toggle="modal" data-bs-target="#loginModal"><i class="fas fa-sign-in-alt"></i> {{ __('Login') }}</a>
-                        </div>
-                    @endguest
-                    @auth
-                        <div class="card-header text-center">
-                            <h1 class="fw-bold">{!! __('You are in <span class="text-primary">:GUILDS</span> Servers', ['guilds' => $countGuilds]) !!}</h1>
-                        </div>
-                        <div class="card-body">
-                            <div class="row mt-3">
-                                <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('owner')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
-                                        <div class="card-header">
-                                            <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/owner.svg') }}" class="discord-badge" alt="owner badge"> {{ __('You own') }}
-                                            </p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h1 class="card-title">{{ $countOwner }}</h1>
-                                            <hr>
-                                            <h4 class="card-title">{{ calcPercent($countOwner, $countGuilds, 1) }}&percnt;</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('administrator')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
-                                        <div class="card-header">
-                                            <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/administrator.svg') }}" class="discord-badge" alt="administrator badge"> {{ __('You administrate') }}
-                                            </p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h1 class="card-title">{{ $countAdministrator }}</h1>
-                                            <hr>
-                                            <h4 class="card-title">{{ calcPercent($countAdministrator, $countGuilds, 1) }}&percnt;</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('moderator')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
-                                        <div class="card-header">
-                                            <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/moderator.svg') }}" class="discord-badge" alt="moderator badge"> {{ __('You moderate') }}
-                                            </p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h1 class="card-title">{{ $countModerator }}</h1>
-                                            <hr>
-                                            <h4 class="card-title">{{ calcPercent($countModerator, $countGuilds, 1) }}&percnt;</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('verified')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
-                                        <div class="card-header">
-                                            <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/verified.svg') }}" class="discord-badge" alt="verified badge"> {{ __('Verified') }}
-                                            </p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h1 class="card-title">{{ $countVerified }}</h1>
-                                            <hr>
-                                            <h4 class="card-title">{{ calcPercent($countVerified, $countGuilds, 1) }}&percnt;</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('partnered')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
-                                        <div class="card-header">
-                                            <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/partner.svg') }}" class="discord-badge" alt="partnered badge"> {{ __('Partnered') }}
-                                            </p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h1 class="card-title">{{ $countPartnered }}</h1>
-                                            <hr>
-                                            <h4 class="card-title">{{ calcPercent($countPartnered, $countGuilds, 1) }}&percnt;</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('vanityurl')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
-                                        <div class="card-header">
-                                            <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/vanity-url.svg') }}" class="discord-badge" alt="vanity url badge"> {{ __('Vanity URL') }}
-                                            </p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h1 class="card-title">{{ $countVanityUrl }}</h1>
-                                            <hr>
-                                            <h4 class="card-title">{{ calcPercent($countVanityUrl, $countGuilds, 1) }}&percnt;</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('community')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
-                                        <div class="card-header">
-                                            <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/community.svg') }}" class="discord-badge" alt="community badge"> {{ __('Community enabled') }}
-                                            </p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h1 class="card-title">{{ $countCommunityEnabled }}</h1>
-                                            <hr>
-                                            <h4 class="card-title">{{ calcPercent($countCommunityEnabled, $countGuilds, 1) }}&percnt;</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('discovery')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
-                                        <div class="card-header">
-                                            <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/discovery.svg') }}" class="discord-badge" alt="discovery badge"> {{ __('Discovery enabled') }}
-                                            </p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h1 class="card-title">{{ $countDiscoveryEnabled }}</h1>
-                                            <hr>
-                                            <h4 class="card-title">{{ calcPercent($countDiscoveryEnabled, $countGuilds, 1) }}&percnt;</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('welcomescreen')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
-                                        <div class="card-header">
-                                            <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/welcome-screen-enabled.svg') }}" class="discord-badge" alt="welcome screen badge"> {{ __('Welcome Screen enabled') }}
-                                            </p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h1 class="card-title">{{ $countWelcomeScreenEnabled }}</h1>
-                                            <hr>
-                                            <h4 class="card-title">{{ calcPercent($countWelcomeScreenEnabled, $countGuilds, 1) }}&percnt;</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <small>
-                                <a href="{{ route('help') }}#how-are-my-personal-stats-calculated-in-the-guild-list" target="_blank" class="text-muted text-decoration-none">
-                                    <i class="far fa-question-circle"></i> <i>{{ __('How are my personal stats calculated on this page?') }}</i>
-                                </a>
-                            </small>
-                        </div>
-                    @endauth
+<div>
+    <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('Guild List') }}</h2>
+    <div class="py-12 space-y-3">
+        @guest
+            <x-login-required />
+        @endguest
+
+        @auth
+        <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
+            <div class="py-4 px-5 lg:px-6 w-full text-center border-b border-discord-gray-4">
+                <h3 class="text-4xl font-bold">
+                    {!! __('You are in <span class="text-discord-blurple font-bold">:GUILDS</span> servers', ['guilds' => $countGuilds]) !!}
+                </h3>
+            </div>
+            <div class="p-5 lg:p-6 grow w-full space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-3">
+                    <x-guildlist-category
+                        category="owner"
+                        :title="__('You own')"
+                        :image="asset('images/discord/icons/server/owner.svg')"
+                        :count="$countOwner"
+                        :total="$countGuilds"
+                    />
+                    <x-guildlist-category
+                        category="administrator"
+                        :title="__('You administrate')"
+                        :image="asset('images/discord/icons/server/administrator.svg')"
+                        :count="$countAdministrator"
+                        :total="$countGuilds"
+                    />
+                    <x-guildlist-category
+                        category="moderator"
+                        :title="__('You moderate')"
+                        :image="asset('images/discord/icons/server/moderator.svg')"
+                        :count="$countModerator"
+                        :total="$countGuilds"
+                    />
+
+                    <x-guildlist-category
+                        category="verified"
+                        :title="__('Verified')"
+                        :image="asset('images/discord/icons/server/verified.svg')"
+                        :count="$countVerified"
+                        :total="$countGuilds"
+                    />
+                    <x-guildlist-category
+                        category="partnered"
+                        :title="__('Partnered')"
+                        :image="asset('images/discord/icons/server/partner.svg')"
+                        :count="$countPartnered"
+                        :total="$countGuilds"
+                    />
+                    <x-guildlist-category
+                        category="vanityurl"
+                        :title="__('Vanity URL')"
+                        :image="asset('images/discord/icons/server/vanity-url.svg')"
+                        :count="$countVanityUrl"
+                        :total="$countGuilds"
+                    />
+
+                    <x-guildlist-category
+                        category="community"
+                        :title="__('Community enabled')"
+                        :image="asset('images/discord/icons/server/community.svg')"
+                        :count="$countCommunityEnabled"
+                        :total="$countGuilds"
+                    />
+                    <x-guildlist-category
+                        category="discovery"
+                        :title="__('Discovery enabled')"
+                        :image="asset('images/discord/icons/server/discovery.svg')"
+                        :count="$countDiscoveryEnabled"
+                        :total="$countGuilds"
+                    />
+                    <x-guildlist-category
+                        category="welcomescreen"
+                        :title="__('Welcome Screen enabled')"
+                        :image="asset('images/discord/icons/server/welcome-screen-enabled.svg')"
+                        :count="$countWelcomeScreenEnabled"
+                        :total="$countGuilds"
+                    />
                 </div>
             </div>
         </div>
+        @endauth
+    </div>
+
+
+
+
+
+
+
         @auth
             <div id="scrollToSearch" class="row mt-5">
                 <div class="col-12 col-lg-10 offset-lg-1">
@@ -212,7 +142,7 @@
                                         <div class="row">
                                             <div class="col-12 col-md-1 text-center">
                                                 @if($guild['icon'])
-                                                    <a href="{{ env('DISCORD_CDN_URL') }}/icons/{{ $guild['id'] }}/{{ $guild['icon'] }}" class="text-decoration-none" target="_blank">
+                                                    <a href="{{ env('DISCORD_CDN_URL') }}/icons/{{ $guild['id'] }}/{{ $guild['icon'] }}" target="_blank">
                                                         <img src="{{ env('DISCORD_CDN_URL') }}/icons/{{ $guild['id'] }}/{{ $guild['icon'] }}?size=128" loading="lazy" class="rounded-circle" style="width: 48px; height: 48px;" width="48px" height="48px" alt="guild icon">
                                                     </a>
                                                 @else
@@ -252,7 +182,7 @@
                 </div>
             </div>
         @endauth
-    </div>
+
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
