@@ -5,6 +5,7 @@ on:
     workflows: ["Publish and deploy Docker Container"]
     types:
       - completed
+  workflow_dispatch:
 
 jobs:
   delete:
