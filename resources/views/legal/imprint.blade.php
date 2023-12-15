@@ -6,34 +6,33 @@
 @section('robots', 'noindex, nofollow')
 
 @section('content')
-    <div class="container mt-5">
-        <div class="page-header mt-2">
-            <h2 class="pb-2 fw-bold">{{ __('Imprint') }}</h2>
-        </div>
+    <div>
+        <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('Imprint') }}</h2>
+        <div class="py-12">
+            <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
+                <div class="p-5 lg:p-6 grow w-full space-y-8 select-none">
+                    <div class="space-y-3">
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">{{ __('Legal Provider Identification') }}</h3>
+                            <div>{{ env('LEGAL_FIRSTNAME') }} {{ env('LEGAL_LASTNAME') }}</div>
+                            <div>{{ env('LEGAL_STREET') }} {{ env('LEGAL_STREET_NUMBER') }}</div>
+                            <div>{{ env('LEGAL_ZIPCODE') }} {{ env('LEGAL_CITY') }}</div>
+                            <div>{{ env('LEGAL_COUNTRY') }}</div>
+                        </div>
 
-        <div class="user-select-none">
-            <h3>{{ __('Legal Provider Identification:') }}</h3>
-            {{ env('LEGAL_FIRSTNAME') }} {{ env('LEGAL_LASTNAME') }}<br>
-            {{ env('LEGAL_STREET') }} {{ env('LEGAL_STREET_NUMBER') }}<br>
-            {{ env('LEGAL_ZIPCODE') }} {{ env('LEGAL_CITY') }}<br>
-            {{ env('LEGAL_COUNTRY') }}<br>
-            <br>
-            {{ __('Phone') }}: <a href="tel:{{ env('LEGAL_PHONE') }}">{{ env('LEGAL_PHONE') }}</a><br>
-            {{ __('E-Mail') }}: <a href="mailto:{{ env('LEGAL_EMAIL') }}">{{ env('LEGAL_EMAIL') }}</a><br>
-            <br>
-            <b>{!! __('Responsible for content according to &sect; 18 para. 2 MStV:') !!}</b><br>
-            {{ env('LEGAL_FIRSTNAME') }} {{ env('LEGAL_LASTNAME') }}<br>
-            {{ env('LEGAL_STREET') }} {{ env('LEGAL_STREET_NUMBER') }}<br>
-            {{ env('LEGAL_ZIPCODE') }} {{ env('LEGAL_CITY') }}<br>
-            {{ env('LEGAL_COUNTRY') }}<br>
-        </div>
-        <br>
-        <br>
-        <h3>{{ __('Disclaimer') }}</h3>
-        <div>
-            {{ __('DiscordLookup is not affiliated, associated, authorized, endorsed by, or in anyway officially connected with Discord Inc., or any of its subsidiaries or its affiliates.') }}
-            <br>
-            {{ __('Any new products or features discovered are subject to change and not guaranteed to release.') }}
+                        <div>
+                            <div>{{ __('Phone') }}: <a href="tel:{{ env('LEGAL_PHONE') }}">{{ env('LEGAL_PHONE') }}</a></div>
+                            <div>{{ __('E-Mail') }}: <a href="mailto:{{ env('LEGAL_EMAIL') }}">{{ env('LEGAL_EMAIL') }}</a></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">{{ __('Disclaimer') }}</h3>
+                        <div>{{ __('DiscordLookup is not affiliated, associated, authorized, endorsed by, or in anyway officially connected with Discord Inc., or any of its subsidiaries or its affiliates.') }}</div>
+                        <div>{{ __('Any new products or features discovered are subject to change and not guaranteed to release.') }}</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
