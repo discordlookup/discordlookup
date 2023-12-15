@@ -70,7 +70,7 @@ class Guild extends Component
         $inviteInfo = parseInviteJson($json);
         if($inviteInfo != null)
         {
-            foreach (array_merge($inviteInfo['guild'], $inviteInfo['invite']) as $key => $value)
+            foreach (array_merge($inviteInfo['guild']) as $key => $value)
             {
                 if(array_key_exists($key, $this->guildData) && !empty($this->guildData[$key]))
                     continue;

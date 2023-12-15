@@ -220,7 +220,7 @@
         @endif
 
         @if($applicationData)
-            <a role="button" href="{{ route('userlookup', $applicationData['id']) }}" class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-4 py-2 leading-6 w-full border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]">
+            <a role="button" href="{{ route('userlookup', ['snowflake' => $applicationData['id']]) }}" class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-4 py-2 leading-6 w-full border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]">
                 {{ __('More information about this bot') }}
             </a>
         @endif
