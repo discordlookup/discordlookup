@@ -5,210 +5,224 @@
 
 <div>
     <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('Application Lookup') }}</h2>
+    <div class="py-12 xl:max-w-3xl mx-auto px-4 lg:px-10 space-y-3">
+        <x-input-prepend-icon icon="far fa-snowflake">
+            <input
+                wire:model="snowflake"
+                wire:keydown.enter="fetchApplication"
+                type="number"
+                placeholder="{{ __('Application ID') }}"
+                class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0"
+            />
+        </x-input-prepend-icon>
 
+        <button wire:click="fetchApplication" type="button" class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-4 py-2 leading-6 w-full border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]">
+            {{ __('Fetch Discord Information') }}
+        </button>
 
-
-
-    <div class="mt-2 mb-4">
-        <div class="row">
-            <div class="col-12 col-lg-6 offset-lg-3">
-                <div class="input-group input-group-lg">
-                    <span class="input-group-text bg-dark">
-                        <i class="far fa-snowflake"></i>
-                    </span>
-                    <input wire:model="snowflake" wire:keydown.enter="fetchApplication" class="form-control form-control-lg" type="text" placeholder="{{ __('Application ID') }}">
+        @if($errorMessage)
+            <div class="col-12 col-lg-6 offset-lg-3 mt-3">
+                <div class="alert alert-danger fade show" role="alert">
+                    {{ $errorMessage }}
                 </div>
             </div>
-
-            @if($errorMessage)
-                <div class="col-12 col-lg-6 offset-lg-3 mt-3">
-                    <div class="alert alert-danger fade show" role="alert">
-                        {{ $errorMessage }}
-                    </div>
-                </div>
-            @elseif($snowflakeDate && $snowflakeTimestamp)
-                <div class="col-12 col-lg-6 offset-lg-3 mt-3">
-                    <div class="card text-white bg-dark">
-                        <div class="card-body">
-                            <b>{{ __('Date') }}:</b> {{ $snowflakeDate }}<br>
-                            <b>{{ __('Relative') }}:</b> <span wire:ignore id="snowflakeRelative"></span><br>
-                            <b>{{ __('Unix Timestamp') }}:</b> <a href="{{ route('timestamp', ['timestampSlug' => round($snowflakeTimestamp / 1000)]) }}" class="text-decoration-none">{{ $snowflakeTimestamp }}</a><br>
-                        </div>
-                    </div>
-                </div>
-            @endif
-
-            <div class="col-12 col-lg-6 offset-lg-3 mb-3 mt-3">
-                <hr>
-                <button wire:click="fetchApplication" type="submit" class="btn btn-primary w-100 mt-3">{{ __('Fetch Discord Information') }}</button>
-            </div>
-
-            @if($rateLimitHit)
-                <div class="col-12 col-lg-6 offset-lg-3">
-                    <div class="alert alert-danger fade show" role="alert">
-                        {{ __('You send too many requests!') }}
-                        @auth
-                            {{ __('Please try again in :SECONDS seconds.', ['seconds' => $rateLimitAvailableIn ]) }}
-                        @endauth
-                        @guest
-                            {{ __('Please try again in :SECONDS seconds or log in with your Discord account to increase the limit.', ['seconds' => $rateLimitAvailableIn ]) }}
-                        @endguest
-                    </div>
-                </div>
-            @endif
-
-            @if($applicationData == null && $snowflakeDate)
-                <div class="col-12 col-lg-6 offset-lg-3">
-                    <div class="alert alert-danger fade show" role="alert">
-                        {{ __('No Discord application could be found for the entered Snowflake.') }}<br>
-                        {!! __('If you want to search for a :guild or :user instead, check out our other tools.', ['guild' => '<a href="' . route('guildlookup', ['snowflake' => $snowflake]) . '">guild</a>', 'user' => '<a href="' . route('userlookup', ['snowflake' => $snowflake]) . '">user</a>']) !!}<br>
-                    </div>
-                </div>
-            @elseif($applicationData)
-                <div class="col-12 col-lg-6 offset-lg-3">
-                    <div class="card text-white bg-dark">
-                        <div class="card-header">
-                            <div class="row">
-                                <div class="col-auto me-auto ms-auto me-lg-0 ms-lg-0">
-                                    <a href="{{ $applicationData['iconUrl'] }}" target="_blank">
-                                        <img src="{{ $applicationData['iconUrl'] }}" loading="lazy" class="rounded-circle" style="width: 64px; height: 64px;" width="64px" height="64px" alt="app icon">
-                                    </a>
-                                </div>
-                                <div class="col-auto me-auto ms-auto me-lg-0 ms-lg-0 text-center text-lg-start align-self-center">
-                                    <b>{{ $applicationData['name'] }}</b>
-                                    <div class="small text-muted">{{ $applicationData['id'] }}</div>
-                                </div>
-                                @if($applicationData['coverImageUrl'])
-                                    <div class="col-auto me-auto ms-auto me-lg-0 mt-3 mt-sm-0">
-                                        <a href="{{ $applicationData['coverImageUrl'] }}" target="_blank">
-                                            <img src="{{ $applicationData['coverImageUrl'] }}" loading="lazy" class="rounded-3" style="height: 64px;" height="64px" alt="cover image">
-                                        </a>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            @if($applicationData['descriptionFormatted'])
-                                {!! $applicationData['descriptionFormatted'] !!}
-                                <hr>
-                            @endif
-                            <div>
-                                <b>{{ __('Application Created') }}:</b>
-                                {{ $snowflakeDate }}
-                                <br>
-
-                                @if($applicationData['summary'])
-                                    <b>{{ __('Summary') }}:</b>
-                                    {{ $applicationData['summary'] }}
-                                    <br>
-                                @endif
-
-                                @if($applicationData['guildId'])
-                                    <b>{{ __('Linked Guild') }}:</b>
-                                    <a href="{{ route('guildlookup', ['snowflake' => $applicationData['guildId']]) }}">{{ $applicationData['guildId'] }}</a>
-                                    <br>
-                                @endif
-
-                                @if(!is_null($applicationData['type']))
-                                    <b>{{ __('Type') }}:</b>
-                                    {{ $applicationData['type'] }}
-                                    <br>
-                                @endif
-
-                                @if(!is_null($applicationData['hook']))
-                                    <b>{{ __('Hook') }}:</b>
-                                    @if($applicationData['hook'])
-                                        <img src="{{ asset('images/discord/icons/check.svg') }}" class="discord-badge" alt="Check">
-                                    @else
-                                        <img src="{{ asset('images/discord/icons/cross.svg') }}" class="discord-badge" alt="Cross">
-                                    @endif
-                                    <br>
-                                @endif
-
-                                @if(!is_null($applicationData['botPublic']))
-                                    <b>{{ __('Public Bot') }}:</b>
-                                    @if($applicationData['botPublic'])
-                                        <img src="{{ asset('images/discord/icons/check.svg') }}" class="discord-badge" alt="Check">
-                                    @else
-                                        <img src="{{ asset('images/discord/icons/cross.svg') }}" class="discord-badge" alt="Cross">
-                                    @endif
-                                    <br>
-                                @endif
-
-                                @if(!is_null($applicationData['botRequireCodeGrant']))
-                                    <b>{{ __('Requires OAuth2 Code Grant') }}:</b>
-                                    @if($applicationData['botRequireCodeGrant'])
-                                        <img src="{{ asset('images/discord/icons/check.svg') }}" class="discord-badge" alt="Check">
-                                    @else
-                                        <img src="{{ asset('images/discord/icons/cross.svg') }}" class="discord-badge" alt="Cross">
-                                    @endif
-                                    <br>
-                                @endif
-
-                                @if($applicationData['customInstallUrl'] || $applicationData['roleConnectionsVerificationUrl'] || $applicationData['termsOfServiceUrl'] || $applicationData['privacyPolicyUrl'])
-                                    <b>{{ __('Links') }}:</b>
-                                    <ul>
-                                        @if($applicationData['customInstallUrl'])
-                                            <li>
-                                                <a href="{{ $applicationData['customInstallUrl'] }}" target="_blank" rel="noopener">{{ __('Custom Install Url') }}</a>
-                                            </li>
-                                        @endif
-                                        @if($applicationData['roleConnectionsVerificationUrl'])
-                                            <li>
-                                                <a href="{{ $applicationData['roleConnectionsVerificationUrl'] }}" target="_blank" rel="noopener">{{ __('Role Connections Verification Url') }}</a>
-                                            </li>
-                                        @endif
-                                        @if($applicationData['termsOfServiceUrl'])
-                                            <li>
-                                                <a href="{{ $applicationData['termsOfServiceUrl'] }}" target="_blank" rel="noopener">{{ __('Terms of Service') }}</a>
-                                            </li>
-                                        @endif
-                                        @if($applicationData['privacyPolicyUrl'])
-                                            <li>
-                                                <a href="{{ $applicationData['privacyPolicyUrl'] }}" target="_blank" rel="noopener">{{ __('Privacy Policy') }}</a>
-                                            </li>
-                                        @endif
-                                    </ul>
-                                @endif
-
-                                @if(!empty($applicationData['tags']))
-                                    <b>{{ __('Tags') }}:</b>
-                                    <ul>
-                                        @foreach($applicationData['tags'] as $tag)
-                                            <li>
-                                                {{ $tag }}
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-
-                                @if(!empty($applicationData['flagsList']))
-                                    <b>{{ __('Flags') }}:</b>
-                                    <ul style="list-style-type: none;">
-                                        @foreach($applicationData['flagsList'] as $flag)
-                                            <li style="margin-left: -1rem; text-transform: capitalize;">
-                                                {{ str_replace('_', ' ', strtolower($flag)) }}
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                    <a role="button" href="{{ route('userlookup', $applicationData['id']) }}" class="btn btn-primary w-100 mt-3">{{ __('More information about this bot') }}</a>
-                </div>
-            @endif
-        </div>
-    </div>
-
-    <script>
-        @if($snowflakeTimestamp)
-        document.addEventListener('DOMContentLoaded', () => updateRelative({{ $snowflakeTimestamp }}));
         @endif
-        window.addEventListener('updateRelative', event => updateRelative(event.detail.timestamp));
 
-        function updateRelative(timestamp) {
-            document.getElementById('snowflakeRelative').innerText = moment.utc(timestamp).local().fromNow();
-        }
-    </script>
+        @if($rateLimitHit)
+            <x-error-message>
+                {{ __('You send too many requests!') }}
+                @auth
+                    {{ __('Please try again in :SECONDS seconds.', ['seconds' => $rateLimitAvailableIn ]) }}
+                @endauth
+                @guest
+                    {{ __('Please try again in :SECONDS seconds or log in with your Discord account to increase the limit.', ['seconds' => $rateLimitAvailableIn ]) }}
+                @endguest
+            </x-error-message>
+        @endif
+
+        @if($applicationData == null && $fetched)
+            <x-error-message>
+                <p>{{ __('No Discord application could be found for the entered Snowflake.') }}</p>
+                <p>{!! __('If you want to search for a :guild or :user instead, check out our other tools.', ['guild' => '<a href="' . route('guildlookup', ['snowflake' => $snowflake]) . '">guild</a>', 'user' => '<a href="' . route('userlookup', ['snowflake' => $snowflake]) . '">user</a>']) !!}</p>
+            </x-error-message>
+        @endif
+
+        @if($applicationData)
+            <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
+                <div class="py-4 px-5 lg:px-6 w-full flex items-center border-b border-discord-gray-4">
+                    <div class="mr-4">
+                        <a href="{{ $applicationData['iconUrl'] }}" target="_blank">
+                            <img
+                                src="{{ $applicationData['iconUrl'] }}"
+                                loading="lazy"
+                                alt="application icon"
+                                class="inline-block w-16 h-16 rounded-full"
+                            />
+                        </a>
+                    </div>
+                    <div>
+                        <p class="font-semibold">{{ $applicationData['name'] }}</p>
+                        <p class="text-gray-500 text-sm">{{ $applicationData['id'] }}</p>
+                    </div>
+                    @if($applicationData['coverImageUrl'])
+                        <div class="ml-auto">
+                            <a href="{{ $applicationData['coverImageUrl'] }}" target="_blank">
+                                <img
+                                    src="{{ $applicationData['coverImageUrl'] }}"
+                                    loading="lazy"
+                                    alt="application cover"
+                                    class="inline-block h-16 rounded-md"
+                                />
+                            </a>
+                        </div>
+                    @endif
+                </div>
+                <div class="p-5 lg:p-6 grow w-full">
+                    @if($applicationData['descriptionFormatted'])
+                        <div class="mb-5">
+                            {!! $applicationData['descriptionFormatted'] !!}
+                        </div>
+                        <hr class="my-6 opacity-10" />
+                    @endif
+                    <table class="min-w-full align-middle whitespace-nowrap mb-5">
+                        <tbody>
+                        @if($applicationData['id'])
+                            <tr>
+                                <td class="font-semibold">{{ __('Created') }}:</td>
+                                <td>
+                                    <a href="{{ route('timestamp', ['timestampSlug' => round(getTimestamp($applicationData['id']) / 1000)]) }}">
+                                        {{ date('Y-m-d G:i:s \(T\)', getTimestamp($applicationData['id']) / 1000) }}
+                                        <span class="text-sm">({{ \Carbon\Carbon::createFromTimestamp(getTimestamp($applicationData['id']) / 1000)->diffForHumans() }})</span>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endif
+
+                        @if($applicationData['guildId'])
+                            <tr>
+                                <td class="font-semibold">{{ __('Linked Guild') }}:</td>
+                                <td>
+                                    <a href="{{ route('guildlookup', ['snowflake' => $applicationData['guildId']]) }}" class="text-discord-blurple">
+                                        {{ $applicationData['guildId'] }}
+                                    </a>
+                                </td>
+                            </tr>
+                        @endif
+
+                        @if(!is_null($applicationData['type']))
+                            <tr>
+                                <td class="font-semibold">{{ __('Type') }}:</td>
+                                <td>{{ $applicationData['type'] }}</td>
+                            </tr>
+                        @endif
+
+                        @if(!is_null($applicationData['hook']))
+                            <tr>
+                                <td class="font-semibold">{{ __('Hook') }}:</td>
+                                <td>
+                                    @if($applicationData['hook'])
+                                        <img src="{{ asset('images/discord/icons/check.svg') }}" class="h-4 w-4" alt="Check">
+                                    @else
+                                        <img src="{{ asset('images/discord/icons/cross.svg') }}" class="h-4 w-4" alt="Cross">
+                                    @endif
+                                </td>
+                            </tr>
+                        @endif
+
+                        @if(!is_null($applicationData['botPublic']))
+                            <tr>
+                                <td class="font-semibold">{{ __('Public Bot') }}:</td>
+                                <td>
+                                    @if($applicationData['botPublic'])
+                                        <img src="{{ asset('images/discord/icons/check.svg') }}" class="h-4 w-4" alt="Check">
+                                    @else
+                                        <img src="{{ asset('images/discord/icons/cross.svg') }}" class="h-4 w-4" alt="Cross">
+                                    @endif
+                                </td>
+                            </tr>
+                        @endif
+
+                        @if(!is_null($applicationData['botRequireCodeGrant']))
+                            <tr>
+                                <td class="font-semibold">{{ __('Requires OAuth2 Code Grant') }}:</td>
+                                <td>
+                                    @if($applicationData['botRequireCodeGrant'])
+                                        <img src="{{ asset('images/discord/icons/check.svg') }}" class="h-4 w-4" alt="Check">
+                                    @else
+                                        <img src="{{ asset('images/discord/icons/cross.svg') }}" class="h-4 w-4" alt="Cross">
+                                    @endif
+                                </td>
+                            </tr>
+                        @endif
+                        </tbody>
+                    </table>
+
+                    @if($applicationData['customInstallUrl'] || $applicationData['roleConnectionsVerificationUrl'] || $applicationData['termsOfServiceUrl'] || $applicationData['privacyPolicyUrl'])
+                        <div class="mb-5">
+                            <div class="font-semibold">{{ __('Links') }}:</div>
+                            <div>
+                                <ul class="list-none capitalize">
+                                    @if($applicationData['customInstallUrl'])
+                                        <li>
+                                            <a href="{{ $applicationData['customInstallUrl'] }}" target="_blank" rel="noopener" class="text-discord-blurple">{{ __('Custom Install Url') }}</a>
+                                        </li>
+                                    @endif
+
+                                    @if($applicationData['roleConnectionsVerificationUrl'])
+                                        <li>
+                                            <a href="{{ $applicationData['roleConnectionsVerificationUrl'] }}" target="_blank" rel="noopener" class="text-discord-blurple">{{ __('Role Connections Verification Url') }}</a>
+                                        </li>
+                                    @endif
+
+                                    @if($applicationData['termsOfServiceUrl'])
+                                        <li>
+                                            <a href="{{ $applicationData['termsOfServiceUrl'] }}" target="_blank" rel="noopener" class="text-discord-blurple">{{ __('Terms of Service') }}</a>
+                                        </li>
+                                    @endif
+
+                                    @if($applicationData['privacyPolicyUrl'])
+                                        <li>
+                                            <a href="{{ $applicationData['privacyPolicyUrl'] }}" target="_blank" rel="noopener" class="text-discord-blurple">{{ __('Privacy Policy') }}</a>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if(!empty($applicationData['tags']))
+                        <div class="mb-5">
+                            <div class="font-semibold">{{ __('Tags') }}:</div>
+                            <div>
+                                <ul class="list-inside list-disc capitalize">
+                                    @foreach($applicationData['tags'] as $tag)
+                                        <li>{{ $tag }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if(!empty($applicationData['flagsList']))
+                        <div>
+                            <div class="font-semibold">{{ __('Flags') }}:</div>
+                            <div>
+                                <ul class="list-inside list-disc capitalize">
+                                    @foreach($applicationData['flagsList'] as $flag)
+                                        <li>{{ str_replace('_', ' ', strtolower($flag)) }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        @endif
+
+        @if($applicationData)
+            <a role="button" href="{{ route('userlookup', $applicationData['id']) }}" class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-4 py-2 leading-6 w-full border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]">
+                {{ __('More information about this bot') }}
+            </a>
+        @endif
+    </div>
 </div>
