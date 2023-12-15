@@ -21,8 +21,8 @@
                         </div>
 
                         <div>
-                            <div>{{ __('Phone') }}: <a href="tel:{{ env('LEGAL_PHONE') }}">{{ env('LEGAL_PHONE') }}</a></div>
-                            <div>{{ __('E-Mail') }}: <a href="mailto:{{ env('LEGAL_EMAIL') }}">{{ env('LEGAL_EMAIL') }}</a></div>
+                            <div>{{ __('Phone') }}: <a href="tel:{{ env('LEGAL_PHONE') }}" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">{{ env('LEGAL_PHONE') }}</a></div>
+                            <div>{{ __('E-Mail') }}: <a href="mailto:{{ env('LEGAL_EMAIL') }}" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">{{ env('LEGAL_EMAIL') }}</a></div>
                         </div>
                     </div>
 

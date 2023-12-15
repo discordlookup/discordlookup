@@ -76,7 +76,7 @@
                 <tr>
                     <td class="font-semibold">{{ __('Guild ID') }}:</td>
                     <td>
-                        <a href="{{ route('guildlookup', ['snowflake' => $guild['id']]) }}" class="text-discord-blurple">
+                        <a href="{{ route('guildlookup', ['snowflake' => $guild['id']]) }}" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">
                             {{ $guild['id'] }}
                         </a>
                     </td>
@@ -117,7 +117,7 @@
                 <tr>
                     <td class="font-semibold">{{ __('Vanity URL') }}:</td>
                     <td>
-                        <a href="{{ $guild['vanityUrl'] }}" target="_blank" rel="noopener" class="text-discord-blurple">
+                        <a href="{{ $guild['vanityUrl'] }}" target="_blank" rel="noopener" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">
                             {{ str_replace('https://', '', $guild['vanityUrl']) }}
                         </a>
                     </td>
@@ -128,7 +128,7 @@
                 <tr>
                     <td class="font-semibold">{{ __('Instant Invite URL') }}:</td>
                     <td>
-                        <a href="{{ $guild['instantInviteUrl'] }}" target="_blank" rel="noopener" class="text-discord-blurple">
+                        <a href="{{ $guild['instantInviteUrl'] }}" target="_blank" rel="noopener" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">
                             {{ str_replace('https://', '', $guild['instantInviteUrl']) }}
                         </a>
                     </td>

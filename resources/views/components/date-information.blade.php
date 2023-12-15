@@ -18,7 +18,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2">
                     <b>{{ __('Unix Timestamp') }}<span class="hidden md:inline">:</span></b>
                     <p>
-                        <a href="{{ route('timestamp', ['timestampSlug' => round(intval($snowflake) / 1000)]) }}" class="text-discord-blurple" id="timestamp">
+                        <a href="{{ route('timestamp', ['timestampSlug' => round(intval($snowflake) / 1000)]) }}" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]" id="timestamp">
 
                         </a>
                     </p>

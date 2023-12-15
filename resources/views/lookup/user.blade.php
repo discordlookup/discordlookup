@@ -42,7 +42,7 @@
         @if($userData == null && $fetched)
             <x-error-message>
                 <p>{{ __('No Discord user could be found for the entered Snowflake.') }}</p>
-                <p>{!! __('If you want to search for a :guild or :application instead, check out our other tools.', ['guild' => '<a href="' . route('guildlookup', ['snowflake' => $snowflake]) . '">guild</a>', 'application' => '<a href="' . route('applicationlookup', ['snowflake' => $snowflake]) . '">application</a>']) !!}</p>
+                <p>{!! __('If you want to search for a :guild or :application instead, check out our other tools.', ['guild' => '<a href="' . route('guildlookup', ['snowflake' => $snowflake]) . '" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">guild</a>', 'application' => '<a href="' . route('applicationlookup', ['snowflake' => $snowflake]) . '" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">application</a>']) !!}</p>
             </x-error-message>
         @endif
 

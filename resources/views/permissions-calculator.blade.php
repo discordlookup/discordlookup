@@ -27,11 +27,11 @@
         <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
             <div class="p-5 lg:p-6 grow w-full space-y-4">
                 <div class="text-sm">
-                    <button class="text-discord-blurple" wire:click="addAll([{{ implode(', ', array_column($permissionsList, 'bitwise')) }}])">
+                    <button class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]" wire:click="addAll([{{ implode(', ', array_column($permissionsList, 'bitwise')) }}])">
                         {{ __('Select all') }}
                     </button>
                     /
-                    <button class="text-discord-blurple" wire:click="removeAll([{{ implode(', ', array_column($permissionsList, 'bitwise')) }}])">
+                    <button class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]" wire:click="removeAll([{{ implode(', ', array_column($permissionsList, 'bitwise')) }}])">
                         {{ __('Deselect all') }}
                     </button>
                 </div>
@@ -52,7 +52,7 @@
                                                 id="checkbox_{{ $key }}"
                                                 value="{{ $permission['bitwise'] }}"
                                                 type="checkbox"
-                                                class="border border-gray-200 rounded h-4 w-4 text-blue-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                                                class="border-none rounded h-4 w-4 text-discord-blurple focus:outline-none focus:ring-0 !outline-none"
                                             />
                                             <span class="ml-2 {{ $permission['requireTwoFactor'] ? 'text-yellow-300' : 'text-gray-100' }}">
                                                 {{ $permission['name'] }}
@@ -60,11 +60,11 @@
                                         </label>
                                     @endforeach
                                     <div class="text-sm">
-                                        <button wire:click="addAll([{{ implode(', ', $values) }}])" class="text-discord-blurple">
+                                        <button wire:click="addAll([{{ implode(', ', $values) }}])" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">
                                             {{ __('Select group') }}
                                         </button>
                                         /
-                                        <button wire:click="removeAll([{{ implode(', ', $values) }}])" class="text-discord-blurple">
+                                        <button wire:click="removeAll([{{ implode(', ', $values) }}])" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">
                                             {{ __('Deselect group') }}
                                         </button>
                                     </div>
@@ -74,7 +74,7 @@
                     @endforeach
                 </div>
                 <div class="text-sm text-gray-400">
-                    {{ __('Yellow colored') }} = These permissions require the application owner account to use <a href="https://discord.com/developers/docs/topics/oauth2#twofactor-authentication-requirement" target="_blank" rel="noopener" class="text-discord-blurple">two-factor authentication</a> when used on a guild that has server-wide 2FA enabled.
+                    {{ __('Yellow colored') }} = These permissions require the application owner account to use <a href="https://discord.com/developers/docs/topics/oauth2#twofactor-authentication-requirement" target="_blank" rel="noopener" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">two-factor authentication</a> when used on a guild that has server-wide 2FA enabled.
                 </div>
             </div>
         </div>

@@ -27,8 +27,8 @@
                 <li>Go to a guild/member/message and right click <i>(mobile long click)</i> on it</li>
                 <li>Now you can click <code>Copy ID</code> at the bottom and you have successfully copied the Snowflake ID.</li>
             </ol>
-            <i>You can also find a video tutorial on YouTube: <a href="https://youtu.be/404AT9WeBZM?t=50" target="_blank" rel="noopener">https://youtu.be/404AT9WeBZM?t=50</a></i><br>
-            <i>If you want to learn more about Snowflakes visit the <a href="https://discord.com/developers/docs/reference#snowflakes" target="_blank" rel="noopener">Discord Developer Documentation</a>.</i>
+            <i>You can also find a video tutorial on YouTube: <a href="https://youtu.be/404AT9WeBZM?t=50" target="_blank" rel="noopener" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">https://youtu.be/404AT9WeBZM?t=50</a></i><br>
+            <i>If you want to learn more about Snowflakes visit the <a href="https://discord.com/developers/docs/reference#snowflakes" target="_blank" rel="noopener" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">Discord Developer Documentation</a>.</i>
         </x-help-card>
 
         <x-help-card :title="__('Why some guilds can\'t be found by their ID/Snowflake?')">
@@ -50,19 +50,19 @@
         </x-help-card>
 
         <x-help-card :title="__('I need support or have bugs/feature requests')">
-            Visit our <a href="{{ env('DISCORD_URL') }}" target="_blank" class="text-decoration-none">Discord server</a>. We will be happy to help you there as soon as possible.
+            Visit our <a href="{{ env('DISCORD_URL') }}" target="_blank" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">Discord server</a>. We will be happy to help you there as soon as possible.
         </x-help-card>
 
         <x-help-card :title="__('What happens to my data when I login with Discord?')">
             When you log in, Discord sends your full username, avatar and banner, as well as a list of guilds you are on at the time of login.<br>
             We do not receive your email address or other data from Discord.<br>
             The list of your guilds is not stored by us and is only associated with your current session. As soon as you log out or close your browser, this list is automatically deleted.<br>
-            For more information please visit our <a href="{{ route('legal.privacy') }}">privacy policy</a>.
+            For more information please visit our <a href="{{ route('legal.privacy') }}" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">privacy policy</a>.
         </x-help-card>
 
         <x-help-card :title="__('Is DiscordLookup open source?')">
-            Yes! DiscordLookup is fully open source on <a href="{{ env('GITHUB_URL') }}" target="_blank" rel="noopener">GitHub</a>.<br>
-            Feel free to give us a star on <a href="{{ env('GITHUB_URL') }}/stargazers" target="_blank" rel="noopener">GitHub</a> if you like our work.
+            Yes! DiscordLookup is fully open source on <a href="{{ env('GITHUB_URL') }}" target="_blank" rel="noopener" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">GitHub</a>.<br>
+            Feel free to give us a star on <a href="{{ env('GITHUB_URL') }}/stargazers" target="_blank" rel="noopener" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">GitHub</a> if you like our work.
         </x-help-card>
     </div>
 </div>

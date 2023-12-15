@@ -157,7 +157,7 @@
                                     <td class="font-semibold">{{ __('Creator ID') }}:</td>
                                     <td>
                                         <a href="{{ route('userlookup', ['snowflake' => $inviteData['event']['creatorId']]) }}"
-                                           class="text-discord-blurple">
+                                           class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">
                                             {{ $inviteData['event']['creatorId'] }}
                                         </a>
                                     </td>
@@ -233,7 +233,7 @@
                                         @if(str_starts_with($inviteData['event']['entityMetadataLocation'], 'https://'))
                                             {{-- TODO: Upgrade Laravel 10 use Str::isUrl() --}}
                                             <a href="{{ $inviteData['event']['entityMetadataLocation'] }}"
-                                               target="_blank" rel="noopener" class="text-discord-blurple">
+                                               target="_blank" rel="noopener" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">
                                                 {{ $inviteData['event']['entityMetadataLocation'] }}
                                             </a>
                                         @else

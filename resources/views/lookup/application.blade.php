@@ -43,7 +43,7 @@
         @if($applicationData == null && $fetched)
             <x-error-message>
                 <p>{{ __('No Discord application could be found for the entered Snowflake.') }}</p>
-                <p>{!! __('If you want to search for a :guild or :user instead, check out our other tools.', ['guild' => '<a href="' . route('guildlookup', ['snowflake' => $snowflake]) . '">guild</a>', 'user' => '<a href="' . route('userlookup', ['snowflake' => $snowflake]) . '">user</a>']) !!}</p>
+                <p>{!! __('If you want to search for a :guild or :user instead, check out our other tools.', ['guild' => '<a href="' . route('guildlookup', ['snowflake' => $snowflake]) . '" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">guild</a>', 'user' => '<a href="' . route('userlookup', ['snowflake' => $snowflake]) . '" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">user</a>']) !!}</p>
             </x-error-message>
         @endif
 
@@ -102,7 +102,7 @@
                             <tr>
                                 <td class="font-semibold">{{ __('Linked Guild') }}:</td>
                                 <td>
-                                    <a href="{{ route('guildlookup', ['snowflake' => $applicationData['guildId']]) }}" class="text-discord-blurple">
+                                    <a href="{{ route('guildlookup', ['snowflake' => $applicationData['guildId']]) }}" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">
                                         {{ $applicationData['guildId'] }}
                                     </a>
                                 </td>
@@ -164,25 +164,25 @@
                                 <ul class="list-none capitalize">
                                     @if($applicationData['customInstallUrl'])
                                         <li>
-                                            <a href="{{ $applicationData['customInstallUrl'] }}" target="_blank" rel="noopener" class="text-discord-blurple">{{ __('Custom Install Url') }}</a>
+                                            <a href="{{ $applicationData['customInstallUrl'] }}" target="_blank" rel="noopener" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">{{ __('Custom Install Url') }}</a>
                                         </li>
                                     @endif
 
                                     @if($applicationData['roleConnectionsVerificationUrl'])
                                         <li>
-                                            <a href="{{ $applicationData['roleConnectionsVerificationUrl'] }}" target="_blank" rel="noopener" class="text-discord-blurple">{{ __('Role Connections Verification Url') }}</a>
+                                            <a href="{{ $applicationData['roleConnectionsVerificationUrl'] }}" target="_blank" rel="noopener" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">{{ __('Role Connections Verification Url') }}</a>
                                         </li>
                                     @endif
 
                                     @if($applicationData['termsOfServiceUrl'])
                                         <li>
-                                            <a href="{{ $applicationData['termsOfServiceUrl'] }}" target="_blank" rel="noopener" class="text-discord-blurple">{{ __('Terms of Service') }}</a>
+                                            <a href="{{ $applicationData['termsOfServiceUrl'] }}" target="_blank" rel="noopener" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">{{ __('Terms of Service') }}</a>
                                         </li>
                                     @endif
 
                                     @if($applicationData['privacyPolicyUrl'])
                                         <li>
-                                            <a href="{{ $applicationData['privacyPolicyUrl'] }}" target="_blank" rel="noopener" class="text-discord-blurple">{{ __('Privacy Policy') }}</a>
+                                            <a href="{{ $applicationData['privacyPolicyUrl'] }}" target="_blank" rel="noopener" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">{{ __('Privacy Policy') }}</a>
                                         </li>
                                     @endif
                                 </ul>
