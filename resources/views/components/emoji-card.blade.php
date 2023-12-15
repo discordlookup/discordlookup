@@ -1,7 +1,4 @@
 <div>
-    <script>
-        emojisUrls = [];
-    </script>
     <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
         <div
             class="py-4 px-5 lg:px-6 w-full flex items-center justify-between border-b border-discord-gray-4">
@@ -10,21 +7,17 @@
                 <span class="mt-0.5 text-sm">({{ sizeof($emojis) }})</span>
             </div>
             <div class="mt-3 sm:mt-0 text-center sm:text-right">
-                <button type="button" class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-2 py-1 leading-5 text-sm w-full border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]">
-                    {{ __('Download') }}
+                <button type="button" onclick="downloadEmojis('0')" id="buttonDownloadAllEmojis" class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-2 py-1 leading-5 text-sm w-full border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]">
+                    <i class="fas fa-download"></i> {{ __('Download') }}
                 </button>
             </div>
         </div>
         <div class="p-5 lg:p-6 grow w-full">
             <div class="grid grid-cols-2 gap-x-6 gap-y-4">
                 @foreach($emojis as $emoji)
-                    <script>
-                        emojisUrls.push('{{ getCustomEmojiUrl($emoji['id'], 1024, 'webp', $emoji['animated']) }}');
-                    </script>
                     <div class="w-full flex items-center">
                         <div class="mr-4">
-                            <a href="{{ getCustomEmojiUrl($emoji['id'], 1024, 'webp', $emoji['animated']) }}"
-                               target="_blank">
+                            <a href="{{ getCustomEmojiUrl($emoji['id'], 1024, 'webp', $emoji['animated']) }}" target="_blank">
                                 <img
                                     src="{{ getCustomEmojiUrl($emoji['id'], 64, 'webp', $emoji['animated']) }}"
                                     loading="lazy"
@@ -65,10 +58,15 @@
     --}}
 
     <script>
-        var emojisUrls = [];
-        function downloadStickers(guildId, urls) {
+        function downloadEmojis(guildId) {
             document.getElementById('buttonDownloadAllEmojis').disabled = true;
             document.getElementById('buttonDownloadAllEmojis').innerHTML = '<i class="fas fa-spinner fa-spin"></i> {{ __('Downloading...') }}';
+
+            var urls = [
+                @foreach($emojis as $emoji)
+                '{{ getCustomEmojiUrl($emoji['id'], 1024, 'png', $emoji['animated']) }}',
+                @endforeach
+            ];
 
             // https://gist.github.com/c4software/981661f1f826ad34c2a5dc11070add0f#gistcomment-3372574
             var zip = new JSZip();
@@ -76,7 +74,7 @@
             var filenameCounter = 0;
             var fileNames = [];
             for (var i = 0; i < urls.length; i++) {
-                fileNames[i] = urls[i].split('/').pop();
+                fileNames[i] = urls[i].split('/').pop().split('?')[0];
             }
             urls.forEach(function (url) {
                 var filename = fileNames[filenameCounter];
@@ -89,7 +87,7 @@
                         zip.generateAsync({type: 'blob'}).then(function (content) {
                             saveAs(content, 'emojis_' + guildId + '.zip');
                             document.getElementById('buttonDownloadAllEmojis').disabled = false;
-                            document.getElementById('buttonDownloadAllEmojis').innerHTML = '<i class="fas fa-download"></i> {{ __('Download all Guild Emojis') }}';
+                            document.getElementById('buttonDownloadAllEmojis').innerHTML = '<i class="fas fa-download"></i> {{ __('Download') }}';
                         });
                     }
                 });
