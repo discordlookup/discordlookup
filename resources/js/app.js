@@ -3,8 +3,10 @@ window.Popper = require('@popperjs/core');
 
 import Alpine from 'alpinejs'
 import collapse from '@alpinejs/collapse'
+import focus from '@alpinejs/focus'
 window.Alpine = Alpine
 Alpine.plugin(collapse)
+Alpine.plugin(focus)
 Alpine.start()
 
 import moment from 'moment'
@@ -13,11 +15,6 @@ window.moment = moment;
 window.JSZip = require('jszip');
 window.JSZipUtils = require('jszip-utils');
 import { saveAs } from 'file-saver';
-
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new Bootstrap.Tooltip(tooltipTriggerEl)
-})
 
 // vegeta897/snow-stamp is licensed under the MIT License ( https://github.com/vegeta897/snow-stamp/blob/main/src/convert.js )
 window.validateSnowflake = function(snowflake, epoch) {

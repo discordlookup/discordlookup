@@ -546,7 +546,7 @@ function getStickerUrl($stickerId, int $size = 128, string $format = 'png')
  */
 function getDiscordBadgeServerIcons($name, $title)
 {
-    return "<img src=\"" . asset('images/discord/icons/server/' . $name . '.svg') . "\" class=\"discord-badge\" alt=\"{$name} badge\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"{$title}\">";
+    return "<img src=\"" . asset('images/discord/icons/server/' . $name . '.svg') . "\" class=\"inline-block h-4 w-4 mb-1 mr-px\" alt=\"{$name} badge\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"{$title}\">";
 }
 
 

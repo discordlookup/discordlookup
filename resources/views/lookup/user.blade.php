@@ -39,7 +39,7 @@
             </x-error-message>
         @endif
 
-        @if($userData == null && $snowflakeDate)
+        @if($userData == null && $fetched)
             <x-error-message>
                 <p>{{ __('No Discord user could be found for the entered Snowflake.') }}</p>
                 <p>{!! __('If you want to search for a :guild or :application instead, check out our other tools.', ['guild' => '<a href="' . route('guildlookup', ['snowflake' => $snowflake]) . '">guild</a>', 'application' => '<a href="' . route('applicationlookup', ['snowflake' => $snowflake]) . '">application</a>']) !!}</p>
@@ -48,6 +48,12 @@
 
         @if($userData)
             <x-user-card :user="$userData" />
+
+            @if($userData['isBot'])
+                <a role="button" href="{{ route('applicationlookup', ['snowflake' => $userData['id']]) }}" class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-4 py-2 leading-6 w-full border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]">
+                    {{ __('More information about this application') }}
+                </a>
+            @endif
         @endif
     </div>
 </div>

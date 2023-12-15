@@ -15,6 +15,7 @@
                     class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0"
                 />
             </x-input-prepend-icon>
+
             <x-input-prepend-icon icon="far fa-clock">
                 <input
                     wire:ignore
@@ -23,6 +24,7 @@
                     class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0"
                 />
             </x-input-prepend-icon>
+
             <x-input-prepend-icon icon="fas fa-globe-europe">
                 <select
                     wire:ignore
@@ -47,6 +49,7 @@
                     class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0"
                 />
             </x-input-prepend-icon>
+
             <x-input-prepend-icon icon="fas fa-code">
                 <input
                     wire:ignore
@@ -64,8 +67,7 @@
                     <tr class="border-b-2 border-discord-gray-4">
                         <th class="p-3 font-semibold text-sm tracking-wider uppercase text-left">{{ __('Syntax') }}</th>
                         <th class="p-3 font-semibold text-sm tracking-wider uppercase text-left">{{ __('Preview') }}</th>
-                        <th class="p-3 font-semibold text-sm tracking-wider uppercase text-left">{{ __('Description') }}</th
-                        >
+                        <th class="p-3 font-semibold text-sm tracking-wider uppercase text-left">{{ __('Description') }}</th>
                     </tr>
                     </thead>
 

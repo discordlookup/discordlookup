@@ -1,35 +1,67 @@
 <div>
-    <div wire:ignore.self class="modal fade" id="modalExperiments" tabindex="-1" aria-labelledby="modalExperimentsTitle" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content bg-dark border-0">
-                <div class="modal-header bg-dark">
-                    <h5 class="modal-title" id="modalExperimentsTitle"><b>{{ __('Experiments') }}:</b> {{ $guildName }}</h5>
-                </div>
-                <div class="modal-body bg-dark">
-                    <ul>
-                        @if(empty($experiments))
-                            {{ __('No experiments found') }}
-                        @endif
-                        @foreach($experiments as $experiment)
-                            <li class="mt-3">
-                                <span class="fw-bold">
-                                    <a class="text-decoration-none" href="{{ route('experiments.show', $experiment['id']) }}">{{ $experiment['title'] }}</a><br>
-                                </span>
-                                {{ $experiment['treatment'] }}<br>
-                                @if($experiment['override'])
-                                    <span class="text-success">({{ __('This Guild has an override for this experiment') }})</span><br>
-                                @else
-                                    @foreach($experiment['filters'] as $filters)
-                                        <span class="text-muted">{{ $filters }}</span><br>
-                                    @endforeach
-                                @endif
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-                <div class="modal-footer bg-dark">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
-                </div>
+    <div
+        x-cloak
+        x-show="modalExperimentsOpen"
+        x-trap.noscroll="modalExperimentsOpen"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-100"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        x-bind:aria-hidden="!modalExperimentsOpen"
+        tabindex="-1"
+        role="dialog"
+        class="flex flex-col fixed inset-0 z-90 overflow-y-auto overflow-x-hidden bg-discord-gray-4 bg-opacity-75 p-4 backdrop-blur-sm lg:p-8"
+    >
+        <div
+            x-cloak
+            x-show="modalExperimentsOpen"
+            @click.outside="modalExperimentsOpen = false"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 scale-125"
+            x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-100"
+            x-transition:leave-start="opacity-100 scale-100"
+            x-transition:leave-end="opacity-0 scale-125"
+            role="document"
+            class="m-auto flex w-full max-w-xl flex-col overflow-hidden rounded-lg bg-discord-gray-1 shadow-sm"
+        >
+            <div class="flex items-center justify-between px-5 py-4">
+                <h3 class="text-xl font-medium"><span class="font-bold">{{ __('Experiments') }}</span>: {{ $guildName }}</h3>
+            </div>
+            <div class="grow p-5">
+                <ul class="list-inside list-disc">
+                    @if(empty($experiments))
+                        {{ __('No experiments found') }}
+                    @endif
+                    @foreach($experiments as $experiment)
+                        <li>
+                            <p class="font-bold">
+                                <a href="{{ route('experiments.show', $experiment['id']) }}" target="_blank">
+                                    {{ $experiment['title'] }}
+                                </a>
+                            </p>
+                            <p>{{ $experiment['treatment'] }}</p>
+                            @if($experiment['override'])
+                                <p class="text-green-400">({{ __('This Guild has an override for this experiment') }})</p>
+                            @else
+                                @foreach($experiment['filters'] as $filters)
+                                    <p class="text-gray-400">{{ $filters }}</p>
+                                @endforeach
+                            @endif
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+            <div class="space-x-1 px-5 py-4 text-right">
+                <button
+                    x-on:click="modalExperimentsOpen = false"
+                    type="button"
+                    class="inline-flex items-center justify-center space-x-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-semibold leading-5 text-gray-800 hover:border-gray-300 hover:text-gray-900 hover:shadow-sm active:border-gray-200 active:shadow-none"
+                >
+                    {{ __('Close') }}
+                </button>
             </div>
         </div>
     </div>

@@ -8,17 +8,17 @@
         <div class="p-5 lg:p-6 grow w-full">
             <div class="flex flex-col gap-y-5 md:gap-y-0.5">
                 <div class="grid grid-cols-1 md:grid-cols-2">
-                    <b>Date<span class="hidden md:inline">:</span></b>
+                    <b>{{ __('Date') }}<span class="hidden md:inline">:</span></b>
                     <p id="date"></p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2">
-                    <b>Relative<span class="hidden md:inline">:</span></b>
+                    <b>{{ __('Relative') }}<span class="hidden md:inline">:</span></b>
                     <p id="relative"></p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2">
-                    <b>Unix Timestamp<span class="hidden md:inline">:</span></b>
-                    <p id="timestamp">
-                        <a href="{{ route('timestamp', ['timestampSlug' => round(intval($snowflake) / 1000)]) }}" class="text-discord-blurple">
+                    <b>{{ __('Unix Timestamp') }}<span class="hidden md:inline">:</span></b>
+                    <p>
+                        <a href="{{ route('timestamp', ['timestampSlug' => round(intval($snowflake) / 1000)]) }}" class="text-discord-blurple" id="timestamp">
 
                         </a>
                     </p>
