@@ -312,17 +312,6 @@
     </script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            $(function () {
-                $('[data-bs-toggle="tooltip"]').tooltip()
-            })
-            Livewire.hook('message.processed', (message, component) => {
-                $(function () {
-                    $('[data-bs-toggle="tooltip"]').tooltip()
-                })
-            })
-        })
-
         var urls = [];
         function downloadEmojis(guildId, urls)
         {

@@ -191,19 +191,6 @@
             @endif
         </div>
 
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                $(function () {
-                    $('[data-bs-toggle="tooltip"]').tooltip()
-                })
-                Livewire.hook('message.processed', (message, component) => {
-                    $(function () {
-                        $('[data-bs-toggle="tooltip"]').tooltip()
-                    })
-                })
-            })
-        </script>
-
         @livewire('modal.guild-features')
         @livewire('modal.guild-permissions')
         @livewire('modal.guild-experiments')

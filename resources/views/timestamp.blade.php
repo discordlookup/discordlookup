@@ -121,14 +121,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             $(function () {
-                $('[data-bs-toggle="tooltip"]').tooltip();
                 Livewire.emit('changeTimezone', Intl.DateTimeFormat().resolvedOptions().timeZone);
-            })
-
-            Livewire.hook('message.processed', (message, component) => {
-                $(function () {
-                    $('[data-bs-toggle="tooltip"]').tooltip()
-                })
             })
 
             timestamp('{{ $timestamp }}');

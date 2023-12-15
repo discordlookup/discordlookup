@@ -648,18 +648,6 @@
         --}}
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            $(function () {
-                $('[data-bs-toggle="tooltip"]').tooltip();
-            })
-
-            Livewire.hook('message.processed', (message, component) => {
-                $(function () {
-                    $('[data-bs-toggle="tooltip"]').tooltip()
-                })
-            })
-        })
-
         document.addEventListener('DOMContentLoaded', () => fetchInvite('{{ $inviteCode }}', '{{ $eventId }}'));
         window.addEventListener('fetchInvite', event => fetchInvite(event.detail.inviteCode, event.detail.eventId));
 
