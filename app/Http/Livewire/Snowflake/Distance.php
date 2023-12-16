@@ -9,8 +9,6 @@ class Distance extends Component
     public $snowflake1;
     public $snowflake1Display;
     public $snowflake2;
-    public $snowflake1Date;
-    public $snowflake2Date;
     public $snowflake1Timestamp;
     public $snowflake2Timestamp;
     public $errorMessage;
@@ -27,10 +25,7 @@ class Distance extends Component
         if($this->errorMessage) return;
 
         $this->snowflake1Timestamp = getTimestamp($this->snowflake1);
-        $this->snowflake1Date = date('Y-m-d G:i:s \(T\)', $this->snowflake1Timestamp / 1000);
-
         $this->snowflake2Timestamp = getTimestamp($this->snowflake2);
-        $this->snowflake2Date = date('Y-m-d G:i:s \(T\)', $this->snowflake2Timestamp / 1000);
 
         $this->dispatchBrowserEvent('update', [
             'timestamp1' => $this->snowflake1Timestamp,

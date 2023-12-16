@@ -28,7 +28,7 @@
             <x-error-message>
                 {{ $errorMessage }}
             </x-error-message>
-        @elseif($snowflake1Date && $snowflake1Timestamp && $snowflake2Date && $snowflake2Timestamp)
+        @elseif($snowflake1 && $snowflake2)
             <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
                 <div class="p-5 lg:p-6 grow w-full text-center text-2xl font-bold">
                     {{-- __('The Snowflakes occured at the same time.') --}}
@@ -38,8 +38,8 @@
                     </div>
                 </div>
             </div>
-            <x-date-information snowflake="{{ $snowflake1Date }}" title="Snowflake 1" />
-            <x-date-information snowflake="{{ $snowflake2Date }}" title="Snowflake 2" />
+            <x-date-information snowflake="{{ $snowflake1 }}" title="Snowflake 1" />
+            <x-date-information snowflake="{{ $snowflake2 }}" title="Snowflake 2" />
         @endif
 
     </div>
