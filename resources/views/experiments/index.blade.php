@@ -5,78 +5,59 @@
 
 <div>
     <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('Discord Experiments') }}</h2>
+    <div class="py-12 space-y-3">
+        <div class="grid grid-cols-1 md:grid-cols-4 space-x-0 md:space-x-2 space-y-2 md:space-y-0">
+            <div class="col-span-1">
+                <x-input-prepend-icon icon="fas fa-flask">
+                    <select wire:model="category" class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0">
+                        <option value="all" selected>{{ __('All Experiments') }}</option>
+                        <option value="user">{{ __('User Experiments') }}</option>
+                        <option value="guild">{{ __('Guild Experiments') }}</option>
+                    </select>
+                </x-input-prepend-icon>
+            </div>
+            <div class="col-span-2">
+                <x-input-prepend-icon icon="fas fa-search" class="col-span-2">
+                    <input
+                        wire:model="search"
+                        type="text"
+                        placeholder="{{ __('Search...') }}"
+                        class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0"
+                    >
+                </x-input-prepend-icon>
+            </div>
+            <div class="col-span-1">
+                <x-input-prepend-icon icon="fas fa-sort-alpha-down">
+                    <select wire:model="sorting" class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0">
+                        <option value="title-asc">{{ __('Title Ascending') }}</option>
+                        <option value="title-desc">{{ __('Title Descending') }}</option>
+                        <option value="updatedAt-asc">{{ __('Updated Ascending') }}</option>
+                        <option value="updatedAt-desc" selected>{{ __('Updated Descending') }}</option>
+                        <option value="createdAt-asc">{{ __('Created Ascending') }}</option>
+                        <option value="createdAt-desc">{{ __('Created Descending') }}</option>
+                    </select>
+                </x-input-prepend-icon>
+            </div>
+        </div>
 
-
-
-
-
-    <div class="mt-2 mb-4">
-        <div class="row">
-            <div class="col-12 col-lg-10 offset-lg-1">
-                <div class="row mb-3">
-                    <div class="col-12 col-md-3">
-                        <select wire:model="category" class="form-select">
-                            <option value="all" selected>{{ __('All Experiments') }}</option>
-                            <option value="user">{{ __('User Experiments') }}</option>
-                            <option value="guild">{{ __('Guild Experiments') }}</option>
-                        </select>
-                    </div>
-                    <div class="col-12 col-md-6 mt-2 mt-md-0">
-                        <input wire:model="search" type="text" class="form-control" placeholder="{{ __('Search...') }}">
-                    </div>
-                    <div class="col-12 col-md-3 mt-2 mt-md-0">
-                        <select wire:model="sorting" class="form-select">
-                            <option value="title-asc">{{ __('Title Ascending') }}</option>
-                            <option value="title-desc">{{ __('Title Descending') }}</option>
-                            <option value="updatedAt-asc">{{ __('Updated Ascending') }}</option>
-                            <option value="updatedAt-desc" selected>{{ __('Updated Descending') }}</option>
-                            <option value="createdAt-asc">{{ __('Created Ascending') }}</option>
-                            <option value="createdAt-desc">{{ __('Created Descending') }}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="card text-white bg-dark border-0">
-                    <div class="card-body">
-                        <div class="row">
-                            @if(empty($this->experimentsJsonSearch))
-                                <div>{{ __('No experiments found.') }}</div>
-                            @endif
-                            @foreach($this->experimentsJsonSearch as $experiment)
-                                <div class="col-12 mt-1 mb-1">
-                                    <div class="row">
-                                        <div class="col-12 col-md-1 text-center">
-                                            @if($experiment['type'] == 'user')
-                                                <i class="fas fa-user text-primary" style="font-size: 44px;"></i>
-                                            @elseif($experiment['type'] == 'guild')
-                                                <i class="fas fa-server text-success" style="font-size: 44px;"></i>
-                                            @else
-                                                <i class="fas fa-question text-danger" style="font-size: 44px;"></i>
-                                            @endif
-                                        </div>
-                                        <div class="col-12 col-md-7 text-center text-md-start">
-                                            <div>
-                                                {{ $experiment['title'] ?? 'n/a' }}
-                                            </div>
-                                            <div class="mt-n1">
-                                                <small class="text-muted">
-                                                    {{ $experiment['id'] }} &bull; {{ date('Y-m-d g:i A', strtotime($experiment['updatedAt'])) }}
-                                                </small>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-4 text-center text-md-end">
-                                            @if($experiment['type'] == 'guild')
-                                                <a role="button" href="{{ route('experiments.show', ['experimentId' => $experiment['id']]) }}#guilds" class="btn btn-sm btn-outline-warning mt-2 mt-xl-0">{{ __('Guilds') }}</a>
-                                            @endif
-                                            <a role="button" href="{{ route('experiments.show', ['experimentId' => $experiment['id']]) }}" class="btn btn-sm btn-outline-primary mt-2 mt-xl-0">{{ __('Experiment Info') }}</a>
-                                        </div>
-                                    </div>
-                                    @if(!$loop->last)
-                                        <hr>
-                                    @endif
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
+        <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
+            <div class="p-5 lg:p-6 grow w-full">
+                <div class="flex flex-col gap-y-6 md:gap-y-4">
+                    @if(empty($this->experimentsJsonSearch))
+                        {{ __('No experiments found.') }}
+                    @endif
+                    @foreach($this->experimentsJsonSearch as $experiment)
+                        <x-experiments-table-row
+                            :id="$experiment['id']"
+                            :type="$experiment['type']"
+                            :title="$experiment['title']"
+                            :updated="$experiment['updatedAt']"
+                            :deleted="$experiment['deletedAt']"
+                        />
+                        @if(!$loop->last)
+                            <hr class="opacity-10" />
+                        @endif
+                    @endforeach
                 </div>
             </div>
         </div>

@@ -109,10 +109,11 @@
                     </x-input-prepend-icon>
 
                     <x-input-prepend-icon icon="fas fa-search" class="col-span-2">
-                        <input wire:model="search"
-                               type="text"
-                               placeholder="{{ __('Search...') }}"
-                               class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0"
+                        <input
+                            wire:model="search"
+                            type="text"
+                            placeholder="{{ __('Search...') }}"
+                            class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0"
                         >
                     </x-input-prepend-icon>
 
