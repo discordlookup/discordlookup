@@ -11,7 +11,7 @@
                 <x-input-prepend-icon icon="fas fa-flask">
                     <select wire:model="category" class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0">
                         <option value="all" selected>{{ __('All Experiments') }}</option>
-                        <option value="user">{{ __('User Experiments') }}</option>
+                        <option value="user" disabled>{{ __('User Experiments') }}</option>
                         <option value="guild">{{ __('Guild Experiments') }}</option>
                     </select>
                 </x-input-prepend-icon>
@@ -29,12 +29,14 @@
             <div class="col-span-1">
                 <x-input-prepend-icon icon="fas fa-sort-alpha-down">
                     <select wire:model="sorting" class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0">
+                        <option value="id-asc">{{ __('ID Ascending') }}</option>
+                        <option value="id-desc" selected>{{ __('ID Descending') }}</option>
                         <option value="title-asc">{{ __('Title Ascending') }}</option>
                         <option value="title-desc">{{ __('Title Descending') }}</option>
-                        <option value="updatedAt-asc">{{ __('Updated Ascending') }}</option>
-                        <option value="updatedAt-desc" selected>{{ __('Updated Descending') }}</option>
-                        <option value="createdAt-asc">{{ __('Created Ascending') }}</option>
-                        <option value="createdAt-desc">{{ __('Created Descending') }}</option>
+                        <option value="updatedAt-asc" disabled>{{ __('Updated Ascending') }}</option>
+                        <option value="updatedAt-desc" disabled>{{ __('Updated Descending') }}</option>
+                        <option value="createdAt-asc" disabled>{{ __('Created Ascending') }}</option>
+                        <option value="createdAt-desc" disabled>{{ __('Created Descending') }}</option>
                     </select>
                 </x-input-prepend-icon>
             </div>
@@ -52,7 +54,6 @@
                             :type="$experiment['type']"
                             :title="$experiment['title']"
                             :updated="$experiment['updatedAt']"
-                            :deleted="$experiment['deletedAt']"
                         />
                         @if(!$loop->last)
                             <hr class="opacity-10" />

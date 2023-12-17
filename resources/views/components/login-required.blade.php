@@ -1,4 +1,4 @@
-<div class="flex flex-col xl:max-w-3xl mx-auto rounded shadow-sm bg-discord-gray-1 overflow-hidden">
+<div {{ $attributes->merge(['class' => 'flex flex-col mx-auto rounded shadow-sm bg-discord-gray-1 overflow-hidden']) }}>
     <div class="p-5 lg:p-6 grow w-full">
         <div class="flex flex-col gap-y-5 md:gap-y-0.5 space-y-3 text-center">
             <h3 class="text-3xl font-bold">{{ __('Login Required') }}</h3>

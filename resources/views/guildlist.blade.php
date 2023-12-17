@@ -7,7 +7,7 @@
     <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('Guild List') }}</h2>
     <div class="py-12">
         @guest
-            <x-login-required />
+            <x-login-required class="xl:max-w-3xl" />
         @endguest
 
         @auth
@@ -133,7 +133,7 @@
                     </x-error-message>
                 @else
                     <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
-                        <div class="grow p-5">
+                        <div class="grow px-5 py-3">
                             <div class="min-w-full overflow-x-auto">
                                 <table class="min-w-full whitespace-nowrap align-middle text-sm">
                                     <tbody>
