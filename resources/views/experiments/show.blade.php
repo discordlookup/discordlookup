@@ -6,12 +6,19 @@
 
     <div>
         <h2 class="text-2xl md:text-4xl text-center font-extrabold mb-2 text-white">{{ $experiment['title'] }}</h2>
-        <h3 class="text-sm md:text-xl text-center mb-4 text-gray-300">{{ $experiment['id'] }} ({{ $experiment['hash'] }})</h3>
+        <h3 class="text-sm md:text-xl text-center mb-4 text-gray-300">
+            {{ $experiment['id'] }} ({{ $experiment['hash'] }})
+            @if($experiment['type'] == 'guild' && $experiment['rollout'])
+                <div class="text-sm">
+                    {{ __('Revision') }} {{ $experiment['rollout'][2] }}
+                </div>
+            @endif
+        </h3>
         <div class="py-12">
             <div class="space-y-3 mb-12">
                 <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
                     <div class="py-4 px-5 lg:px-6 w-full flex items-center border-b border-discord-gray-4">
-                        <h3 class="font-semibold">
+                        <h3 class="text-2xl font-semibold">
                             {{ __('Treatments') }}
                             <i class="far fa-question-circle text-gray-300 text-sm" title="{{ __('Different versions of the experiment that can be activated') }}"></i>
                         </h3>
@@ -19,67 +26,82 @@
                     <div class="p-5 lg:p-6 grow w-full">
                         <div class="flex flex-col gap-y-5 md:gap-y-0.5">
                             @foreach($buckets as $bucket)
-                                {{-- TODO --}}
-                                <h5 class="mb-3 text-primary">
-                                    {{ $bucket['name'] }}
-                                    <small class="text-white-50">{!! ($bucket['description'] ? : '<i>' . __('No description') . '</i>') !!}</small>
-                                </h5>
-                                @if($overrides && array_key_exists($bucket['id'], $overrides))
-                                    <div>
-                                        <b>{{ __('Overrides') }} ({{ sizeof($overrides[$bucket['id']]) }})</b> <i class="far fa-question-circle text-muted small align-middle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Server that have the treatment in any case') }}"></i><br>
-                                        @foreach($overrides[$bucket['id']] as $override)
-                                            @if($loop->index == 12)
-                                                <span class="badge bg-primary" style="cursor: pointer;" onclick="document.getElementById('allOverrides{{ $bucket['id'] }}').style.display = '';this.style.display = 'none';">
-                                                    {{ __('Show all') }}
-                                                </span>
-                                                <span id="allOverrides{{ $bucket['id'] }}" style="display: none">
-                                            @endif
-                                            <a href="{{ route('guildlookup', ['snowflake' => $override]) }}"
-                                               class="text-decoration-none" rel="nofollow">
-                                                <span class="badge bg-body">{{ $override }}</span>
-                                            </a>
-                                            @if($loop->last)</span>@endif
-                                        @endforeach
-                                        <br>
-                                    </div>
+                                <div class="space-y-3">
+                                    <h4 class="text-xl text-discord-blurple font-bold">
+                                        {{ $bucket['name'] }}
+                                        <span class="text-sm font-semibold text-gray-300">
+                                            {!! ($bucket['description'] ?: '<i>' . __('No description') . '</i>') !!}
+                                        </span>
+                                    </h4>
+                                    @if($overrides && array_key_exists($bucket['id'], $overrides))
+                                        <div>
+                                            <div>
+                                                <span class="font-semibold">{{ __('Overrides') }} ({{ sizeof($overrides[$bucket['id']]) }})</span>
+                                                <i class="far fa-question-circle text-gray-300 text-sm" title="{{ __('Server that have the treatment in any case') }}"></i>
+                                            </div>
+
+                                            @foreach($overrides[$bucket['id']] as $override)
+                                                @if($loop->index == 14)
+                                                    <div
+                                                        class="inline-flex rounded bg-discord-blurple px-2 py-1 text-xs font-semibold leading-3 text-gray-200 cursor-pointer"
+                                                        onclick="document.getElementById('allOverrides{{ $bucket['id'] }}').style.display = '';this.style.display = 'none';"
+                                                    >
+                                                        {{ __('Show all') }}
+                                                    </div>
+                                                    <span id="allOverrides{{ $bucket['id'] }}" style="display: none">
+                                                @endif
+
+                                                <a href="{{ route('guildlookup', ['snowflake' => $override]) }}" target="_blank">
+                                                    <div class="inline-flex rounded bg-discord-gray-4 px-2 py-1 text-xs font-semibold leading-3 text-gray-200">{{ $override }}</div>
+                                                </a>
+
+                                                @if($loop->last)
+                                                    </span>
+                                                @endif
+                                            @endforeach
+                                            <br>
+                                        </div>
+                                    @endif
+                                </div>
+                                @if(!$loop->last)
+                                    <hr class="my-3 opacity-10" />
                                 @endif
-                                @if(!$loop->last)<hr>@endif
                             @endforeach
                         </div>
                     </div>
                 </div>
 
                 @foreach($rollouts as $rollout)
-                    {{-- TODO --}}
                     <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
                         <div class="p-5 lg:p-6 grow w-full">
                             <div class="flex flex-col gap-y-5 md:gap-y-0.5">
                                 @if($rollout['filters'])
-                                    <span class="text-primary fw-bold">{{ __('Filter') }}:</span><br>
-                                    <ul class="lh-1">
+                                    <p class="text-lg text-discord-blurple font-bold">{{ __('Filter') }}:</p>
+                                    <ul class="list-inside list-disc">
                                         @foreach($rollout['filters'] as $filter)
-                                            <li class="mt-2">
-                                                <span class="text-white">{{ $filter }}</span>
-                                            </li>
+                                            <li>{{ $filter }}</li>
                                         @endforeach
                                     </ul>
-                                    <hr>
+                                    <hr class="my-3 opacity-10" />
                                 @endif
                                 @foreach($rollout['buckets'] as $bucket)
                                     @php($bucketInfo = $buckets["BUCKET {$bucket['id']}"] ?? ['id' => -1, 'name' => 'None', 'description' => ''])
                                     <div>
                                         @if($bucketInfo['name'] == 'None' || $bucketInfo['name'] == 'Control')
-                                            <span class="text-danger fw-semibold">{{ $bucketInfo['name'] }}</span>
+                                            <span class="text-discord-red font-bold">{{ $bucketInfo['name'] }}</span>
                                         @else
-                                            <span class="text-success fw-semibold">{{ $bucketInfo['name'] }}</span>
+                                            <span class="text-discord-green font-bold">{{ $bucketInfo['name'] }}</span>
                                         @endif
 
-                                        <span class="text-white-50">
-                                            {{ $bucketInfo['description'] }}@if($bucketInfo['description']):
+                                        <span class="text-gray-300">
+                                            @if($bucketInfo['description'])
+                                                {{ $bucketInfo['description'] }}:
                                             @endif
-                                            <b>{{ $bucket['count'] / (10000)*100 }}&percnt;</b>
+
+                                            <span class="font-semibold">{{ calcPercent($bucket['count'], 10000) }}&percnt;</span>
+
                                             @if($bucket['groups'])
-                                                <span class="small">
+                                                <span class="text-sm">
                                                     @foreach($bucket['groups'] as $group)
                                                         @if($loop->first)(@endif{{ $group['start'] }} - {{ $group['end'] }}@if($loop->last))@else, @endif
                                                     @endforeach()
