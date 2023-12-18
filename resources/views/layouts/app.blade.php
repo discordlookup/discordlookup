@@ -21,7 +21,7 @@
     @hasSection('description')<meta name="description" content="@yield('description')">@endif
 
     <meta name="keywords" content="@hasSection('keywords')@yield('keywords'), @endif
-discord, discord lookup, discordlookup, lookup, snowflake, guild count, invite info, user info, discord tools, tools">
+discord, discord lookup, discordlookup, lookup, snowflake, toolbox, tool box, guild count, invite info, user info, discord tools, tools, experiments, rollouts, search, discord search">
 
     @hasSection('og.sitename')
         <meta property="og:site_name" content="@yield('og.sitename')">

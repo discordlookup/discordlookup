@@ -462,17 +462,17 @@ function getPremiumType($premiumType)
 
 /**
  * @param $userId
- * @param $avatar
+ * @param $userAvatar
  * @param int $size
  * @param string $format
  * @param bool $allowAnimated
  * @return string Discord CDN User Avatar URL
  * @see https://discord.com/developers/docs/reference#image-formatting
  */
-function getAvatarUrl($userId, $avatar, int $size = 64, string $format = 'webp', bool $allowAnimated = true)
+function getUserAvatarUrl($userId, $userAvatar, int $size = 64, string $format = 'webp', bool $allowAnimated = true)
 {
-    if ($allowAnimated && str_starts_with($avatar, 'a_')) $format = 'gif';
-    return env('DISCORD_CDN_URL') . "/avatars/{$userId}/{$avatar}.{$format}?size={$size}";
+    if ($allowAnimated && str_starts_with($userAvatar, 'a_')) $format = 'gif';
+    return env('DISCORD_CDN_URL') . "/avatars/{$userId}/{$userAvatar}.{$format}?size={$size}";
 }
 
 /**
@@ -480,37 +480,50 @@ function getAvatarUrl($userId, $avatar, int $size = 64, string $format = 'webp',
  * @return string Discord CDN User Default Avatar URL
  * @see https://discord.com/developers/docs/reference#image-formatting
  */
-function getDefaultAvatarUrl($userId)
+function getDefaultUserAvatarUrl($userId = null)
 {
-    return env('DISCORD_CDN_URL') . '/embed/avatars/' . (($userId >> 22) % 6) . '.png';
+    return env('DISCORD_CDN_URL') . '/embed/avatars/' . ($userId ? (($userId >> 22) % 6) : '0') . '.png';
+}
+
+/**
+ * @param $guildId
+ * @param $guildIcon
+ * @param int $size
+ * @param string $format
+ * @return string Discord CDN Guild Icon URL
+ * @see https://discord.com/developers/docs/reference#image-formatting
+ */
+function getGuildIconUrl($guildId, $guildIcon, int $size = 128, string $format = 'webp')
+{
+    return env('DISCORD_CDN_URL') . "/icons/{$guildId}/{$guildIcon}.{$format}?size={$size}";
 }
 
 /**
  * @param $userId
- * @param $banner
+ * @param $guildBanner
  * @param int $size
  * @param string $format
  * @param bool $allowAnimated
  * @return string Discord CDN User Banner URL
  * @see https://discord.com/developers/docs/reference#image-formatting
  */
-function getGuildBannerUrl($userId, $banner, int $size = 64, string $format = 'webp', bool $allowAnimated = true)
+function getGuildBannerUrl($userId, $guildBanner, int $size = 64, string $format = 'webp', bool $allowAnimated = true)
 {
-    if ($allowAnimated && str_starts_with($banner, 'a_')) $format = 'gif';
-    return env('DISCORD_CDN_URL') . "/banners/{$userId}/{$banner}.{$format}?size={$size}";
+    if ($allowAnimated && str_starts_with($guildBanner, 'a_')) $format = 'gif';
+    return env('DISCORD_CDN_URL') . "/banners/{$userId}/{$guildBanner}.{$format}?size={$size}";
 }
 
 /**
  * @param $scheduledEventId
- * @param $image
+ * @param $scheduledEventCoverImage
  * @param int $size
  * @param string $format
  * @return string Discord CDN Guild Scheduled Event Cover URL
  * @see https://discord.com/developers/docs/reference#image-formatting
  */
-function getGuildScheduledEventCoverUrl($scheduledEventId, $image, int $size = 64, string $format = 'webp')
+function getGuildScheduledEventCoverUrl($scheduledEventId, $scheduledEventCoverImage, int $size = 64, string $format = 'webp')
 {
-    return env('DISCORD_CDN_URL') . "/guild-events/{$scheduledEventId}/{$image}.{$format}?size={$size}";
+    return env('DISCORD_CDN_URL') . "/guild-events/{$scheduledEventId}/{$scheduledEventCoverImage}.{$format}?size={$size}";
 }
 
 /**
@@ -537,6 +550,32 @@ function getCustomEmojiUrl($emojiId, int $size = 64, string $format = 'webp', bo
 function getStickerUrl($stickerId, int $size = 128, string $format = 'png')
 {
     return env('DISCORD_CDN_URL') . "/stickers/{$stickerId}.{$format}?size={$size}";
+}
+
+/**
+ * @param $applicationId
+ * @param $icon
+ * @param int $size
+ * @param string $format
+ * @return string Discord CDN Application Icon URL
+ * @see https://discord.com/developers/docs/reference#image-formatting
+ */
+function getApplicationIconUrl($applicationId, $icon, int $size = 128, string $format = 'webp')
+{
+    return env('DISCORD_CDN_URL') . "/app-icons/{$applicationId}/{$icon}.{$format}?size={$size}";
+}
+
+/**
+ * @param $applicationId
+ * @param $coverImage
+ * @param int $size
+ * @param string $format
+ * @return string Discord CDN Application Cover URL
+ * @see https://discord.com/developers/docs/reference#image-formatting
+ */
+function getApplicationCoverUrl($applicationId, $coverImage, int $size = 128, string $format = 'webp')
+{
+    return env('DISCORD_CDN_URL') . "/app-icons/{$applicationId}/{$coverImage}.{$format}?size={$size}";
 }
 
 /**
@@ -613,10 +652,10 @@ function getUser($userId)
         $array['isBot'] = $responseJson['bot'];
 
     if (key_exists('avatar', $responseJson) && $responseJson['avatar'] != null)
-        $array['avatarUrl'] = getAvatarUrl($responseJson['id'], $responseJson['avatar'], 512, 'webp', true);
+        $array['avatarUrl'] = getUserAvatarUrl($responseJson['id'], $responseJson['avatar'], 512, 'webp', true);
 
     if (empty($array['avatarUrl']))
-        $array['avatarUrl'] = getDefaultAvatarUrl($responseJson['id']);
+        $array['avatarUrl'] = getDefaultUserAvatarUrl($responseJson['id']);
 
     // TODO: Add custom avatar decorations once released and documented by Discord
     if (key_exists('avatar_decoration_data', $responseJson) && $responseJson['avatar_decoration_data'] != null && key_exists('asset', $responseJson['avatar_decoration_data']) && $responseJson['avatar_decoration_data']['asset'] != null)
@@ -711,7 +750,7 @@ function getGuildPreview($guildId)
         'id' => '',
         'name' => '',
         'description' => '',
-        'iconUrl' => env('DISCORD_CDN_URL') . '/embed/avatars/0.png',
+        'iconUrl' => getDefaultUserAvatarUrl(),
         'splashUrl' => '',
         'discoverySplashUrl' => '',
         'features' => [],
@@ -762,7 +801,7 @@ function getGuildPreview($guildId)
         $array['stickers'] = $responseJson['stickers'];
 
     if($responseJson['icon'] != null)
-        $array['iconUrl'] = env('DISCORD_CDN_URL') . '/icons/' . $responseJson['id'] . '/' . $responseJson['icon'] . '?size=128';
+        $array['iconUrl'] = getGuildIconUrl($responseJson['id'], $responseJson['icon']);
 
     if(array_key_exists('splash', $responseJson) && $responseJson['splash'] != null)
         $array['splashUrl'] = env('DISCORD_CDN_URL') . '/splashes/' . $array['id'] . '/' . $responseJson['splash'];
@@ -800,7 +839,7 @@ function parseInviteJson($json)
             'id' => '',
             'name' => '',
             'description' => '',
-            'iconUrl' => env('DISCORD_CDN_URL') . '/embed/avatars/0.png',
+            'iconUrl' => getDefaultUserAvatarUrl(),
             'bannerUrl' => '',
             'features' => [],
             'isPartnered' => false,
@@ -900,7 +939,7 @@ function parseInviteJson($json)
         }
 
         if($json['guild']['icon'] != null)
-            $array['guild']['iconUrl'] = env('DISCORD_CDN_URL') . '/icons/' . $array['guild']['id'] . '/' . $json['guild']['icon'] . '?size=128';
+            $array['guild']['iconUrl'] = getGuildIconUrl($array['guild']['id'], $json['guild']['icon']);
 
         if(array_key_exists('banner', $json['guild']) && $json['guild']['banner'] != null)
             $array['guild']['bannerUrl'] = getGuildBannerUrl($array['guild']['id'], $json['guild']['banner'], 512, 'webp', true);
@@ -962,10 +1001,10 @@ function parseInviteJson($json)
             $array['inviter']['isBot'] = $json['inviter']['bot'];
 
         if (key_exists('avatar', $json['inviter']) && $json['inviter']['avatar'] != null)
-            $array['inviter']['avatarUrl'] = getAvatarUrl($json['inviter']['id'], $json['inviter']['avatar'], 512, 'webp', true);
+            $array['inviter']['avatarUrl'] = getUserAvatarUrl($json['inviter']['id'], $json['inviter']['avatar'], 512, 'webp', true);
 
         if (empty($array['inviter']['avatarUrl']))
-            $array['inviter']['avatarUrl'] = getDefaultAvatarUrl($json['inviter']['id']);
+            $array['inviter']['avatarUrl'] = getDefaultUserAvatarUrl($json['inviter']['id']);
 
         // TODO: Add custom avatar decorations once released and documented by Discord
         if (key_exists('avatar_decoration_data', $json['inviter']) && $json['inviter']['avatar_decoration_data'] != null && key_exists('asset', $json['inviter']['avatar_decoration_data']) && $json['inviter']['avatar_decoration_data']['asset'] != null)
@@ -1090,7 +1129,7 @@ function getApplicationRpc($applicationId)
         'description' => '',
         'descriptionFormatted' => '',
         'type' => '',
-        'iconUrl' => env('DISCORD_CDN_URL') . '/embed/avatars/0.png',
+        'iconUrl' => getDefaultUserAvatarUrl(),
         'coverImageUrl' => '',
         'hook' => '',
         'guildId' => '',
@@ -1142,10 +1181,10 @@ function getApplicationRpc($applicationId)
         $array['type'] = $responseJson['type'];
 
     if (key_exists('icon', $responseJson) && $responseJson['icon'] != null)
-        $array['iconUrl'] = env('DISCORD_CDN_URL') . '/app-icons/' . $responseJson['id'] . '/' . $responseJson['icon'] . '?size=512';
+        $array['iconUrl'] = getApplicationIconUrl($responseJson['id'], $responseJson['icon']);
 
     if (key_exists('cover_image', $responseJson) && $responseJson['cover_image'] != null)
-        $array['coverImageUrl'] = env('DISCORD_CDN_URL') . '/app-icons/' . $responseJson['id'] . '/' . $responseJson['cover_image'] . '?size=512';
+        $array['coverImageUrl'] = getApplicationCoverUrl($responseJson['id'], $responseJson['cover_image']);
 
     if(array_key_exists('hook', $responseJson))
         $array['hook'] = $responseJson['hook'];

@@ -126,7 +126,7 @@ class User extends Authenticatable
      * @return string
      */
     public function getAvatarUrlAttribute(){
-        return $this->avatar ? getAvatarUrl($this->discord_id, $this->avatar, 64, 'webp', true) : getDefaultAvatarUrl($this->discord_id);
+        return $this->avatar ? getUserAvatarUrl($this->discord_id, $this->avatar) : getDefaultUserAvatarUrl($this->discord_id);
     }
 
     /**

@@ -166,21 +166,36 @@
                                                 <tr class="{{ $loop->last ?: 'border-b border-discord-gray-4' }}">
                                                     <td class="p-3 text-center">
                                                         @if($guild['icon'])
-                                                            <a href="{{ env('DISCORD_CDN_URL') }}/icons/{{ $guild['id'] }}/{{ $guild['icon'] }}" target="_blank">
-                                                                <img src="{{ env('DISCORD_CDN_URL') }}/icons/{{ $guild['id'] }}/{{ $guild['icon'] }}?size=128" loading="lazy" class="inline-block h-12 w-12 rounded-full" alt="guild icon">
+                                                            <a href="{{ getGuildIconUrl($guild['id'], $guild['icon'], 1024, 'png') }}"
+                                                               target="_blank">
+                                                                <img
+                                                                    src="{{ getGuildIconUrl($guild['id'], $guild['icon']) }}"
+                                                                    loading="lazy"
+                                                                    class="inline-block h-12 w-12 rounded-full"
+                                                                    alt="guild icon">
                                                             </a>
                                                         @else
-                                                            <img src="{{ getDefaultAvatarUrl() }}" loading="lazy" class="inline-block h-12 w-12 rounded-full" alt="guild default icon">
+                                                            <img src="{{ getDefaultUserAvatarUrl() }}" loading="lazy"
+                                                                 class="inline-block h-12 w-12 rounded-full"
+                                                                 alt="guild default icon">
                                                         @endif
                                                     </td>
                                                     <td class="p-3">
                                                         <p class="font-bold">
                                                             {{ cutString($guild['name'], 80) }}
-                                                            @if($guild['owner']) {!! getDiscordBadgeServerIcons('owner', __('You own')) !!}
-                                                            @elseif(hasAdministrator($guild['permissions'])) {!! getDiscordBadgeServerIcons('administrator', __('You administrate')) !!}
-                                                            @elseif(hasModerator($guild['permissions'])) {!! getDiscordBadgeServerIcons('moderator', __('You moderate')) !!} @endif
-                                                            @if(in_array('VERIFIED', $guild['features'])) {!! getDiscordBadgeServerIcons('verified', __('Discord Verified')) !!} @endif
-                                                            @if(in_array('PARTNERED', $guild['features'])) {!! getDiscordBadgeServerIcons('partner', __('Discord Partner')) !!} @endif
+                                                            @if($guild['owner'])
+                                                                {!! getDiscordBadgeServerIcons('owner', __('You own')) !!}
+                                                            @elseif(hasAdministrator($guild['permissions']))
+                                                                {!! getDiscordBadgeServerIcons('administrator', __('You administrate')) !!}
+                                                            @elseif(hasModerator($guild['permissions']))
+                                                                {!! getDiscordBadgeServerIcons('moderator', __('You moderate')) !!}
+                                                            @endif
+                                                            @if(in_array('VERIFIED', $guild['features']))
+                                                                {!! getDiscordBadgeServerIcons('verified', __('Discord Verified')) !!}
+                                                            @endif
+                                                            @if(in_array('PARTNERED', $guild['features']))
+                                                                {!! getDiscordBadgeServerIcons('partner', __('Discord Partner')) !!}
+                                                            @endif
                                                         </p>
                                                         <p class="text-gray-400">
                                                             {{ $guild['id'] }} &bull; {{ date('Y-m-d', getTimestamp($guild['id']) / 1000) }}
