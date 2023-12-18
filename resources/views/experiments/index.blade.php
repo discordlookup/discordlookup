@@ -10,9 +10,9 @@
             <div class="col-span-1">
                 <x-input-prepend-icon icon="fas fa-flask">
                     <select wire:model="category" class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0">
-                        <option value="all" selected>{{ __('All Experiments') }}</option>
-                        <option value="user" disabled>{{ __('User Experiments') }}</option>
-                        <option value="guild">{{ __('Guild Experiments') }}</option>
+                        <option value="all" selected>{{ __('All Experiments') }} ({{ sizeof($this->experimentsJsonSearch) }})</option>
+                        <option value="user" disabled>{{ __('User Experiments') }} ({{ sizeof(array_filter($this->experimentsJsonSearch, fn($item) => $item['type'] === 'user')) }})</option>
+                        <option value="guild">{{ __('Guild Experiments') }} ({{ sizeof(array_filter($this->experimentsJsonSearch, fn($item) => $item['type'] === 'guild')) }})</option>
                     </select>
                 </x-input-prepend-icon>
             </div>

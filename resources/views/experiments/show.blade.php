@@ -151,12 +151,12 @@
                             </x-input-prepend-icon>
                         </div>
 
-                        @if(empty($guilds))
-                            <x-error-message>
-                                {{ __('No Guild found.') }}
-                            </x-error-message>
-                        @else
-                            <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
+                        <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
+                            @if(empty($guilds))
+                                <div class="py-4 px-5 text-gray-200 lg:px-6 w-full items-center">
+                                    {{ __('No guilds found.') }}
+                                </div>
+                            @else
                                 <div class="grow px-5 py-3">
                                     <div class="min-w-full overflow-x-auto">
                                         <table class="min-w-full whitespace-nowrap align-middle text-sm">
@@ -170,7 +170,7 @@
                                                                 <img src="{{ env('DISCORD_CDN_URL') }}/icons/{{ $guild['id'] }}/{{ $guild['icon'] }}?size=128" loading="lazy" class="inline-block h-12 w-12 rounded-full" alt="guild icon">
                                                             </a>
                                                         @else
-                                                            <img src="{{ env('DISCORD_CDN_URL') }}/embed/avatars/0.png" loading="lazy" class="inline-block h-12 w-12 rounded-full" alt="guild default icon">
+                                                            <img src="{{ getDefaultAvatarUrl() }}" loading="lazy" class="inline-block h-12 w-12 rounded-full" alt="guild default icon">
                                                         @endif
                                                     </td>
                                                     <td class="p-3">
@@ -238,8 +238,8 @@
                                         </table>
                                     </div>
                                 </div>
-                            </div>
-                        @endif
+                            @endif
+                        </div>
                     @endauth
                 @endif
             </div>
