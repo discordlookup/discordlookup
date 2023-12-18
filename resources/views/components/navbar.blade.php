@@ -2,7 +2,7 @@
     $routes = [
         [
             'name' => __('Home'),
-            'route' => route('home'),
+            'route' => 'home',
             'subRoutes' => []
         ],
         [
@@ -11,19 +11,19 @@
             'subRoutes' => [
                 [
                     'name' =>  __('User Lookup'),
-                    'route' => route('userlookup'),
+                    'route' => 'userlookup',
                 ],
                 [
                     'name' => __('Guild Lookup'),
-                    'route' => route('guildlookup'),
+                    'route' => 'guildlookup',
                 ],
                 [
                     'name' => __('Application Lookup'),
-                    'route' => route('applicationlookup'),
+                    'route' => 'applicationlookup',
                 ],
                 [
                     'name' => __('Invite Resolver'),
-                    'route' => route('inviteresolver'),
+                    'route' => 'inviteresolver',
                 ],
             ]
         ],
@@ -33,26 +33,26 @@
             'subRoutes' => [
                 [
                     'name' =>  __('Snowflake Decoder'),
-                    'route' => route('snowflake'),
+                    'route' => 'snowflake',
                 ],
                 [
                     'name' => __('Timestamp Styles'),
-                    'route' => route('timestamp'),
+                    'route' => 'timestamp',
                 ],
                 [
                     'name' => __('Snowflake Distance Calculator'),
-                    'route' => route('snowflake-distance-calculator'),
+                    'route' => 'snowflake-distance-calculator',
                 ],
             ]
         ],
         [
             'name' => __('Guild List'),
-            'route' => route('guildlist'),
+            'route' => 'guildlist',
             'subRoutes' => []
         ],
         [
             'name' => __('Experiments'),
-            'route' => route('experiments.index'),
+            'route' => 'experiments.index',
             'subRoutes' => []
         ],
         [
@@ -61,21 +61,21 @@
             'subRoutes' => [
                 [
                     'name' =>  __('Permissions Calculator'),
-                    'route' => route('permissions-calculator'),
+                    'route' => 'permissions-calculator',
                 ],
                 [
                     'name' => __('Guild Shard Calculator'),
-                    'route' => route('guild-shard-calculator'),
+                    'route' => 'guild-shard-calculator',
                 ],
                 [
                     'name' => __('Discord Webhook Invalidator'),
-                    'route' => route('webhook-invalidator'),
+                    'route' => 'webhook-invalidator',
                 ],
             ]
         ],
         [
             'name' => __('Help'),
-            'route' => route('help'),
+            'route' => 'help',
             'subRoutes' => []
         ],
     ];
@@ -91,8 +91,11 @@
                 <ul class="hidden lg:flex items-center">
                     @foreach($routes as $route)
                         <li class="relative group">
-                            <a href="{{ $route['route'] }}" class="font-semibold inline-flex items-center space-x-1 h-8 px-4 group-hover:text-gray-300 text-white hover:text-gray-300">
-                                <span class="font-semibold">{{ $route['name'] }}</span>
+                            <a
+                                href="{{ $route['subRoutes'] ? 'javascript:;' : route($route['route']) }}"
+                                class="inline-flex items-center space-x-1 h-8 px-4 text-white hover:text-gray-300 group-hover:text-gray-300 {{ (request()->routeIs($route['route']) || (is_array($route['subRoutes']) && collect($route['subRoutes'])->contains(fn($value, $key) => request()->routeIs($value['route'])))) ? 'font-bold' : 'font-semibold' }}"
+                            >
+                                <span>{{ $route['name'] }}</span>
                                 @if($route['subRoutes'])
                                     <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" class="opacity-50 transform transition duration-200 ease-out group-hover:rotate-180 hi-solid hi-chevron-down inline-block w-4 h-4"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
                                 @endif
@@ -104,7 +107,10 @@
                                             <div class="p-6 space-y-6">
                                                 <nav class="flex flex-col space-y-3">
                                                     @foreach($route['subRoutes'] as $subRoute)
-                                                        <a href="{{ $subRoute['route'] }}" class="flex items-center space-x-2 text-gray-200 hover:text-discord-blurple font-medium text-sm">
+                                                        <a
+                                                            href="{{ route($subRoute['route']) }}"
+                                                            class="flex items-center space-x-2 font-medium text-sm {{ request()->routeIs($subRoute['route']) ? 'text-discord-blurple active:text-[#414aa5]' : 'text-gray-200 hover:text-discord-blurple active:text-[#414aa5]' }} }}"
+                                                        >
                                                             {{ $subRoute['name'] }}
                                                         </a>
                                                     @endforeach
@@ -137,6 +143,7 @@
                                 x-bind:aria-expanded="open"
                                 x-on:click="open = true"
                             >
+                                <img src="{{ auth()->user()->avatarUrl }}" alt="User Avatar" class="inline-block h-4 w-4 flex-none rounded-full" />
                                 <span>{{ auth()->user()->displayName }}</span>
                                 <svg class="hi-mini hi-chevron-down inline-block h-4 w-4 opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
                             </button>
@@ -157,7 +164,7 @@
                             >
                                 <div class="divide-y divide-discord-gray-5 rounded-lg bg-discord-gray-1 ring-1 ring-gray-700 ring-opacity-5">
                                     <div class="flex items-center space-x-3 px-5 py-3">
-                                        <img src="{{ auth()->user()->avatarUrl }}" alt="User Avatar" class="inline-block h-10 w-10 flex-none rounded-full"/>
+                                        <img src="{{ auth()->user()->avatarUrl }}" alt="User Avatar" class="inline-block h-10 w-10 flex-none rounded-full" />
                                         <div class="grow text-sm">
                                             <a href="{{ route('userlookup', auth()->user()->discord_id) }}" class="font-semibold text-gray-300 hover:text-gray-400">
                                                 {{ auth()->user()->displayName }}
