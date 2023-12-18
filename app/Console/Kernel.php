@@ -27,6 +27,9 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             fetchExperiments();
         })->name('load experiments')->everyThirtyMinutes();
+
+        $schedule->command('sitemap:generate')->daily();
+        $schedule->command('sitemap:generate')->everyMinute()->skip(fn () => \File::exists(public_path('sitemap.xml')));
     }
 
     /**
