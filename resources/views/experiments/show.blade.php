@@ -129,7 +129,7 @@
             @endforeach
         </div>
 
-        <div class="space-y-3">
+        <div class="space-y-3" id="guilds">
             @if($experiment['type'] == 'guild' && $experiment['rollout'])
                 @guest
                     <x-login-required />
