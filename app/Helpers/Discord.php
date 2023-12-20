@@ -748,9 +748,7 @@ function getGuildWidget($guildId)
     }
     else
     {
-        $response = Http::withHeaders([
-            'Authorization' => 'Bot ' . env('DISCORD_BOT_TOKEN'),
-        ])->get(env('DISCORD_API_URL') . '/guilds/' . $guildId . '/widget.json');
+        $response = Http::get(env('DISCORD_API_URL') . '/guilds/' . $guildId . '/widget.json');
 
         if(!$response->ok())
             return null;
