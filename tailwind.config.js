@@ -16,6 +16,7 @@ module.exports = {
         'text-green-700',
         'bg-red-200',
         'text-red-700',
+        'line-through',
     ],
     darkMode: 'class',
     theme: {

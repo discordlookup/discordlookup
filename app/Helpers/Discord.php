@@ -589,9 +589,54 @@ function getDiscordBadgeServerIcons($name, $title)
 }
 
 
+/**
+ * @param $boostLevel
+ * @return string
+ */
 function getDiscordBadgeServerBoosts($boostLevel)
 {
     return "<img src=\"" . asset('images/discord/icons/boosts/boost-' . $boostLevel . '.svg') . "\" class=\"inline-block h-4 w-4 mb-0.5 mr-px\" alt=\"Boost Level {$boostLevel}\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Boost Level {$boostLevel}\">";
+}
+
+/**
+ * @param $text
+ * @return string
+ * @see https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline-#h_01GY0DAWJX3CS91G9F1PPJAVBX
+ */
+function renderDiscordMarkdown($text) {
+    // PLEASE DO NOT CHANGE THE ORDER!
+
+    // Underline Bold Italics
+    $text = preg_replace('/__(\*\*\*|___)(.*?)\1__/', '<span class="underline font-bold italic">$2</span>', $text);
+
+    // Bold Italics
+    $text = preg_replace('/(\*\*\*|___)(.*?)\1/', '<span class="font-bold italic">$2</span>', $text);
+
+    // Underline Bold
+    $text = preg_replace('/__(\*\*|__)(.*?)\1__/', '<span class="underline font-bold">$2</span>', $text);
+
+    // Underline Italics
+    $text = preg_replace('/__(\*|_)(.*?)\1__/', '<span class="underline italic">$2</span>', $text);
+
+    // Underline
+    $text = preg_replace('/__(.*?)__/', '<span class="underline">$1</span>', $text);
+
+    // Bold
+    $text = preg_replace('/(\*\*)(.*?)\1/', '<span class="font-bold">$2</span>', $text);
+
+    // Italics
+    $text = preg_replace('/(\*|_)(.*?)\1/', '<span class="italic">$2</span>', $text);
+
+    // Strikethrough
+    $text = preg_replace('/~~(.*?)~~/', '<span class="line-through">$1</span>', $text);
+
+    // Links
+    $text = preg_replace('/(http|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/', '<a href="$0" rel="nofollow noopener" target="_blank" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">$0</a>', $text);
+
+    // Line break
+    $text = str_replace("\n", "<br>", $text);
+
+    return $text;
 }
 
 /**
@@ -1171,10 +1216,7 @@ function getApplicationRpc($applicationId)
     if(array_key_exists('description', $responseJson))
     {
         $array['description'] = $responseJson['description'];
-        // No Markdown parse for security reasons (show images, ...)
-        // TODO: Only Discord Markdown (Bold, Italic, Underline)
-        //$array['descriptionFormatted'] = \Illuminate\Mail\Markdown::parse(str_replace("\n", "<br>", $array['description']));
-        $array['descriptionFormatted'] = str_replace("\n", "<br>", $array['description']);
+        $array['descriptionFormatted'] = renderDiscordMarkdown(strip_tags($array['description']));
     }
 
     if(array_key_exists('type', $responseJson))
