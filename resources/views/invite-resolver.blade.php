@@ -271,11 +271,11 @@
             @endif
 
             @if(array_key_exists('emojis', $inviteData['guild']) && !empty($inviteData['guild']['emojis']))
-                <x-emoji-card :emojis="$inviteData['guild']['emojis']" :guild-id="$inviteData['guild']['id']" />
+                <x-emoji-card :emojis="$inviteData['guild']['emojis']" :guildId="$inviteData['guild']['id']" />
             @endif
 
             @if(array_key_exists('stickers', $inviteData['guild']) && !empty($inviteData['guild']['stickers']))
-                <x-sticker-card :stickers="$inviteData['guild']['stickers']" :guild-id="$inviteData['guild']['id']" />
+                <x-sticker-card :stickers="$inviteData['guild']['stickers']" :guildId="$inviteData['guild']['id']" />
             @endif
 
             @if(array_key_exists('channels', $inviteData['guild']) && !empty($inviteData['guild']['channels']))

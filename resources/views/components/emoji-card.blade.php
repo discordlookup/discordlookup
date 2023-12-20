@@ -5,11 +5,13 @@
                 <h3 class="font-semibold">{{ __('Emojis') }}</h3>
                 <span class="mt-0.5 text-sm">({{ sizeof($emojis) }})</span>
             </div>
+            {{-- TODO
             <div class="text-center sm:text-right">
                 <button type="button" onclick="downloadEmojis('{{ $guildId }}')" id="buttonDownloadAllEmojis" class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-2 py-1 leading-5 text-sm w-full border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]">
                     <i class="fas fa-download"></i> {{ __('Download') }}
                 </button>
             </div>
+            --}}
         </div>
         <div class="p-5 lg:p-6 grow w-full">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
@@ -56,6 +58,7 @@
     </div>
     --}}
 
+    {{-- TODO
     <script>
         function downloadEmojis(guildId) {
             document.getElementById('buttonDownloadAllEmojis').disabled = true;
@@ -93,4 +96,5 @@
             });
         }
     </script>
+    --}}
 </div>
