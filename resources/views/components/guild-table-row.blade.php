@@ -29,7 +29,7 @@
             {{ $guild['id'] }} &bull; {{ date('Y-m-d', getTimestamp($guild['id']) / 1000) }}
         </p>
     </div>
-    <div class="col-span-5 text-center md:text-right my-auto text-sm">
+    <div class="col-span-5 text-center md:text-right my-auto text-sm space-y-1 md:space-y-0">
         <a role="button"
            href="{{ route('guildlookup', ['snowflake' => $guild['id']]) }}"
            target="_blank"

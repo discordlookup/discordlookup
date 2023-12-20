@@ -1,13 +1,12 @@
 <div>
     <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
-        <div
-            class="py-4 px-5 lg:px-6 w-full flex items-center justify-between border-b border-discord-gray-4">
+        <div class="py-4 px-5 lg:px-6 w-full flex items-center justify-between border-b border-discord-gray-4">
             <div class="flex space-x-1">
                 <h3 class="font-semibold">{{ __('Emojis') }}</h3>
                 <span class="mt-0.5 text-sm">({{ sizeof($emojis) }})</span>
             </div>
-            <div class="mt-3 sm:mt-0 text-center sm:text-right">
-                <button type="button" onclick="downloadEmojis('0')" id="buttonDownloadAllEmojis" class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-2 py-1 leading-5 text-sm w-full border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]">
+            <div class="text-center sm:text-right">
+                <button type="button" onclick="downloadEmojis('{{ $guildId }}')" id="buttonDownloadAllEmojis" class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-2 py-1 leading-5 text-sm w-full border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]">
                     <i class="fas fa-download"></i> {{ __('Download') }}
                 </button>
             </div>

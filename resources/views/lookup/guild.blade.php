@@ -50,11 +50,11 @@
             <x-guild-card :guild="$guildData" invite-type="0" />
 
             @if(array_key_exists('emojis', $guildData) && !empty($guildData['emojis']))
-                <x-emoji-card :emojis="$guildData['emojis']" />
+                <x-emoji-card :emojis="$guildData['emojis']" :guild-id="$guildData['id']" />
             @endif
 
             @if(array_key_exists('stickers', $guildData) && !empty($guildData['stickers']))
-                <x-sticker-card :stickers="$guildData['stickers']" />
+                <x-sticker-card :stickers="$guildData['stickers']" :guild-id="$guildData['id']" />
             @endif
         @endif
 

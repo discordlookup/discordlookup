@@ -6,8 +6,8 @@
                 <span class="mt-0.5 text-sm">({{ sizeof($stickers) }})</span>
             </div>
             {{-- TODO: Check sticker endpoint CORS policy
-            <div class="mt-3 sm:mt-0 text-center sm:text-right">
-                <button type="button" onclick="downloadStickers('0')" id="buttonDownloadAllStickers" class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-2 py-1 leading-5 text-sm w-full border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]">
+            <div class="text-center sm:text-right">
+                <button type="button" onclick="downloadStickers('{{ $guildId }}')" id="buttonDownloadAllStickers" class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-2 py-1 leading-5 text-sm w-full border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]">
                     <i class="fas fa-download"></i> {{ __('Download') }}
                 </button>
             </div>

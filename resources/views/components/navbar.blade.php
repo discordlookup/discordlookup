@@ -233,7 +233,7 @@
                 </button>
             </div>
             <hr class="opacity-10" />
-            <div class="flex flex-col gap-6 px-6 py-6">
+            <div class="flex flex-col gap-4 px-6 py-6">
                 @foreach($routes as $route)
                     <div class="space-y-2">
                         @if($route['subRoutes'])
