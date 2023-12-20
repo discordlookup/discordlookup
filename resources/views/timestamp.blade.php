@@ -62,76 +62,77 @@
         </div>
         <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
             <div class="p-5 lg:p-6 grow w-full">
-                <table class="min-w-full text-sm align-middle whitespace-nowrap">
-                    <thead>
-                    <tr class="border-b-2 border-discord-gray-4">
-                        <th class="p-3 font-semibold text-sm tracking-wider uppercase text-left">{{ __('Syntax') }}</th>
-                        <th class="p-3 font-semibold text-sm tracking-wider uppercase text-left">{{ __('Preview') }}</th>
-                        <th class="p-3 font-semibold text-sm tracking-wider uppercase text-left">{{ __('Description') }}</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr class="border-b border-discord-gray-4">
-                        <td class="p-3"><x-input-copy value="<t:{{ $timestamp }}:t>" hash="{{ Str::random() }}" /></td>
-                        <td class="p-3" id="momentShortTime"></td>
-                        <td class="p-3">{{ __('Short Time') }}</td>
-                    </tr>
-                    <tr class="border-b border-discord-gray-4">
-                        <td class="p-3"><x-input-copy value="<t:{{ $timestamp }}:T>" hash="{{ Str::random() }}" /></td>
-                        <td class="p-3" id="momentLongTime"></td>
-                        <td class="p-3">{{ __('Long Time') }}</td>
-                    </tr>
-                    <tr class="border-b border-discord-gray-4">
-                        <td class="p-3"><x-input-copy value="<t:{{ $timestamp }}:d>" hash="{{ Str::random() }}" /></td>
-                        <td class="p-3" id="momentShortDate"></td>
-                        <td class="p-3">{{ __('Short Date') }}</td>
-                    </tr>
-                    <tr class="border-b border-discord-gray-4">
-                        <td class="p-3"><x-input-copy value="<t:{{ $timestamp }}:D>" hash="{{ Str::random() }}" /></td>
-                        <td class="p-3" id="momentLongDate"></td>
-                        <td class="p-3">{{ __('Long Date') }}</td>
-                    </tr>
-                    <tr class="border-b border-discord-gray-4">
-                        <td class="p-3"><x-input-copy value="<t:{{ $timestamp }}:f>" hash="{{ Str::random() }}" /></td>
-                        <td class="p-3" id="momentShortDateTime"></td>
-                        <td class="p-3">{{ __('Short Date/Time') }}</td>
-                    </tr>
-                    <tr class="border-b border-discord-gray-4">
-                        <td class="p-3"><x-input-copy value="<t:{{ $timestamp }}:F>" hash="{{ Str::random() }}" /></td>
-                        <td class="p-3" id="momentLongDateTime"></td>
-                        <td class="p-3">{{ __('Long Date/Time') }}</td>
-                    </tr>
-                    <tr class="border-b border-discord-gray-4">
-                        <td class="p-3"><x-input-copy value="<t:{{ $timestamp }}:R>" hash="{{ Str::random() }}" /></td>
-                        <td class="p-3" id="momentRelativeTime"></td>
-                        <td class="p-3">{{ __('Relative Time') }}</td>
-                    </tr>
-                    <tr>
-                        <td class="p-3"><x-input-copy value="{{ $timestamp }}" hash="{{ Str::random() }}" /></td>
-                        <td class="p-3">{{ $timestamp }}</td>
-                        <td class="p-3">{{ __('Timestamp') }}</td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="flex flex-col text-center md:text-left text-sm">
+                    <div class="hidden md:grid grid-cols-1 md:grid-cols-3 p-3 border-b-2 border-discord-gray-4 font-semibold tracking-wider uppercase">
+                        <div>{{ __('Syntax') }}</div>
+                        <div>{{ __('Preview') }}</div>
+                        <div>{{ __('Description') }}</div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 p-3 border-b border-discord-gray-4">
+                        <div class="order-last md:order-first"><x-input-copy value="<t:{{ $timestamp }}:t>" hash="{{ Str::random() }}" /></div>
+                        <div class="my-2 md:my-auto" id="momentShortTime"></div>
+                        <div class="my-auto order-first md:order-last">{{ __('Short Time') }}</div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 p-3 border-b border-discord-gray-4">
+                        <div class="order-last md:order-first"><x-input-copy value="<t:{{ $timestamp }}:T>" hash="{{ Str::random() }}" /></div>
+                        <div class="my-2 md:my-auto" id="momentLongTime"></div>
+                        <div class="my-auto order-first md:order-last">{{ __('Long Time') }}</div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 p-3 border-b border-discord-gray-4">
+                        <div class="order-last md:order-first"><x-input-copy value="<t:{{ $timestamp }}:d>" hash="{{ Str::random() }}" /></div>
+                        <div class="my-2 md:my-auto" id="momentShortDate"></div>
+                        <div class="my-auto order-first md:order-last">{{ __('Short Date') }}</div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 p-3 border-b border-discord-gray-4">
+                        <div class="order-last md:order-first"><x-input-copy value="<t:{{ $timestamp }}:D>" hash="{{ Str::random() }}" /></div>
+                        <div class="my-2 md:my-auto" id="momentLongDate"></div>
+                        <div class="my-auto order-first md:order-last">{{ __('Long Date') }}</div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 p-3 border-b border-discord-gray-4">
+                        <div class="order-last md:order-first"><x-input-copy value="<t:{{ $timestamp }}:f>" hash="{{ Str::random() }}" /></div>
+                        <div class="my-2 md:my-auto" id="momentShortDateTime"></div>
+                        <div class="my-auto order-first md:order-last">{{ __('Short Date/Time') }}</div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 p-3 border-b border-discord-gray-4">
+                        <div class="order-last md:order-first"><x-input-copy value="<t:{{ $timestamp }}:F>" hash="{{ Str::random() }}" /></div>
+                        <div class="my-2 md:my-auto" id="momentLongDateTime"></div>
+                        <div class="my-auto order-first md:order-last">{{ __('Long Date/Time') }}</div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 p-3 border-b border-discord-gray-4">
+                        <div class="order-last md:order-first"><x-input-copy value="<t:{{ $timestamp }}:R>" hash="{{ Str::random() }}" /></div>
+                        <div class="my-2 md:my-auto" id="momentRelativeTime"></div>
+                        <div class="my-auto order-first md:order-last">{{ __('Relative Time') }}</div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 p-3">
+                        <div class="order-last md:order-first"><x-input-copy value="{{ $timestamp }}" hash="{{ Str::random() }}" /></div>
+                        <div class="my-auto">{{ $timestamp }}</div>
+                        <div class="my-auto order-first md:order-last">{{ __('Timestamp') }}</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+        var currentTimestamp = 0;
         document.addEventListener('DOMContentLoaded', () => {
             $(function () {
                 Livewire.emit('changeTimezone', Intl.DateTimeFormat().resolvedOptions().timeZone);
+                setInterval(updateTimestamp, 1000);
             })
 
-            timestamp('{{ $timestamp }}');
+            setTimestamp('{{ $timestamp }}');
         })
 
-        window.addEventListener('updateTimestamp', event => timestamp(event.detail.timestamp));
+        window.addEventListener('updateTimestamp', event => setTimestamp(event.detail.timestamp));
 
-        {{-- TODO: Live Update --}}
-        function timestamp(timestamp) {
-            const mom = moment(timestamp * 1000);
+        function setTimestamp(timestamp) {
+            currentTimestamp = timestamp;
+            updateTimestamp();
+        }
+
+        function updateTimestamp() {
+            const mom = moment(currentTimestamp * 1000);
             document.getElementById('momentShortTime').innerText = mom.format('LT');
             document.getElementById('momentLongTime').innerText = mom.format('LTS');
             document.getElementById('momentShortDate').innerText = mom.format('L');

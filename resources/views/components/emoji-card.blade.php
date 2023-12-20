@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="p-5 lg:p-6 grow w-full">
-            <div class="grid grid-cols-2 gap-x-6 gap-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                 @foreach($emojis as $emoji)
                     <div class="w-full flex items-center">
                         <div class="mr-4">

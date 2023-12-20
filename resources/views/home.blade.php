@@ -4,9 +4,9 @@
 @section('robots', 'index, follow')
 
 <div>
-    <div class="flex flex-col items-center justify-center py-16">
-        <img class="max-w-2xl mb-1" src="{{ asset('images/branding/logo-light.svg') }}" alt="{{ env('APP_NAME') }} Logo" />
-        <p class="text-lg font-bold text-center">{{ __('Get more out of Discord with Discord Lookup') }}</p>
+    <div class="flex flex-col items-center justify-center space-y-1 py-16">
+        <img src="{{ asset('images/branding/logo-light.svg') }}" alt="{{ env('APP_NAME') }} Logo" />
+        <p class="text-xl font-bold text-center">{{ __('Get more out of Discord with Discord Lookup') }}</p>
     </div>
 
     <div class="space-y-4">

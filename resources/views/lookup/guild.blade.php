@@ -8,7 +8,7 @@
     <div class="py-12 xl:max-w-3xl mx-auto px-4 lg:px-10 space-y-3">
         <x-input-prepend-icon icon="far fa-snowflake">
             <input
-                wire:model="snowflake"
+                wire:model.defer="snowflake"
                 wire:keydown.enter="fetchGuild"
                 type="number"
                 placeholder="{{ __('Guild ID') }}"
@@ -16,8 +16,16 @@
             />
         </x-input-prepend-icon>
 
-        <button wire:click="fetchGuild" type="button" class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-4 py-2 leading-6 w-full border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]">
-            {{ __('Fetch Discord Information') }}
+        <button
+            wire:click="fetchGuild"
+            wire:loading.class="border-[#414aa5] bg-[#414aa5] cursor-not-allowed"
+            wire:loading.class.remove="border-discord-blurple bg-discord-blurple hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]"
+            wire:loading.attr="disabled"
+            type="button"
+            class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-4 py-2 leading-6 w-full border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]"
+        >
+            <span wire:loading.remove>{{ __('Fetch Discord Information') }}</span>
+            <span wire:loading><i class="fas fa-spinner fa-spin"></i> {{ __('Fetching...') }}</span>
         </button>
 
         @if($errorMessage)

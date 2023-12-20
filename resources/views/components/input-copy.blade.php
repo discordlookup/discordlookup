@@ -1,8 +1,8 @@
-<div>
+<div class="flex justify-center md:justify-start">
     <div class="flex items-center">
         <input
             id="input{{ $hash }}"
-            class="block border-none rounded-l z-1 px-3 py-2 leading-5 text-sm w-full bg-discord-gray-3 focus:outline-none focus:ring-0 -mr-px"
+            class="block border-none rounded-l z-1 px-3 py-2 leading-5 text-sm bg-discord-gray-3 focus:outline-none focus:ring-0 -mr-px"
             type="text"
             value="{{ $value }}"
             readonly

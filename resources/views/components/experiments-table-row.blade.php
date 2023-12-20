@@ -1,4 +1,4 @@
-<div class="grid grid-cols-1 md:grid-cols-12 gap-y-3 md:gap-y-0 {deleted ? 'opacity-50' : ''}">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-y-3 md:gap-y-0">
     <div class="col-span-1 inline-flex items-center justify-center">
         <i class="{{ $type == 'user' ? 'fas fa-user' : ($type == 'guild' ? 'fas fa-server' : 'fas fa-question') }} text-5xl text-discord-gray-5"></i>
     </div>

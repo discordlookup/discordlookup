@@ -8,7 +8,7 @@
     <div class="py-12 xl:max-w-3xl mx-auto px-4 lg:px-10 space-y-3">
         <x-input-prepend-icon icon="far fa-snowflake">
             <input
-                wire:model="snowflake"
+                wire:model.defer="snowflake"
                 wire:keydown.enter="fetchApplication"
                 type="number"
                 placeholder="{{ __('Application ID') }}"
@@ -16,8 +16,16 @@
             />
         </x-input-prepend-icon>
 
-        <button wire:click="fetchApplication" type="button" class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-4 py-2 leading-6 w-full border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]">
-            {{ __('Fetch Discord Information') }}
+        <button
+            wire:click="fetchApplication"
+            wire:loading.class="border-[#414aa5] bg-[#414aa5] cursor-not-allowed"
+            wire:loading.class.remove="border-discord-blurple bg-discord-blurple hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]"
+            wire:loading.attr="disabled"
+            type="button"
+            class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-4 py-2 leading-6 w-full border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]"
+        >
+            <span wire:loading.remove>{{ __('Fetch Discord Information') }}</span>
+            <span wire:loading><i class="fas fa-spinner fa-spin"></i> {{ __('Fetching...') }}</span>
         </button>
 
         @if($errorMessage)
@@ -50,116 +58,119 @@
         @if($applicationData)
             <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
                 <div class="py-4 px-5 lg:px-6 w-full flex items-center border-b border-discord-gray-4">
-                    <div class="mr-4">
-                        <a href="{{ $applicationData['iconUrl'] }}" target="_blank">
-                            <img
-                                src="{{ $applicationData['iconUrl'] }}"
-                                loading="lazy"
-                                alt="application icon"
-                                class="inline-block w-16 h-16 rounded-full"
-                            />
-                        </a>
-                    </div>
-                    <div>
-                        <p class="font-semibold">{{ $applicationData['name'] }}</p>
-                        <p class="text-gray-500 text-sm">{{ $applicationData['id'] }}</p>
-                    </div>
-                    @if($applicationData['coverImageUrl'])
-                        <div class="ml-auto">
-                            <a href="{{ $applicationData['coverImageUrl'] }}" target="_blank">
-                                <img
-                                    src="{{ $applicationData['coverImageUrl'] }}"
-                                    loading="lazy"
-                                    alt="application cover"
-                                    class="inline-block h-16 rounded-md"
-                                />
-                            </a>
+                    <div class="flex flex-col gap-y-5 md:gap-y-0.5 grow w-full">
+                        <div class="grid grid-cols-1 md:grid-cols-8 gap-y-3">
+                            <div class="col-span-1 text-center md:text-left my-auto">
+                                <a href="{{ $applicationData['iconUrl'] }}" target="_blank">
+                                    <img
+                                        src="{{ $applicationData['iconUrl'] }}"
+                                        loading="lazy"
+                                        alt="application icon"
+                                        class="inline-block w-16 h-16 rounded-full"
+                                    />
+                                </a>
+                            </div>
+                            <div class="col-span-4 text-center md:text-left my-auto">
+                                <p class="font-semibold">{{ $applicationData['name'] }}</p>
+                                <p class="text-gray-500 text-sm">{{ $applicationData['id'] }}</p>
+                            </div>
+                            @if($applicationData['coverImageUrl'])
+                                <div class="col-span-3 text-center md:text-right my-auto">
+                                    <a href="{{ $applicationData['coverImageUrl'] }}" target="_blank">
+                                        <img
+                                            src="{{ $applicationData['coverImageUrl'] }}"
+                                            loading="lazy"
+                                            alt="application cover"
+                                            class="inline-block h-16 rounded-md"
+                                        />
+                                    </a>
+                                </div>
+                            @endif
                         </div>
-                    @endif
+                    </div>
                 </div>
-                <div class="p-5 lg:p-6 grow w-full">
+                <div class="p-5 lg:p-6 grow w-full space-y-5">
                     @if($applicationData['descriptionFormatted'])
-                        <div class="mb-5">
+                        <div>
                             {!! $applicationData['descriptionFormatted'] !!}
                         </div>
                         <hr class="my-6 opacity-10" />
                     @endif
-                    <table class="min-w-full align-middle whitespace-nowrap mb-5">
-                        <tbody>
+
+                    <div class="flex flex-col gap-y-5 md:gap-y-0.5">
                         @if($applicationData['id'])
-                            <tr>
-                                <td class="font-semibold">{{ __('Created') }}:</td>
-                                <td>
+                            <div class="grid grid-cols-1 md:grid-cols-2">
+                                <span class="font-semibold">{{ __('Created') }}<span class="hidden md:inline">:</span></span>
+                                <p>
                                     <a href="{{ route('timestamp', ['timestampSlug' => round(getTimestamp($applicationData['id']) / 1000)]) }}">
                                         {{ date('Y-m-d G:i:s \(T\)', getTimestamp($applicationData['id']) / 1000) }}
                                         <span class="text-sm">({{ \Carbon\Carbon::createFromTimestamp(getTimestamp($applicationData['id']) / 1000)->diffForHumans() }})</span>
                                     </a>
-                                </td>
-                            </tr>
+                                </p>
+                            </div>
                         @endif
 
                         @if($applicationData['guildId'])
-                            <tr>
-                                <td class="font-semibold">{{ __('Linked Guild') }}:</td>
-                                <td>
+                            <div class="grid grid-cols-1 md:grid-cols-2">
+                                <span class="font-semibold">{{ __('Linked Guild') }}<span class="hidden md:inline">:</span></span>
+                                <p>
                                     <a href="{{ route('guildlookup', ['snowflake' => $applicationData['guildId']]) }}" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">
                                         {{ $applicationData['guildId'] }}
                                     </a>
-                                </td>
-                            </tr>
+                                </p>
+                            </div>
                         @endif
 
                         @if(!is_null($applicationData['type']))
-                            <tr>
-                                <td class="font-semibold">{{ __('Type') }}:</td>
-                                <td>{{ $applicationData['type'] }}</td>
-                            </tr>
+                            <div class="grid grid-cols-1 md:grid-cols-2">
+                                <span class="font-semibold">{{ __('Type') }}<span class="hidden md:inline">:</span></span>
+                                <p>{{ $applicationData['type'] }}</p>
+                            </div>
                         @endif
 
                         @if(!is_null($applicationData['hook']))
-                            <tr>
-                                <td class="font-semibold">{{ __('Hook') }}:</td>
-                                <td>
+                            <div class="grid grid-cols-1 md:grid-cols-2">
+                                <span class="font-semibold">{{ __('Hook') }}<span class="hidden md:inline">:</span></span>
+                                <p class="my-auto">
                                     @if($applicationData['hook'])
                                         <img src="{{ asset('images/discord/icons/check.svg') }}" class="h-4 w-4" alt="Check">
                                     @else
                                         <img src="{{ asset('images/discord/icons/cross.svg') }}" class="h-4 w-4" alt="Cross">
                                     @endif
-                                </td>
-                            </tr>
+                                </p>
+                            </div>
                         @endif
 
                         @if(!is_null($applicationData['botPublic']))
-                            <tr>
-                                <td class="font-semibold">{{ __('Public Bot') }}:</td>
-                                <td>
+                            <div class="grid grid-cols-1 md:grid-cols-2">
+                                <span class="font-semibold">{{ __('Public Bot') }}<span class="hidden md:inline">:</span></span>
+                                <p class="my-auto">
                                     @if($applicationData['botPublic'])
                                         <img src="{{ asset('images/discord/icons/check.svg') }}" class="h-4 w-4" alt="Check">
                                     @else
                                         <img src="{{ asset('images/discord/icons/cross.svg') }}" class="h-4 w-4" alt="Cross">
                                     @endif
-                                </td>
-                            </tr>
+                                </p>
+                            </div>
                         @endif
 
                         @if(!is_null($applicationData['botRequireCodeGrant']))
-                            <tr>
-                                <td class="font-semibold">{{ __('Requires OAuth2 Code Grant') }}:</td>
-                                <td>
+                            <div class="grid grid-cols-1 md:grid-cols-2">
+                                <span class="font-semibold">{{ __('Requires OAuth2 Code Grant') }}<span class="hidden md:inline">:</span></span>
+                                <p class="my-auto">
                                     @if($applicationData['botRequireCodeGrant'])
                                         <img src="{{ asset('images/discord/icons/check.svg') }}" class="h-4 w-4" alt="Check">
                                     @else
                                         <img src="{{ asset('images/discord/icons/cross.svg') }}" class="h-4 w-4" alt="Cross">
                                     @endif
-                                </td>
-                            </tr>
+                                </p>
+                            </div>
                         @endif
-                        </tbody>
-                    </table>
+                    </div>
 
                     @if($applicationData['customInstallUrl'] || $applicationData['roleConnectionsVerificationUrl'] || $applicationData['termsOfServiceUrl'] || $applicationData['privacyPolicyUrl'])
-                        <div class="mb-5">
-                            <div class="font-semibold">{{ __('Links') }}:</div>
+                        <div>
+                            <div class="font-semibold">{{ __('Links') }}<span class="hidden md:inline">:</span></div>
                             <div>
                                 <ul class="list-none capitalize">
                                     @if($applicationData['customInstallUrl'])
@@ -191,8 +202,8 @@
                     @endif
 
                     @if(!empty($applicationData['tags']))
-                        <div class="mb-5">
-                            <div class="font-semibold">{{ __('Tags') }}:</div>
+                        <div>
+                            <div class="font-semibold">{{ __('Tags') }}<span class="hidden md:inline">:</span></div>
                             <div>
                                 <ul class="list-inside list-disc capitalize">
                                     @foreach($applicationData['tags'] as $tag)
@@ -205,7 +216,7 @@
 
                     @if(!empty($applicationData['flagsList']))
                         <div>
-                            <div class="font-semibold">{{ __('Flags') }}:</div>
+                            <div class="font-semibold">{{ __('Flags') }}<span class="hidden md:inline">:</span></div>
                             <div>
                                 <ul class="list-inside list-disc capitalize">
                                     @foreach($applicationData['flagsList'] as $flag)

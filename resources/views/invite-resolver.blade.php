@@ -12,7 +12,7 @@
                     {{ str_replace('https://', '', env('DISCORD_INVITE_PREFIX')) }}
                 </div>
                 <input
-                    wire:model="inviteCodeDisplay"
+                    wire:model.defer="inviteCodeDisplay"
                     wire:keydown.enter="fetchInvite"
                     type="text"
                     placeholder="easypoll"
@@ -20,7 +20,7 @@
                 />
             </div>
             <input
-                wire:model="eventId"
+                wire:model.defer="eventId"
                 wire:keydown.enter="fetchInvite"
                 type="text"
                 placeholder="{{ __('Event ID') }}"
@@ -28,8 +28,17 @@
             />
         </div>
 
-        <button wire:click="fetchInvite" type="button" class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-4 py-2 leading-6 w-full border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]">
-            {{ __('Fetch Discord Information') }}
+        <button
+            wire:click="fetchInvite"
+            type="button"
+            class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-4 py-2 leading-6 w-full text-white {{ $loading ? 'border-[#414aa5] bg-[#414aa5] cursor-not-allowed' : 'border-discord-blurple bg-discord-blurple hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]' }}"
+            {{ $loading ? 'disabled' : '' }}
+        >
+            @if($loading)
+                <i class="fas fa-spinner fa-spin"></i> {{ __('Fetching...') }}
+            @else
+                {{ __('Fetch Discord Information') }}
+            @endif
         </button>
 
         @if($inviteData === null)
@@ -68,56 +77,52 @@
                     <h3 class="font-semibold">{{ __('Invite') }}</h3>
                 </div>
                 <div class="p-5 lg:p-6 grow w-full">
-                    <table class="min-w-full align-middle whitespace-nowrap">
-                        <tbody>
+                    <div class="flex flex-col gap-y-5 md:gap-y-0.5 mb-5 md:mb-0">
                         @if(array_key_exists('typeName', $inviteData) && $inviteData['typeName'] != null)
-                            <tr>
-                                <td class="font-semibold">{{ __('Type') }}:</td>
-                                <td>{{ $inviteData['typeName'] }}</td>
-                            </tr>
+                            <div class="grid grid-cols-1 md:grid-cols-2">
+                                <span class="font-semibold">{{ __('Type') }}<span class="hidden md:inline">:</span></span>
+                                <p>{{ $inviteData['typeName'] }}</p>
+                            </div>
                         @endif
 
                         @if(array_key_exists('id', $inviteData['channel']) && $inviteData['channel']['id'])
-                            <tr>
-                                <td class="font-semibold">{{ __('Channel') }}:</td>
-                                <td>
-                                    <x-channel-name-preview
-                                        guildId="{{ $inviteData['guild']['id'] ?: '@me' }}"
-                                        :channelId="$inviteData['channel']['id']"
-                                        channelName="{{ (array_key_exists('name', $inviteData['channel']) && $inviteData['channel']['name']) ? $inviteData['channel']['name'] : $inviteData['channel']['id'] }}"
-                                    />
-                                </td>
-                            </tr>
+                            <div class="grid grid-cols-1 md:grid-cols-2">
+                                <span class="font-semibold">{{ __('Channel') }}<span class="hidden md:inline">:</span></span>
+                                <x-channel-name-preview
+                                    guildId="{{ $inviteData['guild']['id'] ?: '@me' }}"
+                                    :channelId="$inviteData['channel']['id']"
+                                    channelName="{{ (array_key_exists('name', $inviteData['channel']) && $inviteData['channel']['name']) ? $inviteData['channel']['name'] : $inviteData['channel']['id'] }}"
+                                />
+                            </div>
                         @endif
 
                         @if(array_key_exists('expiresAtFormatted', $inviteData) && $inviteData['expiresAtFormatted'])
-                            <tr>
-                                <td class="font-semibold">{{ __('Expires') }}:</td>
-                                <td>
+                            <div class="grid grid-cols-1 md:grid-cols-2">
+                                <span class="font-semibold">{{ __('Expires') }}<span class="hidden md:inline">:</span></span>
+                                <p>
                                     {{-- TODO: Tooltip $inviteData['expiresAt'] --}}
                                     {!! $inviteData['expiresAtFormatted'] !!}
-                                </td>
-                            </tr>
+                                </p>
+                            </div>
                         @endif
 
                         {{-- TODO: Check channelRecipients
                         @if(array_key_exists('recipients', $inviteData['channel']) && !empty($inviteData['channel']['recipients']))
-                            <tr>
-                                <td class="font-semibold">{{ __('Recipients') }}:</td>
-                                <td>
+                            <div class="grid grid-cols-1 md:grid-cols-2">
+                                <span class="font-semibold">{{ __('Recipients') }}<span class="hidden md:inline">:</span></span>
+                                <p>
                                     <ul>
                                         @foreach($inviteData['channel']['recipients'] as $recipient)
                                             <li>{{ $recipient['username'] }}</li>
                                         @endforeach
                                     </ul>
-                                </td>
-                            </tr>
+                                </p>
+                            </div>
                         @endif
                         --}}
 
                         {{-- TODO: Invite target_application --}}
-                        </tbody>
-                    </table>
+                    </div>
                 </div>
             </div>
 
@@ -131,107 +136,105 @@
                         <h3 class="font-semibold">{{ __('Event') }}</h3>
                     </div>
                     <div class="p-5 lg:p-6 grow w-full">
-                        <table class="min-w-full align-middle whitespace-nowrap">
-                            <tbody>
+                        <div class="flex flex-col gap-y-5 md:gap-y-0.5">
                             @if($inviteData['event']['id'])
-                                <tr>
-                                    <td class="font-semibold">{{ __('Event ID') }}:</td>
-                                    <td>{{ $inviteData['event']['id'] }}</td>
-                                </tr>
+                                <div class="grid grid-cols-1 md:grid-cols-2">
+                                    <span class="font-semibold">{{ __('Event ID') }}<span class="hidden md:inline">:</span></span>
+                                    <p>{{ $inviteData['event']['id'] }}</p>
+                                </div>
                             @endif
 
                             @if($inviteData['event']['channelId'])
-                                <tr>
-                                    <td class="font-semibold">{{ __('Channel ID') }}:</td>
-                                    <td>
+                                <div class="grid grid-cols-1 md:grid-cols-2">
+                                    <span class="font-semibold">{{ __('Channel ID') }}<span class="hidden md:inline">:</span></span>
+                                    <p>
                                         <a href="https://discord.com/channels/{{ $inviteData['guild']['id'] }}/{{ $inviteData['event']['channelId'] }}"
                                            target="_blank" rel="noopener" class="text-discord-blurple">
                                             {{ $inviteData['event']['channelId'] }}
                                         </a>
-                                    </td>
-                                </tr>
+                                    </p>
+                                </div>
                             @endif
 
                             @if($inviteData['event']['creatorId'])
-                                <tr>
-                                    <td class="font-semibold">{{ __('Creator ID') }}:</td>
-                                    <td>
+                                <div class="grid grid-cols-1 md:grid-cols-2">
+                                    <span class="font-semibold">{{ __('Creator ID') }}<span class="hidden md:inline">:</span></span>
+                                    <p>
                                         <a href="{{ route('userlookup', ['snowflake' => $inviteData['event']['creatorId']]) }}"
                                            class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">
                                             {{ $inviteData['event']['creatorId'] }}
                                         </a>
-                                    </td>
-                                </tr>
+                                    </p>
+                                </div>
                             @endif
 
                             @if($inviteData['event']['name'])
-                                <tr>
-                                    <td class="font-semibold">{{ __('Name') }}:</td>
-                                    <td>{{ $inviteData['event']['name'] }}</td>
-                                </tr>
+                                <div class="grid grid-cols-1 md:grid-cols-2">
+                                    <span class="font-semibold">{{ __('Name') }}<span class="hidden md:inline">:</span></span>
+                                    <p>{{ $inviteData['event']['name'] }}</p>
+                                </div>
                             @endif
 
                             @if($inviteData['event']['description'])
-                                <tr>
-                                    <td class="font-semibold">{{ __('Description') }}:</td>
-                                    <td>{{ $inviteData['event']['description'] }}</td>
-                                </tr>
+                                <div class="grid grid-cols-1 md:grid-cols-2">
+                                    <span class="font-semibold">{{ __('Description') }}<span class="hidden md:inline">:</span></span>
+                                    <p>{{ $inviteData['event']['description'] }}</p>
+                                </div>
                             @endif
 
                             @if($inviteData['event']['status'])
-                                <tr>
-                                    <td class="font-semibold">{{ __('Status') }}:</td>
-                                    <td>{!! $inviteData['event']['status'] !!}</td>
-                                </tr>
+                                <div class="grid grid-cols-1 md:grid-cols-2">
+                                    <span class="font-semibold">{{ __('Status') }}<span class="hidden md:inline">:</span></span>
+                                    <p>{!! $inviteData['event']['status'] !!}</p>
+                                </div>
                             @endif
 
                             @if($inviteData['event']['startTimeFormatted'])
-                                <tr>
-                                    <td class="font-semibold">{{ __('Start') }}:</td>
-                                    <td>
+                                <div class="grid grid-cols-1 md:grid-cols-2">
+                                    <span class="font-semibold">{{ __('Start') }}<span class="hidden md:inline">:</span></span>
+                                    <p>
                                         {{-- TODO: Tooltip $inviteData['event']['startTime'] --}}
                                         {!! $inviteData['event']['startTimeFormatted'] !!}
-                                    </td>
-                                </tr>
+                                    </p>
+                                </div>
                             @endif
 
                             @if($inviteData['event']['endTime'])
-                                <tr>
-                                    <td class="font-semibold">End:</td>
-                                    <td>
+                                <div class="grid grid-cols-1 md:grid-cols-2">
+                                    <span class="font-semibold">{{ __('End') }}<span class="hidden md:inline">:</span></span>
+                                    <p>
                                         {{-- TODO: Tooltip $inviteData['event']['endTime'] --}}
                                         {!! $inviteData['event']['endTimeFormatted'] !!}
-                                    </td>
-                                </tr>
+                                    </p>
+                                </div>
                             @endif
 
                             @if($inviteData['event']['privacyLevel'])
-                                <tr>
-                                    <td class="font-semibold">{{ __('Privacy Level') }}:</td>
-                                    <td>{{ $inviteData['event']['privacyLevel'] }}</td>
-                                </tr>
+                                <div class="grid grid-cols-1 md:grid-cols-2">
+                                    <span class="font-semibold">{{ __('Privacy Level') }}<span class="hidden md:inline">:</span></span>
+                                    <p>{{ $inviteData['event']['privacyLevel'] }}</p>
+                                </div>
                             @endif
 
                             @if($inviteData['event']['entityId'])
-                                <tr>
-                                    <td class="font-semibold">{{ __('Entity ID') }}:</td>
-                                    <td>{{ $inviteData['event']['entityId'] }}</td>
-                                </tr>
+                                <div class="grid grid-cols-1 md:grid-cols-2">
+                                    <span class="font-semibold">{{ __('Entity ID') }}<span class="hidden md:inline">:</span></span>
+                                    <p>{{ $inviteData['event']['entityId'] }}</p>
+                                </div>
                             @endif
 
                             @if($inviteData['event']['entityType'])
-                                <tr>
-                                    <td class="font-semibold">{{ __('Entity Type') }}:</td>
-                                    <td>{{ $inviteData['event']['entityType'] }}</td>
-                                </tr>
+                                <div class="grid grid-cols-1 md:grid-cols-2">
+                                    <span class="font-semibold">{{ __('Entity Type') }}<span class="hidden md:inline">:</span></span>
+                                    <p>{{ $inviteData['event']['entityType'] }}</p>
+                                </div>
                             @endif
 
                             @if($inviteData['event']['entityMetadataLocation'])
-                                <tr>
-                                    <td class="font-semibold">{{ __('Entity Location') }}:</td>
-                                    <td>
-                                        @if(str_starts_with($inviteData['event']['entityMetadataLocation'], 'https://'))
-                                            {{-- TODO: Upgrade Laravel 10 use Str::isUrl() --}}
+                                <div class="grid grid-cols-1 md:grid-cols-2">
+                                    <span class="font-semibold">{{ __('Entity Location') }}<span class="hidden md:inline">:</span></span>
+                                    <p>
+                                        @if(Str::isUrl($inviteData['event']['entityMetadataLocation'], ['http', 'https'])))
                                             <a href="{{ $inviteData['event']['entityMetadataLocation'] }}"
                                                target="_blank" rel="noopener" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">
                                                 {{ $inviteData['event']['entityMetadataLocation'] }}
@@ -239,18 +242,17 @@
                                         @else
                                             {{ $inviteData['event']['entityMetadataLocation'] }}
                                         @endif
-                                    </td>
-                                </tr>
+                                    </p>
+                                </div>
                             @endif
 
                             @if($inviteData['event']['userCount'])
-                                <tr>
-                                    <td class="font-semibold">{{ __('Interested Users') }}:</td>
-                                    <td>{{ number_format($inviteData['event']['userCount'], 0, '', '.') }}</td>
-                                </tr>
+                                <div class="grid grid-cols-1 md:grid-cols-2">
+                                    <span class="font-semibold">{{ __('Interested Users') }}<span class="hidden md:inline">:</span></span>
+                                    <p>{{ number_format($inviteData['event']['userCount'], 0, '', '.') }}</p>
+                                </div>
                             @endif
-                            </tbody>
-                        </table>
+                        </div>
 
                         @if($inviteData['event']['imageUrl'])
                             <div class="text-center mt-5">
@@ -307,19 +309,13 @@
                         </div>
                     </div>
                     <div class="p-5 lg:p-6 grow w-full">
-                        <div class="grid grid-cols-2 gap-x-6 gap-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                             @foreach($inviteData['guild']['members'] as $member)
                                 <div class="w-full flex items-center">
                                     <div class="mr-4">
                                         <a href="{{ $member['avatar_url'] }}" target="_blank">
                                             <div class="relative inline-block">
-                                                @if($member['status'] == 'online')
-                                                    <div class="absolute -right-1 -bottom-1 h-4 w-4 rounded-full border-2 border-discord-gray-1 bg-[#23a359]"></div>
-                                                @elseif($member['status'] == 'dnd')
-                                                    <div class="absolute -right-1 -bottom-1 h-4 w-4 rounded-full border-2 border-discord-gray-1 bg-[#f13f43]"></div>
-                                                @elseif($member['status'] == 'idle')
-                                                    <div class="absolute -right-1 -bottom-1 h-4 w-4 rounded-full border-2 border-discord-gray-1 bg-[#f0b232]"></div>
-                                                @endif
+                                                <div class="absolute -right-1 -bottom-1 h-4 w-4 rounded-full border-2 border-discord-gray-1 {{ $member['status'] == 'online' ? 'bg-[#23a359]' : ($member['status'] == 'dnd' ? 'bg-[#f13f43]' : ($member['status'] == 'idle' ? 'bg-[#f0b232]' : 'bg-discord-gray-1')) }}"></div>
                                                 <img
                                                     src="{{ $member['avatar_url'] }}"
                                                     loading="lazy"

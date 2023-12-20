@@ -713,7 +713,7 @@ function getUser($userId)
         $array['bannerColor'] = $responseJson['banner_color'];
 
     if (key_exists('accent_color', $responseJson) && $responseJson['accent_color'] != null)
-        $array['accentColor'] = '#' . dechex($responseJson['accent_color']);
+        $array['accentColor'] = '#' . str_pad(dechex($responseJson['accent_color']), 6, '0', STR_PAD_LEFT);
 
     if (key_exists('public_flags', $responseJson))
     {
@@ -1062,7 +1062,7 @@ function parseInviteJson($json)
             $array['inviter']['bannerColor'] = $json['inviter']['banner_color'];
 
         if (key_exists('accent_color', $json['inviter']) && $json['inviter']['accent_color'] != null)
-            $array['inviter']['accentColor'] = '#' . dechex($json['inviter']['accent_color']);
+            $array['inviter']['accentColor'] = '#' . str_pad(dechex($json['inviter']['accent_color']), 6, '0', STR_PAD_LEFT);
 
         if (key_exists('premium_type', $json['inviter']) && $json['inviter']['premium_type'] != null) {
             $array['inviter']['premiumType'] = $json['inviter']['premium_type'];
