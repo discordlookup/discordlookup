@@ -4,8 +4,6 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
 
 class Kernel extends ConsoleKernel
 {
@@ -29,6 +27,9 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             fetchExperiments();
         })->name('load experiments')->everyThirtyMinutes();
+
+        $schedule->command('sitemap:generate')->daily();
+        $schedule->command('sitemap:generate')->everyMinute()->skip(fn () => \File::exists(public_path('sitemap.xml')));
     }
 
     /**

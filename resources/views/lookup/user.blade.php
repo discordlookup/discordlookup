@@ -3,202 +3,65 @@
 @section('keywords', '')
 @section('robots', 'index, follow')
 
-<div id="userlookup">
-    <h1 class="mb-4 mt-5 text-center text-white">{{ __('User Lookup') }}</h1>
-    <div class="mt-2 mb-4">
-        <div class="row">
-            <div class="col-12 col-lg-6 offset-lg-3">
-                <div class="input-group input-group-lg">
-                    <span class="input-group-text bg-dark">
-                        <i class="far fa-snowflake"></i>
-                    </span>
-                    <input wire:model="snowflake" wire:keydown.enter="fetchUser" class="form-control form-control-lg" type="text" placeholder="{{ __('User ID') }}">
-                </div>
-                <div class="small">
-                    <a href="{{ route('help') }}#what-is-a-snowflake-and-how-do-i-find-one" target="_blank" class="text-muted text-decoration-none">
-                        <i class="far fa-question-circle"></i> <i>{{ __('What is a Snowflake and how do I find one?') }}</i>
-                    </a>
-                </div>
-            </div>
+<div>
+    <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('User Lookup') }}</h2>
+    <div class="py-12 xl:max-w-3xl mx-auto px-4 lg:px-10 space-y-3">
+        <x-input-prepend-icon icon="far fa-snowflake">
+            <input
+                wire:model.defer="snowflake"
+                wire:keydown.enter="fetchUser"
+                type="number"
+                placeholder="{{ __('User ID') }}"
+                class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0"
+                data-1p-ignore
+            />
+        </x-input-prepend-icon>
 
-            @if($errorMessage)
-                <div class="col-12 col-lg-6 offset-lg-3 mt-3">
-                    <div class="alert alert-danger fade show" role="alert">
-                        {{ $errorMessage }}
-                    </div>
-                </div>
-            @elseif($snowflakeDate && $snowflakeTimestamp)
-                <div class="col-12 col-lg-6 offset-lg-3 mt-3">
-                    <div class="card text-white bg-dark">
-                        <div class="card-body">
-                            <b>{{ __('Date') }}:</b> {{ $snowflakeDate }}<br>
-                            <b>{{ __('Relative') }}:</b> <span wire:ignore id="snowflakeRelative"></span><br>
-                            <b>{{ __('Unix Timestamp') }}:</b> <a href="{{ route('timestamp', ['timestampSlug' => round($snowflakeTimestamp / 1000)]) }}" class="text-decoration-none">{{ $snowflakeTimestamp }}</a><br>
-                        </div>
-                    </div>
-                </div>
-            @endif
+        <button
+            wire:click="fetchUser"
+            wire:loading.class="border-[#414aa5] bg-[#414aa5] cursor-not-allowed"
+            wire:loading.class.remove="border-discord-blurple bg-discord-blurple hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]"
+            wire:loading.attr="disabled"
+            type="button"
+            class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-4 py-2 leading-6 w-full border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]"
+        >
+            <span wire:loading.remove>{{ __('Fetch Discord Information') }}</span>
+            <span wire:loading><i class="fas fa-spinner fa-spin"></i> {{ __('Fetching...') }}</span>
+        </button>
 
-            <div class="col-12 col-lg-6 offset-lg-3 mb-3 mt-3">
-                <hr>
-                <button wire:click="fetchUser" type="submit" class="btn btn-primary w-100 mt-3">{{ __('Fetch Discord Information') }}</button>
-            </div>
-
-            @if($rateLimitHit)
-                <div class="col-12 col-lg-6 offset-lg-3">
-                    <div class="alert alert-danger fade show" role="alert">
-                        {{ __('You send too many requests!') }}
-                        @auth
-                            {{ __('Please try again in :SECONDS seconds.', ['seconds' => $rateLimitAvailableIn ]) }}
-                        @endauth
-                        @guest
-                            {{ __('Please try again in :SECONDS seconds or log in with your Discord account to increase the limit.', ['seconds' => $rateLimitAvailableIn ]) }}
-                        @endguest
-                    </div>
-                </div>
-            @endif
-
-            @if($userData == null && $snowflakeDate)
-                <div class="col-12 col-lg-6 offset-lg-3">
-                    <div class="alert alert-danger fade show" role="alert">
-                        {{ __('No Discord user could be found for the entered Snowflake.') }}<br>
-                        {!! __('If you want to search for a :guild or :application instead, check out our other tools.', ['guild' => '<a href="' . route('guildlookup', ['snowflake' => $snowflake]) . '">guild</a>', 'application' => '<a href="' . route('applicationlookup', ['snowflake' => $snowflake]) . '">application</a>']) !!}<br>
-                    </div>
-                </div>
-            @elseif($userData)
-                @if($userData['discriminator'] !== "0" && !$userData['isBot'])
-                    <div class="col-12 col-lg-6 offset-lg-3">
-                        <div class="alert alert-warning fade show" role="alert">
-                            This user has not yet migrated to <a href="https://dis.gd/usernames" class="text-decoration-none" target="_blank" rel="noopener">Discord's new username system</a>.
-                        </div>
-                    </div>
-                @endif
-
-                <div class="col-12 col-lg-6 offset-lg-3">
-                    <div class="card text-white bg-dark">
-                        <div class="card-header">
-                            <div class="row">
-                                <div class="col-auto me-auto ms-auto me-lg-0 ms-lg-0">
-                                    <a href="{{ $userData['avatarUrl'] }}" target="_blank">
-                                        @if($userData['avatarDecorationUrl'])
-                                            <img src="{{ $userData['avatarDecorationUrl'] }}" loading="lazy" class="position-absolute user-avatar-decoration" width="80px" height="80px" alt="user avatar decoration">
-                                        @endif
-                                        <img src="{{ $userData['avatarUrl'] }}" loading="lazy" class="rounded-circle user-avatar" width="64px" height="64px" alt="user avatar">
-                                    </a>
-                                </div>
-                                <div class="col-auto me-auto ms-auto me-lg-0 ms-lg-0 text-center text-lg-start align-self-center">
-                                    @if($userData['discriminator'] === "0")
-                                        <b>{{ $userData['global_name'] }}</b>
-                                        <div class="small">&commat;{{ $userData['username'] }}</div>
-                                    @else
-                                        <b>{{ $userData['username'] }}<span class="small text-muted">#{{ $userData['discriminator'] }}</span></b>
-                                    @endif
-                                    @if($userData['isBot'])
-                                        <span class="badge" style="color: #fff; background-color: {{ $userData['id'] === '1081004946872352958' ? '#2abb69' : '#5865f2' }}; top: -1px; position: relative;">
-                                            @if($userData['isVerifiedBot'] || $userData['id'] === '643945264868098049' || $userData['id'] === '1081004946872352958')
-                                                <i class="fas fa-check"></i>&nbsp;
-                                            @endif
-                                            <span class="text-uppercase">
-                                                @if($userData['id'] === '643945264868098049')
-                                                    {{ __('System') }}
-                                                @elseif($userData['id'] === '1081004946872352958')
-                                                    {{ __('AI') }}
-                                                @else
-                                                    {{ __('Bot') }}
-                                                @endif
-                                            </span>
-                                        </span>
-                                    @endif
-                                    <div class="small text-muted">{{ $userData['id'] }}</div>
-                                </div>
-                                @if($userData['bannerUrl'])
-                                    <div class="col-auto me-auto ms-auto me-lg-0 mt-3 mt-sm-0">
-                                        <a href="{{ $userData['bannerUrl'] }}" target="_blank">
-                                            <img src="{{ $userData['bannerUrl'] }}" loading="lazy" class="rounded-3" style="height: 64px;" height="64px" alt="user banner">
-                                        </a>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div>
-                                <b>{{ __('Account Created') }}:</b>
-                                {{ $snowflakeDate }}
-                                <br>
-
-                                @if($userData['global_name'] && $userData['discriminator'] !== "0")
-                                    <b>{{ __('Global Name') }}:</b>
-                                    {{ $userData['global_name'] }}<br>
-                                @endif
-
-                                <b>{{ __('Bot') }}:</b>
-                                @if($userData['isBot'])
-                                    <img src="{{ asset('images/discord/icons/check.svg') }}" class="discord-badge" alt="Check">
-                                @else
-                                    <img src="{{ asset('images/discord/icons/cross.svg') }}" class="discord-badge" alt="Cross">
-                                @endif
-                                <br>
-
-                                @if($userData['isBot'])
-                                    <b>{{ __('Verified Bot') }}:</b>
-                                    @if($userData['isVerifiedBot'] || $userData['id'] === '643945264868098049' || $userData['id'] === '1081004946872352958')
-                                        <img src="{{ asset('images/discord/icons/check.svg') }}" class="discord-badge" alt="Check">
-                                    @else
-                                        <img src="{{ asset('images/discord/icons/cross.svg') }}" class="discord-badge" alt="Cross">
-                                    @endif
-                                    <br>
-                                @endif
-
-                                @if($userData['bannerColor'])
-                                    <b>{{ __('Banner Color') }}:</b>
-                                    <span style="background-color: {{ $userData['bannerColor'] }};">{{ $userData['bannerColor'] }}</span><br>
-                                @endif
-
-                                @if($userData['accentColor'])
-                                    <b>{{ __('Accent Color') }}:</b>
-                                    <span style="background-color: {{ $userData['accentColor'] }};">{{ $userData['accentColor'] }}</span><br>
-                                @endif
-
-                                @if($userData['pronouns'])
-                                    <b>{{ __('Pronouns') }}:</b>
-                                    {{ $userData['pronouns'] }}<br>
-                                @endif
-
-                                @if(!empty($userData['flagsList']))
-                                    <b>{{ __('Badges') }}:</b>
-                                    <ul style="list-style-type: none;">
-                                        @foreach($userData['flagsList'] as $flag)
-                                            <li style="margin-left: -1rem;">
-                                                @if($flag['image'])
-                                                    <img src="{{ $flag['image'] }}" loading="lazy" height="18" width="18" alt="{{ $flag['name'] }} badge icon"> {{ $flag['name'] }}
-                                                @else
-                                                    {{ $flag['name'] }}
-                                                @endif
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-
-                                {{-- TODO: top.gg API fetch for bots? --}}
-                            </div>
-                        </div>
-                    </div>
-                    @if($userData['isBot'])
-                        <a role="button" href="{{ route('applicationlookup', $userData['id']) }}" class="btn btn-primary w-100 mt-3">{{ __('More information about this application') }}</a>
-                    @endif
-                </div>
-            @endif
-        </div>
-    </div>
-
-    <script>
-        @if($snowflakeTimestamp)
-            document.addEventListener('DOMContentLoaded', () => updateRelative({{ $snowflakeTimestamp }}));
+        @if($errorMessage)
+            <x-error-message>
+                {{ $errorMessage }}
+            </x-error-message>
         @endif
-        window.addEventListener('updateRelative', event => updateRelative(event.detail.timestamp));
 
-        function updateRelative(timestamp) {
-            document.getElementById('snowflakeRelative').innerText = moment.utc(timestamp).local().fromNow();
-        }
-    </script>
+        @if($rateLimitHit)
+            <x-error-message>
+                {{ __('You send too many requests!') }}
+                @auth
+                    {{ __('Please try again in :SECONDS seconds.', ['seconds' => $rateLimitAvailableIn ]) }}
+                @endauth
+                @guest
+                    {{ __('Please try again in :SECONDS seconds or log in with your Discord account to increase the limit.', ['seconds' => $rateLimitAvailableIn ]) }}
+                @endguest
+            </x-error-message>
+        @endif
+
+        @if($userData == null && $fetched)
+            <x-error-message>
+                <p>{{ __('No Discord user could be found for the entered Snowflake.') }}</p>
+                <p>{!! __('If you want to search for a :guild or :application instead, check out our other tools.', ['guild' => '<a href="' . route('guildlookup', ['snowflake' => $snowflake]) . '" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">guild</a>', 'application' => '<a href="' . route('applicationlookup', ['snowflake' => $snowflake]) . '" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">application</a>']) !!}</p>
+            </x-error-message>
+        @endif
+
+        @if($userData)
+            <x-user-card :user="$userData" />
+
+            @if($userData['isBot'])
+                <a role="button" href="{{ route('applicationlookup', ['snowflake' => $userData['id']]) }}" class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-4 py-2 leading-6 w-full border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]">
+                    {{ __('More information about this application') }}
+                </a>
+            @endif
+        @endif
+    </div>
 </div>

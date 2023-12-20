@@ -11,7 +11,7 @@ class Index extends Component
 
     public $category = 'all';
     public $search = '';
-    public $sorting = 'updatedAt-desc';
+    public $sorting = 'id-desc';
 
     public function loadExperiments()
     {

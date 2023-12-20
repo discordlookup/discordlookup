@@ -3,268 +3,153 @@
 @section('keywords', '')
 @section('robots', 'index, follow')
 
-<div id="guildlist">
-    <h1 class="mb-4 mt-5 text-center text-white">{{ __('Guild List') }}</h1>
-    <div class="mt-2 mb-4">
-        <div class="row">
-            <div class="col-12 col-lg-10 offset-lg-1">
-                <div class="card text-white bg-dark border-0">
-                    @guest
-                        <div class="card-header text-center">
-                            <h1 class="fw-bold">{{ __('Login') }}</h1>
-                        </div>
-                        <div class="card-body text-center">
-                            <h4>{{ __('To get an overview and stats about your guilds you need to log in with Discord.') }}</h4>
-                            <h5>{!! __('This website is open source on :github.', ['github' => '<a href="' . env('GITHUB_URL') . '" target="_blank">GitHub</a>']) !!}</h5>
-                            <a role="button" class="btn btn-info mt-3" href="{{ route('login') }}" data-bs-toggle="modal" data-bs-target="#loginModal"><i class="fas fa-sign-in-alt"></i> {{ __('Login') }}</a>
-                        </div>
-                    @endguest
-                    @auth
-                        <div class="card-header text-center">
-                            <h1 class="fw-bold">{!! __('You are in <span class="text-primary">:GUILDS</span> Servers', ['guilds' => $countGuilds]) !!}</h1>
-                        </div>
-                        <div class="card-body">
-                            <div class="row mt-3">
-                                <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('owner')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
-                                        <div class="card-header">
-                                            <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/owner.svg') }}" class="discord-badge" alt="owner badge"> {{ __('You own') }}
-                                            </p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h1 class="card-title">{{ $countOwner }}</h1>
-                                            <hr>
-                                            <h4 class="card-title">{{ calcPercent($countOwner, $countGuilds, 1) }}&percnt;</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('administrator')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
-                                        <div class="card-header">
-                                            <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/administrator.svg') }}" class="discord-badge" alt="administrator badge"> {{ __('You administrate') }}
-                                            </p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h1 class="card-title">{{ $countAdministrator }}</h1>
-                                            <hr>
-                                            <h4 class="card-title">{{ calcPercent($countAdministrator, $countGuilds, 1) }}&percnt;</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('moderator')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
-                                        <div class="card-header">
-                                            <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/moderator.svg') }}" class="discord-badge" alt="moderator badge"> {{ __('You moderate') }}
-                                            </p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h1 class="card-title">{{ $countModerator }}</h1>
-                                            <hr>
-                                            <h4 class="card-title">{{ calcPercent($countModerator, $countGuilds, 1) }}&percnt;</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('verified')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
-                                        <div class="card-header">
-                                            <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/verified.svg') }}" class="discord-badge" alt="verified badge"> {{ __('Verified') }}
-                                            </p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h1 class="card-title">{{ $countVerified }}</h1>
-                                            <hr>
-                                            <h4 class="card-title">{{ calcPercent($countVerified, $countGuilds, 1) }}&percnt;</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('partnered')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
-                                        <div class="card-header">
-                                            <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/partner.svg') }}" class="discord-badge" alt="partnered badge"> {{ __('Partnered') }}
-                                            </p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h1 class="card-title">{{ $countPartnered }}</h1>
-                                            <hr>
-                                            <h4 class="card-title">{{ calcPercent($countPartnered, $countGuilds, 1) }}&percnt;</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('vanityurl')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
-                                        <div class="card-header">
-                                            <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/vanity-url.svg') }}" class="discord-badge" alt="vanity url badge"> {{ __('Vanity URL') }}
-                                            </p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h1 class="card-title">{{ $countVanityUrl }}</h1>
-                                            <hr>
-                                            <h4 class="card-title">{{ calcPercent($countVanityUrl, $countGuilds, 1) }}&percnt;</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('community')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
-                                        <div class="card-header">
-                                            <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/community.svg') }}" class="discord-badge" alt="community badge"> {{ __('Community enabled') }}
-                                            </p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h1 class="card-title">{{ $countCommunityEnabled }}</h1>
-                                            <hr>
-                                            <h4 class="card-title">{{ calcPercent($countCommunityEnabled, $countGuilds, 1) }}&percnt;</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('discovery')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
-                                        <div class="card-header">
-                                            <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/discovery.svg') }}" class="discord-badge" alt="discovery badge"> {{ __('Discovery enabled') }}
-                                            </p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h1 class="card-title">{{ $countDiscoveryEnabled }}</h1>
-                                            <hr>
-                                            <h4 class="card-title">{{ calcPercent($countDiscoveryEnabled, $countGuilds, 1) }}&percnt;</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <div wire:click="changeCategory('welcomescreen')" class="card text-white bg-cards-grey text-center cursor-pointer mb-3">
-                                        <div class="card-header">
-                                            <p class="card-text fw-bolder text-uppercase">
-                                                <img src="{{ asset('images/discord/icons/server/welcome-screen-enabled.svg') }}" class="discord-badge" alt="welcome screen badge"> {{ __('Welcome Screen enabled') }}
-                                            </p>
-                                        </div>
-                                        <div class="card-body">
-                                            <h1 class="card-title">{{ $countWelcomeScreenEnabled }}</h1>
-                                            <hr>
-                                            <h4 class="card-title">{{ calcPercent($countWelcomeScreenEnabled, $countGuilds, 1) }}&percnt;</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <small>
-                                <a href="{{ route('help') }}#how-are-my-personal-stats-calculated-in-the-guild-list" target="_blank" class="text-muted text-decoration-none">
-                                    <i class="far fa-question-circle"></i> <i>{{ __('How are my personal stats calculated on this page?') }}</i>
-                                </a>
-                            </small>
-                        </div>
-                    @endauth
+<div x-data="{ modalExperimentsOpen: false, modalFeaturesOpen: false, modalPermissionsOpen: false }">
+    <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('Guild List') }}</h2>
+    <div class="py-12">
+        @guest
+            <x-login-required class="xl:max-w-3xl" />
+        @endguest
+
+        @auth
+            <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden mb-12">
+                <div class="py-4 px-5 lg:px-6 w-full text-center border-b border-discord-gray-4">
+                    <h3 class="text-4xl font-bold">
+                        {!! __('You are in <span class="text-discord-blurple font-bold">:GUILDS</span> servers', ['guilds' => $countGuilds]) !!}
+                    </h3>
+                </div>
+                <div class="p-5 lg:p-6 grow w-full space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3">
+                        <x-guildlist-category
+                            category="owner"
+                            :title="__('You own')"
+                            :image="asset('images/discord/icons/server/owner.svg')"
+                            :count="$countOwner"
+                            :total="$countGuilds"
+                        />
+                        <x-guildlist-category
+                            category="administrator"
+                            :title="__('You administrate')"
+                            :image="asset('images/discord/icons/server/administrator.svg')"
+                            :count="$countAdministrator"
+                            :total="$countGuilds"
+                        />
+                        <x-guildlist-category
+                            category="moderator"
+                            :title="__('You moderate')"
+                            :image="asset('images/discord/icons/server/moderator.svg')"
+                            :count="$countModerator"
+                            :total="$countGuilds"
+                        />
+
+                        <x-guildlist-category
+                            category="verified"
+                            :title="__('Verified')"
+                            :image="asset('images/discord/icons/server/verified.svg')"
+                            :count="$countVerified"
+                            :total="$countGuilds"
+                        />
+                        <x-guildlist-category
+                            category="partnered"
+                            :title="__('Partnered')"
+                            :image="asset('images/discord/icons/server/partner.svg')"
+                            :count="$countPartnered"
+                            :total="$countGuilds"
+                        />
+                        <x-guildlist-category
+                            category="vanityurl"
+                            :title="__('Vanity URL')"
+                            :image="asset('images/discord/icons/server/vanity-url.svg')"
+                            :count="$countVanityUrl"
+                            :total="$countGuilds"
+                        />
+
+                        <x-guildlist-category
+                            category="community"
+                            :title="__('Community enabled')"
+                            :image="asset('images/discord/icons/server/community.svg')"
+                            :count="$countCommunityEnabled"
+                            :total="$countGuilds"
+                        />
+                        <x-guildlist-category
+                            category="discovery"
+                            :title="__('Discovery enabled')"
+                            :image="asset('images/discord/icons/server/discovery.svg')"
+                            :count="$countDiscoveryEnabled"
+                            :total="$countGuilds"
+                        />
+                        <x-guildlist-category
+                            category="welcomescreen"
+                            :title="__('Welcome Screen enabled')"
+                            :image="asset('images/discord/icons/server/welcome-screen-enabled.svg')"
+                            :count="$countWelcomeScreenEnabled"
+                            :total="$countGuilds"
+                        />
+                    </div>
                 </div>
             </div>
-        </div>
-        @auth
-            <div id="scrollToSearch" class="row mt-5">
-                <div class="col-12 col-lg-10 offset-lg-1">
-                    <div class="row mb-3">
-                        <div class="col-12 col-md-3">
-                            <select wire:model="category" class="form-select">
-                                <option value="all" selected>{{ __('All Guilds') }}</option>
-                                <option value="disabled" disabled></option>
-                                <option value="owner">{{ __('You own') }}</option>
-                                <option value="administrator">{{ __('You administrate') }}</option>
-                                <option value="moderator">{{ __('You moderate') }}</option>
-                                <option value="disabled" disabled></option>
-                                <option value="verified">{{ __('Verified') }}</option>
-                                <option value="partnered">{{ __('Partnered') }}</option>
-                                <option value="vanityurl">{{ __('Vanity URL') }}</option>
-                                <option value="disabled" disabled></option>
-                                <option value="community">{{ __('Community enabled') }}</option>
-                                <option value="discovery">{{ __('Discovery enabled') }}</option>
-                                <option value="welcomescreen">{{ __('Welcome Screen enabled') }}</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-md-6 mt-2 mt-md-0">
-                            <input wire:model="search" type="text" class="form-control" placeholder="{{ __('Search...') }}">
-                        </div>
-                        <div class="col-12 col-md-3 mt-2 mt-md-0">
-                            <select wire:model="sorting" class="form-select">
-                                <option value="name-asc" selected>{{ __('Name Ascending') }}</option>
-                                <option value="name-desc">{{ __('Name Descending') }}</option>
-                                <option value="id-asc">{{ __('Created Ascending') }}</option>
-                                <option value="id-desc">{{ __('Created Descending') }}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="card text-white bg-dark border-0">
-                        <div class="card-body">
-                            <div class="row">
-                                @if(empty($this->guildsJsonSearch))
-                                    <div>
-                                        {{ __('No Guild found.') }}
-                                    </div>
-                                @endif
+
+            <div id="scrollToSearch" class="space-y-3">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-x-0 md:gap-x-3 gap-y-3 md:gap-y-0">
+                    <x-input-prepend-icon icon="fas fa-server">
+                        <select wire:model="category" class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0">
+                            <option value="all" selected>{{ __('All Guilds') }}</option>
+                            <option value="disabled" disabled></option>
+                            <option value="owner">{{ __('You own') }}</option>
+                            <option value="administrator">{{ __('You administrate') }}</option>
+                            <option value="moderator">{{ __('You moderate') }}</option>
+                            <option value="disabled" disabled></option>
+                            <option value="verified">{{ __('Verified') }}</option>
+                            <option value="partnered">{{ __('Partnered') }}</option>
+                            <option value="vanityurl">{{ __('Vanity URL') }}</option>
+                            <option value="disabled" disabled></option>
+                            <option value="community">{{ __('Community enabled') }}</option>
+                            <option value="discovery">{{ __('Discovery enabled') }}</option>
+                            <option value="welcomescreen">{{ __('Welcome Screen enabled') }}</option>
+                        </select>
+                    </x-input-prepend-icon>
+
+                    <x-input-prepend-icon icon="fas fa-search" class="col-span-2">
+                        <input
+                            wire:model="search"
+                            type="text"
+                            placeholder="{{ __('Search...') }}"
+                            class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0"
+                        >
+                    </x-input-prepend-icon>
+
+                    <x-input-prepend-icon icon="fas fa-sort-alpha-down">
+                        <select wire:model="sorting" class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0">
+                            <option value="name-asc" selected>{{ __('Name Ascending') }}</option>
+                            <option value="name-desc">{{ __('Name Descending') }}</option>
+                            <option value="id-asc">{{ __('Created Ascending') }}</option>
+                            <option value="id-desc">{{ __('Created Descending') }}</option>
+                        </select>
+                    </x-input-prepend-icon>
+                </div>
+
+                @if(empty($this->guildsJsonSearch))
+                    <x-error-message>
+                        {{ __('No guilds found.') }}
+                    </x-error-message>
+                @else
+                    <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
+                        <div class="px-5 py-3 grow w-full">
+                            <div class="flex flex-col gap-y-5 md:gap-y-0.5">
                                 @foreach($this->guildsJsonSearch as $guild)
-                                    <div class="col-12 mt-1 mb-1">
-                                        <div class="row">
-                                            <div class="col-12 col-md-1 text-center">
-                                                @if($guild['icon'])
-                                                    <a href="{{ env('DISCORD_CDN_URL') }}/icons/{{ $guild['id'] }}/{{ $guild['icon'] }}" class="text-decoration-none" target="_blank">
-                                                        <img src="{{ env('DISCORD_CDN_URL') }}/icons/{{ $guild['id'] }}/{{ $guild['icon'] }}?size=128" loading="lazy" class="rounded-circle" style="width: 48px; height: 48px;" width="48px" height="48px" alt="guild icon">
-                                                    </a>
-                                                @else
-                                                    <img src="{{ env('DISCORD_CDN_URL') }}/embed/avatars/0.png" loading="lazy" class="rounded-circle" style="width: 48px; height: 48px;" width="48px" height="48px" alt="guild icon">
-                                                @endif
-                                            </div>
-                                            <div class="col-12 col-md-6 text-center text-md-start">
-                                                <div>
-                                                    {{ $guild['name'] }}
-                                                    @if($guild['owner']) {!! getDiscordBadgeServerIcons('owner', __('You own')) !!}
-                                                    @elseif(hasAdministrator($guild['permissions'])) {!! getDiscordBadgeServerIcons('administrator', __('You administrate')) !!}
-                                                    @elseif(hasModerator($guild['permissions'])) {!! getDiscordBadgeServerIcons('moderator', __('You moderate')) !!} @endif
-                                                    @if(in_array('VERIFIED', $guild['features'])) {!! getDiscordBadgeServerIcons('verified', __('Discord Verified')) !!} @endif
-                                                    @if(in_array('PARTNERED', $guild['features'])) {!! getDiscordBadgeServerIcons('partner', __('Discord Partner')) !!} @endif
-                                                </div>
-                                                <div class="mt-n1">
-                                                    <small class="text-muted">
-                                                        {{ $guild['id'] }} &bull; {{ date('Y-m-d', getTimestamp($guild['id']) / 1000) }}
-                                                    </small>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-5 text-center text-md-end">
-                                                <a role="button" href="{{ route('guildlookup', ['snowflake' => $guild['id']]) }}" rel="nofollow" class="btn btn-sm btn-outline-primary mt-2 mt-xl-0">{{ __('Guild Info') }}</a>
-                                                <button wire:click="$emitTo('modal.guild-features', 'update', '{{ urlencode($guild['name']) }}', '{{ json_encode($guild['features']) }}')" class="btn btn-sm btn-outline-success mt-2 mt-xl-0" data-bs-toggle="modal" data-bs-target="#modalFeatures">{{ __('Features') }}</button>
-                                                <button wire:click="$emitTo('modal.guild-permissions', 'update', '{{ urlencode($guild['name']) }}', '{{ $guild['permissions'] }}')" class="btn btn-sm btn-outline-danger mt-2 mt-xl-0" data-bs-toggle="modal" data-bs-target="#modalPermissions">{{ __('Permissions') }}</button>
-                                                <button wire:click="$emitTo('modal.guild-experiments', 'update', '{{ $guild['id'] }}', '{{ urlencode($guild['name']) }}', '{{ json_encode($guild['features']) }}')" class="btn btn-sm btn-outline-warning mt-2 mt-xl-0" data-bs-toggle="modal" data-bs-target="#modalExperiments">{{ __('Experiments') }}</button>
-                                            </div>
-                                        </div>
-                                        @if(!$loop->last)
-                                            <hr>
-                                        @endif
-                                    </div>
+                                    <x-guild-table-row :guild="$guild" />
+                                    @if(!$loop->last)
+                                        <hr class="opacity-10" />
+                                    @endif
                                 @endforeach
                             </div>
                         </div>
                     </div>
-                </div>
+                @endif
             </div>
         @endauth
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            $(function () {
-                $('[data-bs-toggle="tooltip"]').tooltip()
-            })
-            Livewire.hook('message.processed', (message, component) => {
-                $(function () {
-                    $('[data-bs-toggle="tooltip"]').tooltip()
-                })
-            })
-        })
         window.addEventListener('scrollToSearch', () => document.getElementById('scrollToSearch').scrollIntoView(true))
     </script>
 

@@ -1,217 +1,193 @@
-@if($experiment)
-    @section('title', "{$experiment['title']} Experiment")
-    @section('description', "Information and rollout status about the {$experiment['title']} Experiment.")
-    @section('keywords', "client, guild, experiments, discord experiments, rollout, rollouts, treatments, groups, overrides, population, {$experiment['id']}")
-    @section('robots', 'index, follow')
+@section('title', "{$experiment['title']} Experiment")
+@section('description', "Information and rollout status about the {$experiment['title']} Experiment.")
+@section('keywords', "client, guild, experiments, discord experiments, rollout, rollouts, treatments, groups, overrides, population, {$experiment['id']}")
+@section('robots', 'index, follow')
 
-    <div id="experiment">
-        <h1 class="mb-1 mt-5 text-center text-white">{{ $experiment['title'] }}</h1>
-        <h4 class="mb-4 text-center text-muted">{{ $experiment['id'] }} ({{ $experiment['hash'] }})</h4>
-        <div class="mt-2 mb-4">
-            <div class="row mb-4">
-                <div class="col-12 col-lg-10 offset-lg-1">
-                    <div class="card text-white bg-dark border-0">
-                        <div class="card-header">
-                            <h1 class="m-0">
-                                {{ __('Treatments') }}
-                                <i class="far fa-question-circle text-muted align-middle" style="font-size: 0.5em !important;" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Different versions of the experiment that can be activated') }}"></i>
-                            </h1>
-                        </div>
-                        <div class="card-body">
-                            @foreach($buckets as $bucket)
-                                <h5 class="mb-3 text-primary">
+<div x-data="{ modalExperimentsOpen: false, modalFeaturesOpen: false, modalPermissionsOpen: false }">
+    <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-2 text-white">{{ $experiment['title'] }}</h2>
+    <h3 class="text-lg md:text-xl text-center mb-4 text-gray-300">
+        {{ $experiment['id'] }} ({{ $experiment['hash'] }})
+        @if($experiment['type'] == 'guild' && $experiment['rollout'])
+            <div class="text-sm">
+                {{ __('Revision') }} {{ $experiment['rollout'][2] }}
+            </div>
+        @endif
+    </h3>
+    <div class="py-12">
+        <div class="space-y-3 mb-12">
+            <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
+                <div class="py-4 px-5 lg:px-6 w-full flex items-center border-b border-discord-gray-4">
+                    <h3 class="text-2xl font-semibold">
+                        {{ __('Treatments') }}
+                        <i class="far fa-question-circle text-gray-300 text-sm" title="{{ __('Different versions of the experiment that can be activated') }}"></i>
+                    </h3>
+                </div>
+                <div class="p-5 lg:p-6 grow w-full">
+                    <div class="flex flex-col">
+                        @foreach($buckets as $bucket)
+                            <div class="space-y-3">
+                                <h4 class="text-xl text-discord-blurple font-bold">
                                     {{ $bucket['name'] }}
-                                    <small class="text-white-50">{!! ($bucket['description'] ? : '<i>' . __('No description') . '</i>') !!}</small>
-                                </h5>
+                                    <span class="text-sm font-semibold text-gray-300">
+                                            {!! ($bucket['description'] ?: '<i>' . __('No description') . '</i>') !!}
+                                        </span>
+                                </h4>
                                 @if($overrides && array_key_exists($bucket['id'], $overrides))
                                     <div>
-                                        <b>{{ __('Overrides') }} ({{ sizeof($overrides[$bucket['id']]) }})</b> <i class="far fa-question-circle text-muted small align-middle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('Server that have the treatment in any case') }}"></i><br>
+                                        <div>
+                                            <span class="font-semibold">{{ __('Overrides') }} ({{ sizeof($overrides[$bucket['id']]) }})</span>
+                                            <i class="far fa-question-circle text-gray-300 text-sm" title="{{ __('Server that have the treatment in any case') }}"></i>
+                                        </div>
+
                                         @foreach($overrides[$bucket['id']] as $override)
-                                            @if($loop->index == 12)
-                                                <span class="badge bg-primary" style="cursor: pointer;" onclick="document.getElementById('allOverrides{{ $bucket['id'] }}').style.display = '';this.style.display = 'none';">
+                                            @if($loop->index == 14)
+                                                <div
+                                                    class="inline-flex rounded bg-discord-blurple px-2 py-1 text-xs font-semibold leading-3 text-gray-200 cursor-pointer"
+                                                    onclick="document.getElementById('allOverrides{{ $bucket['id'] }}').style.display = '';this.style.display = 'none';"
+                                                >
                                                     {{ __('Show all') }}
-                                                </span>
+                                                </div>
                                                 <span id="allOverrides{{ $bucket['id'] }}" style="display: none">
+                                                @endif
+
+                                                <a href="{{ route('guildlookup', ['snowflake' => $override]) }}" target="_blank">
+                                                    <div class="inline-flex rounded bg-discord-gray-4 px-2 py-1 text-xs font-semibold leading-3 text-gray-200">{{ $override }}</div>
+                                                </a>
+
+                                                @if($loop->last)
+                                                    </span>
                                             @endif
-                                            <a href="{{ route('guildlookup', ['snowflake' => $override]) }}"
-                                               class="text-decoration-none" rel="nofollow">
-                                                <span class="badge bg-body">{{ $override }}</span>
-                                            </a>
-                                            @if($loop->last)</span>@endif
                                         @endforeach
                                         <br>
                                     </div>
                                 @endif
-                                @if(!$loop->last)<hr>@endif
-                            @endforeach
-                        </div>
+                            </div>
+                            @if(!$loop->last)
+                                <hr class="my-3 opacity-10" />
+                            @endif
+                        @endforeach
                     </div>
                 </div>
             </div>
 
             @foreach($rollouts as $rollout)
-                <div class="row mb-3">
-                    <div class="col-12 col-lg-10 offset-lg-1">
-                        <div class="card text-white bg-dark border-0">
-                            <div class="card-body">
-                                @if($rollout['filters'])
-                                <span class="text-primary fw-bold">{{ __('Filter') }}:</span><br>
-                                <ul class="lh-1">
+                <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
+                    <div class="p-5 lg:p-6 grow w-full">
+                        <div class="flex flex-col">
+                            @if($rollout['filters'])
+                                <p class="text-lg text-discord-blurple font-bold">{{ __('Filter') }}:</p>
+                                <ul class="list-inside list-disc">
                                     @foreach($rollout['filters'] as $filter)
-                                        <li class="mt-2">
-                                            <span class="text-white">{{ $filter }}</span>
-                                        </li>
+                                        <li>{{ $filter }}</li>
                                     @endforeach
                                 </ul>
-                                <hr>
-                                @endif
-                                @foreach($rollout['buckets'] as $bucket)
-                                    @php($bucketInfo = $buckets["BUCKET {$bucket['id']}"] ?? ['id' => -1, 'name' => 'None', 'description' => ''])
-                                    <div>
-                                        @if($bucketInfo['name'] == 'None' || $bucketInfo['name'] == 'Control')
-                                            <span class="text-danger fw-semibold">{{ $bucketInfo['name'] }}</span>
-                                        @else
-                                            <span class="text-success fw-semibold">{{ $bucketInfo['name'] }}</span>
+                                <hr class="my-3 opacity-10" />
+                            @endif
+                            @foreach($rollout['buckets'] as $bucket)
+                                @php
+                                    if($bucket['id'] != -1) {
+                                        if (array_key_exists("BUCKET {$bucket['id']}", $buckets)) {
+                                            $bucketInfo = $buckets["BUCKET {$bucket['id']}"];
+                                        }else{
+                                            $bucketInfo = [
+                                                'id' => $bucket['id'],
+                                                'name' => "Unknown Treatment {$bucket['id']}",
+                                                'description' => "",
+                                            ];
+                                        }
+                                    }else{
+                                        $bucketInfo = $buckets["BUCKET {$bucket['id']}"] ?? ['id' => -1, 'name' => 'None', 'description' => ''];
+                                    }
+                                @endphp
+                                <div>
+                                    @if($bucketInfo['name'] == 'None' || $bucketInfo['name'] == 'Control')
+                                        <span class="text-discord-red font-bold">{{ $bucketInfo['name'] }}</span>
+                                    @else
+                                        <span class="text-discord-green font-bold">{{ $bucketInfo['name'] }}</span>
+                                    @endif
+
+                                    <span class="text-gray-300">
+                                            @if($bucketInfo['description'])
+                                            {{ $bucketInfo['description'] }}:
                                         @endif
 
-                                        <span class="text-white-50">
-                                            {{ $bucketInfo['description'] }}@if($bucketInfo['description']):
-                                            @endif
-                                            <b>{{ $bucket['count'] / (10000)*100 }}&percnt;</b>
+                                            <span class="font-semibold">{{ calcPercent($bucket['count'], 10000) }}&percnt;</span>
+
                                             @if($bucket['groups'])
-                                                <span class="small">
+                                            <span class="text-sm">
                                                     @foreach($bucket['groups'] as $group)
-                                                        @if($loop->first)(@endif{{ $group['start'] }} - {{ $group['end'] }}@if($loop->last))@else, @endif
-                                                    @endforeach()
+                                                    @if($loop->first)(@endif{{ $group['start'] }} - {{ $group['end'] }}@if($loop->last))@else, @endif
+                                                @endforeach()
                                                 </span>
-                                            @endif
+                                        @endif
                                         </span>
-                                    </div>
-                                @endforeach
-                            </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             @endforeach
-
-            @if($experiment['type'] == 'guild' && $experiment['rollout'])
-                <div class="row mt-5">
-                    <div class="col-12 col-lg-10 offset-lg-1">
-                        <div class="card text-white bg-dark border-0">
-                            <div class="card-header">
-                                <h1 class="m-0" id="guilds">
-                                    {{ __('Guilds') }}
-                                    <i class="far fa-question-circle text-muted align-middle" style="font-size: 0.5em !important;" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('List of all guilds you are on, which have this experiment') }}"></i>
-                                </h1>
-                            </div>
-                            <div class="card-body">
-                                @guest
-                                    <div class="text-center">
-                                        <h4>{{ __('To get experiment infos about your guilds you need to log in with Discord.') }}</h4>
-                                        <h5>{!! __('This website is open source on :github.', ['github' => '<a href="' . env('GITHUB_URL') . '" target="_blank">GitHub</a>']) !!}</h5>
-                                        <a role="button" class="btn btn-info mt-3" href="{{ route('login') }}" data-bs-toggle="modal" data-bs-target="#loginModal"><i class="fas fa-sign-in-alt"></i> {{ __('Login') }}</a>
-                                    </div>
-                                @endguest
-                                @auth
-                                    <div class="row mb-3">
-                                        <div class="col-12 col-md-6">
-                                            <select wire:model="treatment" class="form-select">
-                                                @foreach($buckets as $bucket)
-                                                    <option value="{{ $bucket['id'] }}">{{ $bucket['name'] }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-12 col-md-6 mt-2 mt-md-0">
-                                            <select wire:model="sorting" class="form-select">
-                                                <option value="name-asc" selected>{{ __('Name Ascending') }}</option>
-                                                <option value="name-desc">{{ __('Name Descending') }}</option>
-                                                <option value="id-asc">{{ __('Created Ascending') }}</option>
-                                                <option value="id-desc">{{ __('Created Descending') }}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    @if(empty($guilds))
-                                        <div>{{ __('No Guild found.') }}</div>
-                                    @endif
-                                    @foreach($guilds as $guildTreatments)
-                                        @php($guild = $guildTreatments['guild'])
-                                        <div class="row">
-                                            <div class="col-12 col-md-1 text-center">
-                                                @if($guild['icon'])
-                                                    <a href="https://cdn.discordapp.com/icons/{{ $guild['id'] }}/{{ $guild['icon'] }}" target="_blank">
-                                                        <img src="https://cdn.discordapp.com/icons/{{ $guild['id'] }}/{{ $guild['icon'] }}?size=128" loading="lazy" class="rounded-circle" style="width: 48px; height: 48px;" width="48px" height="48px" alt="guild icon">
-                                                    </a>
-                                                @else
-                                                    <img src="https://cdn.discordapp.com/embed/avatars/0.png" loading="lazy" class="rounded-circle" style="width: 48px; height: 48px;" width="48px" height="48px" alt="guild icon">
-                                                @endif
-                                            </div>
-                                            <div class="col-12 col-md-6 text-center text-md-start">
-                                                <div>
-                                                    {{ $guild['name'] }}
-                                                    @if($guild['owner']) {!! getDiscordBadgeServerIcons('owner', __('You own')) !!}
-                                                    @elseif(hasAdministrator($guild['permissions'])) {!! getDiscordBadgeServerIcons('administrator', __('You administrate')) !!}
-                                                    @elseif(hasModerator($guild['permissions'])) {!! getDiscordBadgeServerIcons('moderator', __('You moderate')) !!} @endif
-                                                    @if(in_array('VERIFIED', $guild['features'])) {!! getDiscordBadgeServerIcons('verified', __('Discord Verified')) !!} @endif
-                                                    @if(in_array('PARTNERED', $guild['features'])) {!! getDiscordBadgeServerIcons('partner', __('Discord Partner')) !!} @endif
-                                                </div>
-                                                <div class="mt-n1">
-                                                    <small class="text-muted">
-                                                        {{ $guild['id'] }} &bull; {{ date('Y-m-d', getTimestamp($guild['id']) / 1000) }}
-                                                    </small>
-                                                </div>
-                                                @if($guildTreatments['override'])
-                                                    <div class="mt-n1">
-                                                        <small class="text-success">({{ __('This Guild has an override for this experiment') }})</small>
-                                                    </div>
-                                                @else
-                                                    <div class="mt-n1">
-                                                        <small class="text-muted">
-                                                            @foreach($guildTreatments['filters'] as $filter)
-                                                                {{ $filter }}
-                                                            @endforeach
-                                                        </small>
-                                                    </div>
-                                                @endif
-                                            </div>
-                                            <div class="col-12 col-md-5 text-center text-md-end">
-                                                <a role="button" href="{{ route('guildlookup', ['snowflake' => $guild['id']]) }}" rel="nofollow" class="btn btn-sm btn-outline-primary mt-2 mt-xl-0">{{ __('Guild Info') }}</a>
-                                                <button wire:click="$emitTo('modal.guild-features', 'update', '{{ urlencode($guild['name']) }}', '{{ json_encode($guild['features']) }}')" class="btn btn-sm btn-outline-success mt-2 mt-xl-0" data-bs-toggle="modal" data-bs-target="#modalFeatures">{{ __('Features') }}</button>
-                                                <button wire:click="$emitTo('modal.guild-permissions', 'update', '{{ urlencode($guild['name']) }}', '{{ $guild['permissions'] }}')" class="btn btn-sm btn-outline-danger mt-2 mt-xl-0" data-bs-toggle="modal" data-bs-target="#modalPermissions">{{ __('Permissions') }}</button>
-                                                <button wire:click="$emitTo('modal.guild-experiments', 'update', '{{ $guild['id'] }}', '{{ urlencode($guild['name']) }}', '{{ json_encode($guild['features']) }}')" class="btn btn-sm btn-outline-warning mt-2 mt-xl-0" data-bs-toggle="modal" data-bs-target="#modalExperiments">{{ __('Experiments') }}</button>
-                                            </div>
-                                        </div>
-                                        @if(!$loop->last)<hr>@endif
-                                    @endforeach
-                                @endauth
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
         </div>
 
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                $(function () {
-                    $('[data-bs-toggle="tooltip"]').tooltip()
-                })
-                Livewire.hook('message.processed', (message, component) => {
-                    $(function () {
-                        $('[data-bs-toggle="tooltip"]').tooltip()
-                    })
-                })
-            })
-        </script>
+        <div class="space-y-3" id="guilds">
+            @if($experiment['type'] == 'guild' && $experiment['rollout'])
+                @guest
+                    <x-login-required />
+                @endguest
 
-        @livewire('modal.guild-features')
-        @livewire('modal.guild-permissions')
-        @livewire('modal.guild-experiments')
+                @auth
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-x-0 md:gap-x-3 gap-y-3 md:gap-y-0">
+                        <x-input-prepend-icon icon="fas fa-bucket">
+                            <select wire:model="treatment" class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0">
+                                @foreach($buckets as $bucket)
+                                    <option value="{{ $bucket['id'] }}">{{ $bucket['name'] }}</option>
+                                @endforeach
+                            </select>
+                        </x-input-prepend-icon>
+
+                        <x-input-prepend-icon icon="fas fa-search" class="col-span-2">
+                            <input
+                                wire:model="search"
+                                type="text"
+                                placeholder="{{ __('Search...') }}"
+                                class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0"
+                            >
+                        </x-input-prepend-icon>
+
+                        <x-input-prepend-icon icon="fas fa-sort-alpha-down">
+                            <select wire:model="sorting" class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0">
+                                <option value="name-asc" selected>{{ __('Name Ascending') }}</option>
+                                <option value="name-desc">{{ __('Name Descending') }}</option>
+                                <option value="id-asc">{{ __('Created Ascending') }}</option>
+                                <option value="id-desc">{{ __('Created Descending') }}</option>
+                            </select>
+                        </x-input-prepend-icon>
+                    </div>
+
+                    <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
+                        @if(empty($guilds))
+                            <div class="py-4 px-5 text-gray-200 lg:px-6 w-full items-center">
+                                {{ __('No guilds found.') }}
+                            </div>
+                        @else
+                            <div class="px-5 py-3 grow w-full">
+                                <div class="flex flex-col gap-y-5 md:gap-y-0.5">
+                                    @foreach($guilds as $guildTreatments)
+                                        <x-guild-table-row :guild="$guildTreatments['guild']" />
+                                        @if(!$loop->last)
+                                            <hr class="opacity-10" />
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                @endauth
+            @endif
+        </div>
     </div>
-@else
-    <div>
-        <h1 class="mb-1 mt-5 text-center text-white">
-            {{ __('The page could not be loaded! Please try again.') }}
-        </h1>
-    </div>
-@endif
+
+    @livewire('modal.guild-features')
+    @livewire('modal.guild-permissions')
+    @livewire('modal.guild-experiments')
+</div>

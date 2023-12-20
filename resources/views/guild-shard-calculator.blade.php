@@ -4,41 +4,45 @@
 @section('robots', 'index, follow')
 
 <div>
-    <h1 class="mb-4 mt-5 text-center text-white">{{ __('Guild Shard ID Calculator') }}</h1>
-    <div class="mt-2 mb-4">
-        <div class="row">
-            <div class="col-12 col-xl-4 offset-xl-3">
-                <div class="input-group input-group-lg">
-                    <span class="input-group-text bg-dark">
-                        <i class="far fa-snowflake"></i>
-                    </span>
-                    <input wire:model="guildIdDisplay" class="form-control form-control-lg" type="text" placeholder="{{ __('Guild ID') }}">
-                </div>
+    <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('Guild Shard ID Calculator') }}</h2>
+    <div class="py-12 xl:max-w-3xl mx-auto px-4 lg:px-10 space-y-3">
+        <div class="grid grid-cols-1 md:grid-cols-4 space-x-0 md:space-x-2 space-y-2 md:space-y-0">
+            <div class="col-span-3">
+                <x-input-prepend-icon icon="far fa-snowflake">
+                    <input
+                        wire:model="guildIdDisplay"
+                        type="number"
+                        placeholder="{{ __('Guild ID') }}"
+                        class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0"
+                    />
+                </x-input-prepend-icon>
             </div>
-            <div class="col-12 col-xl-2 mt-3 mt-xl-0">
-                <div class="input-group input-group-lg">
-                    <span class="input-group-text bg-dark">
-                        <i class="fas fa-server"></i>
-                    </span>
-                    <input wire:model="totalShards" class="form-control form-control-lg" type="text" placeholder="{{ __('Shards') }}">
-                </div>
+            <div class="col-span-1">
+                <x-input-prepend-icon icon="fas fa-server">
+                    <input
+                        wire:model="totalShards"
+                        type="number"
+                        min="1"
+                        placeholder="{{ __('Shards') }}"
+                        class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0"
+                    />
+                </x-input-prepend-icon>
             </div>
-            @if($errorMessage)
-                <div class="col-12 col-xl-6 offset-xl-3 mt-3">
-                    <div class="alert alert-danger fade show" role="alert">
-                        {{ $errorMessage }}
-                    </div>
-                </div>
-            @elseif($shardId !== null)
-                <div class="col-12 col-xl-6 offset-xl-3 mt-3">
-                    <div class="card text-white bg-dark">
-                        <div class="card-body text-center">
-                            <h2 class="fw-bold">{{ __('This Guild is on Shard ID') }} <span class="text-primary">{{ $shardId }}</span></h2>
-                            <span class="small fst-italic">{{ __('The Shard ID is zero-based.') }}</span>
-                        </div>
-                    </div>
-                </div>
-            @endif
         </div>
+
+        @if($errorMessage)
+            <x-error-message>
+                {{ $errorMessage }}
+            </x-error-message>
+        @elseif($shardId !== null)
+            <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
+                <div class="p-5 lg:p-6 grow w-full text-center">
+                    <p class="text-3xl font-bold">
+                        {{ __('This Guild is on Shard ID') }} <span class="text-discord-blurple font-bold">{{ $shardId }}</span>
+                    </p>
+                    <p class="italic">{{ __('The Shard ID is zero-based.') }}</p>
+                </div>
+            </div>
+        @endif
     </div>
 </div>

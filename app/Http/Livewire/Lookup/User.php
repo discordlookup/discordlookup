@@ -10,9 +10,8 @@ class User extends Component
 {
     use WithRateLimiting;
 
+    public $fetched = false;
     public $snowflake;
-    public $snowflakeDate;
-    public $snowflakeTimestamp;
     public $userData;
     public $errorMessage;
 
@@ -40,12 +39,8 @@ class User extends Component
             return;
         }
 
-        $this->snowflakeTimestamp = getTimestamp($this->snowflake);
-        $this->snowflakeDate = date('Y-m-d G:i:s \(T\)', $this->snowflakeTimestamp / 1000);
-
+        $this->fetched = true;
         $this->userData = getUser($this->snowflake);
-
-        $this->dispatchBrowserEvent('updateRelative', ['timestamp' => $this->snowflakeTimestamp]);
     }
 
     public function mount()

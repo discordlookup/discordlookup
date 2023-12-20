@@ -1,9 +1,13 @@
-require('./bootstrap');
-
+window._ = require('lodash');
 window.Popper = require('@popperjs/core');
 
-import * as Bootstrap from 'bootstrap'
-window.Bootstrap = Bootstrap;
+import Alpine from 'alpinejs'
+import collapse from '@alpinejs/collapse'
+import focus from '@alpinejs/focus'
+window.Alpine = Alpine
+Alpine.plugin(collapse)
+Alpine.plugin(focus)
+Alpine.start()
 
 import moment from 'moment'
 window.moment = moment;
@@ -11,11 +15,6 @@ window.moment = moment;
 window.JSZip = require('jszip');
 window.JSZipUtils = require('jszip-utils');
 import { saveAs } from 'file-saver';
-
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new Bootstrap.Tooltip(tooltipTriggerEl)
-})
 
 // vegeta897/snow-stamp is licensed under the MIT License ( https://github.com/vegeta897/snow-stamp/blob/main/src/convert.js )
 window.validateSnowflake = function(snowflake, epoch) {
@@ -36,4 +35,15 @@ window.validateSnowflake = function(snowflake, epoch) {
 
 window.convertSnowflakeToDate = function(snowflake, epoch = 1420070400000) {
     return new Date(snowflake / 4194304 + epoch);
+}
+
+window.copyToClipboard = function(inputElemId, successElemId) {
+    const inputElem = document.getElementById(inputElemId);
+    inputElem.select();
+    inputElem.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(inputElem.value);
+
+    const successElem = document.getElementById(successElemId);
+    successElem.style.display = 'block';
+    setTimeout(() => successElem.style.display = 'none', 3000);
 }

@@ -31,23 +31,11 @@ class GenerateSitemap extends Command
     {
         SitemapGenerator::create(env('SITEMAP_URL'))
             ->hasCrawled(function (Url $url) {
-
                 $segments = $url->segments();
-
-                if(empty($segments)) {
-                    $url->setPriority(0.9);
-                }else if(sizeof($segments) == 1) {
-                    $url->setPriority(0.8);
-                }else if(sizeof($segments) == 2) {
-                    $url->setPriority(0.7);
-                }else if(sizeof($segments) == 3) {
-                    $url->setPriority(0.6);
-                }else if(sizeof($segments) == 4) {
-                    $url->setPriority(0.5);
-                }else{
-                    $url->setPriority(0.4);
-                }
-
+                $priority = max(0.4, 1 - 0.1 * min(count($segments), 4));
+                $url->setPriority($priority);
+                $url->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY);
+                $url->setLastModificationDate(now());
                 return $url;
             })
             ->getSitemap()

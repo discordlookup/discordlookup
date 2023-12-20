@@ -1,0 +1,5 @@
+Contact: mailto:security@netcubes.com
+Contact: https://discord.com/invite/XsPcgeuEmB
+Expires: 2028-12-31T00:00:00.000Z
+Preferred-Languages: en, de
+Canonical: https://discordlookup.com/.well-known/security.txt

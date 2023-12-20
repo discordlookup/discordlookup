@@ -50,3 +50,14 @@ function getCurrentGitCommitShort()
 {
     return substr(getCurrentGitCommit(), 0, 7);
 }
+
+/**
+ * @param $inputString
+ * @param $maxLength
+ * @return string
+ */
+function cutString($inputString, $maxLength) {
+    if (mb_strlen($inputString) > $maxLength)
+        return mb_substr($inputString, 0, $maxLength - 1) . '…';
+    return $inputString;
+}

@@ -1,7 +1,7 @@
-// Bootswatch
-@import 'variables';
-@import "~bootstrap/scss/bootstrap";
-@import "bootswatch";
+// Tailwind
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 // Fontawesome
 @import '~@fortawesome/fontawesome-free/scss/brands';

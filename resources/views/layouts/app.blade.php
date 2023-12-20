@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="no-js h-100">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,7 +21,7 @@
     @hasSection('description')<meta name="description" content="@yield('description')">@endif
 
     <meta name="keywords" content="@hasSection('keywords')@yield('keywords'), @endif
-discord, discord lookup, discordlookup, lookup, snowflake, guild count, invite info, user info, discord tools, tools">
+discord, discord lookup, discordlookup, lookup, snowflake, toolbox, tool box, guild count, invite info, user info, discord tools, tools, experiments, rollouts, search, discord search">
 
     @hasSection('og.sitename')
         <meta property="og:site_name" content="@yield('og.sitename')">
@@ -54,34 +53,33 @@ discord, discord lookup, discordlookup, lookup, snowflake, guild count, invite i
 
     <link rel="search" type="application/opensearchdescription+xml" title="DiscordLookup" href="/opensearch.xml">
 
+    {{--
     @foreach (Config::get('languages') as $lang => $language)
         <link rel="alternate" href="{{ route('language.switch', $lang) }}" hreflang="{{ $lang }}" />
     @endforeach
+    --}}
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @livewireStyles
 </head>
 
-<body class="d-flex flex-column h-100">
+<body class="flex flex-col min-h-screen bg-[#292b2f]">
 
-@livewire('components.banners')
-
-<main class="flex-shrink-0 mb-5">
-
-    @include('components.navbar')
-
-    <div class="container">
+<main class="flex-grow bg-discord-gray-3 text-white">
+    <x-navbar />
+    <div class="py-12 container xl:max-w-7xl mx-auto px-4 lg:px-10">
         @yield('content')
     </div>
 </main>
 
-@include('components.footer')
+<x-footer />
 
 <script src="{{ asset('js/app.js') }}" defer></script>
+
+{{-- TODO: Remove jquery --}}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 @stack('scripts')
-@livewire('modal.login')
 @livewireScripts
 
 @if(!empty(env('PLAUSIBLE_URL')) && !empty(env('PLAUSIBLE_WEBSITE_DOMAIN')))

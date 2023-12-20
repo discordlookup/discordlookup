@@ -22,9 +22,23 @@ services:
             - MYSQL_USER=discordlookup
             - MYSQL_PASSWORD=discordlookup
         volumes:
-            - mysqldata:/var/lib/mysql
+            - mysql:/var/lib/mysql
         networks:
             - discordlookup
+        labels:
+            - 'com.centurylinklabs.watchtower.scope=discordlookup-website'
+    redis:
+        image: redis:7.2
+        restart: unless-stopped
+        volumes:
+            - redis:/data
+        networks:
+            - discordlookup
+        healthcheck:
+            test: [ "CMD", "redis-cli", "ping" ]
+            interval: 3s
+            timeout: 3s
+            retries: 5
         labels:
             - 'com.centurylinklabs.watchtower.scope=discordlookup-website'
     watchtower:
@@ -33,12 +47,13 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - /root/.docker/config.json:/config.json
-        command: --interval 300 --cleanup --scope discordlookup-website
+        command: --interval 120 --cleanup --scope discordlookup-website
         labels:
             - 'com.centurylinklabs.watchtower.scope=discordlookup-website'
 
 volumes:
-    mysqldata:
+    mysql:
+    redis:
 
 networks:
     discordlookup:
