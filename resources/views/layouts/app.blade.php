@@ -59,7 +59,7 @@ discord, discord lookup, discordlookup, lookup, snowflake, toolbox, tool box, gu
     @endforeach
     --}}
 
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     @livewireStyles
 </head>
 
@@ -74,7 +74,7 @@ discord, discord lookup, discordlookup, lookup, snowflake, toolbox, tool box, gu
 
 <x-footer />
 
-<script src="{{ asset('js/app.js') }}" defer></script>
+<script src="{{ mix('js/app.js') }}" defer></script>
 
 {{-- TODO: Remove jquery --}}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
