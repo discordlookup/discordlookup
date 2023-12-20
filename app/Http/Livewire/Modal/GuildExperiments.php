@@ -139,7 +139,16 @@ class GuildExperiments extends Component
 
             if($guildBucket != -1)
             {
-                $bucket = $buckets["BUCKET {$guildBucket}"];
+                if (array_key_exists("BUCKET {$guildBucket}", $buckets)) {
+                    $bucket = $buckets["BUCKET {$guildBucket}"];
+                }else{
+                    $bucket = [
+                        'id' => $guildBucket,
+                        'name' => "Unknown Treatment {$guildBucket}",
+                        'description' => "n/a",
+                    ];
+                }
+
                 $this->experiments[] = [
                     'id' => $experiment['id'],
                     'title' => $experiment['title'],

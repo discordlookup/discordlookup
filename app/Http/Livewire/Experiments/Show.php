@@ -22,6 +22,9 @@ class Show extends Component
         $experimentHash = Murmur::hash3_int($this->experimentId);
         $this->experiment = getExperiments($experimentHash);
 
+        if ($this->experiment == null) {
+            return redirect()->route('experiments.index');
+        }
 
         if(!empty($this->experiment['buckets']))
         {

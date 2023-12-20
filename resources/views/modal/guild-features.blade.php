@@ -25,7 +25,7 @@
             x-transition:leave-start="opacity-100 scale-100"
             x-transition:leave-end="opacity-0 scale-125"
             role="document"
-            class="m-auto flex w-full max-w-xl flex-col overflow-hidden rounded-lg bg-discord-gray-1 shadow-sm"
+            class="m-auto flex w-full max-w-xl flex-col rounded-lg bg-discord-gray-1 shadow-sm"
         >
             <div class="flex items-center justify-between px-5 py-4">
                 <h3 class="text-xl font-medium"><span class="font-bold">{{ __('Features') }}</span>: {{ $guildName }}</h3>
