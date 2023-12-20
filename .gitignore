@@ -1,7 +1,15 @@
 /node_modules
 /public/hot
 /public/storage
+/public/css
+/public/js
+/public/fonts
+/public/images
+/public/vendor
+/public/webfonts
+/public/mix-manifest.json
 /storage/*.key
+/resources/views/legal/content/*.blade.php
 /vendor
 /tests
 .env
@@ -14,4 +22,3 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-/resources/views/legal/content/*.blade.php

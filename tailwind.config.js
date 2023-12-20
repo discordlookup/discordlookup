@@ -3,7 +3,7 @@ const colors = require('tailwindcss/colors');
 module.exports = {
     content: [
         './storage/framework/views/*.php',
-        './resources/views/components/**/*.blade.php',
+        './resources/views/**/*.blade.php',
         './vendor/rappasoft/laravel-livewire-tables/resources/views/**/*.blade.php',
     ],
     safelist: [

@@ -7,6 +7,13 @@ input[type="time"]::-webkit-calendar-picker-indicator, input[type="date"]::-webk
     display: none;
 }
 
+.user-avatar-decoration {
+    width: 80px;
+    height: 80px;
+    margin-left: -8px;
+    margin-top: -8px;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -16,42 +23,4 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
     -moz-appearance: textfield;
-}
-
-.user-avatar-decoration {
-    width: 80px;
-    height: 80px;
-    margin-left: -8px;
-    margin-top: -8px;
-}
-
-// TODO: Remove this all:
-.user-avatar {
-    width: 64px;
-    height: 64px;
-}
-
-
-
-.discord-status-pill {
-    display: inline-block;
-    margin-right: 2px;
-    width: 8px;
-    margin-bottom: 0.05rem;
-    height: 8px;
-    border-radius: 50%;
-}
-
-.discord-status-pill-online {
-    background-color: #3ba55d;
-}
-
-.discord-status-pill-offline {
-    background-color: #747f8d;
-}
-
-.discord-badge {
-    width: 16px;
-    height: 16px;
-    margin-bottom: 0.1rem;
 }
