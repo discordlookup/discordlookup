@@ -53,9 +53,11 @@ discord, discord lookup, discordlookup, lookup, snowflake, toolbox, tool box, gu
 
     <link rel="search" type="application/opensearchdescription+xml" title="DiscordLookup" href="/opensearch.xml">
 
+    {{--
     @foreach (Config::get('languages') as $lang => $language)
         <link rel="alternate" href="{{ route('language.switch', $lang) }}" hreflang="{{ $lang }}" />
     @endforeach
+    --}}
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @livewireStyles

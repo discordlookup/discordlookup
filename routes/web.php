@@ -73,7 +73,7 @@ Route::redirect('/discord', env('DISCORD_URL'), 302)->name('discord');
 |--------------------------------------------------------------------------
 */
 
-Route::get('/language/{locale}', function ($locale) {
+/*Route::get('/language/{locale}', function ($locale) {
     Session::put('locale', $locale);
     return Redirect::back();
-})->name('language.switch');
+})->name('language.switch');*/
