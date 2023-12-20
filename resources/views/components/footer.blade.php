@@ -3,13 +3,13 @@
         <div class="container xl:max-w-7xl mx-auto px-4 py-8 lg:px-8 lg:py-16">
             <div class="flex flex-col md:flex-row-reverse md:justify-between space-y-6 md:space-y-0 text-center md:text-left text-sm">
                 <nav class="space-x-4">
-                    <a href="https://discord.gg/XsPcgeuEmB" target="_blank" rel="noopener" class="text-gray-400 hover:text-discord-blurple">
+                    <a href="{{ env('DISCORD_URL') }}" target="_blank" rel="noopener" class="text-gray-400 hover:text-discord-blurple">
                         <i class="fab fa-discord text-2xl"></i>
                     </a>
-                    <a href="https://github.com/discordlookup" target="_blank" rel="noopener" class="text-gray-400 hover:text-discord-blurple">
+                    <a href="{{ env('GITHUB_URL') }}" target="_blank" rel="noopener" class="text-gray-400 hover:text-discord-blurple">
                         <i class="fab fa-github text-2xl"></i>
                     </a>
-                    <a href="https://twitter.com/discordlookup" target="_blank" rel="noopener" class="text-gray-400 hover:text-discord-blurple">
+                    <a href="{{ env('TWITTER_URL') }}" target="_blank" rel="noopener" class="text-gray-400 hover:text-discord-blurple">
                         <i class="fab fa-twitter text-2xl"></i>
                     </a>
                 </nav>
