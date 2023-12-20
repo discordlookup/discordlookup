@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Livewire\Snowflake;
+namespace App\Http\Livewire;
 
 use Livewire\Component;
 
-class Distance extends Component
+class SnowflakeDistance extends Component
 {
     public $snowflake1;
     public $snowflake1Display;
@@ -63,6 +63,6 @@ class Distance extends Component
     public function render()
     {
         $this->processSnowflake();
-        return view('snowflake.distance')->extends('layouts.app');
+        return view('snowflake-distance')->extends('layouts.app');
     }
 }

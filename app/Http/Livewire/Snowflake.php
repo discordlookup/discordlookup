@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Livewire\Snowflake;
+namespace App\Http\Livewire;
 
 use Livewire\Component;
 
-class Index extends Component
+class Snowflake extends Component
 {
     public $snowflake;
     public $snowflakeDate;
@@ -32,6 +32,6 @@ class Index extends Component
     public function render()
     {
         $this->processSnowflake();
-        return view('snowflake.index')->extends('layouts.app');
+        return view('snowflake')->extends('layouts.app');
     }
 }

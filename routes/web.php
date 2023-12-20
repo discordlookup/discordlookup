@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\Session;
 Route::get('/', \App\Http\Livewire\Home::class)->name('home');
 
 /* Snowflakes */
-Route::get('/snowflake/{snowflake?}', \App\Http\Livewire\Snowflake\Index::class)->name('snowflake');
+Route::get('/snowflake/{snowflake?}', \App\Http\Livewire\Snowflake::class)->name('snowflake');
 Route::get('/user/{snowflake?}', \App\Http\Livewire\Lookup\User::class)->name('userlookup');
 Route::get('/guild/{snowflake?}', \App\Http\Livewire\Lookup\Guild::class)->name('guildlookup');
 Route::get('/application/{snowflake?}', \App\Http\Livewire\Lookup\Application::class)->name('applicationlookup');
-Route::get('/snowflake-distance/{snowflake1?}/{snowflake2?}', \App\Http\Livewire\Snowflake\Distance::class)->name('snowflake-distance-calculator');
+Route::get('/snowflake-distance/{snowflake1?}/{snowflake2?}', \App\Http\Livewire\SnowflakeDistance::class)->name('snowflake-distance-calculator');
 
 Route::get('/guildlist', \App\Http\Livewire\Guildlist::class)->name('guildlist');
 
