@@ -1,5 +1,5 @@
 @section('title', __('Discord Webhook Invalidator'))
-@section('description', __('Immediately delete a Discord webhook to elemenate evil webhooks.'))
+@section('description', __('Immediately delete a Discord webhook to eliminate evil webhooks.'))
 @section('keywords', 'webhook, invalidator, delete, delete webhook, invalidate webhook')
 @section('robots', 'index, follow')
 

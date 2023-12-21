@@ -21,7 +21,7 @@
         <x-link-card url="{{ route('permissions-calculator') }}" icon="fas fa-sort-numeric-down" title="{{ __('Permissions Calculator') }}" description="{{ __('Calculate Discord permissions integer based on the required bot permissions.') }}" />
         <x-link-card url="{{ route('snowflake-distance-calculator') }}" icon="fas fa-arrows-alt-h" title="{{ __('Snowflake Distance Calculator') }}" description="{{ __('Calculate the distance between two Discord Snowflakes.') }}" />
         <x-link-card url="{{ route('guild-shard-calculator') }}" icon="fas fa-server" title="{{ __('Guild Shard Calculator') }}" description="{{ __('Calculate the Shard ID of a guild using the Guild ID and the total number of shards.') }}" />
-        <x-link-card url="{{ route('webhook-invalidator') }}" icon="fas fa-link" title="{{ __('Discord Webhook Invalidator') }}" description="{{ __('Immediately delete a Discord webhook to elemenate evil webhooks.') }}" />
+        <x-link-card url="{{ route('webhook-invalidator') }}" icon="fas fa-link" title="{{ __('Discord Webhook Invalidator') }}" description="{{ __('Immediately delete a Discord webhook to eliminate evil webhooks.') }}" />
         <x-link-card url="{{ env('GITHUB_URL') }}" icon="fab fa-github" title="{{ __('GitHub') }}" description="{{ __('DiscordLookup.com is fully open source on GitHub! Feel free to give us a star.') }}" />
     </div>
 </div>
