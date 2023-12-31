@@ -15,7 +15,10 @@
                         <div>
                             <h3 class="text-xl font-bold mb-2">{{ __('Legal Provider Identification') }}</h3>
                             <div>{{ env('LEGAL_FIRSTNAME') }} {{ env('LEGAL_LASTNAME') }}</div>
-                            <div>{{ env('LEGAL_STREET') }} {{ env('LEGAL_STREET_NUMBER') }}</div>
+                            <div>{{ env('LEGAL_ADRESS') }}</div>
+                            @if(env('LEGAL_ADRESS_ADDITIONAL'))
+                                <div>{{ env('LEGAL_ADRESS_ADDITIONAL') }}</div>
+                            @endif
                             <div>{{ env('LEGAL_ZIPCODE') }} {{ env('LEGAL_CITY') }}</div>
                             <div>{{ env('LEGAL_COUNTRY') }}</div>
                         </div>
