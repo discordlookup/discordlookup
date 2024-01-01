@@ -23,7 +23,7 @@
                                     src="{{ getCustomEmojiUrl($emoji['id'], 64, 'webp', $emoji['animated']) }}"
                                     loading="lazy"
                                     alt="{{ $emoji['name'] }} Emoji"
-                                    class="inline-block w-9 h-9"
+                                    class="inline-block w-9"
                                 />
                             </a>
                         </div>
