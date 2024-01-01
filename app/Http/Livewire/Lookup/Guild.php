@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Lookup;
 
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use Illuminate\Support\Facades\App;
 use Livewire\Component;
 
 class Guild extends Component
@@ -30,14 +31,14 @@ class Guild extends Component
         $this->errorMessage = invalidateSnowflake($this->snowflake);
         if($this->errorMessage) return;
 
-        try {
-            $this->rateLimit(auth()->check() ? 10 : 3, auth()->check() ? 2*60 : 3*60);
-        }
-        catch (TooManyRequestsException $exception)
-        {
-            $this->rateLimitHit = true;
-            $this->rateLimitAvailableIn = $exception->secondsUntilAvailable;
-            return;
+        if (App::environment('production')) {
+            try {
+                $this->rateLimit(auth()->check() ? 10 : 3, auth()->check() ? 2 * 60 : 3 * 60);
+            } catch (TooManyRequestsException $exception) {
+                $this->rateLimitHit = true;
+                $this->rateLimitAvailableIn = $exception->secondsUntilAvailable;
+                return;
+            }
         }
 
         $this->snowflakeTimestamp = getTimestamp($this->snowflake);
