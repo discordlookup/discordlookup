@@ -825,6 +825,9 @@ function getGuildPreview($guildId)
     if ($responseJson == null || !key_exists('id', $responseJson))
         return null;
 
+    if(array_key_exists('id', $responseJson))
+        $array['id'] = $responseJson['id'];
+
     if(array_key_exists('name', $responseJson))
         $array['name'] = $responseJson['name'];
 
