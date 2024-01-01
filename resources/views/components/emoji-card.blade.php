@@ -17,13 +17,13 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                 @foreach($emojis as $emoji)
                     <div class="w-full flex items-center">
-                        <div class="mr-4">
+                        <div class="w-9 mr-4">
                             <a href="{{ getCustomEmojiUrl($emoji['id'], 1024, 'webp', $emoji['animated']) }}" target="_blank">
                                 <img
                                     src="{{ getCustomEmojiUrl($emoji['id'], 64, 'webp', $emoji['animated']) }}"
                                     loading="lazy"
                                     alt="{{ $emoji['name'] }} Emoji"
-                                    class="inline-block w-9"
+                                    class="inline-block max-h-9 max-w-9"
                                 />
                             </a>
                         </div>

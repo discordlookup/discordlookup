@@ -17,13 +17,13 @@
             <div class="grid grid-cols-1 gap-x-6 gap-y-4">
                 @foreach($stickers as $sticker)
                     <div class="w-full flex items-center">
-                        <div class="mr-4">
+                        <div class="w-16 mr-4">
                             <a href="{{ getStickerUrl($sticker['id']) }}" target="_blank">
                                 <img
                                     src="{{ getStickerUrl($sticker['id']) }}"
                                     loading="lazy"
                                     alt="{{ $sticker['name'] }} Sticker"
-                                    class="inline-block w-16"
+                                    class="inline-block max-h-16 max-w-16"
                                 />
                             </a>
                         </div>
