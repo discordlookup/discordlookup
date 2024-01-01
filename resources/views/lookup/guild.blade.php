@@ -61,7 +61,6 @@
         @if($snowflakeDate && empty($guildData))
             <x-error-message>
                 <p>{{ __('No Discord guild could be found for the entered Snowflake.') }}</p>
-                <p>{{ __('It is possible that the entered guild has disabled the server widget and discovery.') }}</p>
                 <p>{!! __('If you want to search for a :user or :application instead, check out our other tools.', ['user' => '<a href="' . route('userlookup', ['snowflake' => $snowflake]) . '" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">user</a>', 'application' => '<a href="' . route('applicationlookup', ['snowflake' => $snowflake]) . '" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">application</a>']) !!}</p>
             </x-error-message>
         @endif

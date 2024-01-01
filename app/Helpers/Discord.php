@@ -740,6 +740,7 @@ function getGuildWidget($guildId)
         'channels' => [],
         'members' => [],
         'onlineCount' => '',
+        'widgetEnabled' => false,
     ];
 
     if(Cache::has('guildWidget:' . $guildId))
@@ -749,6 +750,9 @@ function getGuildWidget($guildId)
     else
     {
         $response = Http::get(env('DISCORD_API_URL') . '/guilds/' . $guildId . '/widget.json');
+
+        if ($response->status() == 403 && $response->json()['code'] == 50004)
+            return array_merge($array, ['id' => $guildId]);
 
         if(!$response->ok())
             return null;
@@ -780,6 +784,8 @@ function getGuildWidget($guildId)
     if(array_key_exists('members', $responseJson))
         $array['members'] = $responseJson['members'];
 
+    $array['widgetEnabled'] = true;
+
     return $array;
 }
 
@@ -803,6 +809,7 @@ function getGuildPreview($guildId)
         'onlineCount' => 0,
         'emojis' => '',
         'stickers' => '',
+        'previewEnabled' => false,
     ];
 
     if(Cache::has('guildPreview:' . $guildId))
@@ -866,6 +873,8 @@ function getGuildPreview($guildId)
     }
     sort($array['features']);
 
+    $array['previewEnabled'] = true;
+
     return $array;
 }
 
@@ -920,7 +929,7 @@ function parseInviteJson($json)
             'id' => '',
             'name' => '',
             'icon' => '',
-            'iconUrl' => '',
+            'iconUrl' => getDefaultUserAvatarUrl(),
             'recipients' => [],
         ],
         'event' => [

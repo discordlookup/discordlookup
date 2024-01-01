@@ -1,60 +1,62 @@
 <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
-    <div class="py-4 px-5 lg:px-6 w-full flex items-center border-b border-discord-gray-4">
-        <div class="flex flex-col gap-y-5 md:gap-y-0.5 grow w-full">
-            <div class="grid grid-cols-1 md:grid-cols-8 gap-y-3">
-                <div class="col-span-1 text-center md:text-left my-auto">
-                    @if(array_key_exists('iconUrl', $guild) && $guild['iconUrl'])
-                        <a href="{{ $guild['iconUrl'] }}" target="_blank">
-                            <img src="{{ $guild['iconUrl'] }}" loading="lazy" alt="Guild Icon" class="inline-block w-16 h-16 rounded-full"/>
-                        </a>
-                    @endif
-                </div>
-                <div class="col-span-4 text-center md:text-left my-auto">
-                    <p>
-                        <span class="font-semibold">{{ $guild['name'] }}</span>
-
-                        @if(array_key_exists('isPartnered', $guild) && $guild['isPartnered'])
-                            <img src="{{ asset('images/discord/icons/server/partner.svg') }}" class="inline-block h-4 w-4 mb-1" alt="discord partner badge"/>
+    @if(array_key_exists('name', $guild) && $guild['name'])
+        <div class="py-4 px-5 lg:px-6 w-full flex items-center border-b border-discord-gray-4">
+            <div class="flex flex-col gap-y-5 md:gap-y-0.5 grow w-full">
+                <div class="grid grid-cols-1 md:grid-cols-8 gap-y-3">
+                    <div class="col-span-1 text-center md:text-left my-auto">
+                        @if(array_key_exists('iconUrl', $guild) && $guild['iconUrl'])
+                            <a href="{{ $guild['iconUrl'] }}" target="_blank">
+                                <img src="{{ $guild['iconUrl'] }}" loading="lazy" alt="Guild Icon" class="inline-block w-16 h-16 rounded-full"/>
+                            </a>
                         @endif
-
-                        @if(array_key_exists('isVerified', $guild) && $guild['isVerified'])
-                            <img src="{{ asset('images/discord/icons/server/verified.svg') }}" class="inline-block h-4 w-4 mb-1" alt="discord verified badge"/>
-                        @endif
-                    </p>
-                    <p>
-                        @if(array_key_exists('onlineCount', $guild) && $guild['onlineCount'])
-                            <span class="inline-block h-2 w-2 rounded-full bg-[#3ba55d] mb-px mr-0.5"></span>
-                            <span class="text-sm">{{ number_format($guild['onlineCount'], 0, '', '.') }} {{ __('Online') }}</span>
-                        @endif
-
-                        @if(array_key_exists('memberCount', $guild) && $guild['memberCount'])
-                            <span class="inline-block h-2 w-2 rounded-full bg-[#747f8d] mb-px mr-0.5 ml-3"></span>
-                            <span class="text-sm">{{ number_format($guild['memberCount'], 0, '', '.') }} {{ __('Members') }}</span>
-                        @endif
-                    </p>
-                    @if(array_key_exists('boostCount', $guild) && array_key_exists('boostLevel', $guild) && $inviteType != 1)
-                        <p>
-                            {!! getDiscordBadgeServerBoosts($guild['boostLevel']) !!}
-                            <span class="text-sm">{{ number_format($guild['boostCount'], 0, '', '.') }} {{ __('Boosts') }}</span>
-                            <span class="text-xs">({{ __('Level') }} {{ $guild['boostLevel'] }})</span>
-                        </p>
-                    @endif
-                </div>
-                @if(array_key_exists('bannerUrl', $guild) && $guild['bannerUrl'])
-                    <div class="col-span-3 text-center md:text-right my-auto">
-                        <a href="{{ $guild['bannerUrl'] }}" target="_blank">
-                            <img
-                                src="{{ $guild['bannerUrl'] }}"
-                                loading="lazy"
-                                alt="Guild Banner"
-                                class="inline-block h-16 rounded-md"
-                            />
-                        </a>
                     </div>
-                @endif
+                    <div class="col-span-4 text-center md:text-left my-auto">
+                        <p>
+                            <span class="font-semibold">{{ $guild['name'] }}</span>
+
+                            @if(array_key_exists('isPartnered', $guild) && $guild['isPartnered'])
+                                <img src="{{ asset('images/discord/icons/server/partner.svg') }}" class="inline-block h-4 w-4 mb-1" alt="discord partner badge"/>
+                            @endif
+
+                            @if(array_key_exists('isVerified', $guild) && $guild['isVerified'])
+                                <img src="{{ asset('images/discord/icons/server/verified.svg') }}" class="inline-block h-4 w-4 mb-1" alt="discord verified badge"/>
+                            @endif
+                        </p>
+                        <p>
+                            @if(array_key_exists('onlineCount', $guild) && $guild['onlineCount'])
+                                <span class="inline-block h-2 w-2 rounded-full bg-[#3ba55d] mb-px mr-0.5"></span>
+                                <span class="text-sm">{{ number_format($guild['onlineCount'], 0, '', '.') }} {{ __('Online') }}</span>
+                            @endif
+
+                            @if(array_key_exists('memberCount', $guild) && $guild['memberCount'])
+                                <span class="inline-block h-2 w-2 rounded-full bg-[#747f8d] mb-px mr-0.5 ml-3"></span>
+                                <span class="text-sm">{{ number_format($guild['memberCount'], 0, '', '.') }} {{ __('Members') }}</span>
+                            @endif
+                        </p>
+                        @if(array_key_exists('boostCount', $guild) && array_key_exists('boostLevel', $guild) && $inviteType != 1)
+                            <p>
+                                {!! getDiscordBadgeServerBoosts($guild['boostLevel']) !!}
+                                <span class="text-sm">{{ number_format($guild['boostCount'], 0, '', '.') }} {{ __('Boosts') }}</span>
+                                <span class="text-xs">({{ __('Level') }} {{ $guild['boostLevel'] }})</span>
+                            </p>
+                        @endif
+                    </div>
+                    @if(array_key_exists('bannerUrl', $guild) && $guild['bannerUrl'])
+                        <div class="col-span-3 text-center md:text-right my-auto">
+                            <a href="{{ $guild['bannerUrl'] }}" target="_blank">
+                                <img
+                                    src="{{ $guild['bannerUrl'] }}"
+                                    loading="lazy"
+                                    alt="Guild Banner"
+                                    class="inline-block h-16 rounded-md"
+                                />
+                            </a>
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
-    </div>
+    @endif
     <div class="p-5 lg:p-6 grow w-full">
         @if(array_key_exists('description', $guild) && $guild['description'])
             <div class="mb-5">
@@ -82,6 +84,32 @@
                         <a href="{{ route('guildlookup', ['snowflake' => $guild['id']]) }}" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">
                             {{ $guild['id'] }}
                         </a>
+                    </p>
+                </div>
+            @endif
+
+            @if($inviteType == 0)
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <span class="font-semibold">{{ __('Widget Enabled') }}<span class="hidden md:inline">:</span></span>
+                    <p class="my-auto">
+                        @if(array_key_exists('widgetEnabled', $guild) && $guild['widgetEnabled'])
+                            <img src="{{ asset('images/discord/icons/check.svg') }}" class="inline-block h-4 w-4" alt="Check">
+                        @else
+                            <img src="{{ asset('images/discord/icons/cross.svg') }}" class="inline-block h-4 w-4" alt="Cross">
+                        @endif
+                    </p>
+                </div>
+            @endif
+
+            @if($inviteType == 0)
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <span class="font-semibold">{{ __('Preview Enabled') }}<span class="hidden md:inline">:</span></span>
+                    <p class="my-auto">
+                        @if(array_key_exists('previewEnabled', $guild) && $guild['previewEnabled'])
+                            <img src="{{ asset('images/discord/icons/check.svg') }}" class="inline-block h-4 w-4" alt="Check">
+                        @else
+                            <img src="{{ asset('images/discord/icons/cross.svg') }}" class="inline-block h-4 w-4" alt="Cross">
+                        @endif
                     </p>
                 </div>
             @endif

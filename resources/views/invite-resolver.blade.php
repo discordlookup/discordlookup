@@ -63,7 +63,11 @@
                         @endif
                         <div>
                             <p>
-                                <span class="font-semibold">{{ $inviteData['channel']['name'] }}</span>
+                                @if(array_key_exists('name', $inviteData['channel']) && $inviteData['channel']['name'])
+                                    <span class="font-semibold">{{ $inviteData['channel']['name'] }}</span>
+                                @else
+                                    <span class="italic">{{ __('No group name. Group name is the name of the members.') }}</span>
+                                @endif
                             </p>
                         </div>
                     </div>
