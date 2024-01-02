@@ -50,7 +50,7 @@
                                                 <span id="allOverrides{{ $bucket['id'] }}" style="display: none">
                                                 @endif
 
-                                                <a href="{{ route('guildlookup', ['snowflake' => $override]) }}" target="_blank">
+                                                <a href="{{ route('guildlookup', ['snowflake' => $override]) }}" target="_blank" rel="nofollow">
                                                     <div class="inline-flex rounded bg-discord-gray-4 px-2 py-1 text-xs font-semibold leading-3 text-gray-200">{{ $override }}</div>
                                                 </a>
 
