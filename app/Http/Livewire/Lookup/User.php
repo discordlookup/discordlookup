@@ -96,7 +96,7 @@ Badges:
             }
 
             Meta::set('og:site_name', $username)
-                ->set('og:title', $this->userData['global_name'])
+                ->set('og:title', $this->userData['global_name'] ?? $username)
                 ->set('og:description', $description)
                 ->set('og:image', $this->userData['avatarUrlOg'])
                 ->when($this->userData['bannerColor'], function ($meta) {
