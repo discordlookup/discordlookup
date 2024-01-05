@@ -639,6 +639,19 @@ function renderDiscordMarkdown($text) {
     return $text;
 }
 
+
+/**
+ * Check if the user agent is Discordbot
+ *
+ * @param $userAgent
+ * @return bool
+ */
+function isDiscordUserAgent($userAgent)
+{
+    // Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)
+    return str_contains($userAgent, 'Discordbot');
+}
+
 /**
  * @param $userId
  * @return array|null
@@ -651,6 +664,7 @@ function getUser($userId)
         'discriminator' => '',
         'global_name' => '',
         'avatarUrl' => '',
+        'avatarUrlOg' => '',
         'avatarDecorationUrl' => '',
         'bannerUrl' => '',
         'bannerColor' => '',
@@ -696,11 +710,15 @@ function getUser($userId)
     if (key_exists('bot', $responseJson))
         $array['isBot'] = $responseJson['bot'];
 
-    if (key_exists('avatar', $responseJson) && $responseJson['avatar'] != null)
+    if (key_exists('avatar', $responseJson) && $responseJson['avatar'] != null) {
         $array['avatarUrl'] = getUserAvatarUrl($responseJson['id'], $responseJson['avatar'], 512, 'webp', true);
+        $array['avatarUrlOg'] = getUserAvatarUrl($responseJson['id'], $responseJson['avatar'], 200, 'png', true);
+    }
 
-    if (empty($array['avatarUrl']))
+    if (empty($array['avatarUrl'])) {
         $array['avatarUrl'] = getDefaultUserAvatarUrl($responseJson['id']);
+        $array['avatarUrlOg'] = getDefaultUserAvatarUrl($responseJson['id']);
+    }
 
     // TODO: Add custom avatar decorations once released and documented by Discord
     if (key_exists('avatar_decoration_data', $responseJson) && $responseJson['avatar_decoration_data'] != null && key_exists('asset', $responseJson['avatar_decoration_data']) && $responseJson['avatar_decoration_data']['asset'] != null)

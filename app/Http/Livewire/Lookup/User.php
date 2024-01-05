@@ -50,11 +50,51 @@ class User extends Component
         if($this->snowflake)
             $this->fetchUser();
 
-        Meta::set('title', __('User Lookup'))
-            ->set('og:title', __('User Lookup'))
-            ->set('description', __('Get detailed information about Discord users with creation date, profile picture, banner and badges.'))
-            ->set('og:description', __('Get detailed information about Discord users with creation date, profile picture, banner and badges.'))
-            ->set('keywords', 'user, member, user lookup, member info, user info, user search, member search, username, discord user, ' . getDefaultKeywords());
+        $userAgent = request()->header('User-Agent');
+        if ($this->userData && isDiscordUserAgent($userAgent)) {
+
+            $username = '@' . $this->userData['username'];
+            if ($this->userData['discriminator'] != '0')
+                $username .= '#' . $this->userData['discriminator'];
+
+            $description = 'ID: ' . $this->userData['id'] . '\n';
+            $description .= 'Created: ' . \Carbon\Carbon::createFromTimestamp(getTimestamp($this->userData['id']) / 1000)->diffForHumans() . '\n';
+
+            if($this->userData['isBot']) {
+                $description .= 'Bot: Yes\n';
+                if($this->userData['isVerifiedBot'] || $this->userData['id'] === '643945264868098049' || $this->userData['id'] === '1081004946872352958') {
+                    $description .= 'Verified Bot: Yes\n';
+                }else{
+                    $description .= 'Verified Bot: No\n';
+                }
+            }else{
+                $description .= 'Bot: No\n';
+            }
+
+            if($this->userData['bannerColor'])
+                $description .= 'Banner Color: ' . $this->userData['bannerColor'] . '\n';
+
+            if($this->userData['accentColor'])
+                $description .= 'Accent Color: ' . $this->userData['accentColor'] . '\n';
+
+            if(!empty($this->userData['flagsList'])) {
+                $description .= '\nBadges:\n';
+                foreach($this->userData['flagsList'] as $flag) {
+                    $description .= '• ' . $flag['name'] . '\n';
+                }
+            }
+
+            Meta::set('og:site_name', $username)
+                ->set('og:title', $this->userData['global_name'])
+                ->set('og:description', $description)
+                ->set('og:image', $this->userData['avatarUrlOg']);
+        }else{
+            Meta::set('title', __('User Lookup'))
+                ->set('og:title', __('User Lookup'))
+                ->set('description', __('Get detailed information about Discord users with creation date, profile picture, banner and badges.'))
+                ->set('og:description', __('Get detailed information about Discord users with creation date, profile picture, banner and badges.'))
+                ->set('keywords', 'user, member, user lookup, member info, user info, user search, member search, username, discord user, ' . getDefaultKeywords());
+        }
     }
 
     public function render()
