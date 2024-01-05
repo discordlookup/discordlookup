@@ -83,7 +83,7 @@
             <p>When you log in, Discord sends your full username, avatar and banner, as well as a list of guilds you are on at the time of login.</p>
             <p>We do not receive your email address or other data from Discord.</p>
             <p>The list of your guilds is not stored by us and is only associated with your current session. As soon as you log out or close your browser, this list is automatically deleted.</p>
-            <p>For more information please visit our <a href="{{ route('legal.privacy') }}" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">privacy policy</a>.</p>
+            <p>For more information please visit our <a href="{{ route('legal.privacypolicy') }}" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">privacy policy</a>.</p>
         </x-help-card>
 
         <x-help-card :title="__('Is DiscordLookup open source?')">

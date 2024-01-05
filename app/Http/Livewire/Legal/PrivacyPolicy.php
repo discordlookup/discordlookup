@@ -19,6 +19,6 @@ class PrivacyPolicy extends Component
 
     public function render()
     {
-        return view('legal.privacy-policy');
+        return view('legal.privacy-policy')->extends('layouts.app');
     }
 }

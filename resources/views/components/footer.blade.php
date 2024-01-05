@@ -31,9 +31,9 @@
             <hr class="my-10 opacity-10" />
 
             <div class="text-center">
-                <a class="text-gray-400" href="{{ route('legal.imprint') }}">{{ __('Imprint') }}</a>
+                <a class="text-gray-400" href="{{ route('legal.legalnotice') }}">{{ __('Legal Notice') }}</a>
                 <a class="text-gray-400 ms-2" href="{{ route('legal.terms-of-service') }}">{{ __('Terms of Service') }}</a>
-                <a class="text-gray-400 ms-2" href="{{ route('legal.privacy') }}">{{ __('Privacy Policy') }}</a>
+                <a class="text-gray-400 ms-2" href="{{ route('legal.privacypolicy') }}">{{ __('Privacy Policy') }}</a>
             </div>
         </div>
     </footer>

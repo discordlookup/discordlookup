@@ -19,6 +19,6 @@ class TermsOfService extends Component
 
     public function render()
     {
-        return view('legal.terms-of-service');
+        return view('legal.terms-of-service')->extends('layouts.app');
     }
 }
