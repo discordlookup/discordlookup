@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /imprint
+Disallow: /legal-notice
 Disallow: /privacy-policy
 Disallow: /terms-of-service
 
