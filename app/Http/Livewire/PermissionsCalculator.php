@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use F9Web\Meta\Meta;
 use Livewire\Component;
 
 class PermissionsCalculator extends Component
@@ -65,6 +66,12 @@ class PermissionsCalculator extends Component
         $this->permissionsGroupsList = array_unique(array_column(getPermissionList(), 'group'));
         usort($this->permissionsList, fn($a, $b) => $a['name'] <=> $b['name']);
         $this->update();
+
+        Meta::set('title', __('Permissions Calculator'))
+            ->set('og:title', __('Permissions Calculator'))
+            ->set('description', __('Calculate Discord permissions integer based on the required bot permissions.'))
+            ->set('og:description', __('Calculate Discord permissions integer based on the required bot permissions.'))
+            ->set('keywords', 'permission, permissions, bitwise, flags, rights, oauth, generator, code grant, ' . getDefaultKeywords());
     }
 
     public function render()

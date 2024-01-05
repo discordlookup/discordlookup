@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use F9Web\Meta\Meta;
 use Livewire\Component;
 
 class SnowflakeDistance extends Component
@@ -40,6 +41,12 @@ class SnowflakeDistance extends Component
 		if ($this->snowflake1 == '-') {
 			$this->snowflake1Display = '';
 		}
+
+        Meta::set('title', __('Snowflake Distance Calculator'))
+            ->set('og:title', __('Snowflake Distance Calculator'))
+            ->set('description', __('Calculate the distance between two Discord Snowflakes.'))
+            ->set('og:description', __('Calculate the distance between two Discord Snowflakes.'))
+            ->set('keywords', 'snowflakes, two snowflakes, distance, calculate, time, date, ' . getDefaultKeywords());
 	}
 
 	public function updated($name, $value){

@@ -1,8 +1,3 @@
-@section('title', __('Snowflake Decoder'))
-@section('description', __('Get the creation date of a Snowflake, and detailed information about Discord users, guilds and applications.'))
-@section('keywords', '')
-@section('robots', 'index, follow')
-
 <div>
     <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('Snowflake') }}</h2>
     <div class="py-12 xl:max-w-3xl mx-auto px-4 lg:px-10 space-y-3">

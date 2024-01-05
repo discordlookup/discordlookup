@@ -1,8 +1,3 @@
-@section('title', __('Discord Webhook Invalidator'))
-@section('description', __('Immediately delete a Discord webhook to eliminate evil webhooks.'))
-@section('keywords', 'webhook, invalidator, delete, delete webhook, invalidate webhook')
-@section('robots', 'index, follow')
-
 <div>
     <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('Discord Webhook Invalidator') }}</h2>
     <div class="py-12 xl:max-w-3xl mx-auto px-4 lg:px-10 space-y-3">

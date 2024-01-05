@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Lookup;
 
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use F9Web\Meta\Meta;
 use Illuminate\Support\Facades\App;
 use Livewire\Component;
 
@@ -48,6 +49,12 @@ class Application extends Component
     {
         if($this->snowflake)
             $this->fetchApplication();
+
+        Meta::set('title', __('Application Lookup'))
+            ->set('og:title', __('Application Lookup'))
+            ->set('description', __('Get detailed information about Discord applications with description, links, tags and flags.'))
+            ->set('og:description', __('Get detailed information about Discord applications with description, links, tags and flags.'))
+            ->set('keywords', 'app, application, bot, bot application, ' . getDefaultKeywords());
     }
 
     public function render()

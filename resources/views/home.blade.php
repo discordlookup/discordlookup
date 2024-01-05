@@ -1,8 +1,3 @@
-@section('title', __('Home'))
-@section('description', __('Get more out of Discord with Discord Lookup! Snowflake Decoder, Guild List with Stats, Invite Info and more...'))
-@section('keywords', '')
-@section('robots', 'index, follow')
-
 <div>
     <div class="flex flex-col items-center justify-center space-y-1 py-16">
         <img src="{{ asset('images/branding/logo-light.svg') }}" alt="{{ env('APP_NAME') }} Logo" />

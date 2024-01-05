@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use F9Web\Meta\Meta;
 use Livewire\Component;
 
 class Snowflake extends Component
@@ -27,7 +28,13 @@ class Snowflake extends Component
     }
 
     public function mount()
-    {}
+    {
+        Meta::set('title', __('Snowflake Decoder'))
+            ->set('og:title', __('Snowflake Decoder'))
+            ->set('description', __('Get the creation date of a Snowflake, and detailed information about Discord users, guilds and applications.'))
+            ->set('og:description', __('Get the creation date of a Snowflake, and detailed information about Discord users, guilds and applications.'))
+            ->set('keywords', 'snowflakes, calculate, time, date, ' . getDefaultKeywords());
+    }
 
     public function render()
     {

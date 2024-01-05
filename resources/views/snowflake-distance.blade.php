@@ -1,8 +1,3 @@
-@section('title', __('Snowflake Distance Calculator'))
-@section('description', __('Calculate the distance between two Discord Snowflakes.'))
-@section('keywords', 'snowflakes, two snowflakes, distance, calculate', 'time', 'date')
-@section('robots', 'index, follow')
-
 <div>
     <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('Snowflake Distance') }}</h2>
     <div class="py-12 xl:max-w-3xl mx-auto px-4 lg:px-10 space-y-3">

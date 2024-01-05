@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use F9Web\Meta\Meta;
 use Livewire\Component;
 
 class GuildShardCalculator extends Component
@@ -36,6 +37,12 @@ class GuildShardCalculator extends Component
 		if ($this->guildId == "-") {
 			$this->guildIdDisplay = "";
 		}
+
+        Meta::set('title', __('Guild Shard ID Calculator'))
+            ->set('og:title', __('Guild Shard ID Calculator'))
+            ->set('description', __('Calculate the Shard ID of a guild using the Guild ID and the total number of shards.'))
+            ->set('og:description', __('Calculate the Shard ID of a guild using the Guild ID and the total number of shards.'))
+            ->set('keywords', 'bot shard, shards, calculator, shard calculator, shard id, guild id, ' . getDefaultKeywords());
 	}
 
 	public function updated($name, $value){

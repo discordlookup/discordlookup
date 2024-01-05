@@ -1,8 +1,3 @@
-@section('title', "{$experiment['title']} Experiment")
-@section('description', "Information and rollout status about the {$experiment['title']} Experiment.")
-@section('keywords', "client, guild, experiments, discord experiments, rollout, rollouts, treatments, groups, overrides, population, {$experiment['id']}")
-@section('robots', 'index, follow')
-
 <div x-data="{ modalExperimentsOpen: false, modalFeaturesOpen: false, modalPermissionsOpen: false }">
     <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-2 text-white">{{ $experiment['title'] }}</h2>
     <h3 class="text-lg md:text-xl text-center mb-4 text-gray-300">

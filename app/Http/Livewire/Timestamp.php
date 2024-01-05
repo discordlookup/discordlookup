@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use DateTimeZone;
+use F9Web\Meta\Meta;
 use Livewire\Component;
 
 class Timestamp extends Component
@@ -113,6 +114,12 @@ class Timestamp extends Component
 			$this->timestamp = $this->timestampSlug;
 			$this->timestampChanged = true;
 		}
+
+        Meta::set('title', __('Timestamp Styles'))
+            ->set('og:title', __('Timestamp Styles'))
+            ->set('description', __('Generate Discord timestamp styles based on a date, time, snowflake or timestamp.'))
+            ->set('og:description', __('Generate Discord timestamp styles based on a date, time, snowflake or timestamp.'))
+            ->set('keywords', 'timestamp, time, date, styles, format, formatting, snowflake, ' . getDefaultKeywords());
     }
 
     public function render()

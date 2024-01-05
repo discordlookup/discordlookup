@@ -1,8 +1,3 @@
-@section('title', __('Permissions Calculator'))
-@section('description', __('Calculate Discord permissions integer based on the required bot permissions.'))
-@section('keywords', 'permission, permissions, bitwise, flags, rights, oauth, generator, code grant')
-@section('robots', 'index, follow')
-
 <div>
     <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('Permissions Calculator') }}</h2>
     <div class="py-12 space-y-3">

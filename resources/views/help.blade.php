@@ -1,8 +1,3 @@
-@section('title', __('Help'))
-@section('description', __('Get more out of Discord with Discord Lookup! Snowflake Decoder, Guild List with Stats, Invite Info and more...'))
-@section('keywords', 'help, faq, frequently asked questions, questions, support')
-@section('robots', 'index, follow')
-
 <div>
     <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('DiscordLookup Help') }}</h2>
     <div class="text-center">

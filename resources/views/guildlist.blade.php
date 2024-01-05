@@ -1,8 +1,3 @@
-@section('title', __('Guild List'))
-@section('description', __('Show all the guilds you are on, with counters, permissions, features, experiments and more information about the guilds.'))
-@section('keywords', '')
-@section('robots', 'index, follow')
-
 <div x-data="{ modalExperimentsOpen: false, modalFeaturesOpen: false, modalPermissionsOpen: false }">
     <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('Guild List') }}</h2>
     <div class="py-12">

@@ -1,8 +1,3 @@
-@section('title', __('Guild Shard ID Calculator'))
-@section('description', __('Calculate the Shard ID of a guild using the Guild ID and the total number of shards.'))
-@section('keywords', 'bot shard, shards, calculator, shard calculator, shard id, guild id')
-@section('robots', 'index, follow')
-
 <div>
     <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('Guild Shard ID Calculator') }}</h2>
     <div class="py-12 xl:max-w-3xl mx-auto px-4 lg:px-10 space-y-3">

@@ -1,8 +1,3 @@
-@section('title', __('Guild Lookup'))
-@section('description', __('Get detailed information about Discord guilds with creation date, Invite/Vanity URL, features and emojis.'))
-@section('keywords', '')
-@section('robots', 'index, follow')
-
 <div>
     <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('Guild Lookup') }}</h2>
     <div class="py-12 xl:max-w-3xl mx-auto px-4 lg:px-10 space-y-3">

@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Lookup;
 
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use F9Web\Meta\Meta;
 use Illuminate\Support\Facades\App;
 use Livewire\Component;
 
@@ -85,6 +86,12 @@ class Guild extends Component
     {
         if($this->snowflake)
             $this->fetchGuild();
+
+        Meta::set('title', __('Guild Lookup'))
+            ->set('og:title', __('Guild Lookup'))
+            ->set('description', __('Get detailed information about Discord guilds with creation date, Invite/Vanity URL, features and emojis.'))
+            ->set('og:description', __('Get detailed information about Discord guilds with creation date, Invite/Vanity URL, features and emojis.'))
+            ->set('keywords', 'guild, server, guild lookup, guild search, guild info, ' . getDefaultKeywords());
     }
 
     public function render()

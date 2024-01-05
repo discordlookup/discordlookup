@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Lookup;
 
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use F9Web\Meta\Meta;
 use Illuminate\Support\Facades\App;
 use Livewire\Component;
 
@@ -48,6 +49,12 @@ class User extends Component
     {
         if($this->snowflake)
             $this->fetchUser();
+
+        Meta::set('title', __('User Lookup'))
+            ->set('og:title', __('User Lookup'))
+            ->set('description', __('Get detailed information about Discord users with creation date, profile picture, banner and badges.'))
+            ->set('og:description', __('Get detailed information about Discord users with creation date, profile picture, banner and badges.'))
+            ->set('keywords', 'user, member, user lookup, member info, user info, user search, member search, username, discord user, ' . getDefaultKeywords());
     }
 
     public function render()

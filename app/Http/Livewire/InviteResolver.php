@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use F9Web\Meta\Meta;
 use Livewire\Component;
 
 class InviteResolver extends Component
@@ -81,6 +82,12 @@ class InviteResolver extends Component
 		if ($this->inviteCode == '-') {
 			$this->inviteCodeDisplay = '';
 		}
+
+        Meta::set('title', __('Invite Resolver'))
+            ->set('og:title', __('Invite Resolver'))
+            ->set('description', __('Get detailed information about every invite and vanity url including event information.'))
+            ->set('og:description', __('Get detailed information about every invite and vanity url including event information.'))
+            ->set('keywords', 'event, vanity, resovler, guild, friend, friend invite, ' . getDefaultKeywords());
     }
 
 	public function updated($name, $value)

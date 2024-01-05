@@ -61,3 +61,32 @@ function cutString($inputString, $maxLength) {
         return mb_substr($inputString, 0, $maxLength - 1) . '…';
     return $inputString;
 }
+
+/**
+ * Get default keywords
+ *
+ * @return string
+ */
+function getDefaultKeywords()
+{
+    $keywords = [
+        'discord',
+        'discord lookup',
+        'discordlookup',
+        'lookup',
+        'snowflake',
+        'toolbox',
+        'tool box',
+        'guild count',
+        'invite info',
+        'user info',
+        'discord tools',
+        'tools',
+        'experiments',
+        'rollouts',
+        'search',
+        'discord search',
+    ];
+
+    return implode(', ', $keywords);
+}

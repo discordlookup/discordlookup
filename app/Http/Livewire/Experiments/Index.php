@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Experiments;
 
+use F9Web\Meta\Meta;
 use Livewire\Component;
 
 class Index extends Component
@@ -68,6 +69,12 @@ class Index extends Component
     public function mount()
     {
         $this->loadExperiments();
+
+        Meta::set('title', __('Discord Experiments & Rollouts'))
+            ->set('og:title', __('Discord Experiments & Rollouts'))
+            ->set('description', __('All Discord Client & Guild Experiments with Rollout Status and detailed information about Treatments, Groups and Overrides.'))
+            ->set('og:description', __('All Discord Client & Guild Experiments with Rollout Status and detailed information about Treatments, Groups and Overrides.'))
+            ->set('keywords', 'client, guild, experiments, discord experiments, rollout, rollouts, treatments, groups, overrides, population, ' . getDefaultKeywords());
     }
 
     public function render()

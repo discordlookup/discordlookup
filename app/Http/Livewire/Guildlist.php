@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use F9Web\Meta\Meta;
 use Livewire\Component;
 
 class Guildlist extends Component
@@ -136,6 +137,12 @@ class Guildlist extends Component
     {
         if(auth()->check())
             $this->loadGuilds();
+
+        Meta::set('title', __('Guild List'))
+            ->set('og:title', __('Guild List'))
+            ->set('description', __('Show all the guilds you are on, with counters, permissions, features, experiments and more information about the guilds.'))
+            ->set('og:description', __('Show all the guilds you are on, with counters, permissions, features, experiments and more information about the guilds.'))
+            ->set('keywords', getDefaultKeywords());
     }
 
     public function render()

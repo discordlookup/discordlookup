@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Experiments;
 
+use F9Web\Meta\Meta;
 use lastguest\Murmur;
 use Livewire\Component;
 
@@ -265,6 +266,12 @@ class Show extends Component
     public function mount()
     {
         $this->loadExperiments();
+
+        Meta::set('title', "{$this->experiment['title']} Experiment")
+            ->set('og:title', "{$this->experiment['title']} Experiment")
+            ->set('description', "Information and rollout status about the {$this->experiment['title']} Experiment.")
+            ->set('og:description', "Information and rollout status about the {$this->experiment['title']} Experiment.")
+            ->set('keywords', "client, guild, experiments, discord experiments, rollout, rollouts, treatments, groups, overrides, population, {$this->experimentId}, " . getDefaultKeywords());
     }
 
     public function render()

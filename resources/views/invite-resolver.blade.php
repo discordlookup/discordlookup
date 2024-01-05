@@ -1,8 +1,3 @@
-@section('title', __('Invite Resolver'))
-@section('description', __('Get detailed information about every invite and vanity url including event information.'))
-@section('keywords', 'event, vanity')
-@section('robots', 'index, follow')
-
 <div>
     <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('Invite Resolver') }}</h2>
     <div class="py-12 xl:max-w-3xl mx-auto px-4 lg:px-10 space-y-3">

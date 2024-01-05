@@ -1,8 +1,3 @@
-@section('title', __('Timestamp Styles'))
-@section('description', __('Generate Discord timestamp styles based on a date, time, snowflake or timestamp.'))
-@section('keywords', 'timestamp, time, date, styles, format, formatting, snowflake')
-@section('robots', 'index, follow')
-
 <div>
     <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('Timestamp Styles') }}</h2>
     <div class="py-12 space-y-3">

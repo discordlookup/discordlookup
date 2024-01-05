@@ -39,9 +39,9 @@ Route::get('/webhook-invalidator', \App\Http\Livewire\WebhookInvalidator::class)
 Route::get('/help', \App\Http\Livewire\Help::class)->name('help');
 
 Route::name('legal.')->group(function () {
-    Route::view('/imprint', 'legal.imprint')->name('imprint');
-    Route::view('/privacy', 'legal.privacy-policy')->name('privacy');
-    Route::view('/terms-of-service', 'legal.terms-of-service')->name('terms-of-service');
+    Route::get('/imprint', \App\Http\Livewire\Legal\Imprint::class)->name('imprint');
+    Route::get('/privacy', \App\Http\Livewire\Legal\PrivacyPolicy::class)->name('privacy');
+    Route::get('/terms-of-service', \App\Http\Livewire\Legal\TermsOfService::class)->name('terms-of-service');
 });
 
 
