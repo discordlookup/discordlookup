@@ -712,7 +712,7 @@ function getUser($userId)
 
     if (key_exists('avatar', $responseJson) && $responseJson['avatar'] != null) {
         $array['avatarUrl'] = getUserAvatarUrl($responseJson['id'], $responseJson['avatar'], 512, 'webp', true);
-        $array['avatarUrlOg'] = getUserAvatarUrl($responseJson['id'], $responseJson['avatar'], 200, 'png', true);
+        $array['avatarUrlOg'] = getUserAvatarUrl($responseJson['id'], $responseJson['avatar'], 256, 'png', true);
     }
 
     if (empty($array['avatarUrl'])) {

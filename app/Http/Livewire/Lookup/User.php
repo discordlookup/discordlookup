@@ -87,7 +87,10 @@ class User extends Component
             Meta::set('og:site_name', $username)
                 ->set('og:title', $this->userData['global_name'])
                 ->set('og:description', $description)
-                ->set('og:image', $this->userData['avatarUrlOg']);
+                ->set('og:image', $this->userData['avatarUrlOg'])
+                ->when($this->userData['bannerColor'], function ($meta) {
+                    $meta->set('theme-color', $this->userData['bannerColor']);
+                });
         }else{
             Meta::set('title', __('User Lookup'))
                 ->set('og:title', __('User Lookup'))
