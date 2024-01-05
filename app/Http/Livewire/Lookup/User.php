@@ -57,30 +57,41 @@ class User extends Component
             if ($this->userData['discriminator'] != '0')
                 $username .= '#' . $this->userData['discriminator'];
 
-            $description = 'ID: ' . $this->userData['id'] . '\n';
-            $description .= 'Created: ' . \Carbon\Carbon::createFromTimestamp(getTimestamp($this->userData['id']) / 1000)->diffForHumans() . '\n';
+            $description = 'ID: ' . $this->userData['id'] . '
+';
+            $description .= 'Created: ' . \Carbon\Carbon::createFromTimestamp(getTimestamp($this->userData['id']) / 1000)->diffForHumans() . '
+';
 
             if($this->userData['isBot']) {
-                $description .= 'Bot: Yes\n';
+                $description .= 'Bot: Yes
+';
                 if($this->userData['isVerifiedBot'] || $this->userData['id'] === '643945264868098049' || $this->userData['id'] === '1081004946872352958') {
-                    $description .= 'Verified Bot: Yes\n';
+                    $description .= 'Verified Bot: Yes
+';
                 }else{
-                    $description .= 'Verified Bot: No\n';
+                    $description .= 'Verified Bot: No
+';
                 }
             }else{
-                $description .= 'Bot: No\n';
+                $description .= 'Bot: No
+';
             }
 
             if($this->userData['bannerColor'])
-                $description .= 'Banner Color: ' . $this->userData['bannerColor'] . '\n';
+                $description .= 'Banner Color: ' . $this->userData['bannerColor'] . '
+';
 
             if($this->userData['accentColor'])
-                $description .= 'Accent Color: ' . $this->userData['accentColor'] . '\n';
+                $description .= 'Accent Color: ' . $this->userData['accentColor'] . '
+';
 
             if(!empty($this->userData['flagsList'])) {
-                $description .= '\nBadges:\n';
+                $description .= '
+Badges:
+';
                 foreach($this->userData['flagsList'] as $flag) {
-                    $description .= '• ' . $flag['name'] . '\n';
+                    $description .= '• ' . $flag['name'] . '
+';
                 }
             }
 
