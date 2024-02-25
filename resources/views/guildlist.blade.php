@@ -118,6 +118,10 @@
                             <option value="name-desc">{{ __('Name Descending') }}</option>
                             <option value="id-asc">{{ __('Created Ascending') }}</option>
                             <option value="id-desc">{{ __('Created Descending') }}</option>
+                            <option value="approximate_presence_count-asc">{{ __('Online Ascending') }}</option>
+                            <option value="approximate_presence_count-desc">{{ __('Online Descending') }}</option>
+                            <option value="approximate_member_count-asc">{{ __('Members Ascending') }}</option>
+                            <option value="approximate_member_count-desc">{{ __('Members Descending') }}</option>
                         </select>
                     </x-input-prepend-icon>
                 </div>

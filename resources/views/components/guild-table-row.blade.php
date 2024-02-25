@@ -28,6 +28,18 @@
         <p class="text-gray-400">
             {{ $guild['id'] }} &bull; {{ date('Y-m-d', getTimestamp($guild['id']) / 1000) }}
         </p>
+        <p>
+            @if(array_key_exists('approximate_presence_count', $guild) && $guild['approximate_presence_count'])
+                <span class="inline-block h-2 w-2 rounded-full bg-[#3ba55d] mb-px mr-0.5"></span>
+                <span class="text-sm">{{ number_format($guild['approximate_presence_count'], 0, '', '.') }} {{ __('Online') }}</span>
+            @endif
+
+            @if(array_key_exists('approximate_member_count', $guild) && $guild['approximate_member_count'])
+                <span class="inline-block h-2 w-2 rounded-full bg-[#747f8d] mb-px mr-0.5 ml-3"></span>
+                <span class="text-sm">{{ number_format($guild['approximate_member_count'], 0, '', '.') }} {{ __('Members') }}</span>
+            @endif
+        </p>
+
     </div>
     <div class="col-span-5 text-center md:text-right my-auto text-sm space-y-1 md:space-y-0">
         <a role="button"

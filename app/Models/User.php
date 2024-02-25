@@ -141,7 +141,7 @@ class User extends Authenticatable
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . decrypt($this->discord_token),
-        ])->get(env('DISCORD_API_URL') . '/users/@me/guilds');
+        ])->get(env('DISCORD_API_URL') . '/users/@me/guilds?with_counts=true');
 
         if($response->ok())
             session()->put('guildsJson', $response->json());
