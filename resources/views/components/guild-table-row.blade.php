@@ -39,7 +39,16 @@
                 <span class="text-sm">{{ number_format($guild['approximate_member_count'], 0, '', '.') }} {{ __('Members') }}</span>
             @endif
         </p>
-
+        @if(isset($override) && $override)
+            <p class="text-green-400">({{ __('This Guild has an override for this experiment') }})</p>
+        @endif
+        @if(isset($filters) && $filters)
+            <p class="text-gray-300">
+                @foreach($filters as $filter)
+                    {{ $filter }}
+                @endforeach
+            </p>
+        @endif
     </div>
     <div class="col-span-5 text-center md:text-right my-auto text-sm space-y-1 md:space-y-0">
         <a role="button"
@@ -68,7 +77,7 @@
 
         <button
             x-on:click="modalExperimentsOpen = true"
-            wire:click="$emitTo('modal.guild-experiments', 'update', '{{ $guild['id'] }}', '{{ urlencode($guild['name']) }}', '{{ json_encode($guild['features']) }}')"
+            wire:click="$emitTo('modal.guild-experiments', 'update', '{{ $guild['id'] }}', '{{ urlencode($guild['name']) }}', '{{ $guild['approximate_presence_count'] }}', '{{ $guild['approximate_member_count'] }}', '{{ json_encode($guild['features']) }}')"
             class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-2 py-1 leading-5 text-sm border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]"
         >
             {{ __('Experiments') }}

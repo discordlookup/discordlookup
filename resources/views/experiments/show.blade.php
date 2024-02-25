@@ -168,7 +168,7 @@
                             <div class="px-5 py-3 grow w-full">
                                 <div class="flex flex-col gap-y-5 md:gap-y-0.5">
                                     @foreach($guilds as $guildTreatments)
-                                        <x-guild-table-row :guild="$guildTreatments['guild']" />
+                                        <x-guild-table-row :guild="$guildTreatments['guild']" :override="$guildTreatments['override']" :filters="$guildTreatments['filters']" />
                                         @if(!$loop->last)
                                             <hr class="opacity-10" />
                                         @endif

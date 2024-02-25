@@ -9,17 +9,21 @@ class GuildExperiments extends Component
 {
     public $guildId = '';
     public $guildName = '';
+    public $guildOnlineCount = 0;
+    public $guildMemberCount = 0;
     public $guildFeatures = [];
     public $experiments = [];
 
     protected $listeners = ['update'];
 
-    public function update($guildId, $guildName, $features)
+    public function update($guildId, $guildName, $guildOnlineCount, $guildMemberCount, $features)
     {
         $this->reset();
 
         $this->guildId = $guildId;
         $this->guildName = urldecode($guildName);
+        $this->guildOnlineCount = $guildOnlineCount;
+        $this->guildMemberCount = $guildMemberCount;
         $this->guildFeatures = json_decode($features);
 
         $experimentsJson = getExperiments();
@@ -68,7 +72,18 @@ class GuildExperiments extends Component
                             break;
 
                         case 2918402255: // MemberCount
-                            $filters[] = "(Only if server member count is " . ($filter[1][1][1] ? ("in range " . ($filter[1][0][1] ?? 0) . "-" . $filter[1][1][1]) : ($filter[1][0][1] . " or more")) . ")";
+                            if($filter[1][1][1]) {
+                                if(!(
+                                    $this->guildMemberCount >= ($filter[1][0][1] ?? 0) &&
+                                    $this->guildMemberCount <= $filter[1][1][1]
+                                )) {
+                                    $filterPassed = false;
+                                }
+                            }else{
+                                if($this->guildMemberCount < $filter[1][0][1])
+                                    $filterPassed = false;
+                            }
+                            //$filters[] = "(Only if server member count is " . ($filter[1][1][1] ? ("in range " . ($filter[1][0][1] ?? 0) . "-" . $filter[1][1][1]) : ($filter[1][0][1] . " or more")) . ")";
                             break;
 
                         case 2404720969: // ID Range

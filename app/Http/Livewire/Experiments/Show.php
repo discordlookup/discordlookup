@@ -167,7 +167,18 @@ class Show extends Component
                                 break;
 
                             case 2918402255: // MemberCount
-                                $filters[] = "(Only if server member count is " . ($filter[1][1][1] ? ("in range " . ($filter[1][0][1] ?? 0) . "-" . $filter[1][1][1]) : ($filter[1][0][1] . " or more")) . ")";
+                                if($filter[1][1][1]) {
+                                    if(!(
+                                        $guild['approximate_member_count'] >= ($filter[1][0][1] ?? 0) &&
+                                        $guild['approximate_member_count'] <= $filter[1][1][1]
+                                    )) {
+                                        $filterPassed = false;
+                                    }
+                                }else{
+                                    if($guild['approximate_member_count'] < $filter[1][0][1])
+                                        $filterPassed = false;
+                                }
+                                //$filters[] = "(Only if server member count is " . ($filter[1][1][1] ? ("in range " . ($filter[1][0][1] ?? 0) . "-" . $filter[1][1][1]) : ($filter[1][0][1] . " or more")) . ")";
                                 break;
 
                             case 2404720969: // ID Range
