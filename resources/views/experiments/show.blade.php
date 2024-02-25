@@ -2,9 +2,17 @@
     <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-2 text-white">{{ $experiment['title'] }}</h2>
     <h3 class="text-lg md:text-xl text-center mb-4 text-gray-300">
         {{ $experiment['id'] }} ({{ $experiment['hash'] }})
+        @if($this->experiment['rollout'][8])
+            <div class="text-sm">{{ __('A/A Mode') }}</div>
+        @endif
         @if($experiment['type'] == 'guild' && $experiment['rollout'])
             <div class="text-sm">
                 {{ __('Revision') }} {{ $experiment['rollout'][2] }}
+            </div>
+        @endif
+        @if($experiment['type'] == 'guild' && $this->experiment['rollout'][6])
+            <div class="text-sm">
+                {{ __('Holdout') }}: {{ $this->experiment['rollout'][6] }}, {{ $this->experiment['rollout'][7] }}
             </div>
         @endif
     </h3>
