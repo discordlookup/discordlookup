@@ -666,6 +666,7 @@ function getUser($userId)
         'avatarUrl' => '',
         'avatarUrlOg' => '',
         'avatarDecorationUrl' => '',
+        'avatarDecorationSku' => '',
         'bannerUrl' => '',
         'bannerColor' => '',
         'accentColor' => '',
@@ -723,6 +724,9 @@ function getUser($userId)
     // TODO: Add custom avatar decorations once released and documented by Discord
     if (key_exists('avatar_decoration_data', $responseJson) && $responseJson['avatar_decoration_data'] != null && key_exists('asset', $responseJson['avatar_decoration_data']) && $responseJson['avatar_decoration_data']['asset'] != null)
         $array['avatarDecorationUrl'] = env('DISCORD_CDN_URL') . '/avatar-decoration-presets/' . $responseJson['avatar_decoration_data']['asset'] . '?size=512';
+
+    if (key_exists('avatar_decoration_data', $responseJson) && $responseJson['avatar_decoration_data'] != null && key_exists('sku_id', $responseJson['avatar_decoration_data']) && $responseJson['avatar_decoration_data']['sku_id'] != null)
+        $array['avatarDecorationSku'] = $responseJson['avatar_decoration_data']['sku_id'];
 
     if (key_exists('banner', $responseJson) && $responseJson['banner'] != null)
         $array['bannerUrl'] = getGuildBannerUrl($responseJson['id'], $responseJson['banner'], 512, 'webp', true);
@@ -933,6 +937,7 @@ function parseInviteJson($json)
             'global_name' => '',
             'avatarUrl' => '',
             'avatarDecorationUrl' => '',
+            'avatarDecorationSku' => '',
             'bannerUrl' => '',
             'bannerColor' => '',
             'accentColor' => '',
@@ -1082,6 +1087,9 @@ function parseInviteJson($json)
         // TODO: Add custom avatar decorations once released and documented by Discord
         if (key_exists('avatar_decoration_data', $json['inviter']) && $json['inviter']['avatar_decoration_data'] != null && key_exists('asset', $json['inviter']['avatar_decoration_data']) && $json['inviter']['avatar_decoration_data']['asset'] != null)
             $array['inviter']['avatarDecorationUrl'] = env('DISCORD_CDN_URL') . '/avatar-decoration-presets/' . $json['inviter']['avatar_decoration_data']['asset'] . '?size=512';
+
+        if (key_exists('avatar_decoration_data', $json['inviter']) && $json['inviter']['avatar_decoration_data'] != null && key_exists('sku_id', $json['inviter']['avatar_decoration_data']) && $json['inviter']['avatar_decoration_data']['sku_id'] != null)
+            $array['inviter']['avatarDecorationSku'] = $json['inviter']['avatar_decoration_data']['sku_id'];
 
         if (key_exists('banner', $json['inviter']) && $json['inviter']['banner'] != null)
             $array['inviter']['bannerUrl'] = getGuildBannerUrl($json['inviter']['id'], $json['inviter']['banner'], 512, 'webp', true);

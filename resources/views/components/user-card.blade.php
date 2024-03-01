@@ -109,6 +109,17 @@
                         <x-color-preview :hexColor="$user['accentColor']" />
                     </div>
                 @endif
+
+                @if($user['avatarDecorationSku'])
+                    <div class="grid grid-cols-1 md:grid-cols-2">
+                        <span class="font-semibold">{{ __('Avatar Decoration SKU ID') }}<span class="hidden md:inline">:</span></span>
+                        <p>
+                            <a href="https://discord.com/shop#itemSkuId={{ $user['avatarDecorationSku'] }}" target="_blank" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">
+                                {{ $user['avatarDecorationSku'] }}
+                            </a>
+                        </p>
+                    </div>
+                @endif
             </div>
 
             @if(!empty($user['flagsList']))
