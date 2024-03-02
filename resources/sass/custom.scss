@@ -7,6 +7,7 @@ input[type="time"]::-webkit-calendar-picker-indicator, input[type="date"]::-webk
     display: none;
 }
 
+// TODO: Fix margin-left on mobile
 .user-avatar-decoration {
     width: 80px;
     height: 80px;

@@ -672,6 +672,8 @@ function getUser($userId)
         'accentColor' => '',
         'flags' => '',
         'flagsList' => [],
+        'premiumType' => 0,
+        'premiumTypeName' => '',
         'isBot' => '',
         'isVerifiedBot' => '',
     ];
@@ -743,6 +745,11 @@ function getUser($userId)
         $array['flagsList'] = getUserFlagList($array['flags']);
         if ($array['flags'] & (1 << 16))
             $array['isVerifiedBot']  = true;
+    }
+
+    if (key_exists('premium_type', $responseJson) && $responseJson['premium_type'] != null) {
+        $array['premiumType'] = $responseJson['premium_type'];
+        $array['premiumTypeName'] = getPremiumType($responseJson['premium_type']);
     }
 
     return $array;
