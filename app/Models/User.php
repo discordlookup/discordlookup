@@ -136,15 +136,15 @@ class User extends Authenticatable
      */
     public function getGuildListAttribute()
     {
-        if(session()->exists('guildsJson'))
-            return session()->get('guildsJson');
+        if(\Cache::has('guildsJson:' . $this->discord_id))
+            return \Cache::get('guildsJson:' . $this->discord_id);
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . decrypt($this->discord_token),
         ])->get(env('DISCORD_API_URL') . '/users/@me/guilds?with_counts=true');
 
         if($response->ok())
-            session()->put('guildsJson', $response->json());
+            \Cache::set('guildsJson:' . $this->discord_id, $response->json(), 30*60);
 
         return $response->json();
     }

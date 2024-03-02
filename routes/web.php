@@ -17,6 +17,7 @@ Route::get('/snowflake/{snowflake?}', \App\Http\Livewire\Snowflake::class)->name
 Route::get('/user/{snowflake?}', \App\Http\Livewire\Lookup\User::class)->name('userlookup');
 Route::get('/guild/{snowflake?}', \App\Http\Livewire\Lookup\Guild::class)->name('guildlookup');
 Route::get('/application/{snowflake?}', \App\Http\Livewire\Lookup\Application::class)->name('applicationlookup');
+Route::get('/moderator/{snowflake?}', \App\Http\Livewire\Lookup\Moderator::class)->name('moderatorlookup');
 Route::get('/snowflake-distance/{snowflake1?}/{snowflake2?}', \App\Http\Livewire\SnowflakeDistance::class)->name('snowflake-distance-calculator');
 
 Route::get('/guildlist', \App\Http\Livewire\Guildlist::class)->name('guildlist');
