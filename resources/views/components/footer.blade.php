@@ -10,7 +10,7 @@
                         <i class="fab fa-github text-2xl"></i>
                     </a>
                     <a href="{{ env('TWITTER_URL') }}" target="_blank" rel="noopener" class="text-gray-400 hover:text-discord-blurple">
-                        <i class="fab fa-twitter text-2xl"></i>
+                        <i class="fab fa-x-twitter text-2xl"></i>
                     </a>
                 </nav>
                 <div class="space-y-3">
