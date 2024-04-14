@@ -144,6 +144,19 @@
                 </div>
             @endif
 
+            @if($inviteType == 0 && array_key_exists('features', $guild) && !empty($guild['features']))
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <span class="font-semibold">{{ __('Clan') }}<span class="hidden md:inline">:</span></span>
+                    <p class="my-auto">
+                        @if(in_array('clan', $guild['features']) || in_array('CLAN', $guild['features']))
+                            <img src="{{ asset('images/discord/icons/check.svg') }}" class="h-4 w-4" alt="Check">
+                        @else
+                            <img src="{{ asset('images/discord/icons/cross.svg') }}" class="h-4 w-4" alt="Cross">
+                        @endif
+                    </p>
+                </div>
+            @endif
+
             @if(array_key_exists('vanityUrlCode', $guild) && $guild['vanityUrlCode'])
                 <div class="grid grid-cols-1 md:grid-cols-2">
                     <span class="font-semibold">{{ __('Vanity URL') }}<span class="hidden md:inline">:</span></span>

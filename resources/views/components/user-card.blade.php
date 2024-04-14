@@ -121,7 +121,7 @@
                     </div>
                 @endif
 
-                @if($user['clan'] && $user['clan']['tag'])
+                @if(array_key_exists('clan', $user) && $user['clan'] && array_key_exists('tag', $user['clan']) && $user['clan']['tag'])
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <span class="font-semibold">{{ __('Clan Tag') }}<span class="hidden md:inline">:</span></span>
                         <p>
@@ -130,7 +130,7 @@
                     </div>
                 @endif
 
-                @if($user['clan'] && $user['clan']['identity_guild_id'])
+                @if(array_key_exists('clan', $user) && $user['clan'] && array_key_exists('identity_guild_id', $user['clan']) && $user['clan']['identity_guild_id'])
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <span class="font-semibold">{{ __('Clan Guild ID') }}<span class="hidden md:inline">:</span></span>
                         <p>
