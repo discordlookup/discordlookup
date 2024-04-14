@@ -253,7 +253,7 @@
                             @endif
                         </div>
 
-                        @if($inviteData['event']['imageUrl'])
+                        @if(array_key_exists('imageUrl', $inviteData['event']) && $inviteData['event']['imageUrl'])
                             <div class="text-center mt-5">
                                 <a href="{{ $inviteData['event']['imageUrl'] }}" target="_blank">
                                     <img
