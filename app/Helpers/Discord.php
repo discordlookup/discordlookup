@@ -676,6 +676,7 @@ function getUser($userId)
         'premiumTypeName' => '',
         'isBot' => '',
         'isVerifiedBot' => '',
+        'clan' => [],
     ];
 
     if(Cache::has('user:' . $userId))
@@ -751,6 +752,9 @@ function getUser($userId)
         $array['premiumType'] = $responseJson['premium_type'];
         $array['premiumTypeName'] = getPremiumType($responseJson['premium_type']);
     }
+
+    if (key_exists('clan', $responseJson) && $responseJson['clan'] != null)
+        $array['clan'] = $responseJson['clan'];
 
     return $array;
 }

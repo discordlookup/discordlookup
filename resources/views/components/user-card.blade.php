@@ -120,6 +120,26 @@
                         </p>
                     </div>
                 @endif
+
+                @if($user['clan'] && $user['clan']['tag'])
+                    <div class="grid grid-cols-1 md:grid-cols-2">
+                        <span class="font-semibold">{{ __('Clan Tag') }}<span class="hidden md:inline">:</span></span>
+                        <p>
+                            {{ $user['clan']['tag'] }}
+                        </p>
+                    </div>
+                @endif
+
+                @if($user['clan'] && $user['clan']['identity_guild_id'])
+                    <div class="grid grid-cols-1 md:grid-cols-2">
+                        <span class="font-semibold">{{ __('Clan Guild ID') }}<span class="hidden md:inline">:</span></span>
+                        <p>
+                            <a href="{{ route('guildlookup', ['snowflake' => $user['clan']['identity_guild_id']]) }}" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">
+                                {{ $user['clan']['identity_guild_id'] }}
+                            </a>
+                        </p>
+                    </div>
+                @endif
             </div>
 
             @if(!empty($user['flagsList']))
