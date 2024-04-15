@@ -18,5 +18,6 @@
         <x-link-card url="{{ route('guild-shard-calculator') }}" icon="fas fa-server" title="{{ __('Guild Shard Calculator') }}" description="{{ __('Calculate the Shard ID of a guild using the Guild ID and the total number of shards.') }}" />
         <x-link-card url="{{ route('webhook-invalidator') }}" icon="fas fa-link" title="{{ __('Discord Webhook Invalidator') }}" description="{{ __('Immediately delete a Discord webhook to eliminate evil webhooks.') }}" />
         <x-link-card url="{{ env('GITHUB_URL') }}" icon="fab fa-github" title="{{ __('GitHub') }}" description="{{ __('DiscordLookup.com is fully open source on GitHub! Feel free to give us a star.') }}" />
+        <x-link-card url="https://easypoll.bot/" icon="fas fa-poll" title="{{ __('EasyPoll Discord Bot') }}" description="{{ __('EasyPoll is the most popular poll bot on Discord! Made by the creators of DiscordLookup.') }}" />
     </div>
 </div>
