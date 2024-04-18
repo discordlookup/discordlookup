@@ -360,6 +360,12 @@ function getPermissionList(): array
             'group' => 'text',
             'requireTwoFactor' => false,
         ],
+        'SEND_POLLS' => [
+            'name' => 'Send Polls',
+            'bitwise' => (1 << 49),
+            'group' => 'text',
+            'requireTwoFactor' => false,
+        ],
     ];
 }
 
@@ -1213,6 +1219,10 @@ function parseInviteJson($json)
     return $array;
 }
 
+/**
+ * @param $applicationId
+ * @return array|null
+ */
 function getApplicationRpc($applicationId)
 {
     $array = [
