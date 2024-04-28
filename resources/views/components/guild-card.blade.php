@@ -138,7 +138,7 @@
                         @endif
 
                         @if(array_key_exists('isNSFWLevel', $guild) && $guild['isNSFW'])
-                            <span class="text-sm">({{ __('Level') }} {{ $guild['isNSFWLevel'] }})</span>
+                            <span class="text-sm">({{ __('Level') }} {{ $guild['isNSFWLevel'] }} - {{ $guild['isNSFWLevelName'] }})</span>
                         @endif
                     </p>
                 </div>

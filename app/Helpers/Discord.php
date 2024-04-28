@@ -940,6 +940,7 @@ function parseInviteJson($json)
             'isVerified' => false,
             'isNSFW' => false,
             'isNSFWLevel' => 0,
+            'isNSFWLevelName' => '',
             'vanityUrlCode' => '',
             'vanityUrl' => '',
             'memberCount' => 0,
@@ -1020,6 +1021,15 @@ function parseInviteJson($json)
         $array['guild']['description'] = $json['guild']['description'];
         $array['guild']['isNSFW'] = $json['guild']['nsfw'];
         $array['guild']['isNSFWLevel'] = $json['guild']['nsfw_level'];
+        if ($array['guild']['isNSFWLevel'] == 0)
+            $array['guild']['isNSFWLevelName'] = 'Default';
+        else if ($array['guild']['isNSFWLevel'] == 1)
+            $array['guild']['isNSFWLevelName'] = 'Explicit';
+        else if ($array['guild']['isNSFWLevel'] == 2)
+            $array['guild']['isNSFWLevelName'] = 'Safe';
+        else if ($array['guild']['isNSFWLevel'] == 3)
+            $array['guild']['isNSFWLevelName'] = 'Age-Restricted';
+
         $array['guild']['boostCount'] = $json['guild']['premium_subscription_count'];
 
         $boosts = $array['guild']['boostCount'];
