@@ -682,6 +682,7 @@ function getUser($userId)
         'premiumTypeName' => '',
         'isBot' => '',
         'isVerifiedBot' => '',
+        'isSpammer' => false,
         'clan' => [],
     ];
 
