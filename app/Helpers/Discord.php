@@ -752,6 +752,9 @@ function getUser($userId)
         $array['flagsList'] = getUserFlagList($array['flags']);
         if ($array['flags'] & (1 << 16))
             $array['isVerifiedBot']  = true;
+
+        if ($array['flags'] & (1 << 20))
+            $array['isSpammer']  = true;
     }
 
     if (key_exists('premium_type', $responseJson) && $responseJson['premium_type'] != null) {
@@ -965,6 +968,8 @@ function parseInviteJson($json)
             'flagsList' => [],
             'isBot' => false,
             'isVerifiedBot' => false,
+            'isSpammer' => false,
+            'clan' => [],
         ],
         'channel' => [
             'id' => '',
@@ -1138,7 +1143,13 @@ function parseInviteJson($json)
             $array['inviter']['flagsList'] = getUserFlagList($array['inviter']['flags']);
             if ($array['inviter']['flags'] & (1 << 16))
                 $array['inviter']['isVerifiedBot']  = true;
+
+            if ($array['inviter']['flags'] & (1 << 20))
+                $array['inviter']['isSpammer']  = true;
         }
+
+        if (key_exists('clan', $json['inviter']) && $json['inviter']['clan'] != null)
+            $array['inviter']['clan'] = $json['inviter']['clan'];
     }
 
     if(array_key_exists('expires_at', $json) && $json['expires_at'] != null)

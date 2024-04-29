@@ -96,6 +96,17 @@
                     </div>
                 @endif
 
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <span class="font-semibold">{{ __('Spammer') }}<span class="hidden md:inline">:</span></span>
+                    <p class="my-auto">
+                        @if($user['isSpammer'])
+                            <img src="{{ asset('images/discord/icons/check.svg') }}" class="h-4 w-4" alt="Check" />
+                        @else
+                            <img src="{{ asset('images/discord/icons/cross.svg') }}" class="h-4 w-4" alt="Cross" />
+                        @endif
+                    </p>
+                </div>
+
                 @if($user['bannerColor'])
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <span class="font-semibold">{{ __('Banner Color') }}<span class="hidden md:inline">:</span></span>
