@@ -65,7 +65,7 @@ class User extends Component
             if($this->userData['isBot']) {
                 $description .= 'Bot: Yes
 ';
-                if($this->userData['isVerifiedBot'] || $this->userData['id'] === '643945264868098049' || $this->userData['id'] === '1081004946872352958') {
+                if($this->userData['isVerifiedBot'] || $this->userData['id'] === '643945264868098049' || $this->userData['id'] === '1232523165893132288' || $this->userData['id'] === '1081004946872352958') {
                     $description .= 'Verified Bot: Yes
 ';
                 }else{

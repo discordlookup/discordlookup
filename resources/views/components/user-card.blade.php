@@ -30,11 +30,11 @@
 
                             @if($user['isBot'])
                                 <span class="font-semibold inline-flex px-2 py-1 leading-3 text-sm rounded text-white bg-discord-blurple">
-                                @if($user['isVerifiedBot'] || $user['id'] === '643945264868098049' || $user['id'] === '1081004946872352958')
+                                @if($user['isVerifiedBot'] || $user['id'] === '643945264868098049' || $user['id'] === '1232523165893132288' || $user['id'] === '1081004946872352958')
                                         <i class="fas fa-check"></i>&nbsp;
                                     @endif
                                 <span class="font-medium uppercase">
-                                    @if($user['id'] === '643945264868098049')
+                                    @if($user['id'] === '643945264868098049' || $user['id'] === '1232523165893132288')
                                         {{ __('System') }}
                                     @elseif($user['id'] === '1081004946872352958')
                                         {{ __('AI') }}
@@ -87,7 +87,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <span class="font-semibold">{{ __('Verified Bot') }}<span class="hidden md:inline">:</span></span>
                         <p class="my-auto">
-                            @if($user['isVerifiedBot'] || $user['id'] === '643945264868098049' || $user['id'] === '1081004946872352958')
+                            @if($user['isVerifiedBot'] || $user['id'] === '643945264868098049' || $user['id'] === '1232523165893132288' || $user['id'] === '1081004946872352958')
                                 <img src="{{ asset('images/discord/icons/check.svg') }}" class="h-4 w-4" alt="Check">
                             @else
                                 <img src="{{ asset('images/discord/icons/cross.svg') }}" class="h-4 w-4" alt="Cross">
