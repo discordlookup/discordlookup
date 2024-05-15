@@ -23,7 +23,7 @@
             <x-error-message>
                 {{ $errorMessage }}
             </x-error-message>
-        @elseif($snowflake1 && $snowflake2)
+        @elseif($snowflake1 && $snowflake2 && $snowflake1 != '-')
             <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
                 <div class="p-5 lg:p-6 grow w-full text-center text-2xl font-bold">
                     {{-- __('The Snowflakes occured at the same time.') --}}
@@ -62,8 +62,6 @@
                 difference.seconds() + " <small>" + (difference.seconds() === 1 ? "{{ trans_choice('second|seconds', 1) }}" : "{{ trans_choice('second|seconds', 0) }}") + "</small><br>" +
                 difference.milliseconds() + " <small>" + (difference.milliseconds() === 1 ? "{{ trans_choice('millisecond|milliseconds', 1) }}" : "{{ trans_choice('millisecond|milliseconds', 0) }}") + "</small><br>"
             ;
-            document.getElementById('snowflakeOneRelative').innerText = moment.utc(timestamp1).local().fromNow();
-            document.getElementById('snowflakeTwoRelative').innerText = moment.utc(timestamp2).local().fromNow();
         }
     </script>
 </div>

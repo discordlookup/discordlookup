@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Http;
  */
 function getTimestamp($snowflake)
 {
+    if (invalidateSnowflake($snowflake)) return null;
     return $snowflake / 4194304 + 1420070400000;
 }
 
