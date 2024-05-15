@@ -506,18 +506,33 @@ function getGuildIconUrl($guildId, $guildIcon, int $size = 128, string $format =
 }
 
 /**
- * @param $userId
- * @param $guildBanner
+ * @param $guildOrUserId
+ * @param $bannerHash
+ * @param int $size
+ * @param string $format
+ * @param bool $allowAnimated
+ * @return string Discord CDN Guild/User Banner URL
+ * @see https://discord.com/developers/docs/reference#image-formatting
+ */
+function getBannerUrl($guildOrUserId, $bannerHash, int $size = 256, string $format = 'webp', bool $allowAnimated = true)
+{
+    if ($allowAnimated && str_starts_with($bannerHash, 'a_')) $format = 'gif';
+    return env('DISCORD_CDN_URL') . "/banners/{$guildOrUserId}/{$bannerHash}.{$format}?size={$size}";
+}
+
+/**
+ * @param $guildId
+ * @param $bannerHash
  * @param int $size
  * @param string $format
  * @param bool $allowAnimated
  * @return string Discord CDN User Banner URL
  * @see https://discord.com/developers/docs/reference#image-formatting
  */
-function getGuildBannerUrl($userId, $guildBanner, int $size = 64, string $format = 'webp', bool $allowAnimated = true)
+function getClanBannerUrl($guildId, $bannerHash, int $size = 256, string $format = 'webp', bool $allowAnimated = true)
 {
-    if ($allowAnimated && str_starts_with($guildBanner, 'a_')) $format = 'gif';
-    return env('DISCORD_CDN_URL') . "/banners/{$userId}/{$guildBanner}.{$format}?size={$size}";
+    if ($allowAnimated && str_starts_with($bannerHash, 'a_')) $format = 'gif';
+    return env('DISCORD_CDN_URL') . "/clan-banners/{$guildId}/{$bannerHash}.{$format}?size={$size}";
 }
 
 /**
@@ -583,6 +598,19 @@ function getApplicationIconUrl($applicationId, $icon, int $size = 128, string $f
 function getApplicationCoverUrl($applicationId, $coverImage, int $size = 128, string $format = 'webp')
 {
     return env('DISCORD_CDN_URL') . "/app-icons/{$applicationId}/{$coverImage}.{$format}?size={$size}";
+}
+
+/**
+ * @param $guildId
+ * @param $badgeHash
+ * @param int $size
+ * @param string $format
+ * @return string Discord CDN Clan Badge URL
+ * @see https://discord.com/developers/docs/reference#image-formatting
+ */
+function getClanBadgeUrl($guildId, $badgeHash, int $size = 128, string $format = 'webp')
+{
+    return env('DISCORD_CDN_URL') . "/clan-badges/{$guildId}/{$badgeHash}.{$format}?size={$size}";
 }
 
 /**
@@ -740,7 +768,7 @@ function getUser($userId)
         $array['avatarDecorationSku'] = $responseJson['avatar_decoration_data']['sku_id'];
 
     if (key_exists('banner', $responseJson) && $responseJson['banner'] != null)
-        $array['bannerUrl'] = getGuildBannerUrl($responseJson['id'], $responseJson['banner'], 512, 'webp', true);
+        $array['bannerUrl'] = getBannerUrl($responseJson['id'], $responseJson['banner'], 512, 'webp', true);
 
     if (key_exists('banner_color', $responseJson) && $responseJson['banner_color'] != null)
         $array['bannerColor'] = $responseJson['banner_color'];
@@ -923,6 +951,102 @@ function getGuildPreview($guildId)
 }
 
 /**
+ * @param $guildId
+ * @return array|null
+ */
+function getDiscoveryClan($guildId)
+{
+    $array = [
+        'id' => '',
+        'name' => '',
+        'tag' => '',
+        'description' => '',
+        'memberCount' => 0,
+        'badgeUrl' => '',
+        'iconUrl' => getDefaultUserAvatarUrl(),
+        'bannerUrl' => '',
+        'playstyle' => 0,
+        'playstyleName' => '',
+        'searchTerms' => [],
+        'wildcardDescriptors' => [],
+        'gameIds' => [],
+    ];
+
+    if(Cache::has('clanDiscovery:' . $guildId))
+    {
+        $responseJson = Cache::get('clanDiscovery:' . $guildId);
+    }
+    else
+    {
+        $response = Http::withHeaders([
+            'Authorization' => 'Bot ' . env('DISCORD_BOT_TOKEN'),
+        ])->get(env('DISCORD_API_URL') . '/discovery/' . $guildId . '/clan');
+
+        if(!$response->ok())
+            return null;
+
+        $responseJson = $response->json();
+        Cache::put('clanDiscovery:' . $guildId, $responseJson, 900); // 15 minutes
+    }
+
+    if ($responseJson == null || !key_exists('id', $responseJson))
+        return null;
+
+    if(array_key_exists('id', $responseJson))
+        $array['id'] = $responseJson['id'];
+
+    if(array_key_exists('name', $responseJson))
+        $array['name'] = $responseJson['name'];
+
+    if(array_key_exists('tag', $responseJson))
+        $array['tag'] = $responseJson['tag'];
+
+    if(array_key_exists('description', $responseJson))
+        $array['description'] = $responseJson['description'];
+
+    if(array_key_exists('member_count', $responseJson))
+        $array['memberCount'] = $responseJson['member_count'];
+
+    if($responseJson['badge_hash'] != null)
+        $array['badgeUrl'] = getClanBadgeUrl($responseJson['id'], $responseJson['badge_hash']);
+
+    if($responseJson['icon_hash'] != null)
+        $array['iconUrl'] = getGuildIconUrl($responseJson['id'], $responseJson['icon_hash']);
+
+    if($responseJson['banner_hash'] != null)
+        $array['bannerUrl'] = getClanBannerUrl($responseJson['id'], $responseJson['banner_hash']);
+
+    if(array_key_exists('playstyle', $responseJson)) {
+        $array['playstyle'] = $responseJson['playstyle'];
+        if ($array['playstyle'] == 0) // NONE
+            $array['playstyleName'] = 'Unknown';
+        else if ($array['playstyle'] == 1) // SOCIAL
+            $array['playstyleName'] = 'Very Casual';
+        else if ($array['playstyle'] == 2) // CASUAL
+            $array['playstyleName'] = 'Casual';
+        else if ($array['playstyle'] == 3) // COMPETITIVE
+            $array['playstyleName'] = 'Competitive';
+        else if ($array['playstyle'] == 4) // CREATIVE
+            $array['playstyleName'] = '?? Creative ??'; // TODO: Add correct creative playstyle name
+        else if ($array['playstyle'] == 5) // VERY_HARDCORE
+            $array['playstyleName'] = 'Very Competitive';
+        else
+            $array['playstyleName'] = 'n/a';
+    }
+
+    if(array_key_exists('search_terms', $responseJson))
+        $array['searchTerms'] = $responseJson['search_terms'];
+
+    if(array_key_exists('wildcard_descriptors', $responseJson))
+        $array['wildcardDescriptors'] = $responseJson['wildcard_descriptors'];
+
+    if(array_key_exists('game_ids', $responseJson))
+        $array['gameIds'] = $responseJson['game_ids'];
+
+    return $array;
+}
+
+/**
  * @param $json
  * @return array|null
  */
@@ -1054,7 +1178,7 @@ function parseInviteJson($json)
             $array['guild']['iconUrl'] = getGuildIconUrl($array['guild']['id'], $json['guild']['icon']);
 
         if(array_key_exists('banner', $json['guild']) && $json['guild']['banner'] != null)
-            $array['guild']['bannerUrl'] = getGuildBannerUrl($array['guild']['id'], $json['guild']['banner'], 512, 'webp', true);
+            $array['guild']['bannerUrl'] = getBannerUrl($array['guild']['id'], $json['guild']['banner'], 512, 'webp', true);
 
         if(array_key_exists('vanity_url_code', $json['guild']))
         {
@@ -1126,7 +1250,7 @@ function parseInviteJson($json)
             $array['inviter']['avatarDecorationSku'] = $json['inviter']['avatar_decoration_data']['sku_id'];
 
         if (key_exists('banner', $json['inviter']) && $json['inviter']['banner'] != null)
-            $array['inviter']['bannerUrl'] = getGuildBannerUrl($json['inviter']['id'], $json['inviter']['banner'], 512, 'webp', true);
+            $array['inviter']['bannerUrl'] = getBannerUrl($json['inviter']['id'], $json['inviter']['banner'], 512, 'webp', true);
 
         if (key_exists('banner_color', $json['inviter']) && $json['inviter']['banner_color'] != null)
             $array['inviter']['bannerColor'] = $json['inviter']['banner_color'];
