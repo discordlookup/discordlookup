@@ -90,6 +90,20 @@
                     </p>
                 </div>
             @endif
+
+            @if($clan['badgeColorPrimary'])
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <span class="font-semibold">{{ __('Primary Badge Color') }}<span class="hidden md:inline">:</span></span>
+                    <x-color-preview :hexColor="$clan['badgeColorPrimary']" />
+                </div>
+            @endif
+
+            @if($clan['badgeColorSecondary'])
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <span class="font-semibold">{{ __('Secondary Badge Color') }}<span class="hidden md:inline">:</span></span>
+                    <x-color-preview :hexColor="$clan['badgeColorSecondary']" />
+                </div>
+            @endif
         </div>
         <div class="space-y-5 md:space-y-0.5">
             @if(array_key_exists('searchTerms', $clan) && !empty($clan['searchTerms']))

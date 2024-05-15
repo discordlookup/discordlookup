@@ -967,6 +967,8 @@ function getDiscoveryClan($guildId)
         'bannerUrl' => '',
         'playstyle' => 0,
         'playstyleName' => '',
+        'badgeColorPrimary' => '',
+        'badgeColorSecondary' => '',
         'searchTerms' => [],
         'wildcardDescriptors' => [],
         'gameIds' => [],
@@ -1033,6 +1035,12 @@ function getDiscoveryClan($guildId)
         else
             $array['playstyleName'] = 'n/a';
     }
+
+    if(array_key_exists('badge_color_primary', $responseJson))
+        $array['badgeColorPrimary'] = $responseJson['badge_color_primary'];
+
+    if(array_key_exists('badge_color_secondary', $responseJson))
+        $array['badgeColorSecondary'] = $responseJson['badge_color_secondary'];
 
     if(array_key_exists('search_terms', $responseJson))
         $array['searchTerms'] = $responseJson['search_terms'];
