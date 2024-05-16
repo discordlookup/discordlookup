@@ -19,14 +19,18 @@
                     <div class="col-span-4 text-center md:text-left my-auto">
                         <p>
                             <span class="font-semibold">{{ $clan['name'] }}</span>
-                            <span class="font-semibold inline-flex px-2 py-1 leading-3 text-sm rounded text-white bg-discord-gray-5 space-x-1">
-                                <a href="{{ $clan['badgeUrl'] }}" target="_blank">
-                                    <img src="{{ $clan['badgeUrl'] }}" loading="lazy" alt="Clan Badge" class="inline-block w-4 h-4"/>
-                                </a>
-                                <span class="font-medium uppercase my-auto">
-                                    {{ $clan['tag'] }}
+                            @if(array_key_exists('tag', $clan) && $clan['tag'])
+                                <span class="font-semibold inline-flex px-2 py-1 leading-3 text-sm rounded text-white bg-discord-gray-5 space-x-1">
+                                    @if(array_key_exists('badgeUrl', $clan) && $clan['badgeUrl'])
+                                        <a href="{{ $clan['badgeUrl'] }}" target="_blank">
+                                            <img src="{{ $clan['badgeUrl'] }}" loading="lazy" alt="Clan Badge" class="inline-block w-4 h-4"/>
+                                        </a>
+                                    @endif
+                                    <span class="font-medium uppercase my-auto">
+                                        {{ $clan['tag'] }}
+                                    </span>
                                 </span>
-                            </span>
+                            @endif
                         </p>
                         <p>
                             @if(array_key_exists('memberCount', $clan) && $clan['memberCount'])
