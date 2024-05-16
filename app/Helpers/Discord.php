@@ -1009,13 +1009,13 @@ function getDiscoveryClan($guildId)
     if(array_key_exists('member_count', $responseJson))
         $array['memberCount'] = $responseJson['member_count'];
 
-    if($responseJson['badge_hash'] != null)
+    if(array_key_exists('badge_hash', $responseJson) && $responseJson['badge_hash'] != null)
         $array['badgeUrl'] = getClanBadgeUrl($responseJson['id'], $responseJson['badge_hash']);
 
-    if($responseJson['icon_hash'] != null)
+    if(array_key_exists('icon_hash', $responseJson) && $responseJson['icon_hash'] != null)
         $array['iconUrl'] = getGuildIconUrl($responseJson['id'], $responseJson['icon_hash']);
 
-    if($responseJson['banner_hash'] != null)
+    if(array_key_exists('banner_hash', $responseJson) && $responseJson['banner_hash'] != null)
         $array['bannerUrl'] = getClanBannerUrl($responseJson['id'], $responseJson['banner_hash']);
 
     if(array_key_exists('playstyle', $responseJson)) {
