@@ -44,7 +44,7 @@ class User extends Component
 
         $this->fetched = true;
         $this->userData = getUser($this->snowflake);
-        if(array_key_exists('clan', $this->userData) && $this->userData['clan'] && array_key_exists('identity_guild_id', $this->userData['clan']) && $this->userData['clan']['identity_guild_id']) {
+        if($this->userData && array_key_exists('clan', $this->userData) && $this->userData['clan'] && array_key_exists('identity_guild_id', $this->userData['clan']) && $this->userData['clan']['identity_guild_id']) {
             $this->userClanData = getDiscoveryClan($this->userData['clan']['identity_guild_id']);
         }
     }
