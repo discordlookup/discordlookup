@@ -16,7 +16,7 @@ class Index extends Component
 
     public function loadExperiments()
     {
-        $this->experimentsJson = getExperiments();
+        $this->experimentsJson = getExperiments() ?? [];
     }
 
     public function changeCategory($category)
