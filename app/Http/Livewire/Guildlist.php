@@ -115,7 +115,8 @@ class Guildlist extends Component
         $this->guildsJsonSearch = array_filter($this->guildsJson, function ($var) use ($filterBy) {
             return (
                 str_contains(strtolower($var['id']), strtolower($filterBy)) ||
-                str_contains(strtolower($var['name']), strtolower($filterBy))
+                str_contains(strtolower($var['name']), strtolower($filterBy)) ||
+                str_contains(strtolower(implode(' ', $var['features'])), strtolower($filterBy))
             );
         });
 
