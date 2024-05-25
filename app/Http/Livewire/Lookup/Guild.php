@@ -65,7 +65,7 @@ class Guild extends Component
             }
         }
 
-        if($this->guildData && array_key_exists('features', $this->guildData) && $this->guildData['features'] && in_array('clan', $this->guildData['features']) || in_array('CLAN', $this->guildData['features']))
+        if ($this->guildData && is_array($this->guildData) && isset($this->guildData['features']) && is_array($this->guildData['features']) && (in_array('clan', $this->guildData['features']) || in_array('CLAN', $this->guildData['features'])))
             $this->guildClanData = getDiscoveryClan($this->snowflake);
 
         $this->dispatchBrowserEvent('updateRelative', ['timestamp' => $this->snowflakeTimestamp]);
