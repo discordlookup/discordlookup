@@ -35,7 +35,7 @@
                                     @endif
                                 <span class="font-medium uppercase">
                                     @if($user['id'] === '643945264868098049' || $user['id'] === '1232523165893132288')
-                                        {{ __('System') }}
+                                        {{ __('Official') }}
                                     @elseif($user['id'] === '1081004946872352958')
                                         {{ __('AI') }}
                                     @else
