@@ -367,6 +367,12 @@ function getPermissionList(): array
             'group' => 'text',
             'requireTwoFactor' => false,
         ],
+        'USE_EXTERNAL_APPS' => [
+            'name' => 'Use External Applications',
+            'bitwise' => (1 << 50),
+            'group' => 'text',
+            'requireTwoFactor' => false,
+        ],
     ];
 }
 
