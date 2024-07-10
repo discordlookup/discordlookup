@@ -44,7 +44,7 @@
                                 </span>
                             </span>
                         @endif
-                        <a href="https://discord.com/users/{{ $user['id'] }}">
+                        <a href="https://discord.com/users/{{ $user['id'] }}" target="_blank">
                             <p class="text-gray-500 text-sm">
                                 {{ $user['id'] }}
                             </p>
