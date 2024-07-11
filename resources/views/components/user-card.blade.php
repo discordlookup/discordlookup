@@ -45,7 +45,9 @@
                             </span>
                         @endif
                         <p class="text-gray-500 text-sm">
-                            {{ $user['id'] }}
+                            <a href="https://discord.com/users/{{ $user['id'] }}" target="_blank">
+                                {{ $user['id'] }}
+                            </a>
                         </p>
                     </div>
                     @if($user['bannerUrl'])
