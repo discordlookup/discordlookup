@@ -44,11 +44,11 @@
                                 </span>
                             </span>
                         @endif
-                        <a href="https://discord.com/users/{{ $user['id'] }}" target="_blank">
-                            <p class="text-gray-500 text-sm">
+                        <p class="text-gray-500 text-sm">
+                            <a href="https://discord.com/users/{{ $user['id'] }}" target="_blank">
                                 {{ $user['id'] }}
-                            </p>
-                        </a>
+                            </a>
+                        </p>
                     </div>
                     @if($user['bannerUrl'])
                         <div class="col-span-3 text-center md:text-right my-auto">
