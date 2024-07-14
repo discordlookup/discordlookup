@@ -5,9 +5,9 @@
 [license-shield]: https://img.shields.io/github/license/discordlookup/discordlookup?label=License
 [workflowstatus-shield]: https://img.shields.io/github/actions/workflow/status/discordlookup/discordlookup/docker-publish-deploy.yml?branch=main&label=Build
 
-[ ![discord-shield][] ][discord-invite]
-[ ![license-shield][] ][license]
-[ ![workflowstatus-shield][] ](https://github.com/discordlookup/discordlookup/actions/workflows/docker-publish.yml)
+[![discord-shield][]][discord-invite]
+[![license-shield][]][license]
+[![workflowstatus-shield][]](https://github.com/discordlookup/discordlookup/actions/workflows/docker-publish.yml)
 
 <img align="right" src="https://raw.githubusercontent.com/discordlookup/discordlookup/main/.github/images/discordlookup-logo.png" height="200" width="200">
 
