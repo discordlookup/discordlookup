@@ -20,7 +20,7 @@
         "@tailwindcss/typography": "^0.5.10",
         "alpinejs": "^3.13.3",
         "autoprefixer": "^10.4.16",
-        "axios": "^1.6.2",
+        "axios": "^1.7.4",
         "file-saver": "^2.0.5",
         "flag-icon-css": "^4.1.7",
         "jszip": "^3.10.1",
