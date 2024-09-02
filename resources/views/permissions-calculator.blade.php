@@ -10,6 +10,7 @@
                 min="0"
                 placeholder="{{ __('Bitfield') }}"
                 class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0"
+                autofocus
             />
         </x-input-prepend-icon>
 
