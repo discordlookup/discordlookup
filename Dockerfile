@@ -8,28 +8,34 @@ RUN npm ci
 RUN npm run prod
 
 
-FROM webdevops/php-nginx:8.2-alpine
+FROM trafex/php-nginx:3.6.0
+RUN rm -rf /var/www/html/*
 
-RUN apk add oniguruma-dev postgresql-dev libxml2-dev
-RUN docker-php-ext-install \
-        bcmath \
-        pdo_mysql \
-        pdo_pgsql
+USER root
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-COPY --from=build /build/public /app/public
+RUN apk add --no-cache \
+    git \
+    php83-exif \
+    php83-pdo \
+    php83-pdo_mysql \
+    php83-pdo_pgsql
 
-ENV WEB_DOCUMENT_ROOT /app/public
-ENV APP_ENV production
-WORKDIR /app
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+WORKDIR /var/www/html
+
 COPY . .
+COPY --from=build /build/public /var/www/html/public
 
-RUN echo "server_tokens off;" > /etc/nginx/conf.d/server_tokens.conf
-RUN echo "* * * * * cd /app && php artisan schedule:run >> /dev/null 2>&1" >> /etc/crontabs/root
+ENV APP_ENV=production
+ENV APP_DEBUG=false
 
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
-RUN php artisan optimize:clear
+RUN echo "* * * * * cd /var/www/html && php artisan schedule:run >> /dev/null 2>&1" >> /etc/crontabs/root
 
-RUN chown -R application:application .
-RUN chmod -R 777 storage/
+RUN chown -R nobody:nobody /var/www/html
+RUN chmod -R 775 storage bootstrap/cache
+
+USER nobody
