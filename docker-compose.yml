@@ -6,7 +6,7 @@ services:
             APP_NAME: DiscordLookup
             APP_ENV: local
             APP_KEY: ''
-            APP_DEBUG: true
+            APP_DEBUG: 'true'
             APP_URL: http://localhost
             DB_CONNECTION: mysql
             DB_HOST: mysql
@@ -30,7 +30,7 @@ services:
             DISCORD_CDN_URL: https://cdn.discordapp.com
             DISCORD_INVITE_PREFIX: https://discord.gg/
             EXPERIMENTS_WORKER: https://experiments.workers.discordlookup.com
-            INVITE_URL: https://discord.com/oauth2/authorize?client_id=892399371910524938&permissions=0&scope=bot%20applications.commands
+            INVITE_URL: https://discord.com/oauth2/authorize?client_id=892399371910524938&permissions=275951963136&scope=bot%20applications.commands
             DISCORD_URL: https://discord.gg/XsPcgeuEmB
             GITHUB_URL: https://github.com/discordlookup/discordlookup
             TWITTER_URL: https://x.com/discordlookup
