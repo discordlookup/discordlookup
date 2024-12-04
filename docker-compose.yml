@@ -1,59 +1,84 @@
-version: '3.3'
-
 services:
     website:
         image: 'ghcr.io/discordlookup/discordlookup:main'
         restart: unless-stopped
-        env_file: .env.example
-        depends_on:
-            - mysql
+        environment:
+            APP_NAME: DiscordLookup
+            APP_ENV: local
+            APP_KEY: ''
+            APP_DEBUG: true
+            APP_URL: http://localhost
+            DB_CONNECTION: mysql
+            DB_HOST: mysql
+            DB_PORT: 3306
+            DB_DATABASE: discordlookup
+            DB_USERNAME: discordlookup
+            DB_PASSWORD: discordlookup
+            REDIS_HOST: dragonfly
+            REDIS_PORT: 6379
+            REDIS_PASSWORD: dragonfly
+            CACHE_DRIVER: redis
+            SESSION_DRIVER: redis
+            SENTRY_LARAVEL_DSN: ''
+            SENTRY_TRACES_SAMPLE_RATE: 1.0
+            DISCORD_CLIENT_ID: 892399371910524938
+            DISCORD_CLIENT_SECRET: ''
+            DISCORD_BOT_TOKEN: ''
+            DISCORD_REDIRECT_URI: http://localhost/auth/callback
+            DISCORD_GUILD_ID: 980791496833908778
+            DISCORD_API_URL: https://discord.com/api/v10
+            DISCORD_CDN_URL: https://cdn.discordapp.com
+            DISCORD_INVITE_PREFIX: https://discord.gg/
+            EXPERIMENTS_WORKER: https://experiments.workers.discordlookup.com
+            INVITE_URL: https://discord.com/oauth2/authorize?client_id=892399371910524938&permissions=0&scope=bot%20applications.commands
+            DISCORD_URL: https://discord.gg/XsPcgeuEmB
+            GITHUB_URL: https://github.com/discordlookup/discordlookup
+            TWITTER_URL: https://x.com/discordlookup
+            PLAUSIBLE_URL: ''
+            PLAUSIBLE_WEBSITE_DOMAIN: ''
+            LEGAL_FIRSTNAME: ''
+            LEGAL_LASTNAME: ''
+            LEGAL_ADRESS: ''
+            LEGAL_ADRESS_ADDITIONAL: ''
+            LEGAL_ZIPCODE: ''
+            LEGAL_CITY: ''
+            LEGAL_COUNTRY: ''
+            LEGAL_PHONE: ''
+            LEGAL_EMAIL: ''
         ports:
             - 127.0.0.1:8080:80
         networks:
             - discordlookup
-        labels:
-            - 'com.centurylinklabs.watchtower.scope=discordlookup-website'
+        depends_on:
+            - mysql
+            - dragonfly
     mysql:
         image: mariadb:10.11
         restart: unless-stopped
         environment:
-            - MYSQL_ROOT_PASSWORD=discordlookup
-            - MYSQL_DATABASE=discordlookup
-            - MYSQL_USER=discordlookup
-            - MYSQL_PASSWORD=discordlookup
+            MYSQL_ROOT_PASSWORD: discordlookup
+            MYSQL_DATABASE: discordlookup
+            MYSQL_USER: discordlookup
+            MYSQL_PASSWORD: discordlookup
         volumes:
             - mysql:/var/lib/mysql
         networks:
             - discordlookup
-        labels:
-            - 'com.centurylinklabs.watchtower.scope=discordlookup-website'
-    redis:
-        image: redis:7.2
+    dragonfly:
+        image: ghcr.io/dragonflydb/dragonfly:v1.25.4
         restart: unless-stopped
+        ulimits:
+            memlock: -1
+        environment:
+            DFLY_requirepass: dragonfly
         volumes:
-            - redis:/data
+            - dragonfly:/data
         networks:
             - discordlookup
-        healthcheck:
-            test: [ "CMD", "redis-cli", "ping" ]
-            interval: 3s
-            timeout: 3s
-            retries: 5
-        labels:
-            - 'com.centurylinklabs.watchtower.scope=discordlookup-website'
-    watchtower:
-        image: containrrr/watchtower
-        restart: unless-stopped
-        volumes:
-            - /var/run/docker.sock:/var/run/docker.sock
-            - /root/.docker/config.json:/config.json
-        command: --interval 120 --cleanup --scope discordlookup-website
-        labels:
-            - 'com.centurylinklabs.watchtower.scope=discordlookup-website'
 
 volumes:
     mysql:
-    redis:
+    dragonfly:
 
 networks:
     discordlookup:

@@ -29,7 +29,7 @@ class GenerateSitemap extends Command
      */
     public function handle()
     {
-        SitemapGenerator::create(env('SITEMAP_URL'))
+        SitemapGenerator::create(config('app.url'))
             ->hasCrawled(function (Url $url) {
                 $segments = $url->segments();
                 $priority = max(0.4, 1 - 0.1 * min(count($segments), 4));
