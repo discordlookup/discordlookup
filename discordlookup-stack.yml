@@ -55,7 +55,7 @@ services:
       LEGAL_PHONE: ''
       LEGAL_EMAIL: ''
     ports:
-      - 8080:80
+      - 8080:8080
     networks:
       - discordlookup
     depends_on:
