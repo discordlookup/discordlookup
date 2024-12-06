@@ -1,2 +1,4 @@
 node_modules
 vendor
+.env
+.env.backup
