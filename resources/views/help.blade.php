@@ -1,7 +1,7 @@
 <div>
     <h2 class="text-3xl md:text-4xl text-center font-extrabold mb-4 text-white">{{ __('DiscordLookup Help') }}</h2>
     <div class="text-center">
-        <a role="button" href="{{ env('DISCORD_URL') }}" target="_blank" rel="noopener" class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-4 py-2 leading-6 border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]">
+        <a role="button" href="{{ config('app.discord_url') }}" target="_blank" rel="noopener" class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-4 py-2 leading-6 border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]">
             <i class="fab fa-discord"></i> {{ __('Support Discord') }}
         </a>
     </div>
@@ -76,7 +76,7 @@
         </x-help-card>
 
         <x-help-card :title="__('I need support or have bugs/feature requests')">
-            Visit our <a href="{{ env('DISCORD_URL') }}" target="_blank" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">Discord server</a>. We will be happy to help you there as soon as possible.
+            Visit our <a href="{{ config('app.discord_url') }}" target="_blank" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">Discord server</a>. We will be happy to help you there as soon as possible.
         </x-help-card>
 
         <x-help-card :title="__('What happens to my data when I login with Discord?')">
@@ -87,8 +87,8 @@
         </x-help-card>
 
         <x-help-card :title="__('Is DiscordLookup open source?')">
-            <p>Yes! DiscordLookup is fully open source on <a href="{{ env('GITHUB_URL') }}" target="_blank" rel="noopener" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">GitHub</a>.</p>
-            <p>Feel free to give us a <a href="{{ env('GITHUB_URL') }}/stargazers" target="_blank" rel="noopener" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">star on GitHub</a> if you like our work.</p>
+            <p>Yes! DiscordLookup is fully open source on <a href="{{ config('app.github_url') }}" target="_blank" rel="noopener" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">GitHub</a>.</p>
+            <p>Feel free to give us a <a href="{{ config('app.github_url') }}/stargazers" target="_blank" rel="noopener" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">star on GitHub</a> if you like our work.</p>
         </x-help-card>
     </div>
 </div>

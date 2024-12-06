@@ -35,20 +35,14 @@ services:
       DISCORD_BOT_TOKEN: ''
       DISCORD_REDIRECT_URI: http://localhost/auth/callback
       DISCORD_GUILD_ID: 980791496833908778
-      DISCORD_API_URL: https://discord.com/api/v10
-      DISCORD_CDN_URL: https://cdn.discordapp.com
-      DISCORD_INVITE_PREFIX: https://discord.gg/
-      EXPERIMENTS_WORKER: https://experiments.workers.discordlookup.com
+      DISCORD_EXPERIMENTS_WORKER: https://experiments.workers.discordlookup.com
       INVITE_URL: https://discord.com/oauth2/authorize?client_id=892399371910524938&permissions=275951963136&scope=bot%20applications.commands
-      DISCORD_URL: https://discord.gg/XsPcgeuEmB
-      GITHUB_URL: https://github.com/discordlookup/discordlookup
-      TWITTER_URL: https://x.com/discordlookup
       PLAUSIBLE_URL: ''
       PLAUSIBLE_WEBSITE_DOMAIN: ''
       LEGAL_FIRSTNAME: ''
       LEGAL_LASTNAME: ''
-      LEGAL_ADRESS: ''
-      LEGAL_ADRESS_ADDITIONAL: ''
+      LEGAL_ADDRESS: ''
+      LEGAL_ADDRESS_ADDITIONAL: ''
       LEGAL_ZIPCODE: ''
       LEGAL_CITY: ''
       LEGAL_COUNTRY: ''

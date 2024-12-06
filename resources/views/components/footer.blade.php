@@ -3,25 +3,25 @@
         <div class="container xl:max-w-7xl mx-auto px-4 py-8 lg:px-8 lg:py-16">
             <div class="flex flex-col md:flex-row-reverse md:justify-between space-y-6 md:space-y-0 text-center md:text-left text-sm">
                 <nav class="space-x-4">
-                    <a href="{{ env('DISCORD_URL') }}" target="_blank" rel="noopener" class="text-gray-400 hover:text-discord-blurple">
+                    <a href="{{ config('app.discord_url') }}" target="_blank" rel="noopener" class="text-gray-400 hover:text-discord-blurple">
                         <i class="fab fa-discord text-2xl"></i>
                     </a>
-                    <a href="{{ env('GITHUB_URL') }}" target="_blank" rel="noopener" class="text-gray-400 hover:text-discord-blurple">
+                    <a href="{{ config('app.github_url') }}" target="_blank" rel="noopener" class="text-gray-400 hover:text-discord-blurple">
                         <i class="fab fa-github text-2xl"></i>
                     </a>
-                    <a href="{{ env('TWITTER_URL') }}" target="_blank" rel="noopener" class="text-gray-400 hover:text-discord-blurple">
+                    <a href="{{ config('app.twitter_url') }}" target="_blank" rel="noopener" class="text-gray-400 hover:text-discord-blurple">
                         <i class="fab fa-x-twitter text-2xl"></i>
                     </a>
                 </nav>
                 <div class="space-y-3">
-                    <div class="text-gray-300 font-bold">&copy; {{ date('Y') }} {{ env('APP_NAME') }}</div>
+                    <div class="text-gray-300 font-bold">&copy; {{ date('Y') }} {{ config('app.name') }}</div>
                     <div class="text-gray-500">
                         {{ __('DiscordLookup is not affiliated, associated, authorized, endorsed by, or in anyway') }}<br>
                         {{ __('officially connected with Discord Inc., or any of its subsidiaries or its affiliates.') }}
                     </div>
                     <div class="text-gray-500">
                         {{ __('Commit') }}:
-                        <a href="{{ env('GITHUB_URL') }}/commit/{{ getCurrentGitCommit() }}" target="_blank" rel="noopener">
+                        <a href="{{ config('app.github_url') }}/commit/{{ getCurrentGitCommit() }}" target="_blank" rel="noopener">
                             {{ getCurrentGitCommit() }}
                         </a>
                     </div>

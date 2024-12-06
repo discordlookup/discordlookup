@@ -45,8 +45,8 @@
 @stack('scripts')
 @livewireScripts
 
-@if(!empty(env('PLAUSIBLE_URL')) && !empty(env('PLAUSIBLE_WEBSITE_DOMAIN')))
-    <script defer data-domain="{{ env('PLAUSIBLE_WEBSITE_DOMAIN') }}" src="{{ env('PLAUSIBLE_URL') }}/js/script.js"></script>
+@if(!empty(config('app.plausible_url')) && !empty(config('app.plausible_website_domain')))
+    <script defer data-domain="{{ config('app.plausible_website_domain') }}" src="{{ config('app.plausible_url') }}/js/script.js"></script>
 @endif
 
 </body>

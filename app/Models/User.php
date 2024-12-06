@@ -84,7 +84,7 @@ class User extends Authenticatable
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . decrypt($this->discord_token),
         ])->put(
-            env('DISCORD_API_URL') . '/users/@me/applications/' . env('DISCORD_CLIENT_ID') . '/role-connection',
+            config('discord.api_url') . '/users/@me/applications/' . config('discord.client_id') . '/role-connection',
             [
                 'platform_name' => 'Discord Guild Stats',
                 'metadata' => [
@@ -141,7 +141,7 @@ class User extends Authenticatable
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . decrypt($this->discord_token),
-        ])->get(env('DISCORD_API_URL') . '/users/@me/guilds?with_counts=true');
+        ])->get(config('discord.api_url') . '/users/@me/guilds?with_counts=true');
 
         if($response->ok())
             session()->put('guildsJson', $response->json());

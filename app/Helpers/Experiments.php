@@ -16,7 +16,7 @@ function getExperiments($experiment = 'all')
 
 function fetchExperiments($experiment = 'all')
 {
-    $response = Http::timeout(10)->get(env('EXPERIMENTS_WORKER') . ($experiment == 'all' ? '' : '/' . $experiment));
+    $response = Http::timeout(10)->get(config('discord.experiments_worker') . ($experiment == 'all' ? '' : '/' . $experiment));
 
     if($response->ok())
     {

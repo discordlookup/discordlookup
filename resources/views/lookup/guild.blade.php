@@ -77,7 +77,7 @@
             if(!inviteCode) return;
             $.ajax({
                 type: 'GET',
-                url: '{{ env('DISCORD_API_URL') }}/invites/' + inviteCode + '?with_counts=true&with_expiration=true',
+                url: '{{ config('discord.api_url') }}/invites/' + inviteCode + '?with_counts=true&with_expiration=true',
                 success: (respond) => Livewire.emit('processInviteJson', respond),
                 error: () => Livewire.emit('processInviteJson', null),
             });

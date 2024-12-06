@@ -85,7 +85,7 @@
         <div class="container relative xl:max-w-7xl mx-auto px-4 lg:px-10">
             <div class="flex items-center justify-between">
                 <a href="{{ route('home') }}" class="inline-flex items-center space-x-2 font-bold text-lg tracking-wide text-blue-600 hover:text-blue-400">
-                    <img src="{{ asset('images/branding/logo-blurple.svg') }}" class="max-h-4" alt="{{ env('APP_NAME') }} Logo" />
+                    <img src="{{ asset('images/branding/logo-blurple.svg') }}" class="max-h-4" alt="{{ config('app.name') }} Logo" />
                 </a>
 
                 <ul class="hidden lg:flex items-center">

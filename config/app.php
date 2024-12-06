@@ -235,4 +235,21 @@ return [
 
     ],
 
+    'invite_url' => env('INVITE_URL'),
+    'discord_url' => env('DISCORD_URL', 'https://discord.gg/XsPcgeuEmB'),
+    'github_url' => env('GITHUB_URL', 'https://github.com/discordlookup/discordlookup'),
+    'twitter_url' => env('TWITTER_URL', 'https://x.com/discordlookup'),
+
+    'plausible_url' => env('PLAUSIBLE_URL'),
+    'plausible_website_domain' => env('PLAUSIBLE_WEBSITE_DOMAIN'),
+
+    'legal_firstname' => env('LEGAL_FIRSTNAME'),
+    'legal_lastname' => env('LEGAL_LASTNAME'),
+    'legal_address' => env('LEGAL_ADDRESS'),
+    'legal_address_additional' => env('LEGAL_ADDRESS_ADDITIONAL'),
+    'legal_zipcode' => env('LEGAL_ZIPCODE'),
+    'legal_city' => env('LEGAL_CITY'),
+    'legal_country' => env('LEGAL_COUNTRY'),
+    'legal_phone' => env('LEGAL_PHONE'),
+    'legal_email' => env('LEGAL_EMAIL'),
 ];

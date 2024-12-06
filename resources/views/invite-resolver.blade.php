@@ -4,7 +4,7 @@
         <div class="space-y-1">
             <div class="relative">
                 <div class="absolute inset-y-0 left-0 w-28 my-px ml-px flex items-center justify-center pointer-events-none rounded-l text-gray-500">
-                    {{ str_replace('https://', '', env('DISCORD_INVITE_PREFIX')) }}
+                    {{ str_replace('https://', '', config('discord.invite_prefix')) }}
                 </div>
                 <input
                     wire:model.defer="inviteCodeDisplay"
@@ -343,7 +343,7 @@
             if (!inviteCode) return;
             $.ajax({
                 type: 'GET',
-                url: '{{ env('DISCORD_API_URL') }}/invites/' + inviteCode + '?with_counts=true&with_expiration=true' + ((eventId !== '' && eventId != null) ? '&guild_scheduled_event_id=' + eventId : ''),
+                url: '{{ config('discord.api_url') }}/invites/' + inviteCode + '?with_counts=true&with_expiration=true' + ((eventId !== '' && eventId != null) ? '&guild_scheduled_event_id=' + eventId : ''),
                 success: (respond) => Livewire.emit('processInviteJson', respond),
                 error: () => Livewire.emit('processInviteJson', null),
             });

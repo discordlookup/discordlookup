@@ -58,10 +58,10 @@ class AuthController extends Controller
 
         if($request->session()->exists('joinDiscordAfterLogin')) {
             Http::withHeaders([
-                'Authorization' => 'Bot ' . env('DISCORD_BOT_TOKEN'),
+                'Authorization' => 'Bot ' . config('discord.bot_token'),
             ])
                 ->put(
-                    env('DISCORD_API_URL') . '/guilds/' . env('DISCORD_GUILD_ID') . '/members/' . $discordUser->user['id'],
+                    config('discord.api_url') . '/guilds/' . config('discord.guild_id') . '/members/' . $discordUser->user['id'],
                     [
                         'access_token' => $discordUser->token,
                     ]
