@@ -1,0 +1,31 @@
+name: CD - Update Service - Website
+
+on:
+  workflow_run:
+    workflows: ["CI - Publish Docker Container"]
+    types:
+      - completed
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger update service webhook
+        shell: bash
+        env:
+          PORTAINER_WEBHOOK: ${{ secrets.PORTAINER_WEBHOOK }}
+          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+        run: |
+          response=$(curl --write-out '%{http_code}' --silent --output /dev/null \
+            --location --request POST "$PORTAINER_WEBHOOK" \
+            --header "cf-access-client-id: $CF_ACCESS_CLIENT_ID" \
+            --header "cf-access-client-secret: $CF_ACCESS_CLIENT_SECRET")
+
+          if [ "$response" -ne 204 ]; then
+            echo "Request failed with status code $response"
+            exit 1
+          else
+            echo "Request succeeded with status code $response"
+          fi
