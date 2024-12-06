@@ -1,4 +1,4 @@
-[bot-invite]: https://discordlookup.com/invite?utm_source=github&utm_medium=readme&utm_campaign=discordlookup
+[bot-invite]: https://discordlookup.com/invite
 [discord-invite]: https://discordlookup.com/discord
 [license]: https://github.com/discordlookup/discordlookup/blob/main/LICENSE
 [discord-shield]: https://discord.com/api/guilds/980791496833908778/widget.png
@@ -7,7 +7,7 @@
 
 [![discord-shield][]][discord-invite]
 [![license-shield][]][license]
-[![workflowstatus-shield][]](https://github.com/discordlookup/discordlookup/actions/workflows/docker-publish.yml)
+[![workflowstatus-shield][]](https://github.com/discordlookup/discordlookup/actions/workflows/ci-docker-publish.yml)
 
 <img align="right" src="https://raw.githubusercontent.com/discordlookup/discordlookup/main/.github/images/discordlookup-logo.png" height="200" width="200">
 
@@ -51,7 +51,7 @@ Alternatively you can also have a look at our [Help Page](https://discordlookup.
 - [German](https://poeditor.com/projects/po_edit?id_language=55&per_page=100&id=486559)
 - [Italian](https://poeditor.com/projects/po_edit?id_language=75&per_page=100&id=486559) (thanks to [LoryPelli](https://github.com/LoryPelli))
 
-If you want to help translate the website, please go to the [POEditor project page](https://poeditor.com/join/project/4PHNUb17NN).  
+~~If you want to help translate the website, please go to the [POEditor project page](https://poeditor.com/join/project/4PHNUb17NN).~~  
 Please make sure you are also on our [Discord server](https://discordlookup.com/discord) to simplify the communication.  
 If your language is not listed yet, please contact us on the [Discord server](https://discordlookup.com/discord).
 
