@@ -1484,3 +1484,164 @@ function getApplicationRpc($applicationId)
 
     return $array;
 }
+
+/**
+ * @param $templateCode
+ * @return array|null
+ */
+function getGuildTemplate($templateCode)
+{
+    $array = [
+        'code' => '',
+        'name' => '',
+        'description' => '',
+        'usageCount' => 0,
+        'creatorId' => '',
+        'creator' => [
+            'id' => '',
+            'username' => '',
+            'discriminator' => '',
+            'global_name' => '',
+            'avatarUrl' => '',
+            'avatarDecorationUrl' => '',
+            'avatarDecorationSku' => '',
+            'bannerUrl' => '',
+            'bannerColor' => '',
+            'accentColor' => '',
+            'premiumType' => 0,
+            'premiumTypeName' => '',
+            'flags' => '',
+            'flagsList' => [],
+            'isBot' => '',
+            'isVerifiedBot' => '',
+            'isSpammer' => false,
+            'clan' => [],
+        ],
+        'createdAt' => '',
+        'createdAtFormatted' => '',
+        'updatedAt' => '',
+        'updatedAtFormatted' => '',
+        'sourceGuildId' => '',
+        'serializedSourceGuild' => [],
+        'isDirty' => null,
+    ];
+
+    if(Cache::has('guildTemplate:' . $templateCode))
+    {
+        $responseJson = Cache::get('guildTemplate:' . $templateCode);
+    }
+    else
+    {
+        $response = Http::withHeaders([
+            'Authorization' => 'Bot ' . config('discord.bot_token'),
+        ])->get(config('discord.api_url') . '/guilds/templates/' . $templateCode);
+
+        if(!$response->ok())
+            return null;
+
+        $responseJson = $response->json();
+        Cache::put('guildTemplate:' . $templateCode, $responseJson, 900); // 15 minutes
+    }
+
+    if ($responseJson == null || !key_exists('code', $responseJson))
+        return null;
+
+    if(array_key_exists('code', $responseJson))
+        $array['code'] = $responseJson['code'];
+
+    if(array_key_exists('name', $responseJson))
+        $array['name'] = $responseJson['name'];
+
+    if(array_key_exists('description', $responseJson))
+        $array['description'] = $responseJson['description'];
+
+    if(array_key_exists('usage_count', $responseJson))
+        $array['usageCount'] = $responseJson['usage_count'];
+
+    if(array_key_exists('creator_id', $responseJson))
+        $array['creatorId'] = $responseJson['creator_id'];
+
+    if(array_key_exists('creator', $responseJson) && $responseJson['creator'] != null) {
+        if (key_exists('id', $responseJson))
+            $array['creator']['id'] = $responseJson['creator']['id'];
+
+        if (key_exists('username', $responseJson['creator']))
+            $array['creator']['username'] = $responseJson['creator']['username'];
+
+        if (key_exists('discriminator', $responseJson['creator']))
+            $array['creator']['discriminator'] = $responseJson['creator']['discriminator'];
+
+        if (key_exists('global_name', $responseJson['creator']))
+            $array['creator']['global_name'] = $responseJson['creator']['global_name'];
+
+        if (key_exists('bot', $responseJson['creator']))
+            $array['creator']['isBot'] = $responseJson['creator']['bot'];
+
+        if (key_exists('avatar', $responseJson['creator']) && $responseJson['creator']['avatar'] != null) {
+            $array['creator']['avatarUrl'] = getUserAvatarUrl($responseJson['creator']['id'], $responseJson['creator']['avatar'], 512, 'webp', true);
+        }
+
+        if (empty($array['creator']['avatarUrl'])) {
+            $array['creator']['avatarUrl'] = getDefaultUserAvatarUrl($responseJson['creator']['id']);
+            $array['creator']['avatarUrlOg'] = getDefaultUserAvatarUrl($responseJson['creator']['id']);
+        }
+
+        // TODO: Add custom avatar decorations once released and documented by Discord
+        if (key_exists('avatar_decoration_data', $responseJson['creator']) && $responseJson['creator']['avatar_decoration_data'] != null && key_exists('asset', $responseJson['creator']['avatar_decoration_data']) && $responseJson['creator']['avatar_decoration_data']['asset'] != null)
+            $array['creator']['avatarDecorationUrl'] = config('discord.cdn_url') . '/avatar-decoration-presets/' . $responseJson['creator']['avatar_decoration_data']['asset'] . '?size=512';
+
+        if (key_exists('avatar_decoration_data', $responseJson['creator']) && $responseJson['creator']['avatar_decoration_data'] != null && key_exists('sku_id', $responseJson['creator']['avatar_decoration_data']) && $responseJson['creator']['avatar_decoration_data']['sku_id'] != null)
+            $array['creator']['avatarDecorationSku'] = $responseJson['creator']['avatar_decoration_data']['sku_id'];
+
+        if (key_exists('banner', $responseJson['creator']) && $responseJson['creator']['banner'] != null)
+            $array['creator']['bannerUrl'] = getBannerUrl($responseJson['creator']['id'], $responseJson['creator']['banner'], 512, 'webp', true);
+
+        if (key_exists('banner_color', $responseJson['creator']) && $responseJson['creator']['banner_color'] != null)
+            $array['creator']['bannerColor'] = $responseJson['creator']['banner_color'];
+
+        if (key_exists('accent_color', $responseJson['creator']) && $responseJson['creator']['accent_color'] != null)
+            $array['creator']['accentColor'] = '#' . str_pad(dechex($responseJson['creator']['accent_color']), 6, '0', STR_PAD_LEFT);
+
+        if (key_exists('public_flags', $responseJson['creator']))
+        {
+            $array['creator']['flags'] = $responseJson['creator']['public_flags'];
+            $array['creator']['flagsList'] = getUserFlagList($array['creator']['flags']);
+            if ($array['creator']['flags'] & (1 << 16))
+                $array['creator']['isVerifiedBot']  = true;
+
+            if ($array['creator']['flags'] & (1 << 20))
+                $array['creator']['isSpammer']  = true;
+        }
+
+        if (key_exists('premium_type', $responseJson['creator']) && $responseJson['creator']['premium_type'] != null) {
+            $array['creator']['premiumType'] = $responseJson['creator']['premium_type'];
+            $array['creator']['premiumTypeName'] = getPremiumType($responseJson['creator']['premium_type']);
+        }
+
+        if (key_exists('clan', $responseJson['creator']) && $responseJson['creator']['clan'] != null)
+            $array['creator']['clan'] = $responseJson['creator']['clan'];
+    }
+
+    if(array_key_exists('created_at', $responseJson))
+    {
+        $array['createdAt'] = $responseJson['created_at'];
+        $array['createdAtFormatted'] = date('Y-m-d G:i:s \(T\)', strtotime($array['createdAt']));
+    }
+
+    if(array_key_exists('updated_at', $responseJson))
+    {
+        $array['updatedAt'] = $responseJson['updated_at'];
+        $array['updatedAtFormatted'] = date('Y-m-d G:i:s \(T\)', strtotime($array['updatedAt']));
+    }
+
+    if(array_key_exists('source_guild_id', $responseJson))
+        $array['sourceGuildId'] = $responseJson['source_guild_id'];
+
+    if(array_key_exists('serialized_source_guild', $responseJson))
+        $array['serializedSourceGuild'] = $responseJson['serialized_source_guild'];
+
+    if(array_key_exists('is_dirty', $responseJson))
+        $array['isDirty'] = $responseJson['is_dirty'];
+
+    return $array;
+}
