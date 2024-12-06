@@ -16,11 +16,13 @@ function getExperiments($experiment = 'all')
 
 function fetchExperiments($experiment = 'all')
 {
-    $response = Http::timeout(10)->get(config('discord.experiments_worker') . ($experiment == 'all' ? '' : '/' . $experiment));
+    $response = Http::timeout(5)
+        ->withUserAgent('DiscordLookup Experiments')
+        ->get(config('discord.experiments_worker') . ($experiment == 'all' ? '' : '/' . $experiment));
 
     if($response->ok())
     {
         $responseJson = $response->json();
-        Cache::put('experiments:' . $experiment, $responseJson, 60);
+        Cache::put('experiments:' . $experiment, $responseJson, 960);
     }
 }

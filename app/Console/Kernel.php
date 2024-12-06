@@ -24,10 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(function () {
-            fetchExperiments();
-        })->name('load experiments')->everyThirtyMinutes()->onOneServer();
-
+        $schedule->call(fn () => fetchExperiments())->name('experiments:fetch')->everyFifteenMinutes()->onOneServer();
         $schedule->command('sitemap:generate')->daily();
         $schedule->command('sitemap:generate')->everyMinute()->skip(fn () => \File::exists(public_path('sitemap.xml')));
     }
