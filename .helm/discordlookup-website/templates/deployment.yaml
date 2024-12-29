@@ -1,0 +1,212 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "discordlookup-website.fullname" . }}
+  labels:
+    {{- include "discordlookup-website.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "discordlookup-website.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "discordlookup-website.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            {{- with .Values.website.app }}
+            {{ if .name }}
+            - name: APP_NAME
+              value: {{ .name | quote }}
+            {{ end }}
+            {{ if .env }}
+            - name: APP_ENV
+              value: {{ .env | default "production" | quote }}
+            {{ end }}
+            - name: APP_KEY
+              value: {{ .key | quote }}
+            - name: APP_DEBUG
+              value: {{ .debug | default "false" | quote }}
+            - name: APP_URL
+              value: {{ .url | quote }}
+            {{- end }}
+            {{- with .Values.website.db }}
+            - name: DB_CONNECTION
+              value: {{ .connection | quote }}
+            - name: DB_HOST
+              value: {{ .host | quote }}
+            - name: DB_PORT
+              value: {{ .port | default "3306" | quote }}
+            - name: DB_DATABASE
+              value: {{ .database | quote }}
+            - name: DB_USERNAME
+              value: {{ .username | quote }}
+            - name: DB_PASSWORD
+              value: {{ .password | quote }}
+            {{- end }}
+            {{- with .Values.website.redis }}
+            {{ if .host }}
+            - name: REDIS_HOST
+              value: {{ .host | quote }}
+            {{ end }}
+            {{ if .port }}
+            - name: REDIS_PORT
+              value: {{ .port | default "6379" | quote }}
+            {{ end }}
+            {{ if .password }}
+            - name: REDIS_PASSWORD
+              value: {{ .password | quote }}
+            {{ end }}
+            {{- end }}
+            {{- with .Values.website.cache }}
+            {{ if .driver }}
+            - name: CACHE_DRIVER
+              value: {{ .driver | default "file" | quote }}
+            {{ end }}
+            {{- end }}
+            {{- with .Values.website.website }}
+            {{ if .driver }}
+            - name: SESSION_DRIVER
+              value: {{ .driver | default "file" | quote }}
+            {{ end }}
+            {{- end }}
+            {{- with .Values.website.sentry }}
+            {{ if .dsn }}
+            - name: SENTRY_LARAVEL_DSN
+              value: {{ .dsn | quote }}
+            {{ end }}
+            {{ if .tracesSampleRate }}
+            - name: SENTRY_TRACES_SAMPLE_RATE
+              value: {{ .tracesSampleRate | quote }}
+            {{ end }}
+            {{- end }}
+            {{- with .Values.website.discord }}
+            {{ if .clientId }}
+            - name: DISCORD_CLIENT_ID
+              value: {{ .clientId | quote }}
+            {{ end }}
+            {{ if .clientSecret }}
+            - name: DISCORD_CLIENT_SECRET
+              value: {{ .clientSecret | quote }}
+            {{ end }}
+            {{ if .botToken }}
+            - name: DISCORD_BOT_TOKEN
+              value: {{ .botToken | quote }}
+            {{ end }}
+            {{ if .redirectUri }}
+            - name: DISCORD_REDIRECT_URI
+              value: {{ .redirectUri | quote }}
+            {{ end }}
+            {{ if .guildId }}
+            - name: DISCORD_GUILD_ID
+              value: {{ .guildId | quote }}
+            {{ end }}
+            {{ if .inviteUrl }}
+            - name: DISCORD_INVITE_URL
+              value: {{ .inviteUrl | quote }}
+            {{ end }}
+            {{ if .experimentsWorker }}
+            - name: DISCORD_EXPERIMENTS_WORKER
+              value: {{ .experimentsWorker | quote }}
+            {{ end }}
+            {{- end }}
+            {{- with .Values.website.plausible }}
+            {{ if .url }}
+            - name: PLAUSIBLE_URL
+              value: {{ .url | quote }}
+            {{ end }}
+            {{ if .websiteDomain }}
+            - name: PLAUSIBLE_WEBSITE_DOMAIN
+              value: {{ .websiteDomain | quote }}
+            {{ end }}
+            {{- end }}
+            {{- with .Values.website.legal }}
+            {{ if .firstname }}
+            - name: LEGAL_FIRSTNAME
+              value: {{ .firstname | quote }}
+            {{ end }}
+            {{ if .lastname }}
+            - name: LEGAL_LASTNAME
+              value: {{ .lastname | quote }}
+            {{ end }}
+            {{ if .address }}
+            - name: LEGAL_ADDRESS
+              value: {{ .address | quote }}
+            {{ end }}
+            {{ if .addressAdditional }}
+            - name: LEGAL_ADDRESS_ADDITIONAL
+              value: {{ .addressAdditional | quote }}
+            {{ end }}
+            {{ if .zipcode }}
+            - name: LEGAL_ZIPCODE
+              value: {{ .zipcode | quote }}
+            {{ end }}
+            {{ if .city }}
+            - name: LEGAL_CITY
+              value: {{ .city | quote }}
+            {{ end }}
+            {{ if .country }}
+            - name: LEGAL_COUNTRY
+              value: {{ .country | quote }}
+            {{ end }}
+            {{ if .phone }}
+            - name: LEGAL_PHONE
+              value: {{ .phone | quote }}
+            {{ end }}
+            {{ if .email }}
+            - name: LEGAL_EMAIL
+              value: {{ .email | quote }}
+            {{ end }}
+            {{- end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

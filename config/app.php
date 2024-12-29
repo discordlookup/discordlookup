@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'DiscordLookup'),
 
     /*
     |--------------------------------------------------------------------------
@@ -235,7 +235,6 @@ return [
 
     ],
 
-    'invite_url' => env('INVITE_URL'),
     'discord_url' => env('DISCORD_URL', 'https://discord.gg/XsPcgeuEmB'),
     'github_url' => env('GITHUB_URL', 'https://github.com/discordlookup/discordlookup'),
     'twitter_url' => env('TWITTER_URL', 'https://x.com/discordlookup'),

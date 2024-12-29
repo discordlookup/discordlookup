@@ -5,7 +5,7 @@ services:
     image: 'ghcr.io/discordlookup/discordlookup:main'
     restart: unless-stopped
     deploy:
-      replicas: 3
+      replicas: 1
       update_config:
         parallelism: 1
         delay: 15s
@@ -13,10 +13,10 @@ services:
         order: start-first
     environment:
       APP_NAME: DiscordLookup
-      APP_ENV: local
+      APP_ENV: production
       APP_KEY: ''
-      APP_DEBUG: 'true'
-      APP_URL: http://localhost
+      APP_DEBUG: 'false'
+      APP_URL: https://discordlookup.com
       DB_CONNECTION: mysql
       DB_HOST: mysql
       DB_PORT: 3306
@@ -33,12 +33,12 @@ services:
       DISCORD_CLIENT_ID: 892399371910524938
       DISCORD_CLIENT_SECRET: ''
       DISCORD_BOT_TOKEN: ''
-      DISCORD_REDIRECT_URI: http://localhost/auth/callback
+      DISCORD_REDIRECT_URI: https://discordlookup.com/auth/callback
       DISCORD_GUILD_ID: 980791496833908778
+      DISCORD_INVITE_URL: https://discord.com/oauth2/authorize?client_id=892399371910524938&permissions=275951963136&scope=bot%20applications.commands
       DISCORD_EXPERIMENTS_WORKER: https://experiments.workers.discordlookup.com
-      INVITE_URL: https://discord.com/oauth2/authorize?client_id=892399371910524938&permissions=275951963136&scope=bot%20applications.commands
       PLAUSIBLE_URL: ''
-      PLAUSIBLE_WEBSITE_DOMAIN: ''
+      PLAUSIBLE_WEBSITE_DOMAIN: 'discordlookup.com'
       LEGAL_FIRSTNAME: ''
       LEGAL_LASTNAME: ''
       LEGAL_ADDRESS: ''

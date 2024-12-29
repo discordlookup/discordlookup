@@ -63,7 +63,7 @@ Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->
 |--------------------------------------------------------------------------
 */
 
-Route::redirect('/invite', config('app.invite_url'), 302)->name('invite');
+Route::redirect('/invite', config('discord.invite_url'), 302)->name('invite');
 Route::redirect('/discord', config('app.discord_url'), 302)->name('discord');
 
 
