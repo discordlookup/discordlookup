@@ -3,7 +3,7 @@
 [license]: https://github.com/discordlookup/discordlookup/blob/main/LICENSE
 [discord-shield]: https://discord.com/api/guilds/980791496833908778/widget.png
 [license-shield]: https://img.shields.io/github/license/discordlookup/discordlookup?label=License
-[workflowstatus-shield]: https://img.shields.io/github/actions/workflow/status/discordlookup/discordlookup/docker-publish-deploy.yml?branch=main&label=Build
+[workflowstatus-shield]: https://img.shields.io/github/actions/workflow/status/discordlookup/discordlookup/ci-docker-publish.yml?branch=main&label=Build
 
 [![discord-shield][]][discord-invite]
 [![license-shield][]][license]
