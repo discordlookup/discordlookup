@@ -10,7 +10,6 @@
         "f9webltd/laravel-meta": "^1.7",
         "guzzlehttp/guzzle": " ^7.8.1",
         "laravel/framework": "^v10.37.3",
-        "laravel/sanctum": "^v3.3.2",
         "laravel/tinker": "^2.5",
         "lastguest/murmurhash": "^2.1",
         "livewire/livewire": "^v2.12.6",

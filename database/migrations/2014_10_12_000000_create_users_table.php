@@ -16,10 +16,14 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('discord_id')->unique();
-            $table->string('username');
+            $table->string('username')->index();
             $table->string('discriminator');
+            $table->string('global_name')->nullable();
             $table->string('avatar')->nullable();
             $table->string('locale')->default('en-us');
+            $table->integer('flags')->default(0);
+            $table->longText('discord_token')->nullable();
+            $table->string('remember_token')->nullable();
             $table->timestamps();
         });
     }

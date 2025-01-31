@@ -27,12 +27,12 @@ website:
     debug: 'false'
     url: https://discordlookup.com/
   db:
-    connection: mysql
-    host: mysql
-    port: '3306'
-    database: discordlookup
-    username: discordlookup
-    password: discordlookup
+    connection: postgres
+    host: postgres
+    port: '5432'
+    database: postgres
+    username: postgres
+    password: postgres
   redis:
     host: redis
     port: '6379'

@@ -58,7 +58,7 @@ spec:
             - name: DB_HOST
               value: {{ .host | quote }}
             - name: DB_PORT
-              value: {{ .port | default "3306" | quote }}
+              value: {{ .port | default "5432" | quote }}
             - name: DB_DATABASE
               value: {{ .database | quote }}
             - name: DB_USERNAME
