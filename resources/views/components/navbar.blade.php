@@ -71,6 +71,10 @@
                     'name' => __('Discord Webhook Invalidator'),
                     'route' => 'webhook-invalidator',
                 ],
+                [
+                    'name' => __('Bad Domain Check'),
+                    'route' => 'domains',
+                ],
             ]
         ],
         [

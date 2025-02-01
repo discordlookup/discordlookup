@@ -377,6 +377,43 @@ function getPermissionList(): array
 }
 
 /**
+ * @return string[]
+ *
+ * @source https://raw.githubusercontent.com/Delitefully/DiscordLists/refs/heads/master/domains.md
+ */
+function getOfficialDiscordDomains(): array
+{
+    return [
+        'dis.gd',
+        'discord.co',
+        'discord.com',
+        'discord.design',
+        'discord.dev',
+        'discord.gg',
+        'discord.gift',
+        'discord.gifts',
+        'discord.media',
+        'discord.new',
+        'discord.store',
+        'discord.tools',
+        'discordapp.com',
+        'discordapp.net',
+        'discordmerch.com',
+        'discordpartygames.com',
+        'discord-activities.com',
+        'discordactivities.com',
+        'discordsays.com',
+        'discordsez.com',
+        'discordstatus.com',
+        'airhorn.solutions',
+        'airhornbot.com',
+        'bigbeans.solutions',
+        'daveprotocol.com',
+        'watchanimeattheoffice.com',
+    ];
+}
+
+/**
  * @param $bitwise
  * @return array
  * @see https://discord.com/developers/docs/topics/permissions#permissions-bitwise-permission-flags
