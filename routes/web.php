@@ -36,6 +36,7 @@ Route::get('/inviteresolver/{inviteCode?}/{eventId?}', \App\Http\Livewire\Invite
 Route::get('/permissions-calculator/{permissions?}', \App\Http\Livewire\PermissionsCalculator::class)->name('permissions-calculator');
 Route::get('/guild-shard-calculator/{guildId?}/{totalShards?}', \App\Http\Livewire\GuildShardCalculator::class)->name('guild-shard-calculator');
 Route::get('/webhook-invalidator', \App\Http\Livewire\WebhookInvalidator::class)->name('webhook-invalidator');
+Route::get('/domains', \App\Http\Livewire\Domains::class)->name('domains');
 Route::get('/help', \App\Http\Livewire\Help::class)->name('help');
 
 Route::name('legal.')->group(function () {
