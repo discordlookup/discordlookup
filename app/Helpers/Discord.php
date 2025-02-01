@@ -1086,10 +1086,10 @@ function getDiscoveryClan($guildId)
         $array['badgeColorSecondary'] = $responseJson['badge_color_secondary'];
 
     if(array_key_exists('search_terms', $responseJson))
-        $array['searchTerms'] = $responseJson['search_terms'];
+        $array['searchTerms'] = array_filter($responseJson['search_terms'], 'trim');
 
     if(array_key_exists('wildcard_descriptors', $responseJson))
-        $array['wildcardDescriptors'] = $responseJson['wildcard_descriptors'];
+        $array['wildcardDescriptors'] = array_filter($responseJson['wildcard_descriptors'], 'trim');
 
     if(array_key_exists('game_ids', $responseJson))
         $array['gameIds'] = $responseJson['game_ids'];
