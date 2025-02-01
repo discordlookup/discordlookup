@@ -75,6 +75,10 @@
                     'name' => __('Bad Domain Check'),
                     'route' => 'domains',
                 ],
+                [
+                    'name' => __('MurmurHash3 Calculator'),
+                    'route' => 'murmurhash',
+                ],
             ]
         ],
         [
