@@ -106,6 +106,19 @@
                             </div>
                         @endif
 
+                        @if(array_key_exists('flags', $inviteData))
+                            <div class="grid grid-cols-1 md:grid-cols-2">
+                                <span class="font-semibold">{{ __('Bypass Join Applications') }}<span class="hidden md:inline">:</span></span>
+                                <p class="my-auto">
+                                    @if(($inviteData['flags'] & (1 << 3)) == (1 << 3))
+                                        <img src="{{ asset('images/discord/icons/check.svg') }}" class="h-4 w-4" alt="Check">
+                                    @else
+                                        <img src="{{ asset('images/discord/icons/cross.svg') }}" class="h-4 w-4" alt="Cross">
+                                    @endif
+                                </p>
+                            </div>
+                        @endif
+
                         {{-- TODO: Check channelRecipients
                         @if(array_key_exists('recipients', $inviteData['channel']) && !empty($inviteData['channel']['recipients']))
                             <div class="grid grid-cols-1 md:grid-cols-2">

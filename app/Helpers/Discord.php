@@ -1107,6 +1107,7 @@ function parseInviteJson($json)
         'hasEvent' => false,
         'type' => 0,
         'typeName' => '',
+        'flags' => 0,
         'expiresAt' => '',
         'expiresAtFormatted' => '&infin;',
         'guild' => [
@@ -1194,6 +1195,9 @@ function parseInviteJson($json)
             $array['typeName'] = $json['type'];
             break;
     }
+
+    if(array_key_exists('flags', $json))
+        $array['flags'] = $json['flags'];
 
     /* Guild */
     if(array_key_exists('guild', $json) && $json['guild'] != null)
