@@ -130,6 +130,71 @@
                     </div>
                 </div>
             @endforeach
+
+            @if($overridesFormatted)
+                <h3 class="text-2xl font-semibold">
+                    Overrides Formatted:
+                </h3>
+            @endif
+
+            @foreach($overridesFormatted as $rollout)
+                {{-- TODO: Remove duplicate code --}}
+                <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
+                    <div class="p-5 lg:p-6 grow w-full">
+                        <div class="flex flex-col">
+                            @if($rollout['filters'])
+                                <p class="text-lg text-discord-blurple font-bold">{{ __('Filter') }}:</p>
+                                <ul class="list-inside list-disc">
+                                    @foreach($rollout['filters'] as $filter)
+                                        <li>{{ $filter }}</li>
+                                    @endforeach
+                                </ul>
+                                <hr class="my-3 opacity-10" />
+                            @endif
+                            @foreach($rollout['buckets'] as $bucket)
+                                @php
+                                    if($bucket['id'] != -1) {
+                                        if (array_key_exists("BUCKET {$bucket['id']}", $buckets)) {
+                                            $bucketInfo = $buckets["BUCKET {$bucket['id']}"];
+                                        }else{
+                                            $bucketInfo = [
+                                                'id' => $bucket['id'],
+                                                'name' => "Unknown Treatment {$bucket['id']}",
+                                                'description' => "",
+                                            ];
+                                        }
+                                    }else{
+                                        $bucketInfo = $buckets["BUCKET {$bucket['id']}"] ?? ['id' => -1, 'name' => 'None', 'description' => ''];
+                                    }
+                                @endphp
+                                <div>
+                                    @if($bucketInfo['name'] == 'None' || $bucketInfo['name'] == 'Control')
+                                        <span class="text-discord-red font-bold">{{ $bucketInfo['name'] }}</span>
+                                    @else
+                                        <span class="text-discord-green font-bold">{{ $bucketInfo['name'] }}</span>
+                                    @endif
+
+                                    <span class="text-gray-300">
+                                            @if($bucketInfo['description'])
+                                            {{ $bucketInfo['description'] }}:
+                                        @endif
+
+                                            <span class="font-semibold">{{ calcPercent($bucket['count'], 10000) }}&percnt;</span>
+
+                                            @if($bucket['groups'])
+                                            <span class="text-sm">
+                                                    @foreach($bucket['groups'] as $group)
+                                                    @if($loop->first)(@endif{{ $group['start'] }} - {{ $group['end'] }}@if($loop->last))@else, @endif
+                                                @endforeach()
+                                                </span>
+                                        @endif
+                                        </span>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @endforeach
         </div>
 
         <div class="space-y-3" id="guilds">
