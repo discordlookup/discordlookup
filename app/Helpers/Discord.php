@@ -361,6 +361,18 @@ function getPermissionList(): array
             'group' => 'text',
             'requireTwoFactor' => false,
         ],
+        'USE_CLYDE_AI' => [
+            'name' => 'Use Clyde AI',
+            'bitwise' => (1 << 47),
+            'group' => 'general',
+            'requireTwoFactor' => false,
+        ],
+        'SET_VOICE_CHANNEL_STATUS' => [
+            'name' => 'Set Voice Channel Status',
+            'bitwise' => (1 << 48),
+            'group' => 'voice',
+            'requireTwoFactor' => false,
+        ],
         'SEND_POLLS' => [
             'name' => 'Send Polls',
             'bitwise' => (1 << 49),
