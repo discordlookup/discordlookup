@@ -1167,6 +1167,7 @@ function parseInviteJson($json)
             'isBot' => false,
             'isVerifiedBot' => false,
             'isSpammer' => false,
+            'isProvisionalAccount' => false,
             'clan' => [],
         ],
         'channel' => [
@@ -1347,6 +1348,9 @@ function parseInviteJson($json)
 
             if ($array['inviter']['flags'] & (1 << 20))
                 $array['inviter']['isSpammer']  = true;
+
+            if ($array['inviter']['flags'] & (1 << 23))
+                $array['inviter']['isProvisionalAccount'] = true;
         }
 
         if (key_exists('clan', $json['inviter']) && $json['inviter']['clan'] != null)
