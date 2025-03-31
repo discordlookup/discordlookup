@@ -767,6 +767,7 @@ function getUser($userId)
         'isBot' => '',
         'isVerifiedBot' => '',
         'isSpammer' => false,
+        'isProvisionalAccount' => false,
         'clan' => [],
         'collectibles' => [],
     ];
@@ -841,6 +842,9 @@ function getUser($userId)
 
         if ($array['flags'] & (1 << 20))
             $array['isSpammer']  = true;
+
+        if ($array['flags'] & (1 << 23))
+            $array['isProvisionalAccount'] = true;
     }
 
     if (key_exists('premium_type', $responseJson) && $responseJson['premium_type'] != null) {
