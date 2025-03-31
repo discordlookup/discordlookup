@@ -134,6 +134,26 @@
                     </div>
                 @endif
 
+                @if(array_key_exists('collectibles', $user) && array_key_exists('nameplate', $user['collectibles']) && $user['collectibles']['nameplate']['sku_id'])
+                    <div class="grid grid-cols-1 md:grid-cols-2">
+                        <span class="font-semibold">{{ __('Nameplate SKU ID') }}<span class="hidden md:inline">:</span></span>
+                        <p>
+                            <a href="https://discord.com/shop#itemSkuId={{ $user['collectibles']['nameplate']['sku_id'] }}" target="_blank" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">
+                                {{ $user['collectibles']['nameplate']['sku_id'] }}
+                            </a>
+                        </p>
+                    </div>
+                @endif
+
+                @if(array_key_exists('collectibles', $user) && array_key_exists('nameplate', $user['collectibles']) && $user['collectibles']['nameplate']['label'])
+                    <div class="grid grid-cols-1 md:grid-cols-2">
+                        <span class="font-semibold">{{ __('Nameplate Label') }}<span class="hidden md:inline">:</span></span>
+                        <p class="capitalize">
+                            {{ strtolower(implode(' ', array_slice(explode('_', $user['collectibles']['nameplate']['label']), 2, -1))) }} ({{ $user['collectibles']['nameplate']['palette'] }})
+                        </p>
+                    </div>
+                @endif
+
                 @if(array_key_exists('clan', $user) && $user['clan'] && array_key_exists('tag', $user['clan']) && $user['clan']['tag'])
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <span class="font-semibold">{{ __('Clan Tag') }}<span class="hidden md:inline">:</span></span>
@@ -156,7 +176,7 @@
             </div>
 
             @if(!empty($user['flagsList']))
-                <div class="space-y-1">
+                <div class="space-y-1 mb-5 md:mb-3">
                     <div class="font-semibold">{{ __('Badges') }}<span class="hidden md:inline">:</span></div>
                     <div>
                         <ul class="list-none space-y-1">
@@ -175,6 +195,19 @@
                                 </li>
                             @endforeach
                         </ul>
+                    </div>
+                </div>
+            @endif
+
+            @if(array_key_exists('collectibles', $user) && array_key_exists('nameplate', $user['collectibles']) && $user['collectibles']['nameplate']['asset'])
+                <div class="space-y-1">
+                    <div class="font-semibold">{{ __('Nameplate Preview') }}<span class="hidden md:inline">:</span></div>
+                    <div>
+                        <a href="https://cdn.discordapp.com/assets/collectibles/{{ $user['collectibles']['nameplate']['asset'] }}asset.webm" target="_blank">
+                            <video class="border border-discord-gray-5 rounded-lg" loop autoplay muted>
+                                <source src="https://cdn.discordapp.com/assets/collectibles/{{ $user['collectibles']['nameplate']['asset'] }}asset.webm" loading="lazy" type="video/webm" alt="{{ $user['collectibles']['nameplate']['label'] }} Nameplate">
+                            </video>
+                        </a>
                     </div>
                 </div>
             @endif

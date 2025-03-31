@@ -768,6 +768,7 @@ function getUser($userId)
         'isVerifiedBot' => '',
         'isSpammer' => false,
         'clan' => [],
+        'collectibles' => [],
     ];
 
     if(Cache::has('user:' . $userId))
@@ -849,6 +850,9 @@ function getUser($userId)
 
     if (key_exists('clan', $responseJson) && $responseJson['clan'] != null)
         $array['clan'] = $responseJson['clan'];
+
+    if (key_exists('collectibles', $responseJson) && $responseJson['collectibles'] != null)
+        $array['collectibles'] = $responseJson['collectibles'];
 
     return $array;
 }
