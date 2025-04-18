@@ -154,7 +154,7 @@ class GuildExperiments extends Component
 
             if(!empty($experiment['rollout'][5])) {
                 // TODO: Remove duplicate code
-                foreach ($this->experiment['rollout'][5] as $overrides) {
+                foreach ($experiment['rollout'][5] as $overrides) {
                     foreach ($overrides as $population) {
                         $overridePassed = false;
                         $filters = [];
