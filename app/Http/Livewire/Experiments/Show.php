@@ -90,7 +90,7 @@ class Show extends Component
                             foreach ($filter[1][0][1] as $popfilter) {
                                 $allFeatures[] = $popfilter;
                             }
-                            $filters[] = "Server must have feature " . implode(', ', $allFeatures);
+                            $filters[] = "Server must have feature " . implode(' or ', $allFeatures);
                             break;
 
                         case 2918402255: // MemberCount
@@ -137,72 +137,74 @@ class Show extends Component
 
             // Overrides Formatted
             if(!empty($this->experiment['rollout'][5])) {
-                foreach ($this->experiment['rollout'][5][0] as $population) {
-                    $buckets = [];
-                    foreach ($population[0] as $bucket) {
-                        $count = 0;
-                        $groups = [];
-                        foreach ($bucket[1] as $rollout) {
-                            $count += $rollout['e'] - $rollout['s'];
-                            $groups[] = [
-                                'start' => $rollout['s'],
-                                'end' => $rollout['e'],
+                foreach ($this->experiment['rollout'][5] as $overrides) {
+                    foreach ($overrides as $population) {
+                        $buckets = [];
+                        foreach ($population[0] as $bucket) {
+                            $count = 0;
+                            $groups = [];
+                            foreach ($bucket[1] as $rollout) {
+                                $count += $rollout['e'] - $rollout['s'];
+                                $groups[] = [
+                                    'start' => $rollout['s'],
+                                    'end' => $rollout['e'],
+                                ];
+                            }
+
+                            $buckets[] = [
+                                'id' => $bucket[0],
+                                'count' => $count,
+                                'groups' => $groups,
                             ];
                         }
 
-                        $buckets[] = [
-                            'id' => $bucket[0],
-                            'count' => $count,
-                            'groups' => $groups,
+                        $filters = [];
+                        foreach ($population[1] as $filter) {
+                            switch ($filter[0]) {
+                                case 1604612045: // Feature
+                                    $allFeatures = [];
+                                    foreach ($filter[1][0][1] as $popfilter) {
+                                        $allFeatures[] = $popfilter;
+                                    }
+                                    $filters[] = "Server must have feature " . implode(' or ', $allFeatures);
+                                    break;
+
+                                case 2918402255: // MemberCount
+                                    $filters[] = "Server member count is " . ($filter[1][1][1] ? ("in range " . ($filter[1][0][1] ?? 0) . "-" . $filter[1][1][1]) : ($filter[1][0][1] . " or more"));
+                                    break;
+
+                                case 2404720969: // ID Range
+                                    $filters[] = "Server ID is between " . ($filter[1][0][1] ?? 0) . " and " . $filter[1][1][1];
+                                    break;
+
+                                case 3013771838: // ID
+                                    $allIds = [];
+                                    foreach ($filter[1][0][1] as $popfilter) {
+                                        $allIds[] = $popfilter;
+                                    }
+                                    $filters[] = "Server ID is " . implode(', ', $allIds);
+                                    break;
+
+                                case 4148745523: // HubType
+                                    $hubTypes = ['Default', 'High School', 'College'];
+                                    $allHubTypes = [];
+                                    foreach ($filter[1][0][1] as $popfilter) {
+                                        $allHubTypes[] = $hubTypes[$popfilter];
+                                    }
+                                    $filters[] = "Server hub type is " . implode(', ', $allHubTypes);
+                                    break;
+
+                                case 2294888943: // RangeByHash
+                                    $filters[] = ($filter[1][1][1] / 100) . "% of servers (HashKey " . $filter[1][0][1] . ", target " . $filter[1][1][1] . ")";
+                                    break;
+                            }
+                        }
+
+                        $this->overridesFormatted[] = [
+                            'filters' => $filters,
+                            'buckets' => $buckets,
                         ];
                     }
-
-                    $filters = [];
-                    foreach ($population[1] as $filter) {
-                        switch ($filter[0]) {
-                            case 1604612045: // Feature
-                                $allFeatures = [];
-                                foreach ($filter[1][0][1] as $popfilter) {
-                                    $allFeatures[] = $popfilter;
-                                }
-                                $filters[] = "Server must have feature " . implode(', ', $allFeatures);
-                                break;
-
-                            case 2918402255: // MemberCount
-                                $filters[] = "Server member count is " . ($filter[1][1][1] ? ("in range " . ($filter[1][0][1] ?? 0) . "-" . $filter[1][1][1]) : ($filter[1][0][1] . " or more"));
-                                break;
-
-                            case 2404720969: // ID Range
-                                $filters[] = "Server ID is between " . ($filter[1][0][1] ?? 0) . " and " . $filter[1][1][1];
-                                break;
-
-                            case 3013771838: // ID
-                                $allIds = [];
-                                foreach ($filter[1][0][1] as $popfilter) {
-                                    $allIds[] = $popfilter;
-                                }
-                                $filters[] = "Server ID is " . implode(', ', $allIds);
-                                break;
-
-                            case 4148745523: // HubType
-                                $hubTypes = ['Default', 'High School', 'College'];
-                                $allHubTypes = [];
-                                foreach ($filter[1][0][1] as $popfilter) {
-                                    $allHubTypes[] = $hubTypes[$popfilter];
-                                }
-                                $filters[] = "Server hub type is " . implode(', ', $allHubTypes);
-                                break;
-
-                            case 2294888943: // RangeByHash
-                                $filters[] = ($filter[1][1][1] / 100) . "% of servers (HashKey " . $filter[1][0][1] . ", target " . $filter[1][1][1] . ")";
-                                break;
-                        }
-                    }
-
-                    $this->overridesFormatted[] = [
-                        'filters' => $filters,
-                        'buckets' => $buckets,
-                    ];
                 }
             }
         }
@@ -322,76 +324,80 @@ class Show extends Component
                 // Overrides Formatted
                 if(!empty($this->experiment['rollout'][5])) {
                     // TODO: Remove duplicate code
-                    foreach ($this->experiment['rollout'][5][0] as $population) {
-                        $overridePassed = true;
-                        $filters = [];
-                        foreach ($population[1] as $filter) {
-                            switch ($filter[0]) {
-                                case 1604612045: // Feature
-                                    foreach ($filter[1][0][1] as $popfilter) {
-                                        if (!in_array($popfilter, $guild['features']))
-                                            $overridePassed = false;
-                                    }
-                                    break;
-
-                                case 2918402255: // MemberCount
-                                    if ($filter[1][1][1]) {
-                                        if (!(
-                                            $guild['approximate_member_count'] >= ($filter[1][0][1] ?? 0) &&
-                                            $guild['approximate_member_count'] <= $filter[1][1][1]
-                                        )) {
-                                            $overridePassed = false;
+                    foreach ($this->experiment['rollout'][5] as $overrides) {
+                        foreach ($overrides as $population) {
+                            $overridePassed = false;
+                            $filters = [];
+                            foreach ($population[1] as $filter) {
+                                switch ($filter[0]) {
+                                    case 1604612045: // Feature
+                                        foreach ($filter[1][0][1] as $popfilter) {
+                                            if (in_array($popfilter, $guild['features'])) {
+                                                $overridePassed = true;
+                                                break;
+                                            }
                                         }
-                                    } else {
-                                        if ($guild['approximate_member_count'] < $filter[1][0][1])
-                                            $overridePassed = false;
-                                    }
-                                    //$filters[] = "(Only if server member count is " . ($filter[1][1][1] ? ("in range " . ($filter[1][0][1] ?? 0) . "-" . $filter[1][1][1]) : ($filter[1][0][1] . " or more")) . ")";
-                                    break;
+                                        break;
 
-                                case 2404720969: // ID Range
-                                    if (!(
-                                        $guild['id'] >= ($filter[1][0][1] ?? 0) &&
-                                        $guild['id'] <= $filter[1][1][1]
-                                    )) {
-                                        $overridePassed = false;
-                                    }
-                                    break;
+                                    case 2918402255: // MemberCount
+                                        if ($filter[1][1][1]) {
+                                            if (
+                                                $guild['approximate_member_count'] >= ($filter[1][0][1] ?? 0) &&
+                                                $guild['approximate_member_count'] <= $filter[1][1][1]
+                                            ) {
+                                                $overridePassed = true;
+                                            }
+                                        } else {
+                                            if ($guild['approximate_member_count'] >= $filter[1][0][1])
+                                                $overridePassed = true;
+                                        }
+                                        //$filters[] = "(Only if server member count is " . ($filter[1][1][1] ? ("in range " . ($filter[1][0][1] ?? 0) . "-" . $filter[1][1][1]) : ($filter[1][0][1] . " or more")) . ")";
+                                        break;
 
-                                case 3013771838: // ID
-                                    if (!in_array($guild['id'], $filter[1][0][1]))
-                                        $overridePassed = false;
-                                    break;
+                                    case 2404720969: // ID Range
+                                        if (
+                                            $guild['id'] >= ($filter[1][0][1] ?? 0) &&
+                                            $guild['id'] <= $filter[1][1][1]
+                                        ) {
+                                            $overridePassed = true;
+                                        }
+                                        break;
 
-                                case 4148745523: // HubType
-                                    // TODO: Check HubType
-                                    $hubTypes = ['Default', 'High School', 'College'];
-                                    $allHubTypes = [];
-                                    foreach ($filter[1][0][1] as $popfilter) {
-                                        $allHubTypes[] = $hubTypes[$popfilter];
-                                    }
-                                    $filters[] = "(Only if server hub type is " . implode(', ', $allHubTypes) . ")";
-                                    break;
+                                    case 3013771838: // ID
+                                        if (in_array($guild['id'], $filter[1][0][1]))
+                                            $overridePassed = true;
+                                        break;
 
-                                case 2294888943: // RangeByHash
-                                    // TODO: Check RangeByHash
-                                    if ($filter[1][1][1] != 10000)
-                                        $filters[] = "(Only if HashKey " . $filter[1][0][1] . ", target " . $filter[1][1][1] . ")";
-                                    break;
+                                    case 4148745523: // HubType
+                                        // TODO: Check HubType
+                                        $hubTypes = ['Default', 'High School', 'College'];
+                                        $allHubTypes = [];
+                                        foreach ($filter[1][0][1] as $popfilter) {
+                                            $allHubTypes[] = $hubTypes[$popfilter];
+                                        }
+                                        $filters[] = "(Only if server hub type is " . implode(', ', $allHubTypes) . ")";
+                                        break;
+
+                                    case 2294888943: // RangeByHash
+                                        // TODO: Check RangeByHash
+                                        if ($filter[1][1][1] != 10000)
+                                            $filters[] = "(Only if HashKey " . $filter[1][0][1] . ", target " . $filter[1][1][1] . ")";
+                                        break;
+                                }
                             }
-                        }
 
-                        if ($overridePassed) {
-                            foreach ($population[0] as $bucket) {
-                                foreach ($bucket[1] as $rollout) {
-                                    if (
-                                        $murmurhash >= $rollout['s'] &&
-                                        $murmurhash <= $rollout['e']
-                                    ) {
-                                        if ($bucket[0] != -1) {
-                                            $guildBucket = $bucket[0];
-                                            $guildFilters = $filters;
-                                            $isOverride = true;
+                            if ($overridePassed) {
+                                foreach ($population[0] as $bucket) {
+                                    foreach ($bucket[1] as $rollout) {
+                                        if (
+                                            $murmurhash >= $rollout['s'] &&
+                                            $murmurhash <= $rollout['e']
+                                        ) {
+                                            if ($bucket[0] != -1) {
+                                                $guildBucket = $bucket[0];
+                                                $guildFilters = $filters;
+                                                $isOverride = true;
+                                            }
                                         }
                                     }
                                 }

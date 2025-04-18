@@ -154,84 +154,80 @@ class GuildExperiments extends Component
 
             if(!empty($experiment['rollout'][5])) {
                 // TODO: Remove duplicate code
-                foreach ($experiment['rollout'][5][0] as $population)
-                {
-                    $overridePassed = true;
-                    $filters = [];
-                    foreach ($population[1] as $filter)
-                    {
-                        switch ($filter[0])
-                        {
-                            case 1604612045: // Feature
-                                foreach ($filter[1][0][1] as $popfilter)
-                                {
-                                    if(!in_array($popfilter, $this->guildFeatures))
-                                        $overridePassed = false;
-                                }
-                                break;
-
-                            case 2918402255: // MemberCount
-                                if($filter[1][1][1]) {
-                                    if(!(
-                                        $this->guildMemberCount >= ($filter[1][0][1] ?? 0) &&
-                                        $this->guildMemberCount <= $filter[1][1][1]
-                                    )) {
-                                        $overridePassed = false;
+                foreach ($this->experiment['rollout'][5] as $overrides) {
+                    foreach ($overrides as $population) {
+                        $overridePassed = false;
+                        $filters = [];
+                        foreach ($population[1] as $filter) {
+                            switch ($filter[0]) {
+                                case 1604612045: // Feature
+                                    foreach ($filter[1][0][1] as $popfilter) {
+                                        if (in_array($popfilter, $this->guildFeatures)) {
+                                            $overridePassed = true;
+                                            break;
+                                        }
                                     }
-                                }else{
-                                    if($this->guildMemberCount < $filter[1][0][1])
-                                        $overridePassed = false;
-                                }
-                                //$filters[] = "(Only if server member count is " . ($filter[1][1][1] ? ("in range " . ($filter[1][0][1] ?? 0) . "-" . $filter[1][1][1]) : ($filter[1][0][1] . " or more")) . ")";
-                                break;
+                                    break;
 
-                            case 2404720969: // ID Range
-                                if(!(
-                                    $this->guildId >= ($filter[1][0][1] ?? 0) &&
-                                    $this->guildId <= $filter[1][1][1]
-                                )) {
-                                    $overridePassed = false;
-                                }
-                                break;
+                                case 2918402255: // MemberCount
+                                    if ($filter[1][1][1]) {
+                                        if (
+                                            $this->guildMemberCount >= ($filter[1][0][1] ?? 0) &&
+                                            $this->guildMemberCount <= $filter[1][1][1]
+                                        ) {
+                                            $overridePassed = true;
+                                        }
+                                    } else {
+                                        if ($this->guildMemberCount >= $filter[1][0][1])
+                                            $overridePassed = true;
+                                    }
+                                    //$filters[] = "(Only if server member count is " . ($filter[1][1][1] ? ("in range " . ($filter[1][0][1] ?? 0) . "-" . $filter[1][1][1]) : ($filter[1][0][1] . " or more")) . ")";
+                                    break;
 
-                            case 3013771838: // ID
-                                if(!in_array($this->guildId, $filter[1][0][1]))
-                                    $overridePassed = false;
-                                break;
+                                case 2404720969: // ID Range
+                                    if (
+                                        $this->guildId >= ($filter[1][0][1] ?? 0) &&
+                                        $this->guildId <= $filter[1][1][1]
+                                    ) {
+                                        $overridePassed = true;
+                                    }
+                                    break;
 
-                            case 4148745523: // HubType
-                                // TODO: Check HubType
-                                $hubTypes = ['Default', 'High School', 'College'];
-                                $allHubTypes = [];
-                                foreach ($filter[1][0][1] as $popfilter) {
-                                    $allHubTypes[] = $hubTypes[$popfilter];
-                                }
-                                $filters[] = "(Only if server hub type is " . implode(', ', $allHubTypes) . ")";
-                                break;
+                                case 3013771838: // ID
+                                    if (in_array($this->guildId, $filter[1][0][1]))
+                                        $overridePassed = true;
+                                    break;
 
-                            case 2294888943: // RangeByHash
-                                // TODO: Check RangeByHash
-                                if($filter[1][1][1] != 10000)
-                                    $filters[] = "(Only if HashKey " . $filter[1][0][1] . ", target " . $filter[1][1][1] . ")";
-                                break;
+                                case 4148745523: // HubType
+                                    // TODO: Check HubType
+                                    $hubTypes = ['Default', 'High School', 'College'];
+                                    $allHubTypes = [];
+                                    foreach ($filter[1][0][1] as $popfilter) {
+                                        $allHubTypes[] = $hubTypes[$popfilter];
+                                    }
+                                    $filters[] = "(Only if server hub type is " . implode(', ', $allHubTypes) . ")";
+                                    break;
+
+                                case 2294888943: // RangeByHash
+                                    // TODO: Check RangeByHash
+                                    if ($filter[1][1][1] != 10000)
+                                        $filters[] = "(Only if HashKey " . $filter[1][0][1] . ", target " . $filter[1][1][1] . ")";
+                                    break;
+                            }
                         }
-                    }
 
-                    if($overridePassed)
-                    {
-                        foreach ($population[0] as $bucket)
-                        {
-                            foreach ($bucket[1] as $rollout)
-                            {
-                                if(
-                                    $murmurhash >= $rollout['s'] &&
-                                    $murmurhash <= $rollout['e']
-                                ) {
-                                    if($bucket[0] != -1)
-                                    {
-                                        $guildBucket = $bucket[0];
-                                        $guildFilters = $filters;
-                                        $isOverride = true;
+                        if ($overridePassed) {
+                            foreach ($population[0] as $bucket) {
+                                foreach ($bucket[1] as $rollout) {
+                                    if (
+                                        $murmurhash >= $rollout['s'] &&
+                                        $murmurhash <= $rollout['e']
+                                    ) {
+                                        if ($bucket[0] != -1) {
+                                            $guildBucket = $bucket[0];
+                                            $guildFilters = $filters;
+                                            $isOverride = true;
+                                        }
                                     }
                                 }
                             }
