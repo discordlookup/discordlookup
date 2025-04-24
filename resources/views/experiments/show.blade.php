@@ -18,6 +18,11 @@
     </h3>
     <div class="py-12">
         <div class="space-y-3 mb-12">
+            @if($this->experiment['rollout'][8])
+                <x-error-message>
+                    This experiment has A/A mode enabled! Non-overrides are ignored.
+                </x-error-message>
+            @endif
             <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
                 <div class="py-4 px-5 lg:px-6 w-full flex items-center border-b border-discord-gray-4">
                     <h3 class="text-2xl font-semibold">

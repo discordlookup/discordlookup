@@ -254,6 +254,7 @@ class GuildExperiments extends Component
                     'treatment' => "{$bucket['name']}: {$bucket['description']}",
                     'filters' => $guildFilters,
                     'override' => $isOverride,
+                    'aamode' => $experiment['rollout'][8],
                 ];
             }
         }

@@ -45,6 +45,9 @@
                         @if($experiment['override'])
                             <p class="text-green-400">({{ __('This Guild has an override for this experiment') }})</p>
                         @else
+                            @if($experiment['aamode'])
+                                <p class="text-red-400">This experiment has A/A mode enabled! Non-overrides are ignored.</p>
+                            @endif
                             @foreach($experiment['filters'] as $filters)
                                 <p class="text-gray-400">{{ $filters }}</p>
                             @endforeach
