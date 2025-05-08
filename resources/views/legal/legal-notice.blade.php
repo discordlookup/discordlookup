@@ -22,7 +22,7 @@
                 </div>
 
                 <div>
-                    <h3 class="text-xl font-bold mb-2">Validy of this legal notice</h3>
+                    <h3 class="text-xl font-bold mb-2">Validity of this legal notice</h3>
                     <div>
                         This legal notice applies to the following websites including subdomains, social media accounts and other services, as long as they are listed here:
                         <ul class="list-disc list-inside mt-1">
