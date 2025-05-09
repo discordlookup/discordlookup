@@ -50,7 +50,6 @@ class Show extends Component
         {
             foreach ($this->experiment['rollout'][3] as $population)
             {
-                $globalCount = 0;
                 $buckets = [];
                 foreach ($population[0] as $bucket)
                 {
@@ -70,14 +69,51 @@ class Show extends Component
                         'count' => $count,
                         'groups' => $groups,
                     ];
-
-                    $globalCount += $count;
                 }
 
+                // Collect all existing ranges from other buckets
+                $covered = [];
+                foreach ($buckets as $b) {
+                    foreach ($b['groups'] as $g) {
+                        $covered[] = ['start' => $g['start'], 'end' => $g['end']];
+                    }
+                }
+
+                // Sort by start
+                usort($covered, function ($a, $b) {
+                    return $a['start'] <=> $b['start'];
+                });
+
+                // Merge overlapping ranges
+                $merged = [];
+                foreach ($covered as $range) {
+                    if (empty($merged) || $merged[count($merged) - 1]['end'] < $range['start']) {
+                        $merged[] = $range;
+                    } else {
+                        $merged[count($merged) - 1]['end'] = max($merged[count($merged) - 1]['end'], $range['end']);
+                    }
+                }
+
+                // Find gaps between 0 and 10000
+                $missing = [];
+                $pos = 0;
+                foreach ($merged as $range) {
+                    if ($range['start'] > $pos) {
+                        $missing[] = ['start' => $pos, 'end' => $range['start']];
+                    }
+                    $pos = max($pos, $range['end']);
+                }
+                if ($pos < 10000) {
+                    $missing[] = ['start' => $pos, 'end' => 10000];
+                }
+
+                // Add bucket 0 with missing ranges
                 $buckets[] = [
                     'id' => 0,
-                    'count' => (10000 - $globalCount),
-                    'groups' => [],
+                    'count' => array_reduce($missing, function ($carry, $g) {
+                        return $carry + ($g['end'] - $g['start']);
+                    }, 0),
+                    'groups' => $missing,
                 ];
 
                 $filters = [];

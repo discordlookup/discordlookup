@@ -213,7 +213,7 @@
                         <x-input-prepend-icon icon="fas fa-bucket">
                             <select wire:model="treatment" class="block border-none rounded pl-12 pr-5 py-3 leading-6 w-full bg-discord-gray-1 focus:outline-none focus:ring-0">
                                 @foreach($buckets as $bucket)
-                                    <option value="{{ $bucket['id'] }}">{{ $bucket['name'] }}</option>
+                                    <option value="{{ $bucket['id'] }}" {{ $bucket['id'] == 0 ? 'disabled' : '' }}>{{ $bucket['name'] }}</option>
                                 @endforeach
                             </select>
                         </x-input-prepend-icon>
