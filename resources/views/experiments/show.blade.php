@@ -23,6 +23,21 @@
                     This experiment has A/A mode enabled! Non-overrides are ignored.
                 </x-error-message>
             @endif
+
+            @if ($experiment['id'] === "2025-02_skill_trees")
+                <div class="bg-discord-gray-1 rounded shadow-sm px-4 py-3 flex items-center justify-between w-full">
+                    <img src="https://cdn.discordapp.com/icons/1369345883639906425/14a46c92b58abb409c8d9b25757e4447.webp?size=32" alt="Server Icon" class="w-8 h-8 mr-4">
+                    <div class="text-white text-sm font-semibold flex-1">
+                        Do you want to see the experiment live on Discord and also wear a server tag on your profile?<br>
+                        <span class="text-gray-300 font-normal">Feel free to join our test server with this experiment and claim your tag!</span>
+                    </div>
+                    <a href="https://discord.gg/dF8ZgbxBCw" target="_blank"
+                        class="bg-discord-blurple hover:bg-[#4752c4] text-white text-sm font-semibold py-1.5 px-3 rounded ml-4 transition">
+                        Join Server
+                    </a>
+                </div>
+            @endif
+
             <div class="flex flex-col rounded shadow-sm bg-discord-gray-1 overflow-hidden">
                 <div class="py-4 px-5 lg:px-6 w-full flex items-center border-b border-discord-gray-4">
                     <h3 class="text-2xl font-semibold">
