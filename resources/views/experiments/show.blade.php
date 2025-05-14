@@ -29,9 +29,9 @@
                     <img src="https://cdn.discordapp.com/icons/1369345883639906425/14a46c92b58abb409c8d9b25757e4447.webp?size=32" alt="Server Icon" class="w-8 h-8 mr-4">
                     <div class="text-white text-sm font-semibold flex-1">
                         Do you want to see the experiment live on Discord and also wear a server tag on your profile?<br>
-                        <span class="text-gray-300 font-normal">Feel free to join our test server with this experiment and claim your tag!</span>
+                        <span class="text-gray-300 font-normal">Feel free to join our server with this experiment and claim your tag!</span>
                     </div>
-                    <a href="https://discord.gg/dF8ZgbxBCw" target="_blank"
+                    <a href="https://discord.gg/easypoll" target="_blank"
                         class="bg-discord-blurple hover:bg-[#4752c4] text-white text-sm font-semibold py-1.5 px-3 rounded ml-4 transition">
                         Join Server
                     </a>
