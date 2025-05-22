@@ -251,7 +251,12 @@ class Show extends Component
         $this->guilds = [];
         $guildsJson = auth()->user()->guildList;
 
-        if($guildsJson != null && is_array($guildsJson) && $this->experiment['rollout'])
+        if(key_exists('message', $this->guildsJson)) {
+            $this->redirect(route('login'));
+            return;
+        }
+
+        if($guildsJson != null && $this->experiment['rollout'])
         {
             foreach ($guildsJson as $guild)
             {
