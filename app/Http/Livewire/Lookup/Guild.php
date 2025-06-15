@@ -16,7 +16,6 @@ class Guild extends Component
     public $snowflakeDate;
     public $snowflakeTimestamp;
     public $guildData = [];
-    public $guildClanData;
     public $errorMessage;
 
     public $rateLimitHit = false;
@@ -64,9 +63,6 @@ class Guild extends Component
                 $this->guildData[$key] = $value;
             }
         }
-
-        if ($this->guildData && is_array($this->guildData) && isset($this->guildData['features']) && is_array($this->guildData['features']) && (in_array('clan', $this->guildData['features']) || in_array('CLAN', $this->guildData['features'])))
-            $this->guildClanData = getDiscoveryClan($this->snowflake);
 
         $this->dispatchBrowserEvent('updateRelative', ['timestamp' => $this->snowflakeTimestamp]);
     }

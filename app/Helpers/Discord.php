@@ -768,7 +768,7 @@ function getUser($userId)
         'isVerifiedBot' => '',
         'isSpammer' => false,
         'isProvisionalAccount' => false,
-        'clan' => [],
+        'primaryGuild' => [],
         'collectibles' => [],
     ];
 
@@ -852,8 +852,8 @@ function getUser($userId)
         $array['premiumTypeName'] = getPremiumType($responseJson['premium_type']);
     }
 
-    if (key_exists('clan', $responseJson) && $responseJson['clan'] != null)
-        $array['clan'] = $responseJson['clan'];
+    if (key_exists('primary_guild', $responseJson) && $responseJson['primary_guild'] != null)
+        $array['primaryGuild'] = $responseJson['primary_guild'];
 
     if (key_exists('collectibles', $responseJson) && $responseJson['collectibles'] != null)
         $array['collectibles'] = $responseJson['collectibles'];
@@ -1013,109 +1013,86 @@ function getGuildPreview($guildId)
     return $array;
 }
 
-/**
- * @param $guildId
- * @return array|null
- */
-function getDiscoveryClan($guildId)
-{
-    $array = [
-        'id' => '',
-        'name' => '',
-        'tag' => '',
-        'description' => '',
-        'memberCount' => 0,
-        'badgeUrl' => '',
-        'iconUrl' => getDefaultUserAvatarUrl(),
-        'bannerUrl' => '',
-        'playstyle' => 0,
-        'playstyleName' => '',
-        'badgeColorPrimary' => '',
-        'badgeColorSecondary' => '',
-        'searchTerms' => [],
-        'wildcardDescriptors' => [],
-        'gameIds' => [],
-    ];
+/*
+Guild Profile
 
-    if(Cache::has('clanDiscovery:' . $guildId))
+$array = [
+    'id' => '',
+    'name' => '',
+    'tag' => '',
+    'description' => '',
+    'memberCount' => 0,
+    'onlineCount' => 0,
+    'badgeUrl' => '',
+    'iconUrl' => getDefaultUserAvatarUrl(),
+    'bannerUrl' => '',
+    'badgeColorPrimary' => '',
+    'badgeColorSecondary' => '',
+    'gameApplicationIds' => [],
+    'gameActivity' => [],
+    'traits' => [],
+];
+
+if ($responseJson == null || !key_exists('id', $responseJson))
+    return null;
+
+if(array_key_exists('id', $responseJson))
+    $array['id'] = $responseJson['id'];
+
+if(array_key_exists('name', $responseJson))
+    $array['name'] = $responseJson['name'];
+
+if(array_key_exists('tag', $responseJson))
+    $array['tag'] = $responseJson['tag'];
+
+if(array_key_exists('description', $responseJson))
+    $array['description'] = $responseJson['description'];
+
+if(array_key_exists('member_count', $responseJson))
+    $array['memberCount'] = $responseJson['member_count'];
+
+if(array_key_exists('online_count', $responseJson))
+    $array['onlineCount'] = $responseJson['online_count'];
+
+if(array_key_exists('badge_hash', $responseJson) && $responseJson['badge_hash'] != null)
+    $array['badgeUrl'] = getClanBadgeUrl($responseJson['id'], $responseJson['badge_hash']);
+
+if(array_key_exists('icon_hash', $responseJson) && $responseJson['icon_hash'] != null)
+    $array['iconUrl'] = getGuildIconUrl($responseJson['id'], $responseJson['icon_hash']);
+
+if(array_key_exists('custom_banner_hash', $responseJson) && $responseJson['custom_banner_hash'] != null)
+    $array['bannerUrl'] = getClanBannerUrl($responseJson['id'], $responseJson['custom_banner_hash']); // banner_hash
+
+if(array_key_exists('badge_color_primary', $responseJson))
+    $array['badgeColorPrimary'] = $responseJson['badge_color_primary'];
+
+if(array_key_exists('badge_color_secondary', $responseJson))
+    $array['badgeColorSecondary'] = $responseJson['badge_color_secondary'];
+
+if(array_key_exists('game_application_ids', $responseJson) && is_array($responseJson['game_application_ids']))
+    $array['gameApplicationIds'] = $responseJson['game_application_ids'];
+
+/*
+"game_activity": {
+    "432980957394370572": {
+    "activity_level": 2,
+    "activity_score": 1698105
+    }
+},
+*/
+
+/*
+"traits": [
     {
-        $responseJson = Cache::get('clanDiscovery:' . $guildId);
+        "emoji_id": null,
+        "emoji_name": "zap",
+        "emoji_animated": false,
+        "label": "Label",
+        "position": 0
     }
-    else
-    {
-        $response = Http::withHeaders([
-            'Authorization' => 'Bot ' . config('discord.bot_token'),
-        ])->get(config('discord.api_url') . '/discovery/' . $guildId . '/clan');
+],
+*/
 
-        if(!$response->ok())
-            return null;
-
-        $responseJson = $response->json();
-        Cache::put('clanDiscovery:' . $guildId, $responseJson, 900); // 15 minutes
-    }
-
-    if ($responseJson == null || !key_exists('id', $responseJson))
-        return null;
-
-    if(array_key_exists('id', $responseJson))
-        $array['id'] = $responseJson['id'];
-
-    if(array_key_exists('name', $responseJson))
-        $array['name'] = $responseJson['name'];
-
-    if(array_key_exists('tag', $responseJson))
-        $array['tag'] = $responseJson['tag'];
-
-    if(array_key_exists('description', $responseJson))
-        $array['description'] = $responseJson['description'];
-
-    if(array_key_exists('member_count', $responseJson))
-        $array['memberCount'] = $responseJson['member_count'];
-
-    if(array_key_exists('badge_hash', $responseJson) && $responseJson['badge_hash'] != null)
-        $array['badgeUrl'] = getClanBadgeUrl($responseJson['id'], $responseJson['badge_hash']);
-
-    if(array_key_exists('icon_hash', $responseJson) && $responseJson['icon_hash'] != null)
-        $array['iconUrl'] = getGuildIconUrl($responseJson['id'], $responseJson['icon_hash']);
-
-    if(array_key_exists('banner_hash', $responseJson) && $responseJson['banner_hash'] != null)
-        $array['bannerUrl'] = getClanBannerUrl($responseJson['id'], $responseJson['banner_hash']);
-
-    if(array_key_exists('playstyle', $responseJson)) {
-        $array['playstyle'] = $responseJson['playstyle'];
-        if ($array['playstyle'] == 0) // NONE
-            $array['playstyleName'] = 'Unknown';
-        else if ($array['playstyle'] == 1) // SOCIAL
-            $array['playstyleName'] = 'Very Casual';
-        else if ($array['playstyle'] == 2) // CASUAL
-            $array['playstyleName'] = 'Casual';
-        else if ($array['playstyle'] == 3) // COMPETITIVE
-            $array['playstyleName'] = 'Competitive';
-        else if ($array['playstyle'] == 4) // CREATIVE
-            $array['playstyleName'] = '?? Creative ??'; // TODO: Add correct creative playstyle name
-        else if ($array['playstyle'] == 5) // VERY_HARDCORE
-            $array['playstyleName'] = 'Very Competitive';
-        else
-            $array['playstyleName'] = 'n/a';
-    }
-
-    if(array_key_exists('badge_color_primary', $responseJson))
-        $array['badgeColorPrimary'] = $responseJson['badge_color_primary'];
-
-    if(array_key_exists('badge_color_secondary', $responseJson))
-        $array['badgeColorSecondary'] = $responseJson['badge_color_secondary'];
-
-    if(array_key_exists('search_terms', $responseJson))
-        $array['searchTerms'] = array_filter($responseJson['search_terms'], 'trim');
-
-    if(array_key_exists('wildcard_descriptors', $responseJson))
-        $array['wildcardDescriptors'] = array_filter($responseJson['wildcard_descriptors'], 'trim');
-
-    if(array_key_exists('game_ids', $responseJson))
-        $array['gameIds'] = $responseJson['game_ids'];
-
-    return $array;
-}
 
 /**
  * @param $json
@@ -1168,7 +1145,7 @@ function parseInviteJson($json)
             'isVerifiedBot' => false,
             'isSpammer' => false,
             'isProvisionalAccount' => false,
-            'clan' => [],
+            'primaryGuild' => [],
         ],
         'channel' => [
             'id' => '',
@@ -1177,6 +1154,7 @@ function parseInviteJson($json)
             'iconUrl' => getDefaultUserAvatarUrl(),
             'recipients' => [],
         ],
+        'profile' => [], // TODO
         'event' => [
             'id' => '',
             'channelId' => '',
@@ -1343,8 +1321,8 @@ function parseInviteJson($json)
                 $array['inviter']['isProvisionalAccount'] = true;
         }
 
-        if (key_exists('clan', $json['inviter']) && $json['inviter']['clan'] != null)
-            $array['inviter']['clan'] = $json['inviter']['clan'];
+        if (key_exists('primary_guild', $json['inviter']) && $json['inviter']['primary_guild'] != null)
+            $array['inviter']['primaryGuild'] = $json['inviter']['primary_guild'];
     }
 
     if(array_key_exists('expires_at', $json) && $json['expires_at'] != null)

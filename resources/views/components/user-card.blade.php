@@ -165,21 +165,21 @@
                     </div>
                 @endif
 
-                @if(array_key_exists('clan', $user) && $user['clan'] && array_key_exists('tag', $user['clan']) && $user['clan']['tag'])
+                @if(array_key_exists('primaryGuild', $user) && $user['primaryGuild'] && array_key_exists('tag', $user['primaryGuild']) && $user['primaryGuild']['tag'])
                     <div class="grid grid-cols-1 md:grid-cols-2">
-                        <span class="font-semibold">{{ __('Clan Tag') }}<span class="hidden md:inline">:</span></span>
+                        <span class="font-semibold">{{ __('Primary Guild Tag') }}<span class="hidden md:inline">:</span></span>
                         <p>
-                            {{ $user['clan']['tag'] }}
+                            {{ $user['primaryGuild']['tag'] }}
                         </p>
                     </div>
                 @endif
 
-                @if(array_key_exists('clan', $user) && $user['clan'] && array_key_exists('identity_guild_id', $user['clan']) && $user['clan']['identity_guild_id'])
+                @if(array_key_exists('primaryGuild', $user) && $user['primaryGuild'] && array_key_exists('identity_guild_id', $user['primaryGuild']) && $user['primaryGuild']['identity_guild_id'])
                     <div class="grid grid-cols-1 md:grid-cols-2">
-                        <span class="font-semibold">{{ __('Clan Guild ID') }}<span class="hidden md:inline">:</span></span>
+                        <span class="font-semibold">{{ __('Primary Guild ID') }}<span class="hidden md:inline">:</span></span>
                         <p>
-                            <a href="{{ route('guildlookup', ['snowflake' => $user['clan']['identity_guild_id']]) }}" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">
-                                {{ $user['clan']['identity_guild_id'] }}
+                            <a href="{{ route('guildlookup', ['snowflake' => $user['primaryGuild']['identity_guild_id']]) }}" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">
+                                {{ $user['primaryGuild']['identity_guild_id'] }}
                             </a>
                         </p>
                     </div>

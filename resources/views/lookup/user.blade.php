@@ -52,9 +52,6 @@
 
         @if($userData)
             <x-user-card :user="$userData" />
-            @if($userClanData)
-                <x-user-clan-card title="{{ __('Linked Clan') }}" :clan="$userClanData" />
-            @endif
 
             @if($userData['isBot'])
                 <a role="button" href="{{ route('applicationlookup', ['snowflake' => $userData['id']]) }}" class="inline-flex justify-center items-center gap-2 border font-semibold rounded px-4 py-2 leading-6 w-full border-discord-blurple bg-discord-blurple text-white hover:text-white hover:bg-[#4e5acb] hover:border-[#4e5acb] focus:ring-opacity-50 active:bg-[#414aa5] active:border-[#414aa5]">

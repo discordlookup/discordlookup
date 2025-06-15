@@ -45,10 +45,6 @@
         @if($guildData)
             <x-guild-card :guild="$guildData" invite-type="0" />
 
-            @if($guildClanData)
-                <x-user-clan-card title="{{ __('Clan') }}" :clan="$guildClanData" />
-            @endif
-
             @if(array_key_exists('emojis', $guildData) && !empty($guildData['emojis']))
                 <x-emoji-card :emojis="$guildData['emojis']" :guildId="$guildData['id']" />
             @endif
