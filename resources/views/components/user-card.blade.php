@@ -145,13 +145,11 @@
                     </div>
                 @endif
 
-                @if(array_key_exists('collectibles', $user) && array_key_exists('nameplate', $user['collectibles']) && $user['collectibles']['nameplate']['sku_id'])
+                @if($user['avatarDecorationExpiresAtFormatted'])
                     <div class="grid grid-cols-1 md:grid-cols-2">
-                        <span class="font-semibold">{{ __('Nameplate SKU ID') }}<span class="hidden md:inline">:</span></span>
+                        <span class="font-semibold">{{ __('Avatar Decoration Expires') }}<span class="hidden md:inline">:</span></span>
                         <p>
-                            <a href="https://discord.com/shop#itemSkuId={{ $user['collectibles']['nameplate']['sku_id'] }}" target="_blank" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">
-                                {{ $user['collectibles']['nameplate']['sku_id'] }}
-                            </a>
+                            {!! $user['avatarDecorationExpiresAtFormatted'] !!}
                         </p>
                     </div>
                 @endif
@@ -161,6 +159,17 @@
                         <span class="font-semibold">{{ __('Nameplate Label') }}<span class="hidden md:inline">:</span></span>
                         <p class="capitalize">
                             {{ strtolower(implode(' ', array_slice(explode('_', $user['collectibles']['nameplate']['label']), 2, -1))) }} ({{ $user['collectibles']['nameplate']['palette'] }})
+                        </p>
+                    </div>
+                @endif
+
+                @if(array_key_exists('collectibles', $user) && array_key_exists('nameplate', $user['collectibles']) && $user['collectibles']['nameplate']['sku_id'])
+                    <div class="grid grid-cols-1 md:grid-cols-2">
+                        <span class="font-semibold">{{ __('Nameplate SKU ID') }}<span class="hidden md:inline">:</span></span>
+                        <p>
+                            <a href="https://discord.com/shop#itemSkuId={{ $user['collectibles']['nameplate']['sku_id'] }}" target="_blank" class="text-discord-blurple hover:text-[#4e5acb] active:text-[#414aa5]">
+                                {{ $user['collectibles']['nameplate']['sku_id'] }}
+                            </a>
                         </p>
                     </div>
                 @endif

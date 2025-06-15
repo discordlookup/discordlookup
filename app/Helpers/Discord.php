@@ -757,6 +757,8 @@ function getUser($userId)
         'avatarUrlOg' => '',
         'avatarDecorationUrl' => '',
         'avatarDecorationSku' => '',
+        'avatarDecorationExpiresAt' => '',
+        'avatarDecorationExpiresAtFormatted' => '&infin;',
         'bannerUrl' => '',
         'bannerColor' => '',
         'accentColor' => '',
@@ -817,12 +819,16 @@ function getUser($userId)
         $array['avatarUrlOg'] = getDefaultUserAvatarUrl($responseJson['id']);
     }
 
-    // TODO: Add custom avatar decorations once released and documented by Discord
     if (key_exists('avatar_decoration_data', $responseJson) && $responseJson['avatar_decoration_data'] != null && key_exists('asset', $responseJson['avatar_decoration_data']) && $responseJson['avatar_decoration_data']['asset'] != null)
         $array['avatarDecorationUrl'] = config('discord.cdn_url') . '/avatar-decoration-presets/' . $responseJson['avatar_decoration_data']['asset'] . '?size=512';
 
     if (key_exists('avatar_decoration_data', $responseJson) && $responseJson['avatar_decoration_data'] != null && key_exists('sku_id', $responseJson['avatar_decoration_data']) && $responseJson['avatar_decoration_data']['sku_id'] != null)
         $array['avatarDecorationSku'] = $responseJson['avatar_decoration_data']['sku_id'];
+
+    if (key_exists('avatar_decoration_data', $responseJson) && $responseJson['avatar_decoration_data'] != null && key_exists('expires_at', $responseJson['avatar_decoration_data']) && $responseJson['avatar_decoration_data']['expires_at'] != null) {
+        $array['avatarDecorationExpiresAt'] = $responseJson['avatar_decoration_data']['expires_at'];
+        $array['avatarDecorationExpiresAtFormatted'] = date('Y-m-d G:i:s \(T\)', strtotime($array['avatarDecorationExpiresAt']));
+    }
 
     if (key_exists('banner', $responseJson) && $responseJson['banner'] != null)
         $array['bannerUrl'] = getBannerUrl($responseJson['id'], $responseJson['banner'], 512, 'webp', true);
@@ -1134,6 +1140,8 @@ function parseInviteJson($json)
             'avatarUrl' => '',
             'avatarDecorationUrl' => '',
             'avatarDecorationSku' => '',
+            'avatarDecorationExpiresAt' => '',
+            'avatarDecorationExpiresAtFormatted' => '&infin;',
             'bannerUrl' => '',
             'bannerColor' => '',
             'accentColor' => '',
@@ -1286,12 +1294,16 @@ function parseInviteJson($json)
         if (empty($array['inviter']['avatarUrl']))
             $array['inviter']['avatarUrl'] = getDefaultUserAvatarUrl($json['inviter']['id']);
 
-        // TODO: Add custom avatar decorations once released and documented by Discord
         if (key_exists('avatar_decoration_data', $json['inviter']) && $json['inviter']['avatar_decoration_data'] != null && key_exists('asset', $json['inviter']['avatar_decoration_data']) && $json['inviter']['avatar_decoration_data']['asset'] != null)
             $array['inviter']['avatarDecorationUrl'] = config('discord.cdn_url') . '/avatar-decoration-presets/' . $json['inviter']['avatar_decoration_data']['asset'] . '?size=512';
 
         if (key_exists('avatar_decoration_data', $json['inviter']) && $json['inviter']['avatar_decoration_data'] != null && key_exists('sku_id', $json['inviter']['avatar_decoration_data']) && $json['inviter']['avatar_decoration_data']['sku_id'] != null)
             $array['inviter']['avatarDecorationSku'] = $json['inviter']['avatar_decoration_data']['sku_id'];
+
+        if (key_exists('avatar_decoration_data', $json['inviter']) && $json['inviter']['avatar_decoration_data'] != null && key_exists('expires_at', $json['inviter']['avatar_decoration_data']) && $json['inviter']['avatar_decoration_data']['expires_at'] != null) {
+            $array['inviter']['avatarDecorationExpiresAt'] = $json['inviter']['avatar_decoration_data']['expires_at'];
+            $array['inviter']['avatarDecorationExpiresAtFormatted'] = date('Y-m-d G:i:s \(T\)', strtotime($array['inviter']['avatarDecorationExpiresAt']));
+        }
 
         if (key_exists('banner', $json['inviter']) && $json['inviter']['banner'] != null)
             $array['inviter']['bannerUrl'] = getBannerUrl($json['inviter']['id'], $json['inviter']['banner'], 512, 'webp', true);
