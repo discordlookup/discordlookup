@@ -25,18 +25,20 @@ You can use the tools of DiscordLookup through our website:
 &#128279; **[discordlookup.com](https://discordlookup.com/)**
 
 Tools:
-- [Snowflake Decoder](https://discordlookup.com/snowflake)
 - [User Lookup](https://discordlookup.com/user)
 - [Guild Lookup](https://discordlookup.com/guild)
 - [Application Lookup](https://discordlookup.com/application)
-- [Guild List & Stats](https://discordlookup.com/guildlist)
-- [Discord Server & Client Experiments](https://discordlookup.com/experiments)
 - [Invite Resolver](https://discordlookup.com/inviteresolver)
+- [Snowflake Decoder](https://discordlookup.com/snowflake)
 - [Timestamp Styles](https://discordlookup.com/timestamp)
-- [Permissions Calculator](https://discordlookup.com/permissions-calculator)
 - [Snowflake Distance Calculator](https://discordlookup.com/snowflake-distance)
+- [Guild List](https://discordlookup.com/guildlist)
+- [Discord Experiments](https://discordlookup.com/experiments)
+- [Permissions Calculator](https://discordlookup.com/permissions-calculator)
 - [Guild Shard Calculator](https://discordlookup.com/guild-shard-calculator)
 - [Discord Webhook Invalidator](https://discordlookup.com/webhook-invalidator)
+- [Bad Domain Check](https://discordlookup.com/domains)
+- [MurmurHash3 Calculator](https://discordlookup.com/murmurhash)
 
 ## Getting Help
 If you have any questions about using the DiscordLookup.com, feel free to visit the official [Support Discord](https://discordlookup.com/discord).   
