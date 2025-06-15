@@ -1238,17 +1238,7 @@ function parseInviteJson($json)
             $array['guild']['isNSFWLevelName'] = 'Age-Restricted';
 
         $array['guild']['boostCount'] = $json['guild']['premium_subscription_count'];
-
-        $boosts = $array['guild']['boostCount'];
-        if ($boosts >= 14) {
-            $array['guild']['boostLevel'] = 3;
-        }else if ($boosts >= 7) {
-            $array['guild']['boostLevel'] = 2;
-        }else if ($boosts >= 2) {
-            $array['guild']['boostLevel'] = 1;
-        }else{
-            $array['guild']['boostLevel'] = 0;
-        }
+        $array['guild']['boostLevel'] = $json['guild']['premium_tier'];
 
         if($json['guild']['icon'] != null)
             $array['guild']['iconUrl'] = getGuildIconUrl($array['guild']['id'], $json['guild']['icon']);
