@@ -356,7 +356,7 @@
             if (!inviteCode) return;
             $.ajax({
                 type: 'GET',
-                url: '{{ config('discord.api_url') }}/invites/' + inviteCode + '?with_counts=true&with_expiration=true' + ((eventId !== '' && eventId != null) ? '&guild_scheduled_event_id=' + eventId : ''),
+                url: 'https://discord.com/api/v10/invites/' + inviteCode + '?with_counts=true&with_expiration=true' + ((eventId !== '' && eventId != null) ? '&guild_scheduled_event_id=' + eventId : ''),
                 success: (respond) => Livewire.emit('processInviteJson', respond),
                 error: () => Livewire.emit('processInviteJson', null),
             });
