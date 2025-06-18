@@ -145,7 +145,7 @@
                     </div>
                 @endif
 
-                @if($user['avatarDecorationExpiresAtFormatted'])
+                @if($user['avatarDecorationSku'] && $user['avatarDecorationExpiresAtFormatted'])
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <span class="font-semibold">{{ __('Avatar Decoration Expires') }}<span class="hidden md:inline">:</span></span>
                         <p>
