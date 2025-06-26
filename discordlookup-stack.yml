@@ -5,12 +5,23 @@ services:
     image: 'ghcr.io/discordlookup/discordlookup:main'
     restart: unless-stopped
     deploy:
-      replicas: 1
+      replicas: 3
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.25'
+          memory: 250M
       update_config:
         parallelism: 1
-        delay: 15s
-        failure_action: pause
+        delay: 30s
+        failure_action: continue
         order: start-first
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        delay: 60s
     environment:
       APP_NAME: DiscordLookup
       APP_ENV: production
@@ -58,6 +69,14 @@ services:
   postgres:
     image: postgres:17.2
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '2.00'
+          memory: 4G
+        reservations:
+          cpus: '1.00'
+          memory: 1G
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -76,6 +95,14 @@ services:
   dragonfly:
     image: ghcr.io/dragonflydb/dragonfly:v1.25.4
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.25'
+          memory: 250M
     ulimits:
       memlock: -1
     environment:
