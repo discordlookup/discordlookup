@@ -39,6 +39,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        Cache::forget('users:' . Auth::user()->discord_id . ':guilds');
         Auth::logout();
 
         $request->session()->invalidate();
