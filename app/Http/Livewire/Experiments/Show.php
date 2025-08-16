@@ -251,7 +251,7 @@ class Show extends Component
         $this->guilds = [];
         $guildsJson = auth()->user()->guildList;
 
-        if(key_exists('message', $guildsJson)) {
+        if($guildsJson == null || key_exists('message', $guildsJson)) {
             $this->redirect(route('login'));
             return;
         }

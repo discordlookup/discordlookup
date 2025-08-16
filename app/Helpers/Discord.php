@@ -774,9 +774,9 @@ function getUser($userId)
         'collectibles' => [],
     ];
 
-    if(Cache::has('user:' . $userId))
+    if(Cache::has('users:' . $userId))
     {
-        $responseJson = Cache::get('user:' . $userId);
+        $responseJson = Cache::get('users:' . $userId);
     }
     else
     {
@@ -788,7 +788,7 @@ function getUser($userId)
             return null;
 
         $responseJson = $response->json();
-        Cache::put('user:' . $userId, $responseJson, 900); // 15 minutes
+        Cache::put('users:' . $userId, $responseJson, 900); // 15 minutes
     }
 
     if ($responseJson == null || !key_exists('id', $responseJson))
@@ -873,6 +873,7 @@ function getUser($userId)
  */
 function getGuildWidget($guildId)
 {
+    $cacheKey = 'guilds:' . $guildId . ':widget';
     $array = [
         'id' => '',
         'name' => '',
@@ -884,22 +885,24 @@ function getGuildWidget($guildId)
         'widgetEnabled' => false,
     ];
 
-    if(Cache::has('guildWidget:' . $guildId))
+    if(Cache::has($cacheKey))
     {
-        $responseJson = Cache::get('guildWidget:' . $guildId);
+        $responseJson = Cache::get($cacheKey);
     }
     else
     {
         $response = Http::get(config('discord.api_url') . '/guilds/' . $guildId . '/widget.json');
 
-        if ($response->status() == 403 && $response->json()['code'] == 50004)
+        if ($response->status() == 403 && $response->json()['code'] == 50004) {
+            Cache::put($cacheKey, array_merge($array, ['id' => $guildId]), 900); // 15 minutes
             return array_merge($array, ['id' => $guildId]);
+        }
 
         if(!$response->ok())
             return null;
 
         $responseJson = $response->json();
-        Cache::put('guildWidget:' . $guildId, $responseJson, 900); // 15 minutes
+        Cache::put($cacheKey, $responseJson, 900); // 15 minutes
     }
 
     if ($responseJson == null || !key_exists('id', $responseJson))
@@ -953,9 +956,9 @@ function getGuildPreview($guildId)
         'previewEnabled' => false,
     ];
 
-    if(Cache::has('guildPreview:' . $guildId))
+    if(Cache::has('guilds:' . $guildId . ':preview'))
     {
-        $responseJson = Cache::get('guildPreview:' . $guildId);
+        $responseJson = Cache::get('guilds:' . $guildId . ':preview');
     }
     else
     {
@@ -967,7 +970,7 @@ function getGuildPreview($guildId)
             return null;
 
         $responseJson = $response->json();
-        Cache::put('guildPreview:' . $guildId, $responseJson, 900); // 15 minutes
+        Cache::put('guilds:' . $guildId . ':preview', $responseJson, 900); // 15 minutes
     }
 
     if ($responseJson == null || !key_exists('id', $responseJson))
@@ -1453,9 +1456,9 @@ function getApplicationRpc($applicationId)
         'tags' => [],
     ];
 
-    if(Cache::has('applicationRpc:' . $applicationId))
+    if(Cache::has('applications:' . $applicationId . ':rpc'))
     {
-        $responseJson = Cache::get('applicationRpc:' . $applicationId);
+        $responseJson = Cache::get('applications:' . $applicationId . ':rpc');
     }
     else
     {
@@ -1465,7 +1468,7 @@ function getApplicationRpc($applicationId)
             return null;
 
         $responseJson = $response->json();
-        Cache::put('applicationRpc:' . $applicationId, $responseJson, 900); // 15 minutes
+        Cache::put('applications:' . $applicationId . ':rpc', $responseJson, 900); // 15 minutes
     }
 
     if ($responseJson == null || !key_exists('id', $responseJson))

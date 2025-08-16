@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 
 class User extends Authenticatable
 {
@@ -131,20 +132,25 @@ class User extends Authenticatable
     /**
      * The user guild list
      *
-     * @return string
+     * @return array|null
      */
     public function getGuildListAttribute()
     {
-        if(session()->exists('guildsJson'))
-            return session()->get('guildsJson');
+        $cacheKey = 'users:' . $this->discord_id . ':guilds';
+
+        if(Cache::has($cacheKey))
+            return Cache::get($cacheKey);
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . decrypt($this->discord_token),
         ])->get(config('discord.api_url') . '/users/@me/guilds?with_counts=true');
 
-        if($response->ok())
-            session()->put('guildsJson', $response->json());
+        if($response->ok()) {
+            $guilds = $response->json();
+            Cache::put($cacheKey, $guilds, 900); // 15 minutes
+            return $guilds;
+        }
 
-        return $response->json();
+        return null;
     }
 }
