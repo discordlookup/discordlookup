@@ -29,7 +29,7 @@ class Guildlist extends Component
     {
         $this->guildsJson = auth()->user()->guildList;
 
-        if($guildsJson == null || key_exists('message', $this->guildsJson)) {
+        if($this->guildsJson == null || key_exists('message', $this->guildsJson)) {
             $this->redirect(route('login'));
             return;
         }
