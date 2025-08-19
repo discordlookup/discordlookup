@@ -385,6 +385,12 @@ function getPermissionList(): array
             'group' => 'text',
             'requireTwoFactor' => false,
         ],
+        'PIN_MESSAGES' => [
+            'name' => 'Pin Messages',
+            'bitwise' => (1 << 51),
+            'group' => 'text',
+            'requireTwoFactor' => false,
+        ],
     ];
 }
 
