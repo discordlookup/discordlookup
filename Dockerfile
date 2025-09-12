@@ -39,7 +39,8 @@ RUN apk add --no-cache \
     php83-exif \
     php83-pdo \
     php83-pdo_pgsql \
-    php83-redis
+    php83-redis \
+    php83-iconv
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
